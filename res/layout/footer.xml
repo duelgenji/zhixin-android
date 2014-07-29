@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="8"
+    android:background="@drawable/footer_background"
+    android:orientation="vertical" >
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="12"
+        android:orientation="horizontal" >
+
+        <com.zhixin.customui.TabBarLayout
+            android:id="@+id/zhijiBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/zhijiImage"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/zhiji" />
+
+            <TextView
+                android:id="@+id/zhijiText"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/footer_zhiji"
+                android:textColor="#8D8D8D"
+                android:textSize="10sp" />
+        </com.zhixin.customui.TabBarLayout>
+
+        <com.zhixin.customui.TabBarLayout
+            android:id="@+id/xinliMapBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/xinliMapImage"
+                android:layout_width="match_parent"
+                android:layout_height="29dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/xinlimap" />
+
+            <TextView
+                android:id="@+id/xinliMapText"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/footer_xinliditu"
+                android:textColor="#8D8D8D"
+                android:textSize="10sp" />
+        </com.zhixin.customui.TabBarLayout>
+
+        <com.zhixin.customui.TabBarLayout
+            android:id="@+id/zhibiBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/zhibiImage"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/zhibi" />
+
+            <TextView
+                android:id="@+id/zhibiText"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/footer_zhibi"
+                android:textColor="#8D8D8D"
+                android:textSize="10sp" />
+        </com.zhixin.customui.TabBarLayout>
+
+        <com.zhixin.customui.TabBarLayout
+            android:id="@+id/messageBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/messageImage"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/message" />
+
+            <TextView
+                android:id="@+id/messageText"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/footer_message"
+                android:textColor="#8D8D8D"
+                android:textSize="10sp" />
+        </com.zhixin.customui.TabBarLayout>
+        <com.zhixin.customui.TabBarLayout
+            android:id="@+id/meBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:id="@+id/meImage"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/me" />
+
+            <TextView
+                android:id="@+id/meText"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/footer_me"
+                android:textColor="#8D8D8D"
+                android:textSize="10sp" />
+        </com.zhixin.customui.TabBarLayout>
+    </LinearLayout>
+	 <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.1" />
+</LinearLayout>

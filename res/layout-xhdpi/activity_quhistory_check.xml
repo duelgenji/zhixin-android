@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.5" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingBottom="15dp"
+                    android:paddingTop="10dp" >
+
+                    <FrameLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="5dp" >
+
+                        <ImageView
+                            android:id="@+id/rewardImage"
+                            android:layout_width="160dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="5dp"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/quchoujiang_default_background" />
+
+                        <FrameLayout
+                            android:layout_width="31dp"
+                            android:layout_height="31dp"
+                            android:visibility="invisible"
+                            android:layout_gravity="right|top" >
+
+                            <ImageView
+                                android:id="@+id/costImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/flag_green" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal" >
+
+                                <TextView
+                                    android:id="@+id/costValue"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="50"
+                                    android:textColor="@color/text_white"
+                                    android:textSize="9sp" />
+
+                                <TextView
+                                    android:id="@+id/costType"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/costValue"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="@string/duijiang_coin"
+                                    android:textColor="@color/text_white"
+                                    android:textSize="9sp" />
+                            </RelativeLayout>
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:id="@+id/layoutLeftFlag"
+                            android:layout_width="31dp"
+                            android:layout_height="31dp"
+                            android:visibility="invisible"
+                            android:layout_gravity="right|top"
+                            android:layout_marginRight="31dp" >
+
+                            <ImageView
+                                android:id="@+id/costImageSub"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/flag_green" />
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal" >
+
+                                <TextView
+                                    android:id="@+id/costValueSub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="50"
+                                    android:textColor="@color/text_white"
+                                    android:textSize="9sp" />
+
+                                <TextView
+                                    android:id="@+id/costTypeSub"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/costValueSub"
+                                    android:layout_centerHorizontal="true"
+                                    android:text="@string/duijiang_coin"
+                                    android:textColor="@color/text_white"
+                                    android:textSize="9sp" />
+                            </RelativeLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:weightSum="100" >
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="16" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="75" >
+
+                            <TextView
+                                android:id="@+id/txtItemContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text=""
+                                android:textColor="@color/text_blue"
+                                android:textSize="14sp" />
+                        </RelativeLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/level_description_seprator" />
+
+                <LinearLayout
+                    android:id="@+id/layoutQRCode"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:paddingTop="10dp"
+                        android:paddingLeft="10dp"
+                        android:text="二维码" />
+
+                    <ImageView
+                        android:id="@+id/qrcodeImage"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:adjustViewBounds="true"
+                        android:paddingBottom="10dp"
+                        android:scaleType="fitCenter" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="5dp"
+                        android:text="@string/quhuati_share"
+                        android:textColor="@color/text_black" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginRight="68dp"
+                    android:background="@drawable/level_description_seprator" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:id="@+id/shareComponent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" >
+
+                        <ImageButton
+                            android:id="@+id/btnShareXlwb"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_xlwb" />
+
+                        <ImageButton
+                            android:id="@+id/btnShareTxwb"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareXlwb"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_txwb" />
+
+                        <ImageButton
+                            android:id="@+id/btnShareWx"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareTxwb"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_wx" />
+
+                        <ImageButton
+                            android:id="@+id/btnShareQqkj"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareWx"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_qqkj" />
+
+                        <ImageButton
+                            android:id="@+id/btnSharePyq"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareQqkj"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_pyq" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

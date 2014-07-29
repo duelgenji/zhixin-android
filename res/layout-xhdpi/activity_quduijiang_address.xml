@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header_with_history"></include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.5">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:splitMotionEvents="false">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/round_cornor_rect">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp">
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/layoutImageQDYA"
+                        android:layout_marginTop="10dp"
+                        android:layout_centerInParent="true"
+                        android:layout_width="300dp"
+                        android:layout_height="200dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/rewardImage"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:layout_gravity="center_horizontal"
+                                android:scaleType="fitCenter"
+                                android:adjustViewBounds="true"
+                                android:background="@null"
+                                android:src="@drawable/quchoujiang_default_background_large" />
+
+
+                            <FrameLayout
+                                android:id="@+id/layoutRightFlag"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_gravity="right|top" >
+
+                                <ImageView
+                                    android:id="@+id/costImage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/flag_green_large"/>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal">
+
+                                    <TextView
+                                        android:id="@+id/costValue"
+                                        android:layout_marginTop="2dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:text="50"
+                                        android:textColor="@color/text_white"
+                                        android:textSize="18sp" />
+                                    <TextView
+                                        android:id="@+id/costType"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_below="@id/costValue"
+                                        android:text="@string/duijiang_coin"
+                                        android:textColor="@color/text_white"
+                                        android:textSize="18sp" />
+                                </RelativeLayout>
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/layoutLeftFlag"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_marginRight="70dp"
+                                android:layout_gravity="right|top" >
+
+                                <ImageView
+                                    android:id="@+id/costImageSub"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/flag_red_large"/>
+
+                                <RelativeLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal">
+
+                                    <TextView
+                                        android:id="@+id/costValueSub"
+                                        android:layout_marginTop="2dp"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:text="50"
+                                        android:textColor="@color/text_white"
+                                        android:textSize="18sp" />
+                                    <TextView
+                                        android:id="@+id/costTypeSub"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_below="@id/costValueSub"
+                                        android:text="@string/duijiang_credit"
+                                        android:textColor="@color/text_white"
+                                        android:textSize="18sp" />
+                                </RelativeLayout>
+
+                            </FrameLayout>
+
+
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="35dp"
+                        android:paddingRight="35dp"
+                        android:paddingTop="8dp">
+
+
+
+                        <TextView
+                            android:id="@+id/txtContent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="兑换奖品'',将发送到"
+                            android:textColor="@color/text_black"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/layoutDefaultAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"/>
+                    <RelativeLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8">
+
+                        <ToggleButton
+                            android:id="@+id/toggleBtnAddressDefault"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:textOn=""
+                            android:textOff=""
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/checkbox"/>
+
+                    </RelativeLayout>
+
+
+
+                    <TextView
+                        android:id="@+id/txtDefaultAddress"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="80.6"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:id="@+id/layoutOtherAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp">
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"/>
+                    <RelativeLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8">
+
+                        <ToggleButton
+                            android:id="@+id/toggleBtnAddressOther"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_centerInParent="true"
+                            android:checked="true"
+                            android:textOn=""
+                            android:textOff=""
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/checkbox"/>
+
+                    </RelativeLayout>
+
+
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="80.6"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:text="@string/duijiang_choose_other_address"
+                        android:textSize="18sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"/>
+                </LinearLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="30dp">
+
+                    <Button
+                        android:id="@+id/btnConfirm"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/button_long_blue"
+                        android:text="@string/confirm"
+                        android:textColor="@color/text_white"
+                        android:textSize="20sp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+
+    </ScrollView>
+
+</LinearLayout>

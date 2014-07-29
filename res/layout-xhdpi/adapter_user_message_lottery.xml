@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="66.56dp"
+    android:background="@color/text_white"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    android:paddingLeft="6dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="40"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtItemTitle"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:text="十一住宿人人特价，15元起"
+            android:textColor="@color/text_black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/txtItemTime"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
+            android:text="2014-01-30"
+            android:paddingRight="5dp"
+            android:textColor="@color/text_blue"
+            android:textSize="12sp" />
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="60"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txtItemContent"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textColor="@color/text_grey"
+            android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊斑斑驳驳斑斑驳驳斑顶顶顶顶顶顶顶顶顶斑驳驳斑斑驳驳擦擦擦擦擦擦擦擦擦擦擦擦"/>
+
+        <FrameLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/imageIsRead"
+                android:layout_width="38dp"
+                android:layout_height="16dp"
+                android:paddingRight="5dp"
+                android:layout_gravity="right"
+                android:src="@drawable/user_message_unread"/>
+
+            <Button
+                android:id="@+id/btnRemoveMessage"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="@string/user_message_remove"
+                android:textColor="@color/text_white"
+                android:shadowColor="@color/text_black"
+                android:shadowDx="1"
+                android:shadowDy="-1"
+                android:shadowRadius="1"
+                android:background="@drawable/round_corner_rect_red_small"/>
+
+        </FrameLayout>
+
+
+        </LinearLayout>
+
+</LinearLayout>

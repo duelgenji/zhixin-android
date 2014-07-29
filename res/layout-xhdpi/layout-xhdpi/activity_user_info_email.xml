@@ -1,0 +1,67 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    tools:context=".ModifyNicknameActivity" >
+
+    <include layout="@layout/header_with_submmit" />
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="2.1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:textSize="18sp" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_single_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <EditText
+                android:id="@+id/txtInputEmailPersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="88.3"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:maxLength="30"
+                android:inputType="textEmailAddress"
+                android:hint="@string/more_user_info_email_hint"
+                android:textSize="18sp" />
+
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.4" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

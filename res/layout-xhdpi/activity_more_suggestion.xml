@@ -1,0 +1,141 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    tools:context=".ModifyNicknameActivity" >
+
+    <include layout="@layout/header" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.1"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingLeft="7.56dp"
+            android:paddingRight="7.56dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.9" />
+
+                <EditText
+                    android:id="@+id/txtContentSuggestion"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="88.3"
+                    android:background="@null"
+                    android:paddingTop="10dp"
+                    android:gravity="top"
+                    android:textColorHint="@color/text_grey"
+                    android:hint="@string/more_suggestion_hint"
+                    android:textSize="@dimen/text_size_custom" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.4" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="7.56dp"
+            android:paddingRight="7.56dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:background="@drawable/input_background_single_white"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.9" />
+
+                <EditText
+                    android:id="@+id/txtContactSuggestion"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="88.3"
+                    android:background="@null"
+                    android:singleLine="true"
+                    android:gravity="center_vertical"
+                    android:textColorHint="@color/text_grey"
+                    android:hint="@string/more_suggestion_contact"
+                    android:textSize="@dimen/text_size_custom" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.4" />
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"/>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <Button
+                android:id="@+id/btnSubmitSuggestion"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/send_yzm"
+                android:text="@string/header_submit_text"
+                android:textColor="@color/text_white"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

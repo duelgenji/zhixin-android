@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <view
+        android:id="@+id/image"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_x="0dip"
+        android:layout_y="0dip"
+        class="eu.janmuller.android.simplecropimage.CropImageView"
+        android:background="#55000000" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp" >
+
+        <Button
+            android:id="@+id/discard"
+            style="@style/CropButton"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:background="@drawable/submit_button"
+            android:scaleType="fitCenter"
+            android:text="@string/cancel"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/save"
+            style="@style/CropButton"
+            android:layout_width="80dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/submit_button"
+            android:text="@string/save" 
+            android:textColor="#ffffff"/>
+    </RelativeLayout>
+
+</RelativeLayout>

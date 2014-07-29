@@ -1,0 +1,275 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1">
+
+    <include layout="@layout/header_user_info_address" />
+
+
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="2.1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutSexPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_top_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="27"
+                android:background="@null"
+                android:text="@string/user_info_address_name"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/txtAddressAddName"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="68"
+                android:singleLine="true"
+                android:background="@null"
+                android:ellipsize="end"
+                android:gravity="right|center"
+                android:hint="@string/user_info_address_add_name_hint"
+                android:textColorHint="@color/text_light_grey"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.7"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutBirthdayPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="27"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_address_phone"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/txtAddressAddPhone"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="68"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:inputType="phone"
+                android:gravity="center_vertical|right"
+                android:hint="@string/user_info_address_add_phone_hint"
+                android:textColorHint="@color/text_light_grey"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.7"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutAuthenticationPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="27"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_address_area"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtAddressAddArea"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="68"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:hint="@string/user_info_address_add_area_hint"
+                android:textColorHint="@color/text_light_grey"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.7"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutBloodTypePersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="27"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_address_code"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/txtAddressAddCode"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="68"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:inputType="number"
+                android:gravity="center_vertical|right"
+                android:hint="@string/user_info_address_add_code_hint"
+                android:textColorHint="@color/text_light_grey"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.7"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutEmailPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_bottom_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="27"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_address_detail"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/txtAddressAddAddress"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="68"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:hint="@string/user_info_address_add_detail_hint"
+                android:textColorHint="@color/text_light_grey"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.7"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

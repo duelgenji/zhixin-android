@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="160dp"
+    android:layout_height="165dp"
+    android:weightSum="100"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="5" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="65">
+
+
+       <FrameLayout 
+           android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+           	android:layout_marginTop="5dp"
+           >
+
+        <ImageView
+            android:id="@+id/rewardImage"
+            android:layout_width="145dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:background="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/quchoujiang_default_background" />
+	
+		<ImageView 
+		    android:id="@+id/gift_title"
+		    android:layout_width="145dp"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/gift_title"
+		    android:layout_gravity="bottom"
+		    />
+
+		<ImageView
+		    android:id="@+id/costImage"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:src="@drawable/flag_green" />
+
+		</FrameLayout>
+    </FrameLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8" />
+
+    <Button
+        android:id="@+id/btnDuijiang"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_weight="18"
+        android:background="@drawable/button_short_blue"
+        android:layout_gravity="center"
+        android:text="@string/duijiang_duijinag_btn"
+        android:textColor="@color/text_white"
+        android:textSize="14sp" />
+
+
+</LinearLayout>

@@ -1,0 +1,167 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" />
+
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="6.1"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/regist_input_your_phone"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <EditText
+                android:id="@+id/txtPhone"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="81.3"
+                android:background="@null"
+                android:inputType="phone"
+                android:gravity="center_vertical"
+                android:hint="@string/login_phone_edittext_hints"
+                android:maxLength="16"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/btnClearText"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/modify_nickname_button" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.4" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="5"
+        android:paddingLeft="8dp"
+        android:gravity="center_vertical|left">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:adjustViewBounds="true"
+            android:src="@drawable/regist_phone_tips"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="20"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:paddingTop="15dp"
+                android:layout_weight="8">
+
+                <ToggleButton
+                    android:id="@+id/regist_i_agree"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/txtSingleQHTP"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:textOn=""
+                    android:textOff=""
+                    android:checked="true"
+                    android:button="@android:color/transparent"
+                    android:background="@drawable/checkbox"/>
+
+            </RelativeLayout>
+
+
+            <FrameLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="80.6">
+
+                <TextView
+                    android:id="@+id/txtAgreeTips"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="15dp"
+                    android:background="@null"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="我已经阅读并同意　　　　　　　　　,并了解没有您的许可,我们绝不擅自联系您,或者泄露您的资料!"
+                    android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/txtAgreePrivacyTips"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="15dp"
+                    android:background="@null"
+                    android:lineSpacingMultiplier="1.5"
+                    android:text="　　　　　　　　使用隐私和条款政策"
+                    android:textSize="16sp" />
+                </FrameLayout>
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/viewBlankQHTC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/button_long_blue"
+            android:text="@string/regist_validate_next"
+            android:onClick="registAction"
+            android:textColor="@color/text_white"
+            android:textSize="20sp" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

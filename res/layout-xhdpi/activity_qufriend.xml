@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    tools:context=".QufriendActivity" >
+
+    <include layout="@layout/header" />
+
+    <ListView
+        android:id="@+id/quFriendList"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.1" />
+
+</LinearLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="345dp"
+    android:layout_height="220dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/alert_dialog_background"
+        android:orientation="vertical"
+        android:weightSum="100"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+
+        <TextView
+            android:id="@+id/txtAlertTitle"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="22"
+            android:gravity="center"
+            android:textColor="@color/text_blue"
+            android:textSize="20sp"
+            android:text="@string/alert_dialog_tips"/>
+
+        <TextView
+            android:id="@+id/txtAlertContent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="55"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textSize="20sp"
+            android:text="确认退出软件？"/>
+
+        <RelativeLayout
+            android:id="@+id/layoutAction"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="18"
+            android:paddingBottom="2dp"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="110dp"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:text="@string/cancel"
+                android:textColor="@color/text_black"
+                android:textSize="12sp"
+                android:background="@drawable/btn_alert_dialog_white"/>
+            <Button
+                android:id="@+id/btnConfirm"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:layout_marginLeft="45dp"
+                android:layout_toRightOf="@id/btnCancel"
+                android:adjustViewBounds="true"
+                android:text="@string/confirm"
+                android:textColor="@color/text_white"
+                android:textSize="12sp"
+                android:background="@drawable/btn_alert_dialog_blue"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

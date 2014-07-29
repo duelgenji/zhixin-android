@@ -1,0 +1,373 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1">
+
+    <include layout="@layout/header" />
+
+
+
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="4.1"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/text_grey"
+        android:text="@string/user_info_tips"
+        android:textSize="13sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutSexPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_top_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:background="@null"
+                android:text="@string/user_info_sex"
+                android:gravity="center_vertical"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtSexPersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="14"
+                android:background="@null"
+                android:text="@string/dialog_pick_sex_null"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp" />
+
+
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.7"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutBirthdayPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_birth"
+                android:textSize="18sp" />
+
+
+            <TextView
+                android:id="@+id/txtBirthPersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="34"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.7"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutAuthenticationPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_id"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtAuthenticationPersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="54"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.7"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutBloodTypePersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="70"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_bloodtype"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtBloodTypePersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="14"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.7"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutAddressPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_middle_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_address"
+                android:textSize="18sp" />
+            <TextView
+                android:id="@+id/txtAddressPersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="54"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp" />
+
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.7"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:id="@+id/layoutEmailPersonalProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_bottom_white"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.9" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:text="@string/user_info_email"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtEmailPersonalProfile"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="54"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:background="@null"
+                android:gravity="center_vertical|right"
+                android:textSize="18sp" />
+
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.7"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+                <ImageButton
+                    android:layout_width="30dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="1dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/right_arrow" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

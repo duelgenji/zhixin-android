@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.5" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/layoutContentQHTC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp" >
+
+                    <TextView
+                        android:id="@+id/txtTitleQHTC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6dp"
+                        android:layout_toRightOf="@id/levelActivityIcon"
+                        android:lineSpacingMultiplier="1.2"
+                        android:textColor="@color/text_grey"
+                        android:text=""
+                        android:textSize="@dimen/text_size_custom" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/level_description_seprator" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:id="@+id/huatiContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp" >
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/viewBlankQHTC"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/layoutContentQHTC" >
+            </View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/viewBlankQHTC"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp" >
+
+                <Button
+                    android:id="@+id/btnSubmitAndCheckAnswerQHTC"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/dialog_pick_image_cancel"
+                    android:text="@string/quhuati_submit_answer"
+                    android:textColor="@color/text_white"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

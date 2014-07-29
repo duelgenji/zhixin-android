@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="66.56dp"
+    android:background="@color/general_activity_background"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingLeft="6dp"
+    android:weightSum="100" >
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="70"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.7"
+            android:paddingLeft="6dp" >
+
+            <TextView
+                android:id="@+id/txtTitleQHT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="今天中午吃了啥？"
+                android:textColor="@color/text_black"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.7"
+            android:orientation="horizontal"
+            android:paddingLeft="3dp" >
+
+            <ImageView
+                android:id="@+id/imgTotalNumberQHT"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quhuati_total_number" />
+
+            <TextView
+                android:id="@+id/txtTotalNumberQHT"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5.6"
+                android:text="50"
+                android:textColor="@color/text_black"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/imgFriendsNumberQHT"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quhuati_friends_number" />
+
+            <TextView
+                android:id="@+id/txtFriendsNumberQHT"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"
+                android:text="12"
+                android:textColor="@color/text_black"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="80" >
+            </View>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.0" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/picArea"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="30"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp" >
+    </RelativeLayout>
+
+</LinearLayout>

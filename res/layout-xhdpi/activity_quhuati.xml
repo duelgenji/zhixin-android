@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header_with_newhuati" >
+    </include>
+
+    <LinearLayout
+        android:id="@+id/layoutHotImageQHT"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="25.7"
+        android:background="@drawable/head_icon_background"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="61" />
+        
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="22" >
+
+            <ImageButton
+                android:id="@+id/publicHuatiBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:adjustViewBounds="true"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quhuati_publish" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="17"
+            android:background="#88000000" >
+
+            <TextView
+                android:id="@+id/txtHotTitleQHT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="12dp"
+                android:paddingRight="15dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/text_white" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/quHuatiList"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="63.4" />
+
+</LinearLayout>

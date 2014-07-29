@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rank_item_background"
+    android:paddingLeft="12dp"
+    android:paddingRight="13.32dp" >
+
+    <TextView
+        android:id="@+id/myrankTextViewtips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/my_rank_tip"
+        android:textColor="@color/text_blue"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/myrankTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="6dp"
+        android:layout_toRightOf="@id/myrankTextViewtips"
+        android:text="12"
+        android:textColor="@color/text_blue"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/myCreditTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="1200000"
+        android:textColor="@color/text_black"
+        android:textSize="15sp" />
+
+</RelativeLayout>

@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:splitMotionEvents="false"
+    android:orientation="vertical" >
+
+    <include layout="@layout/header_without_backward" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="26.7"
+        android:background="@drawable/head_icon_background"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="5.3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="13.4" >
+
+            <ImageView
+                android:id="@+id/headIconPHQSJ"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:src="@drawable/head_icon_default" />
+
+            <ImageView
+                android:id="@+id/headIconQSJ"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="3dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="3dp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.5" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4" >
+
+            <TextView
+                android:id="@+id/nickNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text=""
+                android:textColor="@color/text_white"
+                android:textSize="@dimen/text_size_custom" />
+
+            <ImageButton
+                android:id="@+id/editNickNameBtn"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_toRightOf="@+id/nickNameTextView"
+                android:background="@null"
+                android:gravity="start"
+                android:scaleType="fitCenter"
+                android:src="@drawable/edit_nickname" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="4.5" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="7.8"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/layoutCoinQSJ"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/coin_background">
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:background="@null"
+                android:src="@drawable/coin" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_weight="1.5"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|right"
+                android:text="@string/qushejiao_coin_text"
+                android:textColor="@color/text_white"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/coinNumberText"
+                android:layout_width="1dp"
+                android:layout_weight="2.5"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_white"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutQiandaoQSJ"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/coin_background">
+
+            <ImageButton
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/qiandao" />
+
+            <TextView
+                android:id="@+id/txtQiandaoQSJ"
+                android:layout_width="1dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/text_white"
+                android:text=""
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutMessageQSJ"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/coin_background" >
+
+
+            <FrameLayout
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent" >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/message" />
+                <ImageView
+                    android:id="@+id/imgIsRead"
+                    android:layout_marginTop="13dp"
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_gravity="right"
+                    android:background="@null"
+                    android:visibility="invisible"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/red_point" />
+                </FrameLayout>
+
+
+            <TextView
+                android:id="@+id/qushejiaoMessageText"
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:paddingLeft="5dp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:text="@string/qushejiao_message"
+                android:textColor="@color/text_white"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="50.5"
+        android:orientation="vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="10dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="25.7"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
+
+            <RelativeLayout
+                android:id="@+id/creditAvailableComp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/credit_available_background"
+                android:paddingBottom="5dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp" >
+
+                <ImageView
+                    android:id="@+id/iconForCreditAvailable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/credit_available" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/iconForCreditAvailable"
+                    android:text="@string/qushejiao_credit_avaliable"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textViewForCreditAvailable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/rightArrow"
+                    android:textColor="#8d8d8d"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@id/rightArrow"
+                    android:visibility="invisible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/levelComp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/level_background"
+                android:paddingBottom="5dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp" >
+
+                <ImageView
+                    android:id="@+id/iconForLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/level" />
+
+                <TextView
+                    android:id="@+id/textViewForLevelTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/iconForLevel"
+                    android:text="@string/qushejiao_level"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textViewForLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/rightArrow"
+                    android:textColor="#8d8d8d"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@id/rightArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rankComp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/rank_list_background"
+                android:paddingBottom="5dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp" >
+
+                <ImageView
+                    android:id="@+id/iconForRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/rank_list" />
+
+                <TextView
+                    android:id="@+id/textViewForRankTips"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/iconForRank"
+                    android:text="@string/qushejiao_rank"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/textViewForRank"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/rightArrow"
+                    android:textColor="#8d8d8d"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:id="@+id/rightArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/right_arrow" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="18"
+            android:orientation="horizontal"
+            android:paddingBottom="11dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="9dp" >
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <ImageButton
+                    android:id="@+id/iconForQuFriend"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="10.1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/qufriend" />
+
+                
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.1"
+                    android:text="@string/qushejiao_qufriend"
+                    android:textColor="#8d8d8d"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <ImageButton
+                    android:id="@+id/quBaoBaoBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="10.1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/qubaobao" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.1"
+                    android:text="@string/qushejiao_qubaobao"
+                    android:textColor="#8d8d8d"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" >
+
+                <ImageButton
+                    android:id="@+id/baobaoMarketBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="10.1"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baobao_market" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2.1"
+                    android:text="@string/qushejiao_baobaomarket"
+                    android:textColor="#8d8d8d"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

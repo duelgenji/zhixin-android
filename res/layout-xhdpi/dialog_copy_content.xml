@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/copyDialog"
+    android:layout_width="200dp"
+    android:layout_height="50dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="28.7"
+        android:background="@drawable/dialog_head_pick_background"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.25" />
+
+        <Button
+            android:id="@+id/btnCopy"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="6.8"
+            android:background="@drawable/dialog_pick_image_button"
+            android:text="@string/copy_content"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.25" />
+
+      
+    </LinearLayout>
+
+</LinearLayout>

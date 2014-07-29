@@ -1,0 +1,420 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efefef"
+    android:orientation="vertical"
+    tools:context=".LevelActivity" >
+
+    <include layout="@layout/header" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.7" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="87.4"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="26.6"
+            android:background="@drawable/level_description_background"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="5.7"
+                android:paddingLeft="8.64dp" >
+
+                <ImageView
+                    android:id="@+id/levelIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/level_info_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/levelIcon"
+                    android:text="@string/level_my_level_text"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_custom" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/level_description_seprator" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="12.4"
+                android:orientation="horizontal" >
+
+                <RelativeLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="22.9"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" >
+
+                    <ImageView
+                        android:id="@+id/headImageIconPlaceHolder"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/head_icon_default" />
+
+                    <ImageView
+                        android:id="@+id/headImageIcon"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="3dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="73.3"
+                    android:orientation="vertical" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="2.2" />
+
+                    <TextView
+                        android:id="@+id/nickNameTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:textSize="@dimen/text_size_custom"
+                        android:layout_weight="2.8"
+                        android:text="" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="2.1" >
+
+                        <TextView
+                            android:id="@+id/levelMyLevelTips"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/level_my_level_tips"
+                            android:textSize="@dimen/text_size_custom_small" />
+
+                        <TextView
+                            android:id="@+id/levelMyLevelText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_toRightOf="@id/levelMyLevelTips"
+                            android:text="12"
+                            android:textSize="@dimen/text_size_custom_small" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="2.4" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/level_description_seprator" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="8.5"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="12dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4" >
+
+                    <TextView
+                        android:id="@+id/levelMyCurrentExpTips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:text="@string/level_my_current_experience"
+                        android:textSize="@dimen/text_size_custom_small" />
+
+                    <TextView
+                        android:id="@+id/experienceValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toRightOf="@id/levelMyCurrentExpTips"
+                        android:text="10500"
+                        android:textSize="@dimen/text_size_custom_small" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="4.5"
+                    android:orientation="vertical" >
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.6" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_weight="0.9"
+                        android:background="@drawable/level_progress_bar"
+                        android:orientation="horizontal"
+                        android:weightSum="100" >
+
+                        <View
+                            android:id="@+id/experienceBarPercent"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0"
+                            android:background="#1c9bf6" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="2.0" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="28.1"
+            android:background="@drawable/level_description_background"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="57"
+                android:paddingLeft="8.64dp">
+
+                <ImageView
+                    android:id="@+id/levelActivityIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/level_activity_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/levelActivityIcon"
+                    android:text="@string/level_new_activity"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_custom" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.89"
+                android:background="@drawable/level_description_seprator" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="224"
+                android:paddingBottom="12dp"
+                android:paddingLeft="13.32dp"
+                android:paddingTop="12dp" >
+
+                <ListView
+                    android:id="@+id/userActivityList"
+                    android:divider="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.3" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="30.1"
+            android:background="@drawable/level_description_background"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="57"
+                android:paddingLeft="8.64dp" >
+
+                <ImageView
+                    android:id="@+id/levelInfoIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/level_info_icon" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@id/levelInfoIcon"
+                    android:text="@string/qushejiao_level_info"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_custom" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.89"
+                android:background="@drawable/level_description_seprator" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="224"
+                android:paddingBottom="12.48dp"
+                android:paddingLeft="13.32dp"
+                android:orientation="vertical"
+                android:paddingTop="12.48dp" >
+
+                <LinearLayout 
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:background="@color/text_white"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal"
+                    android:paddingLeft="6dp"
+                    android:weightSum="100" >
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="26"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtLevel"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="2.7"
+                            android:gravity="center_vertical"
+                            android:text="等级"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/text_size_custom_small" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="26"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtCredit"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="2.7"
+                            android:paddingRight="15dp"
+                            android:gravity="right"
+                            android:text="积分"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/text_size_custom_small" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="48"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txtPetNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_weight="1"
+                            android:paddingRight="15dp"
+                            android:gravity="center_horizontal"
+                            android:text="可购买宝宝数量"
+                            android:textColor="@color/text_black"
+                            android:textSize="@dimen/text_size_custom_small" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/levelInfoList"
+                    android:divider="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.3" />
+    </LinearLayout>
+
+</LinearLayout>

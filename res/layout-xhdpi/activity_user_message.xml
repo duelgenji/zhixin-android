@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:background="@color/general_activity_background" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10.2"
+        android:background="@drawable/rank_radio_button_background"
+        android:orientation="vertical"
+        android:splitMotionEvents="false"
+        android:paddingLeft="20.16dp"
+        android:paddingRight="20.16dp" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3" />
+
+        <RadioGroup
+            android:id="@+id/btnGroupUserMessage"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5.6"
+            android:splitMotionEvents="false"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/btnSystemUserMessage"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_left_button"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/user_message_system"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/btnLotteryUserMessage"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_middle_button"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/user_message_lottery"
+                android:textColor="@color/text_grey"
+                android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/btnPrivateUserMessage"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_middle_button"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/user_message_private"
+                android:textColor="@color/text_grey"
+                android:textSize="18sp" />
+            <RadioButton
+                android:id="@+id/btnRequestUserMessage"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_right_button"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/user_message_request"
+                android:textColor="@color/text_grey"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/userMessageList"
+        android:layout_width="match_parent"
+        android:splitMotionEvents="false"
+        android:layout_height="1dp"
+        android:layout_weight="78.9" />
+
+</LinearLayout>

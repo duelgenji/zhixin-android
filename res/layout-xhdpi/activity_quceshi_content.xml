@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <RelativeLayout
+   	 android:layout_width="match_parent"
+   	 android:layout_height="40dp"
+   	 android:padding="5dp"
+   	 android:background="@color/text_white"
+   	 >
+  		<TextView 
+  		    android:id="@+id/tv_type_title_QCS"
+  		    android:layout_width="wrap_content"
+  		    android:layout_height="wrap_content"
+  		    android:text="测试：职业能力倾向测试"
+  		    android:layout_centerVertical="true"
+  		    android:textSize="20sp"
+  		    />
+  		<ImageView 
+  		    android:id="@+id/img_type"
+  		    android:layout_width="20dp"
+  		    android:layout_alignRight="@id/tv_type_title_QCS"
+  		    android:layout_height="wrap_content"
+  		    android:layout_centerVertical="true"
+  		    android:src="@drawable/header_back_button"
+  		    />
+  		<TextView 
+  		    android:id="@+id/txtNoQCSC" 
+  		    android:layout_width="wrap_content" 
+  		    android:layout_height="wrap_content" 
+  		    android:text="12" 
+  		    android:layout_centerVertical="true"
+  		    android:layout_alignParentRight="true"
+  		    android:textColor="@color/text_orange" 
+  		    android:textSize="15sp"/>
+  		
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="81.1" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
+
+            <LinearLayout
+                android:id="@+id/layoutContentQCSC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp" >
+
+                    <TextView
+                        android:id="@+id/txtNoQCSC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text=""
+                        android:textColor="@color/text_orange"
+                        android:textSize="15sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/questionTitleViewGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtNoQCSC" >
+
+                        <TextView
+                            android:id="@+id/txtTitleQCSC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/text_grey"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textSize="15sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/dati_xxfgx" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <FrameLayout
+                        android:id="@+id/programeOverlayDisplayControllArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <RelativeLayout
+                            android:id="@+id/quceshiContentArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                        </RelativeLayout>
+                    </FrameLayout>
+                </ScrollView>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.5"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/prevQuestionBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/question_preview"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/text_grey"
+                android:textStyle="bold"
+                android:src="@drawable/question_up" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nextQuestionBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/question_next"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/text_grey"
+                android:src="@drawable/question_down"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/remainingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_grey"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  <!--  
+    
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="81.1" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/layoutContentQCSC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp" >
+
+                    <TextView
+                        android:id="@+id/txtNoQCSC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text=""
+                        android:textColor="@color/text_blue"
+                        android:textSize="@dimen/text_size_custom" />
+
+                    <RelativeLayout
+                        android:id="@+id/questionTitleViewGroup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtNoQCSC" >
+
+                        <TextView
+                            android:id="@+id/txtTitleQCSC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginLeft="6dp"
+                            android:textColor="@color/text_grey"
+                            android:lineSpacingMultiplier="1.2"
+                            android:textSize="@dimen/text_size_custom" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/dati_xxfgx" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <FrameLayout
+                        android:id="@+id/programeOverlayDisplayControllArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <RelativeLayout
+                            android:id="@+id/quceshiContentArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+                        </RelativeLayout>
+                    </FrameLayout>
+                </ScrollView>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.5"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/prevQuestionBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/question_preview"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/text_grey"
+                android:textStyle="bold"
+                android:src="@drawable/question_up" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/nextQuestionBtn"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/question_next"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/text_grey"
+                android:src="@drawable/question_down"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/remainingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:textColor="@color/text_grey"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+        </RelativeLayout>
+ --> 
+    </LinearLayout>
+</LinearLayout>

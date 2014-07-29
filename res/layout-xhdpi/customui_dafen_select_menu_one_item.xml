@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="36dp"
+    android:layout_height="55dp"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+    <ImageView
+        android:id="@+id/dafenSelectItemImage"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/dafenSelectTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="@dimen/text_size_custom"
+        android:textColor="@color/text_orange"
+        android:text="1" />
+
+</FrameLayout>

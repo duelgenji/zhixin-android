@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="站内信标题XXXXX"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="2014-01-30"
+            android:textColor="@color/text_blue"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:visibility="visible" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="站内信内容:XXXXX中奖了"
+                android:minLines="2"
+                android:maxLines="2"
+                android:textColor="#757575"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="12.8dp"
+                android:layout_gravity="bottom|right"
+                android:src="@drawable/zhanneixin_read_icon" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="发生发答案的说法都是发放的撒旦撒的撒分dasadsasaasdasasdsasda爱迪生飞凤飞飞飞飞反反复复反反复复反反复复反反复复反反复复反反复复反反复复反反复复反反复复反反复复反反复复反反复复"
+            android:textColor="#757575"
+            android:textSize="13sp" />
+    </RelativeLayout>
+
+</LinearLayout>

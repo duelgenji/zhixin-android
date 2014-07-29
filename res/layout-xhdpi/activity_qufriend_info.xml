@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="26.7"
+        android:background="@drawable/head_icon_background"
+        android:orientation="horizontal" >
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="26.3" />
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="40"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="5.3" />
+
+            <ImageView
+                android:id="@+id/headImageQFI"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="30.4"
+                android:gravity="center_horizontal"
+                android:src="@drawable/head_icon_default" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1.5" />
+
+            <TextView
+                android:id="@+id/nickNameTextViewQFI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:text=""
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1.5" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="5" >
+
+                <TextView
+                    android:id="@+id/levelTextViewQFI"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:textColor="@color/text_white"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="26.3"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="5" />
+
+            <ImageButton
+                android:id="@+id/buttonQFI"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="30"
+                android:adjustViewBounds="true"
+                android:paddingRight="10dp"
+                android:background="@null"
+                android:scaleType="fitCenter" >
+            </ImageButton>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="90" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="7.8"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/coin_background">
+
+            <ImageView
+                android:id="@+id/coinIcon"
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:background="@null"
+                android:src="@drawable/coin" />
+
+            <TextView
+                android:id="@+id/coinValueQFI"
+                android:layout_width="1dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutRank"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/coin_background">
+
+            <ImageView
+                android:id="@+id/rankIcon"
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/rank_icon" />
+
+            <TextView
+                android:id="@+id/rankValueQFI"
+                android:layout_width="1dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textColor="@color/text_white"
+                android:text=""
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutHisBaobao"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/qubaobao_baobao_background">
+
+            <ImageView
+                android:layout_width="1dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:paddingLeft="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/baobao_icon" />
+
+            <TextView
+                android:id="@+id/petNumberQFI"
+                android:layout_width="1dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/text_white"
+                android:textSize="13sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="54"
+        android:background="@color/general_activity_background" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/level_description_background" >
+
+            <ListView
+                android:id="@+id/quFriendActivityList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/text_white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

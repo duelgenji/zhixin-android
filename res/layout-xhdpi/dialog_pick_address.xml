@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="345dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="28.7"
+        android:background="@drawable/dialog_head_pick_background"
+        android:orientation="vertical"
+        android:splitMotionEvents="false"
+        android:weightSum="100"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp" >
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="10"
+            android:text="选择地区:"/>
+        <Spinner
+            android:id="@+id/spinnerAddressPickerSF"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:spinnerMode="dialog"
+            android:layout_weight="18"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="3"/>
+        <Spinner
+            android:id="@+id/spinnerAddressPickerCS"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:spinnerMode="dialog"
+            android:layout_weight="18"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="3"/>
+        <Spinner
+            android:id="@+id/spinnerAddressPickerDQ"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:spinnerMode="dialog"
+            android:layout_weight="18"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            android:layout_weight="18">
+            <Button
+                android:id="@+id/btnAddressPickerOK"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="确认"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"/>
+            <Button
+                android:id="@+id/btnAddressPickerCancel"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:text="取消"/>
+            </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.8"
+        android:background="@null" />
+
+</LinearLayout>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.5" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:id="@+id/layoutImageQDYA"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp" >
+
+                        <ImageView
+                            android:id="@+id/diaoyanSuccessOrFailImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:layout_centerInParent="true"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="15dp"
+                            android:src="@drawable/qudiaoyan_result_success" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:background="@drawable/level_description_seprator" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="8dp"
+                        android:paddingLeft="8dp"
+                        android:paddingRight="8dp"
+                        android:paddingTop="8dp" >
+
+                        <TextView
+                            android:id="@+id/txtContentQDYA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:lineSpacingMultiplier="1.2"
+                            android:text="亲，恭喜您！\n已经完成趣宝盆调研！我们将先行奖励您500积分，金币将在调研结果审核后发放到您的账户里。\n如未通知，亲也不用担心，我们将另行奖励您积分！"
+                            android:textSize="@dimen/text_size_normal" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:paddingBottom="5dp"
+                        android:text="@string/quhuati_share"
+                        android:textColor="@color/text_black" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="68dp"
+                    android:layout_marginRight="68dp"
+                    android:background="@drawable/level_description_seprator" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:id="@+id/shareComponent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true" >
+
+                        <ImageButton
+                            android:id="@+id/btnShareXlwb"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_xlwb" />
+
+                        <ImageButton
+                            android:id="@+id/btnShareTxwb"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareXlwb"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_txwb" />
+
+                        <ImageButton
+                            android:id="@+id/btnShareWx"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareTxwb"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_wx" />
+
+                        <ImageButton
+                            android:id="@+id/btnShareQqkj"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareWx"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_qqkj" />
+
+                        <ImageButton
+                            android:id="@+id/btnSharePyq"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_toRightOf="@id/btnShareQqkj"
+                            android:background="@null"
+                            android:padding="5dp"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/share_round_icon_pyq" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootViewOfRecordPicker"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/pickDialog"
+        android:layout_width="100dp"
+        android:layout_height="103dp"
+        android:background="@drawable/spinner_picker_background"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="5dp" >
+
+        <Button
+            android:id="@+id/allRecordBtn"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/duijiang_history_all_record"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/choujiangBtn"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/allRecordBtn"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/duijiang_history_choujiang"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/duijiangBtn"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/choujiangBtn"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/duijiang_history_duijiang"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+    </RelativeLayout>
+
+</LinearLayout>

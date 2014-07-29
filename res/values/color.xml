@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="navigator_head_background">#005FB8</color>
+    <color name="regist_background">#D6C5C5</color>
+    <color name="red">#FF0000</color>
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_grey">#8d8d8d</color>
+    <color name="text_blue">#269BF6</color>
+    <color name="general_activity_background">#efefef</color>
+    <color name="general_up_background">#CCCCCC</color>
+    <color name="text_gold">#896000</color>
+    <color name="text_black">#323231</color>
+    <color name="text_orange">#CD5A01</color>
+    <color name="text_red">#FF0000</color>
+    <color name="transparent_black_background">#99000000</color>
+    <color name="text_light_grey">#a0a0a0</color>
+    <color name="text_more_grey">#EEEEEE</color>
+    <color name="text_green">#008000</color>
+    <color name="text_yellow">#FFFF00</color>
+</resources>

@@ -1,0 +1,81 @@
+package com.zhixin.customui;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.zhixin.R;
+import com.zhixin.domain.Choices;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.view.ViewGroup;
+
+public class ShunxuTitleItem extends FrameLayout implements
+		View.OnClickListener {
+
+	private Context context;
+	private LayoutInflater inflater;
+
+	private TextView titleText;
+
+	private Choices currentChoices;
+
+	private ShunxuItem boundedItem;
+
+	private String choiceText;
+
+	public ShunxuTitleItem(Context context, ViewGroup parent) {
+		super(context);
+		this.context = context;
+		inflater = LayoutInflater.from(context);
+		init(parent);
+	}
+
+	public void init(ViewGroup parent) {
+		inflater.inflate(R.layout.customui_shunxu_title, this);
+		titleText = (TextView) this.findViewById(R.id.shunxuChoiceNo);
+
+		this.setOnClickListener(this);
+	}
+
+	@Override
+	public void onClick(View view) {
+		if (boundedItem != null) {
+			if (StringUtils.isNotBlank(titleText.getText())) {
+				titleText.setText("");
+				boundedItem.setUnchecked();
+			}
+		}
+	}
+
+	private void setText(String str) {
+		titleText.setText(str);
+		this.choiceText = str;
+	}
+
+	public Choices getCurrentChoices() {
+		return currentChoices;
+	}
+
+	public void setCurrentChoices(Choices currentChoices) {
+		this.currentChoices = currentChoices;
+		setText(currentChoices.getChoiceNo());
+	}
+
+	public boolean hasValueYet() {
+		return StringUtils.isNotBlank(titleText.getText());
+
+	}
+
+	public void setBoundedItem(ShunxuItem boundedItem) {
+		this.boundedItem = boundedItem;
+	}
+
+	public String getChoiceText() {
+		return this.choiceText;
+	}
+
+}

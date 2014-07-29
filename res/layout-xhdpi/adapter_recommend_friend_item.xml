@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="108dp"
+    android:layout_height="145dp"
+    android:background="@color/text_white"
+    android:orientation="vertical" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.6" />
+
+    <FrameLayout
+        android:id="@+id/layoutHeadIconArea"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp" >
+
+        <ImageView
+            android:id="@+id/headIconPlaceHolderBBM"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="top|center_horizontal"
+            android:adjustViewBounds="true"
+            android:src="@drawable/head_icon_default" />
+
+        <ImageView
+            android:id="@+id/headIconBBM"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="top|center_horizontal"
+            android:adjustViewBounds="true" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.6" />
+
+    <TextView
+        android:id="@+id/nickname"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="2.4"
+        android:gravity="center"
+        android:text="戴安娜"
+        android:textSize="@dimen/text_size_medium"
+        android:textColor="@color/text_black" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.5"
+        android:paddingLeft="30dp" >
+
+        <TextView
+            android:id="@+id/levelTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/level_my_level_tips2"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/levelBBM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@id/levelTips"
+            android:text="12"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/fameTips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/levelBBM"
+            android:text="@string/qushejiao_fame_symble"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_small" />
+
+        <TextView
+            android:id="@+id/fameValueBBM"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@id/fameTips"
+            android:text="360"
+            android:textColor="@color/text_black"
+            android:textSize="@dimen/text_size_small" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.3" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="4.3" >
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:text="@string/qubaopen_add_friend"
+            android:textColor="@color/text_black"
+            android:textSize="12sp"
+            android:background="@drawable/button_small_white_add_friend" />
+
+
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="1.4" />
+
+</LinearLayout>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="66.56dp"
+    android:background="@color/general_activity_background"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingLeft="6dp"
+    android:weightSum="100" >
+
+    <FrameLayout
+        android:id="@+id/layoutHeadIconArea"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="18.1"
+        android:paddingBottom="4.8dp"
+        android:paddingTop="4.8dp" >
+
+        <ImageView
+            android:id="@+id/headIconPHQBB"
+            android:layout_width="58dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="right|center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/head_icon_default" />
+
+        <ImageView
+            android:id="@+id/headIconQBB"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="2dp"
+            android:scaleType="fitCenter" />
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="54.1"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2.7"
+            android:paddingLeft="6dp" >
+
+            <TextView
+                android:id="@+id/nickNameQBB"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="带难打"
+                android:textSize="13sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3"
+            android:orientation="horizontal"
+            android:paddingLeft="3dp" >
+
+            <TextView
+                android:id="@+id/levelMyLevelTips"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="3.5"
+                android:text="@string/level_my_level_tips2"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/levelValueQBB"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.6"
+                android:text="@string/null_value"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/coinTips"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8.4"
+                android:text="@string/qushejiao_fame_symble"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/coinValueQBB"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="15.2"
+                android:text="@string/null_value"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="20"
+                android:text="@string/qubaobao_this_month_contribution"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/contributionValue"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12"
+                android:text="@string/null_value"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.7" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="27.8"
+        android:paddingBottom="17.28dp"
+        android:paddingTop="17.28dp" >
+
+
+        
+        <ImageButton
+            android:id="@+id/buyBaobaoBtn"
+            android:layout_width="48dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/buy" />
+       
+    </RelativeLayout>
+
+</LinearLayout>

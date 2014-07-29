@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="190dp"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.8" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="28.5"
+        android:background="@drawable/level_description_background"
+        android:orientation="vertical"
+        android:weightSum="28.5" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5.6"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp" >
+
+            <RelativeLayout
+                android:id="@+id/qubaobaoBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginBottom="9dp"
+                android:layout_marginTop="9dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/qubaobao_blue_bar" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/baobaoTitleBBM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/qubaobaoBar"
+                android:text="幼儿园"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/text_size_normal" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true" >
+
+                <ImageButton
+                    android:id="@+id/changeTurnBBM"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="4dp"
+                    android:adjustViewBounds="true"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/baobao_market_change_turn_btn" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginRight="3dp"
+                    android:text="@string/qubaobao_change_turn_text"
+                    android:textSize="@dimen/text_size_medium" />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/level_description_seprator" />
+
+        <com.qubaopen.customui.HorizontalListView
+            android:id="@+id/baobaoListBBM"
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_weight="22" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="0.8" />
+
+</LinearLayout>

@@ -1,0 +1,296 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    tools:context=".QuBaobaoActivity" >
+
+    <include layout="@layout/header_with_home" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="19.7"
+        android:background="@drawable/head_icon_background"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="4.0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="11.7"
+            android:orientation="horizontal"
+            android:weightSum="100" >
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="24.7"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="14" >
+
+                    <ImageView
+                        android:id="@+id/headImageQBB"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/head_icon_default" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center_horizontal"
+                        android:layout_marginTop="1dp"
+                        android:adjustViewBounds="true" />
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="5.2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="75.3"
+                android:orientation="vertical" >
+
+
+                <TextView
+                    android:id="@+id/nickNameQBB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="2.6"
+                    android:gravity="center"
+                    android:text="带安安"
+                    android:textColor="@color/text_white"
+                    android:textSize="14sp" />
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1.2" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1.8" >
+
+                    <TextView
+                        android:id="@+id/levelTipsInQBB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/level_my_level_tips"
+                        android:textColor="@color/text_white"
+                        android:textSize="9sp" />
+
+                    <TextView
+                        android:id="@+id/levelValueInQBB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:layout_toRightOf="@id/levelTipsInQBB"
+                        android:text="23"
+                        android:textColor="@color/text_white"
+                        android:textSize="9sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="1.3" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="2.1">
+                    <FrameLayout
+                        android:id="@+id/layoutMyLordButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <ImageButton
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/my_lord_background" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/qubaobao_his_lord"
+                            android:textColor="@color/text_gold"
+                            android:textSize="9sp" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/txtMyLord"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/text_white"
+                        android:paddingLeft="5dp"
+                        android:text=""
+                        android:textSize="10sp"
+                        android:layout_toRightOf="@id/layoutMyLordButton"/>
+
+                    </RelativeLayout>
+
+
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="1dp"
+                    android:layout_weight="2.8" />
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="4.0" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="7.8"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/qubaobao_baobao_background"
+            android:paddingBottom="10dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="12dp" >
+
+            <ImageView
+                android:id="@+id/creditIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/qubaobao_credit" />
+
+            <TextView
+                android:id="@+id/creditValueQBB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/creditIcon"
+                android:text="@string/qubaobao_credit"
+                android:textColor="@color/text_white" />
+
+            <TextView
+                android:id="@+id/txtCreditValueQBB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/creditValueQBB"
+                android:text="@string/null_value"
+                android:textColor="@color/text_white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/qubaobao_baobao_background"
+            android:paddingBottom="10dp"
+            android:paddingLeft="40dp"
+            android:paddingTop="15dp" >
+
+            <ImageView
+                android:id="@+id/coinIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/qubaobao_cost" />
+
+            <TextView
+                android:id="@+id/baobaoTips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/coinIcon"
+                android:text="@string/qubaobao_cost"
+                android:textColor="@color/text_white" />
+
+            <TextView
+                android:id="@+id/txtCostValueQBB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/baobaoTips"
+                android:text="@string/null_value"
+                android:textColor="@color/text_white" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="7.2"
+        android:background="@color/general_activity_background"
+        android:paddingBottom="12dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="12dp" >
+
+        <ImageView
+            android:id="@+id/blueBar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/qubaobao_blue_bar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/blueBar"
+            android:text="@string/qubaobao_his_baobao"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/quBaobaoList"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="54" />
+
+</LinearLayout>

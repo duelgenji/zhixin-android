@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="qucehi_type">
+        <item>全部测试</item>
+        <item>性格测试</item>
+        <item>情感测试</item>
+        <item>职场测试</item>
+        <item>星座测试</item>
+        <item>智力测试</item>
+        <item>其他测试</item>
+    </string-array>
+    <string-array name="qucehi_sort_type">
+        <item>默认排序</item>
+        <item>人气</item>
+        <item>时间</item>
+        <item>积分</item>
+    </string-array>
+
+</resources>

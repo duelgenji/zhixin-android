@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="3dp"
+        android:paddingLeft="18dp"
+        android:paddingTop="3dp" >
+
+        <TextView
+            android:id="@+id/answerTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="A.adsakladakldsaslkasdkl"
+            android:textColor="@color/text_orange"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp"
+        android:paddingLeft="18dp"
+        android:paddingRight="18dp"
+        android:paddingTop="2dp" >
+
+        <TextView
+            android:id="@+id/answerContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="asaaddasd啊四大四大四大飒飒撒飒飒飒飒大飒飒大四大四大撒爱上阿萨飒飒飒飒"
+            android:textColor="@color/text_black"
+            android:textSize="18sp" />
+    </RelativeLayout>
+	<View 
+	    android:layout_width="fill_parent"
+	    android:layout_height="0.1dp"
+	    android:background="@drawable/dati_xxfgx"
+	    />
+    <com.zhixin.customui.HorizontalListView
+        android:id="@+id/friendAnswerList"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="2dp"
+        android:layout_height="65dp" />
+	<View 
+	    android:layout_width="fill_parent"
+	    android:layout_height="10dp"
+	    android:background="@color/text_grey"
+	    />
+</LinearLayout>

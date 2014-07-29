@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <selector xmlns:android="http://schemas.android.com/apk/res/android">
+     <item android:state_pressed="true"
+           android:drawable="@drawable/baobao_market_change_turn_btn_pressed" /> <!-- pressed -->
+     <item android:state_focused="true"
+           android:drawable="@drawable/baobao_market_change_turn_btn_default" />
+    <item android:state_enabled="false"
+        android:drawable="@drawable/baobao_market_change_turn_btn_pressed" /> <!--enabled --> <!-- focused -->
+     <item android:drawable="@drawable/baobao_market_change_turn_btn_default" /> <!-- default -->
+ </selector>

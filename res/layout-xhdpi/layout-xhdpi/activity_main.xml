@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    tools:context=".MainActivity" >
+
+    <RelativeLayout
+        android:id="@+id/contentFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="88.1" >
+    </RelativeLayout>
+
+   
+
+    <include layout="@layout/footer" />
+
+</LinearLayout>

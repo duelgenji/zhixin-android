@@ -1,0 +1,198 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    android:splitMotionEvents="false"
+    tools:context=".ModifyNicknameActivity" >
+
+    <include layout="@layout/header" />
+
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="3.1" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_single_white_default"
+            android:orientation="horizontal" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5.9" />
+
+            <EditText
+                android:id="@+id/txtKeyword"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="84.3"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:maxLength="30"
+                android:textColorHint="@color/text_light_grey"
+                android:textColor="@color/text_black"
+                android:textSize="18sp"
+                android:hint="@string/user_friend_input_search_key" />
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7.4"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:src="@drawable/icon_qufriend_search" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="3.1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <RelativeLayout
+            android:id="@+id/layoutContact"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_top_white_default"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iconContact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_qufriend_phone" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_grey"
+                android:layout_toRightOf="@id/iconContact"
+                android:text="@string/user_friend_add_by_phone"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textViewForCreditAvailable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/rightArrow"
+                android:textColor="#8d8d8d"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@id/rightArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:src="@drawable/right_arrow" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.6"
+        android:paddingLeft="7.56dp"
+        android:paddingRight="7.56dp" >
+
+        <RelativeLayout
+            android:id="@+id/layoutRecommend"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/input_background_bottom_white_default"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iconRecommend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/icon_qufriend_recommand" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/text_grey"
+                android:layout_toRightOf="@id/iconRecommend"
+                android:text="@string/user_friend_check_recommend"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/textViewForCreditAvailable"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/rightArrow"
+                android:textColor="#8d8d8d"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:id="@id/rightArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="15dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="18dp"
+                android:src="@drawable/right_arrow" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

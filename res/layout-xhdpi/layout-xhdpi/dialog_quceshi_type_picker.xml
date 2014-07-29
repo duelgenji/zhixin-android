@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="116.28dp"
+    android:weightSum="96.1" >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="12" />
+
+    <RelativeLayout
+        android:id="@+id/pickDialog"
+        android:layout_width="129dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/spinner_picker_background"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="15dp" >
+
+        <Button
+            android:id="@+id/quceshiTypeAll"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="@string/quceshi_type_all"
+            android:textColor="@color/text_white"
+            android:background="@null"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/quceshiTypeXinge"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/quceshiTypeAll"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/quceshi_type_xinge"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/quceshiTypeQinggan"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/quceshiTypeXinge"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/quceshi_type_qinggan"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/quceshiTypeZhichang"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/quceshiTypeQinggan"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/quceshi_type_zhichang"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/quceshiTypeXingzuo"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/quceshiTypeZhichang"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/quceshi_type_xingzuo"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/quceshiTypeZhili"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/quceshiTypeXingzuo"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/quceshi_type_zhili"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+
+        <Button
+            android:id="@+id/quceshiTypeQita"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/quceshiTypeZhili"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:background="@null"
+            android:text="@string/quceshi_type_qita"
+            android:textColor="@color/text_white"
+            android:textSize="@dimen/text_size_normal" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rank_item_background"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="11.7"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/rankImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/rank_name_front" />
+
+            <TextView
+                android:id="@+id/rankValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="4dp"
+                android:text="1"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="18.3"
+        android:paddingRight="10dp" >
+
+        <ImageView
+            android:id="@+id/headIconPlaceHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/head_white_ring_background" />
+
+        <ImageView
+            android:id="@+id/headIconImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="70"
+        android:paddingRight="13.32dp" >
+
+        <TextView
+            android:id="@+id/nickNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="戴安娜"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/creditValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="10002658"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>

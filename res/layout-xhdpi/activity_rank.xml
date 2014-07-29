@@ -1,0 +1,84 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/general_activity_background"
+    tools:context=".RankActivity" >
+
+    <include layout="@layout/header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10.2"
+        android:orientation="vertical"
+        android:paddingLeft="20.16dp"
+        android:paddingRight="20.16dp"
+        android:background="@drawable/rank_radio_button_background" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5.6"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rankAllBtn"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rank_all_button"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:gravity="center"
+                android:onClick="onRankClick"
+                android:text="@string/rank_all"
+                android:textColor="#ffffff"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rankMonthBtn"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rank_month_button"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:onClick="onRankClick"
+                android:text="@string/rank_month"
+                android:textColor="#8d8d8d"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/rankWeekBtn"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/rank_week_button"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:onClick="onRankClick"
+                android:text="@string/rank_week"
+                android:textColor="#8d8d8d"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/rankList"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="78.9"/>
+
+</LinearLayout>

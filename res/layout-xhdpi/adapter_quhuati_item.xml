@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="66.56dp"
+    android:background="@color/general_activity_background"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:weightSum="100" >
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"/>
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="90"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3.7" >
+
+            <TextView
+                android:id="@+id/txtTitleQHT"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text=""
+                android:textColor="@color/text_black"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0.5" />
+
+        <LinearLayout
+            
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="4.0"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgTotalNumberQHT"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quhuati_total_number" />
+
+            <TextView
+                android:id="@+id/txtTotalNumberQHT"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:text="5110"
+                android:textColor="@color/text_black"
+                android:textSize="12sp"
+                />
+
+            <ImageView
+                android:id="@+id/imgFriendsNumberQHT"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quhuati_friends_number" />
+
+            <TextView
+                android:id="@+id/txtFriendsNumberQHT"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:text="12"
+                android:textColor="@color/text_black"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="80">
+
+                </View>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1.0" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:paddingBottom="24dp"
+        android:paddingTop="24dp" >
+
+
+        
+        <ImageButton
+            android:id="@+id/btnArrowQHT"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="1dp"
+            android:layout_toRightOf="@id/prizeButtonQBB"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:src="@drawable/right_arrow" />
+       
+    </RelativeLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"/>
+
+</LinearLayout>

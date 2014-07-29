@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.1"
+        android:orientation="vertical"
+        android:paddingLeft="7.25dp"
+        android:paddingRight="7.25dp"
+        android:paddingTop="14dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_cornor_rect"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:paddingBottom="3.6dp"
+                android:paddingLeft="11dp"
+                android:paddingTop="10dp" >
+
+                <TextView
+                    android:id="@+id/wjTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="过的十大撒大声说"
+                    android:textColor="@color/text_black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/wjTitle"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/quceshi_friend_answer"
+                    android:textColor="@color/text_blue"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:background="@drawable/level_description_seprator" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <LinearLayout                   
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" >
+                </LinearLayout>
+            </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

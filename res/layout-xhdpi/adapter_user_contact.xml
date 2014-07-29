@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56.56dp"
+    android:background="@color/text_white"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="15dp"
+    android:weightSum="100" >
+
+    <TextView
+        android:id="@+id/txtNameContact"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:textSize="18sp"
+        android:textColor="@color/text_black"
+        android:text="12123213213"
+        android:layout_weight="70"/>
+    <TextView
+        android:id="@+id/txtStatusContact"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|right"
+        android:textSize="18sp"
+        android:textColor="@color/text_black"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="邀请"
+        android:layout_weight="30"/>
+
+</LinearLayout>

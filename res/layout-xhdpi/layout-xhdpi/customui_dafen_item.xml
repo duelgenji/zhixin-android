@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/dafenContentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="1.你喜欢睡觉吗？"
+        android:textColor="@color/text_grey"
+        android:textSize="@dimen/text_size_custom" />
+
+    <FrameLayout
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="35dp"
+        android:id="@+id/dafenCheckBox" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/checkbox_default" />
+
+        <TextView
+            android:id="@+id/fenshuTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/text_size_custom" >
+        </TextView>
+    </FrameLayout>
+
+   
+
+</RelativeLayout>

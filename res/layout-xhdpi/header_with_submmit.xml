@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="7"
+    android:background="@drawable/header_background"
+    android:orientation="horizontal"
+    android:paddingRight="9.72dp" >
+
+    <ImageButton
+        android:id="@+id/backup_btn"
+        android:layout_width="36dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/header_back_button" />
+
+    <TextView
+        android:id="@+id/title_of_the_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="画面标题"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:typeface="monospace" />
+
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="56dp"
+        android:layout_height="31dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/header_submit_button"
+        android:text="@string/header_submit_text"
+        android:textColor="@color/text_white"
+        android:textSize="16sp" />
+
+</RelativeLayout>

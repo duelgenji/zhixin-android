@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56.56dp"
+    android:background="@color/text_white"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingLeft="6dp"
+    android:weightSum="100" >
+
+
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="85">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:paddingBottom="3dp"
+            android:orientation="horizontal"
+            android:layout_weight="50">
+            <TextView
+                android:id="@+id/txtNameUserAddressItem"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:textSize="@dimen/text_size_custom"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/text_grey"
+                android:text=""/>
+
+            <TextView
+                android:id="@+id/txtPhoneUserAddressItem"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="bottom|right"
+                android:textSize="@dimen/text_size_custom_small"
+                android:textColor="@color/text_grey"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text=""/>
+            
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:paddingTop="3dp"
+            android:layout_weight="50">
+
+            <TextView
+                android:id="@+id/txtAddressUserAddressItem"
+                android:layout_width="wrap_content"
+                android:gravity="top"
+                android:layout_marginLeft="5dp"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_size_custom"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:textColor="@color/text_grey"
+                android:text=""/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_weight="15">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/imgIsDefault"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_weight="1"
+            android:src="@drawable/user_info_default_address"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+        </LinearLayout>
+
+
+
+
+</LinearLayout>

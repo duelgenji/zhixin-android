@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+   <include layout="@layout/header_with_sync" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.1" >
+
+        <ListView
+            android:id="@+id/quHistoryList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:headerDividersEnabled="false"
+            android:dividerHeight="0.1dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

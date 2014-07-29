@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" >
+    </include>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="81.1" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/layoutContentQDYC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/round_cornor_rect"
+                android:orientation="vertical" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="8dp" >
+
+                    <TextView
+                        android:id="@+id/txtNoQDYC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="1/17"
+                        android:textColor="@color/text_blue"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/txtTitleQDYC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/txtNoQDYC"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="6dp"
+                        android:lineSpacingMultiplier="1.2"
+                        android:text="如果你有机会参加一次欢乐鬼节的装扮舞会，你会以哪种造型现身，来娱乐大家呢？"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/level_description_seprator" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <RelativeLayout
+                        android:id="@+id/layoutContentQDYC"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="3dp"
+                        android:paddingTop="3dp" >
+
+                        <TextView
+                            android:id="@+id/txtContentQDYC"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:lineSpacingMultiplier="1.3"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="15dp"
+                            android:scrollbars="vertical"
+                            android:text="A.奥特曼\nB.怪兽\nC.美少女战士\n"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8.5"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/question_preview" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/quceshi_question_preview"
+                android:textColor="@color/text_grey"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/question_next" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/quceshi_question_next"
+                android:textColor="@color/text_grey"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

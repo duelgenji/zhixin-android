@@ -1,0 +1,389 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:splitMotionEvents="false"
+        android:layout_weight="89.1"
+        android:weightSum="89.1"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="1"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="7.6"
+            android:paddingLeft="7.56dp"
+            android:paddingRight="7.56dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_background_top_white"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.9" />
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="96.1"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:text="@string/cash_account_balance"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_grey"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/coin_icon"/>
+                    <TextView
+                        android:id="@+id/txtBalanceAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:text=""
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_orange"
+                        android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/txtApproximateAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="@null"
+                        android:text=""
+                        android:gravity="center_vertical"
+                        android:textColor="@color/text_grey"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="7.6"
+            android:paddingLeft="7.56dp"
+            android:paddingRight="7.56dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_background_bottom_white"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.9" />
+
+                <LinearLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="92.2"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="49"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:text="@string/cash_account_total_income"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/text_grey"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/coin_pressed"/>
+                        <TextView
+                            android:id="@+id/txtTotalIncomeAccount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:singleLine="true"
+                            android:text=""
+                            android:gravity="center_vertical"
+                            android:textColor="@color/text_grey"
+                            android:textSize="18sp" />
+
+
+                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.1"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:src="@drawable/line_vertical_grey"/>
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="49"
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@null"
+                            android:text="@string/cash_account_total_expend"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/text_grey"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:adjustViewBounds="true"
+                            android:background="@null"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/coin_pressed"/>
+                        <TextView
+                            android:id="@+id/txtTotalExpendAccount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:background="@null"
+                            android:singleLine="true"
+                            android:text=""
+                            android:gravity="center_vertical"
+                            android:textColor="@color/text_grey"
+                            android:textSize="18sp" />
+
+
+                    </LinearLayout>
+
+                    </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.9" />
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="7">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9" />
+                <FrameLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="36" >
+                    <ImageButton
+                        android:id="@+id/btnEncashAlipay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:button="@android:color/transparent"
+                        android:background="@drawable/button_short_blue_rect"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cash_get_alipay"
+                        android:background="@null"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:textColor="@color/text_white"
+                        android:layout_gravity="center" />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10" />
+                <FrameLayout
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="36" >
+                    <ImageButton
+                        android:id="@+id/btnEncashBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:button="@android:color/transparent"
+                        android:background="@drawable/login_button_blue"
+                       />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/cash_get_bank"
+                        android:background="@null"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:textColor="@color/text_white"
+                        android:layout_gravity="center"
+                        />
+
+                </FrameLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="9" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="6"
+            android:orientation="horizontal" >
+
+            <FrameLayout
+                android:id="@+id/layoutCashIn"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/question_preview"
+                android:clickable="true" >
+
+                <RelativeLayout
+                    android:id="@+id/layoutIncomeAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/txtIncomeAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/cash_account_in"
+                        android:textColor="@color/text_blue"
+                        android:textSize="18sp" />
+                    </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/imgCashIncomeChecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:src="@drawable/bar_thin_blue"/>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/layoutCashOut"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/question_preview"
+                android:clickable="true" >
+
+                <RelativeLayout
+                    android:id="@+id/layoutExpendAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/txtExpendAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="@string/cash_account_out"
+                        android:textColor="@color/text_grey"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/imgCashExpendChecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:visibility="invisible"
+                    android:src="@drawable/bar_thin_blue"/>
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="0.1"
+            android:src="@drawable/level_description_seprator"/>
+
+        <ListView
+            android:id="@+id/accountInfoList"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="56" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:paddingBottom="22dp"
+    android:paddingTop="22dp" >
+
+    <ImageButton
+        android:id="@+id/lingjiangBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:src="@drawable/lingjiang_btn_background" />
+
+    <TextView
+        android:id="@+id/lingjiangText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="领奖"
+        android:textColor="@color/text_white"
+        android:textSize="14sp" />
+
+</FrameLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- save share string title here -->
+    <string name="share_title_sharesoft">我正在用趣宝盆手机客户端</string>
+    <string name="share_title_quceshi">我正在玩趣宝盆测试</string>
+    <string name="share_title_qudiaoyan">我正在玩趣宝盆调研</string>
+    <string name="share_title_quhuati">我正在趣趣话题讨论</string>
+    <string name="share_title_quchoujiang">我正在参加趣宝盆抽奖</string>
+    <string name="share_title_quduijiang">快来趣宝盆拿奖品！</string>
+
+    <!-- save share content here -->
+    <string name="share_content_sharesoft">我正在使用@趣宝盆，不仅好玩有趣而且还能赚积分抽大奖，你也来试试啦~ http://www.qubaopen.com.cn</string>
+    <string name="share_content_quceshi_part1">我刚做了趣宝盆【</string>
+    <string name="share_content_quceshi_part2">】测试，好玩有趣，获取的积分还能抽大奖！</string>
+    <string name="share_content_qudiaoyan_part1">我刚做了趣宝盆【</string>
+    <string name="share_content_qudiaoyan_part2">】调研，做调研赢金币，赚赚外快，好开心！</string>
+    <string name="share_content_quhuati_part1">我刚刚参加了趣话题【</string>
+    <string name="share_content_quhuati_part2">】的讨论，很多人参与哦，分享赢积分，你也一起来吧！</string>
+    <string name="share_content_quchoujiang_part1">我刚刚参加了【</string>
+    <string name="share_content_quchoujiang_part2">】的抽奖活动，想中奖的话你也来参加吧~</string>
+    <string name="share_content_quduijiang_part1">我在趣宝盆得到了【</string>
+    <string name="share_content_quduijiang_part2">】，大家也一起来吧！</string>
+
+    <!-- save url here -->
+    <string name="share_redirec_url">  应用下载链接:http://www.qubaopen.com.cn</string>
+    <string name="share_download"></string>
+
+    <!-- share success -->
+    <string name="share_success_str1">分享成功，获得</string>
+    <string name="share_success_str2">积分</string>
+    <string name="share_image_url">http://www.qubaopen.com.cn/images/btn/logo_96.png</string>
+    <string name="share_web_url">http://www.qubaopen.com.cn</string>
+
+    <!-- share callback -->
+    <string name="share_callback_xqwj_and_dywj">xqwj/share.htm</string>
+    <string name="share_callback_choujiang">lottery/share.htm</string>
+    <string name="share_callback_duijiang">duijiang/share.htm</string>
+    <string name="share_callback_huati">yhht/share.htm</string>
+    <string name="share_callback_sharesoft">more/shareSoft.htm</string>
+
+</resources>

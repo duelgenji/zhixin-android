@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1"
+    tools:context=".ModifyNicknameActivity" >
+
+    <include layout="@layout/header_user_info_address_add" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="85"
+        android:background="@color/general_activity_background" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_cornor_rect" >
+
+            <ListView
+                android:id="@+id/userAddressList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:splitMotionEvents="false"
+                android:layout_margin="5dp"
+                android:background="@color/text_white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

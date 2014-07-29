@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10.17"
+        android:background="@drawable/rank_radio_button_background"
+        android:paddingBottom="14dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="14dp" >
+
+        <com.zhixin.customui.DiaoyanHistoryTabBarLayout
+            android:id="@+id/radioBtnGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:splitMotionEvents="false" >
+
+            <RelativeLayout
+                android:id="@+id/duijiangRecordComp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/quhuati_left_button_checked" >
+
+                <TextView
+                    android:id="@+id/leftIndicatorTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/duijiang_history_all_record"
+                    android:textColor="@color/text_white"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/leftTriangleImage"
+                    android:layout_width="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@id/leftIndicatorTxt"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/drop_down_triangle_icon_1" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/duijiangStatusComp"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/quhuati_right_button_default" >
+
+                <TextView
+                    android:id="@+id/rightIndicatorTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/duijiang_history_all_status"
+                    android:textColor="@color/text_grey"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/rightTriangleImage"
+                    android:layout_width="13dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_toRightOf="@id/rightIndicatorTxt"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/drop_down_triangle_icon_2" />
+            </RelativeLayout>
+        </com.zhixin.customui.DiaoyanHistoryTabBarLayout>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="78.93" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/tableHead"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="5.44"
+                android:background="@drawable/history_duijang_table_head_background"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/table_head_bianhao"
+                    android:textColor="@color/text_grey"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/table_head_jiangping"
+                    android:textColor="@color/text_grey"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/table_head_riqi"
+                    android:textColor="@color/text_grey"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/table_head_jingbiorjifen"
+                    android:textColor="@color/text_grey"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/table_head_queren"
+                    android:textColor="@color/text_grey"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="73.49" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/nothingIntheListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/nothingImageView"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/nothing_in_the_list" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nothingImageView"
+                android:layout_centerHorizontal="true"
+                android:text="@string/no_record_text"
+                android:textColor="@color/text_black"
+                android:textSize="18sp" />
+        </RelativeLayout>
+    </FrameLayout>
+
+</LinearLayout>

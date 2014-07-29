@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- save activity title here -->
+    <string name="head_title_activity_regist_phone">填写手机号码</string>
+    <string name="head_title_activity_regist_invite">填写邀请码</string>
+    <string name="title_register_validate_code">填写验证码</string>
+    <string name="title_set_pwd">设置密码</string>
+    <string name="head_skip_hits">跳过</string>
+    <string name="head_modify_nickname">修改昵称</string>
+    <string name="head_level">等级</string>
+    <string name="head_rank_list">排行榜</string>
+    <string name="head_qu_friend">趣好友</string>
+    <string name="head_qu_baobao">趣宝宝</string>
+	<string name="head_baobao_market">宝宝市场</string>
+    <string name="head_share">分享</string>
+    <string name="title_more">更多</string>
+    <string name="title_me">我</string>
+    <string name="title_more_suggestion">意见反馈</string>
+    <string name="title_more_company">我是企业</string>
+    <string name="title_more_reset_pwd">修改密码</string>
+    <string name="title_more_option">通用设置</string>
+    <string name="title_more_aboutus">关于我们</string>
+    <string name="title_user_personal_profile">个人资料</string>
+    <string name="title_user_authentication">身份认证</string>
+    <string name="title_user_delivery_address">收货地址</string>
+    <string name="title_user_add_address">添加新地址</string>
+    <string name="title_user_modify_address">修改地址</string>
+    <string name="title_user_email">电子邮箱</string>
+    <string name="title_quceshi">趣测试</string>
+    <string name="title_quchoujiang">趣抽奖</string>
+    <string name="title_quduijiang">兑奖</string>
+    <string name="title_history">历史记录</string>
+    <string name="title_cash_account">现金账户</string>
+    <string name="title_encash_alipay">支付宝提现</string>
+    <string name="title_encash_bank">银行卡提现</string>
+    <string name="title_pick_address">选择收货地址</string>
+    <string name="title_quhuati">趣话题</string>
+    <string name="title_my_quhuati">我的话题</string>
+    <string name="title_user_message">站内信</string>
+    <string name="title_qu_diaoyan">趣调研</string>
+    <string name="title_qu_history">历史测试</string>
+    <string name="title_diaoyan_history">历史调研</string>
+    <string name="title_user_friend_add">添加好友</string>
+    <string name="title_user_friend_contact">手机通讯录</string>
+    <string name="title_user_friend_recommend">推荐好友</string>
+    <string name="title_duijiang_history">历史记录</string>
+    <string name="title_history_check">查看奖品</string>
+    <string name="chat_send">发送</string>
+    <string name="title_privacy">隐私条款</string>
+    <string name="title_friend_info">好友信息</string>
+    <string name="title_baobao_info">宝宝信息</string>
+    <string name="title_qu_gonggao">趣公告</string>
+    <string name="title_quhuati_publish">发布话题</string>
+    <string name="title_quchoujiang_detail">活动详情</string>
+    
+</resources>

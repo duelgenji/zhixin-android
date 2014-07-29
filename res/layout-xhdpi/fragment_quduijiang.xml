@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header_with_history"></include>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10.2"
+        android:orientation="vertical"
+        android:paddingLeft="20.16dp"
+        android:paddingRight="20.16dp"
+        android:background="@drawable/rank_radio_button_background" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3" />
+
+        <RadioGroup
+            android:id="@+id/duijiangBtnGroup"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5.6"
+            android:splitMotionEvents="false"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/btnQuchoujiangList"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/quhuati_left_button"
+                android:button="@android:color/transparent"
+                android:checked="true"
+                android:gravity="center"
+                android:text="@string/duijiang_choujiang"
+                android:textColor="@color/text_white"
+                android:textSize="18sp" />
+
+
+
+            <RadioButton
+                android:id="@+id/btnQuduijiangList"
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/quhuati_right_button"
+                android:button="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/duijiang_duijiang"
+                android:textColor="@color/text_grey"
+                android:textSize="18sp" />
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="2.3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="78.9" >
+
+        <GridView
+            android:id="@+id/duijiangList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+    </LinearLayout>
+
+</LinearLayout>

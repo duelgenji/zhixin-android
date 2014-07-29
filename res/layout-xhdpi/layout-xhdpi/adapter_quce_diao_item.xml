@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="67.84dp"
+    android:background="@color/general_activity_background"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="342"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="16" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="25"
+            android:paddingLeft="10dp" >
+
+            <TextView
+                android:id="@+id/questionareTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:text="星座测试答题问"
+                android:textColor="@color/text_black"
+                android:textSize="17sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_weight="43"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp" >
+
+            <ImageView
+                android:id="@+id/answerNumberImageViewIcon"
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quce_diao_answer_number_icon" />
+
+            <TextView
+                android:id="@+id/answerNumberTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_toRightOf="@id/answerNumberImageViewIcon"
+                android:text="0"
+                android:textColor="@color/text_black"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/answerFriendNumberImageViewIcon"
+                android:layout_width="18dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/answerNumberTextView"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quce_diao_answer_friend_number" />
+
+            <TextView
+                android:id="@+id/answerFriendNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:layout_toRightOf="@id/answerFriendNumberImageViewIcon"
+                android:text="0"
+                android:textColor="@color/text_black"
+                android:textSize="13sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/answerFriendNumber"
+                android:orientation="horizontal"
+                android:paddingBottom="2dp"
+                android:paddingTop="2dp" >
+
+                <FrameLayout
+                    android:id="@+id/tagFragment1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/tagImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/qu_remeng_icon" />
+
+                    <TextView
+                        android:id="@+id/tagText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/quceshi_biaoqian_remeng"
+                        android:textColor="@color/text_white"
+                        android:textSize="11sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/tagFragment2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/tagImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/qu_remeng_icon" />
+
+                    <TextView
+                        android:id="@+id/tagText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/quceshi_biaoqian_remeng"
+                        android:textColor="@color/text_white"
+                        android:textSize="11sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/tagFragment3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/tagImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/qu_remeng_icon" />
+
+                    <TextView
+                        android:id="@+id/tagText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/quceshi_biaoqian_remeng"
+                        android:textColor="@color/text_white"
+                        android:textSize="11sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/tagFragment4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/tagImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/qu_remeng_icon" />
+
+                    <TextView
+                        android:id="@+id/tagText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/quceshi_biaoqian_remeng"
+                        android:textColor="@color/text_white"
+                        android:textSize="11sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/tagFragment5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:visibility="gone" >
+
+                    <ImageView
+                        android:id="@+id/tagImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/qu_remeng_icon" />
+
+                    <TextView
+                        android:id="@+id/tagText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/quceshi_biaoqian_remeng"
+                        android:textColor="@color/text_white"
+                        android:textSize="11sp" />
+                </FrameLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="130" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" >
+
+            <ImageView
+                android:id="@+id/quceDiaoCoinImage"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quce_diao_coin_icon" />
+
+            <TextView
+                android:id="@+id/quceDiaoCoinText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/quceDiaoCoinImage"
+                android:textColor="@color/text_orange"
+                android:textSize="13sp" />
+
+            <ImageView
+                android:id="@+id/quceDiaoCreditImage"
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/quceDiaoCoinText"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@drawable/quce_diao_credit_icon" />
+
+            <TextView
+                android:id="@+id/quceDiaoCreditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/quceDiaoCreditImage"
+                android:textColor="@color/text_black"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

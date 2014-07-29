@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:background="@color/navigator_head_background"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="12"
+        android:paddingBottom="3dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp" >
+
+        <ImageButton
+            android:id="@+id/backup_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/backup_button" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20" />
+
+    <!--
+    <RelativeLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20" >
+
+        <TextView
+            android:id="@+id/quceshi_type_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="全部测试"
+            android:textSize="18sp" >
+        </TextView>
+    </RelativeLayout>
+    -->
+
+    <RelativeLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="33" >
+
+        <Spinner
+            android:id="@+id/quceshi_type_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:spinnerMode="dropdown" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="10" />
+
+    <RelativeLayout
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_weight="20" >
+
+        <Spinner
+            android:id="@+id/quceshi_order_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:spinnerMode="dropdown" />
+    </RelativeLayout>
+
+</LinearLayout>

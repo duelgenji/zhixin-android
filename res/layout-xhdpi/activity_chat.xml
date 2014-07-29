@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.1" >
+
+        <com.zhixin.customui.ObservableScrollView
+            android:id="@+id/chatScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/chatInputViewGroup" >
+
+            <LinearLayout
+                android:id="@+id/chatContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </com.zhixin.customui.ObservableScrollView>
+
+        <LinearLayout
+            android:id="@+id/chatInputViewGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/chat_bottom_background"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="423"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="20dp"
+                android:paddingTop="5dp" >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/chat_edittext_background"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:paddingTop="2dp" >
+
+                    <EditText
+                        android:id="@+id/messageTextview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_weight="152" >
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true" >
+
+                    <ImageButton
+                        android:id="@+id/sendMessageBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/send_message_btn" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/chat_send"
+                        android:textColor="@color/text_white"
+                        android:textSize="18sp" />
+                </FrameLayout>
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

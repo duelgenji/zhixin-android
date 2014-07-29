@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/header_user_info_duijiang_history"></include>
+    
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="78.9" >
+
+        <GridView
+            android:id="@+id/duijiangList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="90dp"
+            android:gravity="center"
+            android:horizontalSpacing="10dp"
+            android:numColumns="2"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="10dp" />
+    </LinearLayout>
+
+</LinearLayout>
+  
+  
