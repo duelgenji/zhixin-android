@@ -125,6 +125,7 @@ public class ModifyNicknameActivity extends Activity implements
 									submit.setEnabled(true);
 
 								}
+								
 
 							});
 
