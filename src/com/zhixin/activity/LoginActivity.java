@@ -304,6 +304,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			loginAction();
 			break;
 		default:
 			break;

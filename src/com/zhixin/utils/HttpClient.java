@@ -122,8 +122,7 @@ public class HttpClient {
 								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 										| Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-								MyApplication.getAppContext().startActivity(
-										intent);
+//								MyApplication.getAppContext().startActivity(intent);
 
 							}
 						});
