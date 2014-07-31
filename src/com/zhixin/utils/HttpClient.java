@@ -210,7 +210,7 @@ public class HttpClient {
 				try {
 					switch (type) {
 					case TYPE_GET:
-						resultObj = fh.getSync(requestUrl, params);
+						resultObj = fh.getSync(requestUrl);
 						break;
 					case TYPE_POST:
 						resultObj = fh.postSync(requestUrl, params);

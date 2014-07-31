@@ -7,7 +7,7 @@
     android:splitMotionEvents="false"
     android:weightSum="96.1" >
 
-    <include layout="@layout/header" >
+    <include layout="@layout/header_with_tiaozhuan" >
     </include>
 
     <ScrollView
@@ -28,136 +28,53 @@
                 android:background="@drawable/round_cornor_rect"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="15dp"
-                    android:paddingTop="10dp" >
-
-                    <FrameLayout
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:padding="5dp" >
 
                         <ImageView
                             android:id="@+id/rewardImage"
                             android:layout_width="160dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginTop="20dp"
                             android:adjustViewBounds="true"
                             android:background="@null"
                             android:scaleType="fitCenter"
                             android:src="@drawable/quchoujiang_default_background" />
 
-                        <FrameLayout
-                            android:layout_width="31dp"
-                            android:layout_height="31dp"
-                            android:visibility="invisible"
-                            android:layout_gravity="right|top" >
-
-                            <ImageView
-                                android:id="@+id/costImage"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/flag_green" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal" >
-
-                                <TextView
-                                    android:id="@+id/costValue"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="50"
-                                    android:textColor="@color/text_white"
-                                    android:textSize="9sp" />
-
-                                <TextView
-                                    android:id="@+id/costType"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/costValue"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="@string/duijiang_coin"
-                                    android:textColor="@color/text_white"
-                                    android:textSize="9sp" />
-                            </RelativeLayout>
-                        </FrameLayout>
-
-                        <FrameLayout
-                            android:id="@+id/layoutLeftFlag"
-                            android:layout_width="31dp"
-                            android:layout_height="31dp"
-                            android:visibility="invisible"
-                            android:layout_gravity="right|top"
-                            android:layout_marginRight="31dp" >
-
-                            <ImageView
-                                android:id="@+id/costImageSub"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@drawable/flag_green" />
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal" >
-
-                                <TextView
-                                    android:id="@+id/costValueSub"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="50"
-                                    android:textColor="@color/text_white"
-                                    android:textSize="9sp" />
-
-                                <TextView
-                                    android:id="@+id/costTypeSub"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_below="@id/costValueSub"
-                                    android:layout_centerHorizontal="true"
-                                    android:text="@string/duijiang_coin"
-                                    android:textColor="@color/text_white"
-                                    android:textSize="9sp" />
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
 
                     <LinearLayout
-                        android:layout_width="1dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:orientation="vertical"
                         android:weightSum="100" >
-
+							<TextView 
+							    android:id="@+id/txtItemContent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_margin="10dp"
+                                android:text="肯德基兑换券30元"
+                                android:layout_gravity="center_horizontal"
+                                android:textColor="@color/text_black"
+                                android:textSize="14sp"
+							    />
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
-                            android:layout_weight="16" />
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_weight="75" >
+                            android:background="@drawable/dati_xxfgx"
+                             />
 
                             <TextView
-                                android:id="@+id/txtItemContent"
+                                android:id="@+id/txtItem"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:text=""
-                                android:textColor="@color/text_blue"
-                                android:textSize="14sp" />
-                        </RelativeLayout>
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginBottom="20dp"
+                                android:text="		肯德基（KFC）是世界上最大的炸鸡快餐连锁企业，隶属于百胜全球餐饮集团"
+                                android:textColor="@color/text_black"
+                                android:textSize="13sp" />
+                        
                     </LinearLayout>
-                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"

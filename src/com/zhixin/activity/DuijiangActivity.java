@@ -21,7 +21,11 @@ import com.zhixin.adapter.QuduijiangListAdapter;
 import com.zhixin.dialog.InstructionDialog;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.settings.SettingValues;
-
+/**
+ * 兑奖历史的页面，页头的状态还未添加
+ * @author Administrator
+ *
+ */
 public class DuijiangActivity extends Activity implements
 LoaderManager.LoaderCallbacks<Cursor>,
 CompoundButton.OnCheckedChangeListener, View.OnClickListener {

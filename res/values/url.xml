@@ -2,15 +2,15 @@
 <resources>
 
     <!-- save request context here -->
-    <string name="URL_USER_LOGON">user/logon.htm</string>
+    <string name="URL_USER_LOGON">users/login</string>
     <string name="URL_QUCESHI_LIST">xqwj/getXqwjList.htm</string>
-    <string name="URL_REGIST_PHONE">user/regist.htm</string>
+    <string name="URL_REGIST_PHONE">users/register</string>
     <string name="URL_REGIST_INVITE">user/yqmvalidate.htm</string>
     <string name="URL_REGIST_VALIDATE">user/validate.htm</string>
-    <string name="URL_REGIST_REQUEST_VALIDATE_CODE">user/requesttoken.htm</string>
-    <string name="URL_REGIST_SETUP_PASSWORD">user/setuppwd.htm</string>
+    <string name="URL_REGIST_REQUEST_VALIDATE_CODE">users/sendCaptcha</string>
+    <string name="URL_REGIST_SETUP_PASSWORD">users/register</string>
     <string name="URL_LOGIN_FORGOT_TOKEN">user/forgottoken.htm</string>
-    <string name="URL_LOGIN_FORGOT_SET_NEW_PWD">user/setnewpwd.htm</string>
+    <string name="URL_LOGIN_FORGOT_SET_NEW_PWD">users/resetPassword</string>
     <string name="URL_CHOUJIANG_LIST">lottery/list.htm</string>
     <string name="URL_DUIJIANG_LIST">duijiang/list.htm</string>
     <string name="URL_CHOUJIANG_DRAW">lottery/draw.htm</string>
@@ -41,7 +41,7 @@
     <string name="URL_USER_INFO_ID">member/validateid.htm</string>
     <string name="URL_USER_INFO_GET_ID">member/getVerification.htm</string>
     <string name="URL_USER_ADDRESS">yhxx/getAddressList.htm</string>
-    <string name="URL_USER_ADDRESS_NEW">yhxx/newAddress.htm</string>
+    <string name="URL_USER_ADDRESS_NEW">userInfos</string>
     <string name="URL_USER_ADDRESS_MODIFY">yhxx/modifyAddress.htm</string>
     <string name="URL_USER_ADDRESS_DELETE">yhxx/deleteAddress.htm</string>
     <string name="URL_SUBMIT_ANSWER">xqwj/doXqwj.htm</string>

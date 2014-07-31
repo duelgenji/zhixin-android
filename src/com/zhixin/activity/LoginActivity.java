@@ -7,10 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -52,6 +54,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 	private ImageView imgRegisterTips;
 
 	private LoginActivity _this;
+	
+	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,38 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		StatService.onPause(this);
 	}
 
+	
+	
+	
+	public JSONObject loginAction(String phoneStr,String passwordStr) throws ParseException {
+        JSONObject result=new JSONObject();
+        JSONObject obj = new JSONObject();
+        try {
+        	obj.put("phone", phoneStr);
+        	obj.put("pwd", passwordStr);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+        String requestUrl = SettingValues.URL_PREFIX
+				+ context.getString(R.string.URL_USER_LOGON);
+		try {
+			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_PUT);
+			if (result != null && result.getInt("success") == 1) {
+                //。。。。。。。。。
+				Log.i("login.....","request");
+				Toast.makeText(this, "spp", Toast.LENGTH_SHORT).show();
+                return result;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	
+	
 	public void loginAction() {
 
 		if (StringUtils.isEmpty(phone.getText())) {
@@ -233,7 +269,41 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 			break;
 		case R.id.btnLogin:
 			v.setEnabled(false);
-			loginAction();
+			String phoneStr = phone.getText().toString();
+			String passwordStr = password.getText().toString();
+			if (StringUtils.isEmpty(phoneStr)) {
+
+				if (phoneEmptyToast == null) {
+					phoneEmptyToast = Toast.makeText(this, getResources()
+							.getString(R.string.logon_toast_phone_empty), 3);
+
+				}
+				phoneEmptyToast.show();
+				btnLogin.setEnabled(true);
+				return;
+			}
+
+			if (StringUtils.isEmpty(passwordStr)) {
+
+				Toast.makeText(this, "密码为空", Toast.LENGTH_SHORT).show();
+				btnLogin.setEnabled(true);
+				return;
+			}
+			
+			if (!MatcherUtil.validateMobile(phoneStr)) {
+				Toast.makeText(
+						this,
+						getResources().getString(
+								R.string.logon_toast_phone_format_incorrect), 3)
+						.show();
+				btnLogin.setEnabled(true);
+				return;
+			}
+			try {
+				loginAction(phoneStr, passwordStr);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
 			break;
 		default:
 			break;

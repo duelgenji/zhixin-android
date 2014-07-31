@@ -3,11 +3,15 @@ package com.zhixin.adapter;
 import java.text.ParseException;
 import java.util.HashMap;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
+import android.support.v4.widget.CursorAdapter;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,16 +19,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.support.v4.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.zhixin.R;
 import com.zhixin.activity.DuijiangHistoryActivity;
@@ -33,7 +33,11 @@ import com.zhixin.activity.QuduijiangAddressListActivity;
 import com.zhixin.daos.HistoryDuijiangDao;
 import com.zhixin.datasynservice.QuCjDjActionService;
 import com.zhixin.settings.ErrHashMap;
-
+/**
+ * 中奖历史的item（其中图片还未处理）
+ * @author Administrator
+ *
+ */
 public class HistoryDuijiangAdapter extends CursorAdapter {
 
 	private final static int BOTTOM_FRAMELAYOUT = 1;
@@ -74,7 +78,7 @@ public class HistoryDuijiangAdapter extends CursorAdapter {
 		}
 
 	}
-
+//中奖状态
 	public HistoryDuijiangAdapter(Context context, Cursor c) {
 		super(context, c, FLAG_REGISTER_CONTENT_OBSERVER);
 		_this = this;
@@ -109,6 +113,7 @@ public class HistoryDuijiangAdapter extends CursorAdapter {
 		padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
 				5, context.getResources().getDisplayMetrics());
 
+		ImageView img_gift = (ImageView) rowView.findViewById(R.id.img_gift);
 		TextView duijiangNo = (TextView) rowView.findViewById(R.id.duijiangNo);
 		TextView title = (TextView) rowView.findViewById(R.id.title);
 		TextView duijiangDate = (TextView) rowView

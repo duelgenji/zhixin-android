@@ -5,6 +5,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.ParseException;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,11 +17,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhixin.R;
 import com.zhixin.database.DbManager;
+import com.zhixin.datasynservice.MainMenuService;
 import com.zhixin.domain.UserSettings;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
@@ -27,25 +29,28 @@ import com.zhixin.utils.HttpClient;
 public class MeFragment extends Fragment implements View.OnClickListener{
 	private Activity mainActivity;
 	/***/
-	private ImageLoader imageLoader;
+//	private ImageLoader imageLoader;
 	/***/
-	private DisplayImageOptions imageOptions;
+//	private DisplayImageOptions imageOptions;
 	private ImageView shezhi;
 	/**
 	 * 标题
 	 */
 	private TextView txtPageTitle;
 	
+	private MainMenuService service;
+	
 	private LinearLayout layoutMyprofile,layoutDuijiang,layoutSuggestion,layoutAbout,layoutShareAppComp;
 	
 	private View scoreTheApp;
+	
+	private Intent intent;
 	
 	private TextView nickNameTextView;
 	private ImageButton editNickNameBtn;
 	
 	@Override
 	public void onAttach(Activity activity) {
-		// TODO Auto-generated method stub
 		super.onAttach(activity);
 		this.mainActivity = activity;
 	}
@@ -53,7 +58,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		@Override
 		public void onClick(View v) {
 			editNickNameBtn.setEnabled(false);
-			Intent intent = new Intent(mainActivity,
+			intent = new Intent(mainActivity,
 					ModifyNicknameActivity.class);
 			String nickName = nickNameTextView.getText().toString();
 			if (nickName != null && !nickName.equals("")) {
@@ -70,7 +75,6 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		View view = inflater.inflate(R.layout.me_main, container,
 				false);
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
@@ -136,16 +140,18 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 				}
 
 			} 
-//			else if (params[0] != null && params[0].equals("newVersion")) {
-//				service = new MainMenuService(mainActivity);
-//				try {
-//					return service.newVersion();
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				} catch (ParseException e) {
-//					e.printStackTrace();
-//				}
-//			}
+			else if (params[0] != null && params[0].equals("newVersion")) {
+				service = new MainMenuService(mainActivity);
+				try {
+					return service.newVersion();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				} catch (java.text.ParseException e) {
+					e.printStackTrace();
+				}
+			}
 
 			return params[0];
 		}
@@ -172,12 +178,14 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		v.setEnabled(false);
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.shezhi:
 			new LoadDataTask().execute("userSetting");
+			intent = new Intent(mainActivity,MoreSetting.class);
+			startActivity(intent);
+			shezhi.setEnabled(true);
 			break;
 		case R.id.layoutMyprofile:
 			intent = new Intent(mainActivity, UserInfoActivity.class);
@@ -211,22 +219,22 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 //			break;
 			
 			
-//			打分，
-//		case R.id.scoreTheApp:
-//
-//			intent = new Intent(Intent.ACTION_VIEW);
-//			intent.setData(Uri.parse("market://details?id=com.qubaopen"));
-//
-//			if (intent.resolveActivity(mainActivity.getPackageManager()) != null) {
-//				startActivity(intent);
-//			} else {
-//
-//				Toast.makeText(mainActivity, "您没有安装任何市场，无法打分",
-//						Toast.LENGTH_SHORT).show();
-//			}
-//
-//			v.setEnabled(true);
-//			break;
+//			打分，这里的Uri还是以前的，需要改
+		case R.id.scoreTheApp:
+
+			intent = new Intent(Intent.ACTION_VIEW);
+			intent.setData(Uri.parse("market://details?id=com.qubaopen"));
+
+			if (intent.resolveActivity(mainActivity.getPackageManager()) != null) {
+				startActivity(intent);
+			} else {
+
+				Toast.makeText(mainActivity, "您没有安装任何市场，无法打分",
+						Toast.LENGTH_SHORT).show();
+			}
+
+			v.setEnabled(true);
+			break;
 		case R.id.layoutSuggestion:
 			intent = new Intent(mainActivity, MoreSuggestionActivity.class);
 			startActivity(intent);

@@ -8,8 +8,8 @@ public class SettingValues {
 		// public static final String URL_PREFIX = "http://192.168.1.6:8099/";
 
 //		public static final String URL_PREFIX = "http://qubaopen.com.cn/demo/";
-		public static final String URL_PREFIX = "http://115.28.176.74/";
-//		public static final String URL_PREFIX = "http://10.0.0.8:8081/users/sendCaptcha?phone=15000379565"
+//		public static final String URL_PREFIX = "http://115.28.176.74/";
+		public static final String URL_PREFIX = "http://10.0.0.88:8080/know-heart/"; 
 		// Setttings in quceshi
 		public static final int QU_LIST_BY_DEFAULT_NEXT_ROUND_NUM = 10;
 

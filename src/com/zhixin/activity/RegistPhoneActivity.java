@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
@@ -95,7 +96,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	
 //	。。。。。。。。
 	private EditText firstLinePassword;
-	private EditText secondLinePassword;
+//	private EditText secondLinePassword;
 	private TextView registConfirmPassword;
 
 	private RegistService registService;
@@ -136,8 +137,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         //获取验证码
         ib_get_reg_code = (ImageButton) findViewById(R.id.ib_get_reg_code);
         ib_get_reg_code.setOnClickListener(this);
-        clearTextviewBtn = (ImageButton) this
-				.findViewById(R.id.clearTextviewBtn);
+        clearTextviewBtn = (ImageButton)findViewById(R.id.clearTextviewBtn);
 		clearTextviewBtn.setOnClickListener(this);
 	
 //		countDownTimerText = (TextView) this
@@ -295,6 +295,9 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	@Override
 	public void onClick(View v) {
 //		v.setEnabled(false);
+		String phone;
+		String password;
+		String captcha;
 		switch (v.getId()) {
 		case R.id.backup_btn:
 			this.onBackPressed();
@@ -321,11 +324,32 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
             break;
         //获取验证码
         case R.id.ib_get_reg_code:
+//        	actionConfirm();
+        	phone = txtPhone.getText().toString().trim();
+        	password = firstLinePassword.getText().toString().trim();
+        	//石头
+//        	if(!(password ==null && "".equals(password))){
+        		try {
+        			sendValidateCode(phone);
+        		} catch (ParseException e) {
+        			e.printStackTrace();
+        		}
+ //       	}
         	handler.postDelayed(runnable, 1000);
         	ib_get_reg_code.setEnabled(false);
         	break;
         case R.id.regist_confirm_password:
-			actionConfirm();
+        	phone = txtPhone.getText().toString().trim();
+        	password = firstLinePassword.getText().toString().trim();
+        	captcha = validateCodeEditText.getText().toString().trim();
+        	if(!(captcha ==null && "".equals(captcha))){
+				try {
+					actionConfirm(phone, password, captcha);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+        	}
 			break;
 		default:
 			break;
@@ -338,6 +362,60 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	/**
 	 * 发送验证码
 	 */
+	
+	//szs
+	public JSONObject sendValidateCode(String phone) throws ParseException {
+        JSONObject result=new JSONObject();
+        JSONObject obj = new JSONObject();
+        try {
+			obj.put("phone", phone);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+        String requestUrl = SettingValues.URL_PREFIX
+				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
+        requestUrl+="?phone="+phone;
+		try {
+			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_GET);
+			if (result != null && result.getInt("success") == 1) {
+                //。。。。。。。。。
+				Log.i("login","request");
+				Toast.makeText(this, "123456689", Toast.LENGTH_SHORT).show();
+                return result;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	public JSONObject actionConfirm(String phone,String password,String captcha) throws ParseException {
+        JSONObject result=new JSONObject();
+        JSONObject obj = new JSONObject();
+        try {
+			obj.put("phone", phone);
+			obj.put("password", password);
+			obj.put("captcha", captcha);
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+        String requestUrl = SettingValues.URL_PREFIX
+				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
+		try {
+			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_POST);
+			if (result != null && result.getInt("success") == 1) {
+                //。。。。。。。。。
+				Log.i("to login","request");
+				Toast.makeText(this, "szs4sb", Toast.LENGTH_SHORT).show();
+                return result;
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+//重新获取验证码和检验验证码是否正确	
     public void sendValidateCode() {
 //		txtResend.setEnabled(false);
 
@@ -347,15 +425,15 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
+//获取验证码的接口
 		String requestUrl = SettingValues.URL_PREFIX
 				+ getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
-
+		
 		RequestLogic rl = new RequestLogic() {
 
 			@Override
 			public void onLoading(long count, long current) {
-
+				
 			}
 
 			@Override
@@ -377,9 +455,10 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 
 				} catch (JSONException e) {
 					e.printStackTrace();
-				} finally {
+				} 
+//				finally {
 //					nextBtn.setEnabled(true);
-				}
+//				}
 			}
 
 			@Override
@@ -395,15 +474,16 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	}
 
     
-//    。。。。。。。
+//    。。。。。。。这里只有1次输入密码的机会所以没有secondLinePassword
 	public void actionConfirm() {
 		registConfirmPassword.setEnabled(false);
 		final String firstLine = firstLinePassword.getText().toString();
-		final String secondLine = secondLinePassword.getText().toString();
+//		final String secondLine = secondLinePassword.getText().toString();
 
-		if (validateTwoLinePasswordIsSame(firstLine, secondLine)) {
+//		if (validateTwoLinePasswordIsSame(firstLine, secondLine)) {
 
 			if (MatcherUtil.validatePassword(firstLine)) {
+				//注册设置密码的接口
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_REGIST_SETUP_PASSWORD);
 				JSONObject jsonParams = new JSONObject();
@@ -503,19 +583,21 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 				registConfirmPassword.setEnabled(true);
 
 			}
-		} else {
-
-			Toast.makeText(this,
-					this.getString(R.string.toast_tow_line_password_not_match),
-					Toast.LENGTH_SHORT).show();
-			registConfirmPassword.setEnabled(true);
-		}
+//		} else {
+//
+//			Toast.makeText(this,
+//					this.getString(R.string.toast_tow_line_password_not_match),
+//					Toast.LENGTH_SHORT).show();
+//			registConfirmPassword.setEnabled(true);
+//		}
 	}
-
-	private boolean validateTwoLinePasswordIsSame(String firstLine,
-			String secondLine) {
-		return firstLine.equals(secondLine);
-	}
+/**
+ * 检验第一二次的密码是否一样，这一版本没有需要
+ */
+//	private boolean validateTwoLinePasswordIsSame(String firstLine,
+//			String secondLine) {
+//		return firstLine.equals(secondLine);
+//	}
 
 
     @Override
@@ -531,4 +613,6 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         super.onPause();
         StatService.onPause(this);
     }
+
+
 }

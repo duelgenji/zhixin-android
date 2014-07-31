@@ -232,7 +232,7 @@ public class UserInfoActivity extends FragmentActivity implements LoaderManager.
                     }else if(jbo.getString("success").equals("0")){
                         String context= ErrHashMap.getErrMessage(jbo.getString("message"));
                         context= context==null? _this.getString(R.string.toast_unknown):context;
-                        Toast.makeText(_this,context , 5).show();
+                        Toast.makeText(_this,context,5).show();
                     }
 
                 } catch (JSONException e) {
@@ -503,7 +503,6 @@ public class UserInfoActivity extends FragmentActivity implements LoaderManager.
 
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
-                // TODO Auto-generated method stub
                 mYear=datepicker.getYear();
                 mMonth=datepicker.getMonth()+1;
                 mDay=datepicker.getDayOfMonth();
@@ -517,7 +516,6 @@ public class UserInfoActivity extends FragmentActivity implements LoaderManager.
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // TODO Auto-generated method stub
                 pickerExist=false;
             }
 

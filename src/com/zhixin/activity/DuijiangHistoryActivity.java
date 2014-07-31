@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,14 +24,19 @@ import com.zhixin.dialog.HistoryDuijiangStatusPicker;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.HistoryDuijiang;
 import com.zhixin.utils.SqlCursorLoader;
-
+/**
+ * 兑奖历史页面 （页头有一个按钮还需要改动）
+ * @author Administrator
+ *
+ */
 public class DuijiangHistoryActivity extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener {
 
 	private DuijiangHistoryActivity _this;
 
 	private View duijiangRecordComp;
-	private View duijiangStatusComp;
+//	private View duijiangStatusComp;
+	private Button syncDataBtn;
 //	private DiaoyanHistoryTabBarLayout radioGroup;
 	private ListView listView;
 	private View tableHead;
@@ -134,15 +140,15 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 		service = new HistoryDuijiangService(this);
 		listView = (ListView) this.findViewById(R.id.listView);
 		nothingIntheListView = this.findViewById(R.id.nothingIntheListView);
-
+		syncDataBtn = (Button) this.findViewById(R.id.syncDataBtn);
 		tableHead = this.findViewById(R.id.tableHead);
 
-		leftIndicatorTxt = (TextView) this.findViewById(R.id.leftIndicatorTxt);
-		rightIndicatorTxt = (TextView) this
-				.findViewById(R.id.rightIndicatorTxt);
+//		leftIndicatorTxt = (TextView) this.findViewById(R.id.leftIndicatorTxt);
+//		rightIndicatorTxt = (TextView) this
+//				.findViewById(R.id.rightIndicatorTxt);
 
-		duijiangRecordComp = this.findViewById(R.id.duijiangRecordComp);
-		duijiangStatusComp = this.findViewById(R.id.duijiangStatusComp);
+//		duijiangRecordComp = this.findViewById(R.id.duijiangRecordComp);
+//		duijiangStatusComp = this.findViewById(R.id.duijiangStatusComp);
 //		radioGroup = (DiaoyanHistoryTabBarLayout) this
 //				.findViewById(R.id.radioBtnGroup);
 
@@ -152,7 +158,7 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 				.setText(getString(R.string.title_duijiang_history));
 
 		duijiangRecordComp.setOnClickListener(this);
-		duijiangStatusComp.setOnClickListener(this);
+		syncDataBtn.setOnClickListener(this);
 
 		progressDialog.show();
 		new LoadDataTask().execute();
@@ -249,12 +255,12 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 
 			break;
 			*/
-		case R.id.duijiangStatusComp:
+		case R.id.syncDataBtn:
 //			radioGroup.setRightChecked();
 			if (statusPicker == null) {
 				statusPicker = new HistoryDuijiangStatusPicker(this);
 				int[] topAndLeftMarginOfStatusPicker = new int[2];
-				duijiangStatusComp
+				syncDataBtn
 						.getLocationOnScreen(topAndLeftMarginOfStatusPicker);
 				statusPicker.setMarginTopAndLeft(
 						topAndLeftMarginOfStatusPicker[1],
