@@ -25,8 +25,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 /**
- * @author Administrator
- *服务器请求
+ * @author Administrator 服务器请求
  */
 public class HttpClient {
 
@@ -155,7 +154,164 @@ public class HttpClient {
 							e.printStackTrace();
 						}
 						context = context == null ? MyApplication
-								.getAppContext().getString(R.string.toast_unknown) : context;
+								.getAppContext().getString(
+										R.string.toast_unknown) : context;
+						if (!context.equals("")) {
+							Toast.makeText(MyApplication.getAppContext(),
+									context, 3).show();
+						}
+					}
+				});
+				return result;
+
+			}
+
+			else {
+				return result;
+			}
+		} else {
+			if (!NetworkUtils.isNetworkAvailable(MyApplication.getAppContext())) {
+				Handler handler = new Handler(Looper.getMainLooper());
+
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+
+						Toast.makeText(MyApplication.getAppContext(),
+								ErrHashMap.getErrMessage("errFFF"), 5).show();
+
+					}
+				});
+			}
+			JSONObject errObj = new JSONObject();
+			errObj.put("success", "0");
+			errObj.put("message", "errFFF");
+			return errObj;
+		}
+
+	}
+
+	public final static int TYPE_GET = 1;
+	public final static int TYPE_POST = 2;
+	public final static int TYPE_PUT = 3;
+	public final static int TYPE_DELETE = 4;
+
+	// **根据类型来发送请求
+	public static JSONObject requestSync(String requestUrl,
+			JSONObject jsonParams, int type) throws JSONException {
+		AjaxParams params = new AjaxParams();
+		if (jsonParams != null) {
+			params.put("json", jsonParams.toString());
+		}
+		Object resultObj = null;
+		if (NetworkUtils.isNetworkAvailable(MyApplication.getAppContext())) {
+			int count = 0;
+			while (resultObj == null) {
+				try {
+					switch (type) {
+					case TYPE_GET:
+						resultObj = fh.getSync(requestUrl, params);
+						break;
+					case TYPE_POST:
+						resultObj = fh.postSync(requestUrl, params);
+						break;
+					case TYPE_PUT:
+						resultObj = fh.putSync(requestUrl, params);
+						break;
+					case TYPE_DELETE:
+						resultObj = fh.deleteSync(requestUrl);
+						break;
+					default:
+						break;
+					}
+
+					count++;
+					if (resultObj == null) {
+						if (count == SettingValues.MAX_REQUEST_TIME) {
+							break;
+						}
+						Thread.sleep(1000);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					if (!(e instanceof java.io.InterruptedIOException)) {
+						continue;
+					} else {
+						break;
+					}
+
+				}
+
+			}
+		}
+		if (resultObj != null) {
+			JSONObject result = new JSONObject(resultObj.toString());
+			if (result.has("success")
+					&& result.getString("success").equals("0")
+					&& result.getString("message").equals("err001")) {
+				try {
+					if (new RegistService(MyApplication.getAppContext())
+							.logOnAction()) {
+						switch (type) {
+						case TYPE_GET:
+							resultObj = fh.getSync(requestUrl, params);
+							break;
+						case TYPE_POST:
+							resultObj = fh.postSync(requestUrl, params);
+							break;
+						case TYPE_PUT:
+							resultObj = fh.putSync(requestUrl, params);
+							break;
+						case TYPE_DELETE:
+							resultObj = fh.deleteSync(requestUrl);
+							break;
+						default:
+							break;
+						}
+					} else {
+						Handler handler = new Handler(Looper.getMainLooper());
+						handler.post(new Runnable() {
+							@Override
+							public void run() {
+								Intent intent = new Intent(MyApplication
+										.getAppContext(), LoginActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+										| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+								MyApplication.getAppContext().startActivity(
+										intent);
+
+							}
+						});
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+
+				return new JSONObject(resultObj.toString());
+			} else if (result.has("success")
+					&& result.getString("success").equals("0")
+					&& !result.getString("message").equals("err001")) {
+				Handler handler = new Handler(Looper.getMainLooper());
+				final JSONObject _result = result;
+				handler.post(new Runnable() {
+					@Override
+					public void run() {
+						String context = null;
+						try {
+							String temp = _result.getString("message");
+							if (temp.contains("err")) {
+								context = ErrHashMap.getErrMessage(_result
+										.getString("message"));
+							} else if (temp != null && !temp.equals("")) {
+								context = "";
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						context = context == null ? MyApplication
+								.getAppContext().getString(
+										R.string.toast_unknown) : context;
 						if (!context.equals("")) {
 							Toast.makeText(MyApplication.getAppContext(),
 									context, 3).show();
