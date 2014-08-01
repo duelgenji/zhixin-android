@@ -2,6 +2,9 @@ package com.zhixin.activity;
 
 import java.text.ParseException;
 
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -375,17 +378,42 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
         requestUrl+="?phone="+phone;
-		try {
-			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_GET);
-			if (result != null && result.getInt("success") == 1) {
-                //。。。。。。。。。
-				Log.i("login","request");
-				Toast.makeText(this, "123456689", Toast.LENGTH_SHORT).show();
-                return result;
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		Log.i("login","ready");
+		
+		  new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_GET);
+//      try {
+//    	  
+//    	  HttpClient.get(requestUrl, new AjaxCallBack<Object>() {
+//
+//			@Override
+//			public void onSuccess(Object t) {
+//				// TODO Auto-generated method stub
+//				super.onSuccess(t);
+//				Toast.makeText(_this,  t.toString(), 5).show();
+//				Log.i("login","suc");
+//			}
+//
+//			@Override
+//			public void onFailure(Throwable t, int errorNo, String strMsg) {
+//				// TODO Auto-generated method stub
+//				super.onFailure(t, errorNo, strMsg);
+//				Toast.makeText(_this,  strMsg, 5).show();
+//				Log.i("login","fail");
+//			}
+//			
+//    		  
+//		});
+//    	  
+//			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_GET);
+//			if (result != null && result.getInt("success") == 1) {
+//                //。。。。。。。。。
+//				Log.i("login","request");
+//				Toast.makeText(this, "123456689", Toast.LENGTH_SHORT).show();
+//                return result;
+//			}
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
 		return result;
 	}
 	
@@ -614,5 +642,57 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         StatService.onPause(this);
     }
 
+    
+    
+    private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
+
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			// TODO Auto-generated method stub
+			JSONObject result=null;
+			Integer syncType=(Integer)params[0];
+			try {
+				switch(syncType){
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(),null,(Integer)params[3]);
+					result.put("syncType", syncType);
+					break;
+				default :
+					break;
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			// TODO Auto-generated method stub			
+			try {
+				Integer syncType=result.getInt("syncType");
+				switch(syncType){
+				case 1:
+					if (result != null && result.getInt("success") == 1) {
+					    //。。。。。。。。。
+						Log.i("login","request");
+						Toast.makeText(_this, "123456689", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				default:
+					break;
+				}
+			
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+    	
+    }
+    
 
 }
