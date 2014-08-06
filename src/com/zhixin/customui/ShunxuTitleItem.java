@@ -2,16 +2,15 @@ package com.zhixin.customui;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.zhixin.R;
-import com.zhixin.domain.Choices;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+
+import com.zhixin.R;
+import com.zhixin.domain.Choices;
 
 public class ShunxuTitleItem extends FrameLayout implements
 		View.OnClickListener {

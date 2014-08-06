@@ -57,7 +57,7 @@ public class ShareActivity extends Activity {
 //						inviteCode.setText(userInfo.getYqm());
 						shareFunction = new QBPShareFunction(_this
 								.findViewById(R.id.shareComponent),
-								QBPShareFunction.SHARE_APP, userInfo.getYqm(),
+								QBPShareFunction.SHARE_APP, null,
 								_this, 0);
 					}
 				});

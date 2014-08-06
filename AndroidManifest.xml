@@ -4,6 +4,16 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
+    
+    <supports-screens 
+       android:anyDensity="true" 
+       android:largeScreens="true" 
+       android:normalScreens="true" 
+       android:smallScreens="true" 
+       android:xlargeScreens="true" /> 
+    
+    
+    
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
@@ -344,7 +354,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".activity.MoreSettingActivity"
+            android:name=".activity.MoreSetting"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity

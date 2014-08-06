@@ -1,15 +1,13 @@
 package com.zhixin.customui;
 
-import com.zhixin.R;
-import com.zhixin.domain.Choices;
-
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.zhixin.R;
+import com.zhixin.domain.Choices;
 
 public class ShunxuItem extends LinearLayout implements View.OnClickListener {
 

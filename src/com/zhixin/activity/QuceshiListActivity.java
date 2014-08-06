@@ -269,7 +269,6 @@ public class QuceshiListActivity extends FragmentActivity implements
 
 			if (!quceshiOrderPickerDialog.isShowing()) {
 				quceshiOrderPickerDialog.show();
-
 			}
 
 			break;

@@ -80,11 +80,7 @@ public class UserInfoDao {
 		if (StringUtils.isNotEmpty(jbo.getString("email"))) {
 			user.setEmail(jbo.getString("email"));
 		}
-//		邀请码
-		if (jbo.has("yqm") && !StringUtils.isBlank(jbo.getString("yqm"))) {
 
-			user.setYqm(jbo.getString("yqm"));
-		}
 
 		return user;
 

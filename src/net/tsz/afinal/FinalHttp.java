@@ -325,7 +325,7 @@ public class FinalHttp {
     }
     
     public Object putSync( String url, AjaxParams params) {
-        return putSync(url, paramsToEntity(params),null);
+        return putSync(url, paramsToEntity(params),"application/json");
     }
     
     public Object putSync(String url, HttpEntity entity, String contentType) {

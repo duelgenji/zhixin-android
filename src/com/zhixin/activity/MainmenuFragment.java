@@ -59,7 +59,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 				break;
 
 			}
-		};
+		}; 
 	};
 	
 	
@@ -91,6 +91,9 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 			InitialAnimation();
 			// img1.startAnimation(animation);
 			img5.startAnimation(animation);
+			intent = new Intent(mainActivity, QuceshiListActivity.class);
+			startActivity(intent);
+			v.setEnabled(true);
 			break;
 		case R.id.ll_XLZC:
 			AnimationDrawable hbDrawable = (AnimationDrawable) img1.getDrawable();
@@ -99,6 +102,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
+			
 		case R.id.ll_XQHSZ:
 			InitialAnimation();
 			img2.startAnimation(animation3);

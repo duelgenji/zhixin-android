@@ -40,8 +40,6 @@ public class UserInfo {
 
 	private String picUrl;
 
-	private String yqm;
-
 	private int coin;
 
 	private int credit;
@@ -296,13 +294,7 @@ public class UserInfo {
 		this.rankWeek = rankWeek;
 	}
 
-	public String getYqm() {
-		return yqm;
-	}
-
-	public void setYqm(String yqm) {
-		this.yqm = yqm;
-	}
+	
 
 	public String getLevelName() {
 		return levelName;

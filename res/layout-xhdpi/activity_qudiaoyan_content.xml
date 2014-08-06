@@ -106,7 +106,7 @@
                 android:layout_centerInParent="true"
                 android:textColor="@color/text_grey"
                 android:textStyle="bold"
-                android:src="@drawable/question_up" />
+                android:src="@drawable/question_up_default" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textColor="@color/text_grey"
-                android:src="@drawable/question_down"
+                android:src="@drawable/question_down_default"
                 android:textStyle="bold" />
             <TextView
                 android:layout_width="wrap_content"

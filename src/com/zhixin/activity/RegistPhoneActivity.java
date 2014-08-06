@@ -1,40 +1,52 @@
 package com.zhixin.activity;
 
+import java.io.File;
 import java.text.ParseException;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
-import com.zhixin.common.RequestLogic;
-import com.zhixin.datasynservice.RegistService;
+import com.zhixin.provider.InternalStorageContentProvider;
 import com.zhixin.settings.CurrentUserHelper;
-import com.zhixin.settings.ErrHashMap;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
 import com.zhixin.utils.MatcherUtil;
+import com.zhixin.utils.RecToCircleTask;
 
 public class RegistPhoneActivity extends Activity implements View.OnClickListener  {
 	// component in layout
@@ -45,26 +57,15 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 
     private ImageButton btnClearText;
     private RegistPhoneActivity _this;
-	// toast
-	private Toast iDontAgreeToast;
-	private Toast phoneInvalidToast;
-	private Toast requestFailRespondToast;
 	
 	//获取验证码
 	private ImageButton ib_get_reg_code;
 	//倒计时
 	private TextView reg_code_time;
-//	。。。。。。。。。。
-//	/**验证码接受的时间*/
-//	private TextView countDownTimerText;
 	/**页面的名称*/
 	private TextView txtPageTitle;
 	/**验证码输入框*/
 	private EditText validateCodeEditText;
-	/**重新发送验证码*/
-//	private TextView txtResend;
-//	/**下一步*/
-//	private Button nextBtn;
 	private String phone;
 	/**上一页*/
 	private ImageButton iBtnPageBack;
@@ -97,16 +98,48 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		}
 	};
 	
-//	。。。。。。。。
 	private EditText firstLinePassword;
-//	private EditText secondLinePassword;
-	private TextView registConfirmPassword;
 
-	private RegistService registService;
+	private TextView registConfirmPassword;
 
 	private Context context;
 
+	private Toast phoneInvalidToast;
 	
+//	private Toast passwordInvalidToast;
+	private ImageView take_pic;
+	private ImageView head_img;
+	private Handler closePicImageDialogHander;
+	static final int PICK_PIC_FROM_CAMERA_ACTION = 10;
+	static final int PICK_PIC_FORM_GALLERY_ACTION = 20;
+	static final int CROP_IMAGE_ACTION = 30;
+	public static final String TEMP_PHOTO_FILE_PATH = Environment
+			.getExternalStorageDirectory()
+			+ SettingValues.PATH_USER_TX_PREFIX
+			+ "temp.jpg";
+	private class RecToCircleTaskInQushejiao extends
+	AsyncTask<String, Void, Bitmap> {
+	protected Bitmap doInBackground(String... urls) {
+		Bitmap bitmap = BitmapFactory.decodeFile(urls[0]);
+		return RecToCircleTask.transferToCircle(bitmap);
+	}
+	
+	protected void onPostExecute(Bitmap result) {
+		
+			CurrentUserHelper.saveBitmap(result);
+			head_img.setImageResource(R.drawable.head_white_ring_background);
+			head_img.setImageBitmap(result);
+	
+		
+
+	}
+
+}
+	
+	
+	
+	
+	private Toast iDontAgreeToast;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,244 +148,141 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		setContentView(R.layout.zhuce);
 		
 		//倒计时
-		reg_code_time = (TextView) findViewById(R.id.reg_code_time);
-        txtPageTitle= (TextView)
-                this.findViewById(R.id.title_of_the_page);
+		reg_code_time = (TextView)findViewById(R.id.reg_code_time);
+        txtPageTitle= (TextView)findViewById(R.id.title_of_the_page);
         txtPageTitle.setText(this.getString(R.string.head_title_activity_regist_phone));
-        btnClearText =(ImageButton) this.findViewById(R.id.clearTextviewBtn);
+        btnClearText =(ImageButton)findViewById(R.id.clearTextviewBtn);
         btnClearText.setOnClickListener(this);
-        iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
+        iBtnPageBack =(ImageButton)findViewById(R.id.backup_btn);
         iBtnPageBack.setOnClickListener(this);
         _this=this;
-        txtPhone = (EditText) this.findViewById(R.id.txtPhone);
-		checkAgreement = (ToggleButton) this.findViewById(R.id.regist_i_agree);
-        txtAgreeTips=(TextView)this.findViewById(R.id.txtAgreeTips);
-        txtAgreePrivacyTips=(TextView)this.findViewById(R.id.txtAgreePrivacyTips);
+        
+        take_pic = (ImageView) findViewById(R.id.take_pic);
+        take_pic.setOnClickListener(this);
+        head_img = (ImageView) findViewById(R.id.head_img);
+        head_img.setOnClickListener(new ClickImageToChangeHeadIcon());
+        
+        txtPhone = (EditText)findViewById(R.id.txtPhone);
+		checkAgreement = (ToggleButton)findViewById(R.id.regist_i_agree);
+        txtAgreeTips=(TextView)findViewById(R.id.txtAgreeTips);
+        txtAgreePrivacyTips=(TextView)findViewById(R.id.txtAgreePrivacyTips);
         String tips="<font color=#8d8d8d>已经阅读并同意</font>　　　　　　　　　";
 //                +"<font color=#000000>并了解没有您的许可,我们绝不擅自联系您,或者泄露您的资料!</font>";
         String tips2="<font color=#269BF6>　　　　　　<u>《知心使用条款和隐私政策》</u></font>";
         txtAgreeTips.setText(Html.fromHtml(tips));
         txtAgreePrivacyTips.setText(Html.fromHtml(tips2));
         txtAgreePrivacyTips.setOnClickListener(this);
-
-        
-//     。。。。。。。   
         //获取验证码
         ib_get_reg_code = (ImageButton) findViewById(R.id.ib_get_reg_code);
         ib_get_reg_code.setOnClickListener(this);
         clearTextviewBtn = (ImageButton)findViewById(R.id.clearTextviewBtn);
 		clearTextviewBtn.setOnClickListener(this);
-	
-//		countDownTimerText = (TextView) this
-//				.findViewById(R.id.regist_countdown_timer);
-//		txtResend = (TextView) this.findViewById(R.id.regist_validte_resend);
 		validateCodeEditText = (EditText) this.findViewById(R.id.validate_code);
 
 		SharedPreferences sharedPref = this.getSharedPreferences(
 				SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
 		phone = sharedPref.getString(
 				SettingValues.KEY_TEMP_USER_PHONE_FOR_REGIST_USE, null);
-//		nextBtn.setOnClickListener(this);
-//		txtResend.setOnClickListener(this);
-
-//		sendValidateCode();
-//		txtResend.setTextColor(this.getResources().getColor(R.color.text_grey));
-//		txtResend.setEnabled(false);
-//		handler.postDelayed(runnable, 1000);
-		
-//		。。。。。。。。。
 		context = this.getApplicationContext();
 
-		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
+		txtPageTitle = (TextView)findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this.getString(R.string.title_set_pwd));
-		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
+		iBtnPageBack = (ImageButton)findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
 
-		registConfirmPassword = (TextView) this
-				.findViewById(R.id.regist_confirm_password);
-		firstLinePassword = (EditText) this
-				.findViewById(R.id.password_first_line);
+		registConfirmPassword = (TextView)findViewById(R.id.regist_confirm_password);
+		firstLinePassword = (EditText)findViewById(R.id.password_first_line);
 
 		registConfirmPassword.setOnClickListener(this);
-		registService = new RegistService(this);
 		
 
     }
 
 	
 	
-	public void registAction(View view) {
-//        btnNext.setEnabled(false);
-		String phone = validateFields();
-		String validateCode = validateCodeEditText.getText().toString();
-		if (phone != null && !StringUtils.isEmpty(validateCode)) {
-			String requestUrl = SettingValues.URL_PREFIX
-					+ getResources().getString(R.string.URL_REGIST_PHONE);
-			JSONObject jsonParams = new JSONObject();
-			try {
-				jsonParams.put("phone", phone);
-				jsonParams.put("token", validateCode);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			RequestLogic rl = new RequestLogic() {
 
-				@Override
-				public void onLoading(long count, long current) {
 
-				}
-
-				@Override
-				public void whenSuccess(JSONObject result) {
-					SharedPreferences sharedPref = getSharedPreferences(
-							SettingValues.FILE_NAME_SETTINGS,
-							Context.MODE_PRIVATE);
-					SharedPreferences.Editor editor = sharedPref.edit();
-					String phone = txtPhone.getText().toString();
-					editor.putString(
-							SettingValues.KEY_TEMP_USER_PHONE_FOR_REGIST_USE,
-							phone);
-					editor.commit();
-//
-//					Intent intent = new Intent(RegistPhoneActivity.this,
-//							RegistInviteActivity.class);
-//					startActivity(intent);
-//					btnNext.setEnabled(true);
-
-				}
-
-				@Override
-				public void whenFail(JSONObject message) {
-
-					if (requestFailRespondToast == null) {
-						try {
-							requestFailRespondToast = Toast.makeText(
-									RegistPhoneActivity.this,
-									message.getString("message"), 5);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}
-					requestFailRespondToast.show();
-					try {
-						if (message.getString("success").equals("0")) {
-							String content = message.getString("message");
-							if (StringUtils.isAsciiPrintable(content)) {
-								content = ErrHashMap.getErrMessage(content);
-							}
-							Toast.makeText(_this, content, Toast.LENGTH_SHORT)
-									.show();
-						}
-					} catch (JSONException e) {
-						e.printStackTrace();
-					} 
-//					btnNext.setEnabled(true);
-				}
-
-				@Override
-				public void whenRequestFail(String errcode) {
-					Toast.makeText(_this,
-							_this.getString(R.string.toast_request_fail),
-							Toast.LENGTH_SHORT).show();
-//					nextBtn.setEnabled(true);
-				}
-			};
-
-			HttpClient.request(requestUrl, jsonParams, rl);
-
-		}else{
-			Toast.makeText(this,
-					this.getString(R.string.toast_validate_code_not_empty),
-					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	private String validateFields() {
-		// check user has agree or not
-		if (!checkAgreement.isChecked()) {
-			if (iDontAgreeToast == null) {
-				iDontAgreeToast = Toast.makeText(this, getResources()
-						.getString(R.string.regist_i_dont_agree), 5);
-			}
-			iDontAgreeToast.show();
-//            btnNext.setEnabled(true);
-			return null;
-		}
-		// checkThePhoneValidity
-
-		if (!MatcherUtil.validateMobile(txtPhone.getText().toString())) {
-			if (phoneInvalidToast == null) {
-				phoneInvalidToast = Toast.makeText(this, getResources()
-						.getString(R.string.regist_phone_invalid), 5);
-			}
-			phoneInvalidToast.show();
-//            btnNext.setEnabled(true);
-			return null;
-		} else {
-			return txtPhone.getText().toString();
-		}
-
-	}
 
     
 	@Override
 	public void onClick(View v) {
 //		v.setEnabled(false);
+		Intent intent;
 		String phone;
 		String password;
 		String captcha;
 		switch (v.getId()) {
 		case R.id.backup_btn:
+			v.setEnabled(false);
 			this.onBackPressed();
 			v.setEnabled(true);
 			break;
 		case R.id.clearTextviewBtn:
+			v.setEnabled(false);
 			validateCodeEditText.setText("");
 			v.setEnabled(true);
 			break;
-//		case R.id.regist_validte_resend:
-//			sendValidateCode();
-//			txtResend.setTextColor(this.getResources().getColor(
-//					R.color.text_grey));
-//			handler.postDelayed(runnable, 1000);
-//			break;
         case R.id.btnClearText:
+        	v.setEnabled(false);
             txtPhone.setText("");
             v.setEnabled(true);
             break;
         case R.id.txtAgreePrivacyTips:
-            Intent intent = new Intent(RegistPhoneActivity.this,
+        	v.setEnabled(false);
+            intent = new Intent(RegistPhoneActivity.this,
                     MorePrivacyActivity.class);
             startActivity(intent);
             break;
         //获取验证码
         case R.id.ib_get_reg_code:
-//        	actionConfirm();
-        	phone = txtPhone.getText().toString().trim();
-        	password = firstLinePassword.getText().toString().trim();
+       	v.setEnabled(false);
+        	phone = txtPhone.getText().toString();
+        	password = firstLinePassword.getText().toString();
         	//石头
-//        	if(!(password ==null && "".equals(password))){
-        		try {
-        			sendValidateCode(phone);
-        		} catch (ParseException e) {
-        			e.printStackTrace();
-        		}
- //       	}
-        	handler.postDelayed(runnable, 1000);
-        	ib_get_reg_code.setEnabled(false);
+//        	if(!(password == null && "".equals(password))){
+        			if(MatcherUtil.validateMobile(phone)){
+        				
+        				if(checkAgreement.isChecked()){
+        					if(MatcherUtil.validatePassword(password)){
+        						try {
+	        						sendValidateCode(phone);
+	        						handler.postDelayed(runnable, 1000);
+        						} catch (ParseException e) {
+        						    e.printStackTrace();
+        						}
+        					}else{
+        						//密码格式不正确
+        						Toast.makeText(_this, "密码格式有误，密码至少8位,且只能包含字母或者数字和_", 5).show();
+        					}
+        				}else{
+        					//没有勾选
+        					Toast.makeText(_this,"您还没有同意条款！", 5).show();
+        				}
+        			}else{
+        				//手机格式不正确
+        				Toast.makeText(_this,"您填写的手机号码错误", 5).show();
+        			}
+        		
+ //      	}
+        	ib_get_reg_code.setEnabled(true);
         	break;
         case R.id.regist_confirm_password:
+        	v.setEnabled(false);
         	phone = txtPhone.getText().toString().trim();
         	password = firstLinePassword.getText().toString().trim();
         	captcha = validateCodeEditText.getText().toString().trim();
         	if(!(captcha ==null && "".equals(captcha))){
 				try {
-					actionConfirm(phone, password, captcha);
+					actionConfirm(phone,password,captcha);
+					
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+        	}else {
+				Toast.makeText(_this, "验证码有误！", Toast.LENGTH_SHORT).show();
+				
         	}
+       
 			break;
 		default:
 			break;
@@ -368,10 +298,11 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	
 	//szs
 	public JSONObject sendValidateCode(String phone) throws ParseException {
-        JSONObject result=new JSONObject();
+//		phone = validateFields();
+		JSONObject result=new JSONObject();
         JSONObject obj = new JSONObject();
         try {
-			obj.put("phone", phone);
+        	obj.put("phone", phone);
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
@@ -380,40 +311,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         requestUrl+="?phone="+phone;
 		Log.i("login","ready");
 		
-		  new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_GET);
-//      try {
-//    	  
-//    	  HttpClient.get(requestUrl, new AjaxCallBack<Object>() {
-//
-//			@Override
-//			public void onSuccess(Object t) {
-//				// TODO Auto-generated method stub
-//				super.onSuccess(t);
-//				Toast.makeText(_this,  t.toString(), 5).show();
-//				Log.i("login","suc");
-//			}
-//
-//			@Override
-//			public void onFailure(Throwable t, int errorNo, String strMsg) {
-//				// TODO Auto-generated method stub
-//				super.onFailure(t, errorNo, strMsg);
-//				Toast.makeText(_this,  strMsg, 5).show();
-//				Log.i("login","fail");
-//			}
-//			
-//    		  
-//		});
-//    	  
-//			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_GET);
-//			if (result != null && result.getInt("success") == 1) {
-//                //。。。。。。。。。
-//				Log.i("login","request");
-//				Toast.makeText(this, "123456689", Toast.LENGTH_SHORT).show();
-//                return result;
-//			}
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
+		new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_GET);
 		return result;
 	}
 	
@@ -429,208 +327,12 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		}
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
-		try {
-			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_POST);
-			if (result != null && result.getInt("success") == 1) {
-                //。。。。。。。。。
-				Log.i("to login","request");
-				Toast.makeText(this, "szs4sb", Toast.LENGTH_SHORT).show();
-                return result;
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+        new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST);
 		return result;
 	}
 	
-//重新获取验证码和检验验证码是否正确	
-    public void sendValidateCode() {
-//		txtResend.setEnabled(false);
-
-		JSONObject jsonParams = new JSONObject();
-		try {
-			jsonParams.put("phone", phone);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-//获取验证码的接口
-		String requestUrl = SettingValues.URL_PREFIX
-				+ getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
-		
-		RequestLogic rl = new RequestLogic() {
-
-			@Override
-			public void onLoading(long count, long current) {
-				
-			}
-
-			@Override
-			public void whenSuccess(JSONObject result) {
-
-			}
-
-			@Override
-			public void whenFail(JSONObject jbo) {
-
-				try {
-					if (jbo.getString("success").equals("0")) {
-						String content = jbo.getString("message");
-						if (StringUtils.isAsciiPrintable(content)) {
-							content = ErrHashMap.getErrMessage(content);
-						}
-						Toast.makeText(_this, content, 5).show();
-					}
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} 
-//				finally {
-//					nextBtn.setEnabled(true);
-//				}
-			}
-
-			@Override
-			public void whenRequestFail(String errcode) {
-				Toast.makeText(_this,
-						_this.getString(R.string.toast_request_fail),
-						Toast.LENGTH_SHORT).show();
-//				nextBtn.setEnabled(true);
-			}
-		};
-		HttpClient.request(requestUrl, jsonParams, rl);
-
-	}
-
-    
-//    。。。。。。。这里只有1次输入密码的机会所以没有secondLinePassword
-	public void actionConfirm() {
-		registConfirmPassword.setEnabled(false);
-		final String firstLine = firstLinePassword.getText().toString();
-//		final String secondLine = secondLinePassword.getText().toString();
-
-//		if (validateTwoLinePasswordIsSame(firstLine, secondLine)) {
-
-			if (MatcherUtil.validatePassword(firstLine)) {
-				//注册设置密码的接口
-				String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_REGIST_SETUP_PASSWORD);
-				JSONObject jsonParams = new JSONObject();
-				try {
-					jsonParams.put("phone", phone);
-					jsonParams.put("pwd", firstLine);
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				}
-
-				RequestLogic rl = new RequestLogic() {
-
-					@Override
-					public void onLoading(long count, long current) {
-
-					}
-
-					@Override
-					public void whenSuccess(JSONObject result) {
-						
-						new AsyncTask<Void, Void, Boolean>() {
-							@Override
-							protected Boolean doInBackground(Void... params) {
-								try {
-
-									CurrentUserHelper.saveCurrentPhone(phone);
-									registService.saveUserPassword(firstLine);
-									return registService.logOnAction();
-								} catch (JSONException e) {
-									e.printStackTrace();
-								} catch (ParseException e) {
-									e.printStackTrace();
-								}
-								return false;
-							}
-
-							@Override
-							protected void onPostExecute(Boolean result) {
-								if (result) {
-									Intent intent = new Intent(
-											RegistPhoneActivity.this,
-											MainActivity.class);
-									intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-											| Intent.FLAG_ACTIVITY_NEW_TASK);
-									startActivity(intent);
-									RegistPhoneActivity.this.finish();
-								} else {
-									Toast.makeText(
-											context,
-											context.getString(R.string.toast_log_on_fail),
-											Toast.LENGTH_SHORT).show();
-									registConfirmPassword.setEnabled(true);
-
-								}
-
-							}
-						}.execute();
-					}
-
-					@Override
-					public void whenFail(JSONObject jbo) {
-
-						try {
-							String errMessage = jbo.getString("message");
-							if (StringUtils.isAsciiPrintable(errMessage)) {
-								errMessage = ErrHashMap.getErrMessage(jbo
-										.getString("message"));
-							}
-
-							Toast.makeText(RegistPhoneActivity.this,
-									errMessage, Toast.LENGTH_SHORT).show();
-						} catch (JSONException e) {
-							e.printStackTrace();
-						} finally {
-
-							registConfirmPassword.setEnabled(true);
-						}
-					}
-
-					@Override
-					public void whenRequestFail(String errcode) {
-
-						Toast.makeText(RegistPhoneActivity.this,
-								context.getString(R.string.toast_request_fail),
-								Toast.LENGTH_SHORT).show();
-						registConfirmPassword.setEnabled(true);
-
-					}
-				};
-				HttpClient.request(requestUrl, jsonParams, rl);
-
-			} else {
-
-				Toast.makeText(RegistPhoneActivity.this,
-						this.getString(R.string.toast_invalid_password_tips),
-						Toast.LENGTH_SHORT).show();
-				registConfirmPassword.setEnabled(true);
-
-			}
-//		} else {
-//
-//			Toast.makeText(this,
-//					this.getString(R.string.toast_tow_line_password_not_match),
-//					Toast.LENGTH_SHORT).show();
-//			registConfirmPassword.setEnabled(true);
-//		}
-	}
-/**
- * 检验第一二次的密码是否一样，这一版本没有需要
- */
-//	private boolean validateTwoLinePasswordIsSame(String firstLine,
-//			String secondLine) {
-//		return firstLine.equals(secondLine);
-//	}
-
-
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         StatService.onResume(this);
 
@@ -642,26 +344,59 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         StatService.onPause(this);
     }
 
+    private String validateFields() {
+    	
+		// check user has agree or not
+		if (!checkAgreement.isChecked()) {
+			if (iDontAgreeToast == null) {
+				iDontAgreeToast = Toast.makeText(_this, getResources()
+						.getString(R.string.regist_i_dont_agree), 5);
+			}
+			iDontAgreeToast.show();
+			ib_get_reg_code.setEnabled(true);
+			return null;
+		}
+		// checkThePhoneValidity
+
+		if (!MatcherUtil.validateMobile(txtPhone.getText().toString())) {
+			if (phoneInvalidToast == null) {
+				phoneInvalidToast = Toast.makeText(_this, getResources()
+						.getString(R.string.regist_phone_invalid), 5);
+			}
+			phoneInvalidToast.show();
+			ib_get_reg_code.setEnabled(true);
+			return null;
+		} else {
+			return txtPhone.getText().toString();
+		}
+		
+	}
     
-    
+    // new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST);
+    //参数0——此actuvuty调的第几个后台接口.1——连接后台的Url.2.3
     private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
 
 		@Override
 		protected JSONObject doInBackground(Object... params) {
-			// TODO Auto-generated method stub
-			JSONObject result=null;
 			Integer syncType=(Integer)params[0];
+			JSONObject result = null;
 			try {
 				switch(syncType){
 				case 1:
+					//null。。。。传参方式是get
+					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(),null,(Integer)params[3]);
+					result.put("syncType", syncType);
+					break;
+				case 2:
+					//(JSONObject)params[2]。。。Json解析，post方式
+					result = HttpClient.requestSync(params[1].toString(),(JSONObject)params[2],(Integer)params[3]);
 					result.put("syncType", syncType);
 					break;
 				default :
 					break;
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return result;
@@ -669,15 +404,23 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 
 		@Override
 		protected void onPostExecute(JSONObject result) {
-			// TODO Auto-generated method stub			
 			try {
 				Integer syncType=result.getInt("syncType");
 				switch(syncType){
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
-					    //。。。。。。。。。
-						Log.i("login","request");
-						Toast.makeText(_this, "123456689", Toast.LENGTH_SHORT).show();
+						Toast.makeText(_this, "验证码已发送！", Toast.LENGTH_SHORT).show();
+					}else {
+						Toast.makeText(_this, "请求出错！", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				case 2:
+					if (result != null && result.getInt("success") == 1) {
+						Toast.makeText(_this, "注册成功，登录首页！", Toast.LENGTH_SHORT).show();
+						Intent intent = new Intent(_this,MainActivity.class);
+						startActivity(intent);
+					}else {
+						Toast.makeText(_this, "验证码输入有误！", Toast.LENGTH_SHORT).show();
 					}
 					break;
 				default:
@@ -685,7 +428,6 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 				}
 			
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -694,5 +436,147 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
     	
     }
     
+    
+    
+    
+    
+    private class ClickImageToChangeHeadIcon implements View.OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			File file = new File(Environment.getExternalStorageDirectory()
+					+ SettingValues.PATH_USER_TX_PREFIX);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			final Dialog dialog = new Dialog(RegistPhoneActivity.this,
+					android.R.style.Theme_Translucent_NoTitleBar);
+			dialog.setContentView(R.layout.dialog_pick_head_image);
+
+			Window window = dialog.getWindow();
+			WindowManager.LayoutParams lp = window.getAttributes();
+			lp.dimAmount = 0.7f;
+			dialog.getWindow().addFlags(
+					WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+			window.setAttributes(lp);
+			Button cameraBtn = (Button) dialog
+					.findViewById(R.id.dialogCameraBtn);
+			Button galleryBtn = (Button) dialog
+					.findViewById(R.id.dialogGalleryBtn);
+			Button cancelBtn = (Button) dialog
+					.findViewById(R.id.dialogCancelBtn);
+
+			closePicImageDialogHander = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					super.handleMessage(msg);
+					dialog.dismiss();
+				}
+			};
+
+			cancelBtn.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					dialog.dismiss();
+
+				}
+			});
+			
+			cameraBtn.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					try {
+						Uri mImageCaptureUri = null;
+						String state = Environment.getExternalStorageState();
+
+						if (Environment.MEDIA_MOUNTED.equals(state)) {
+							mImageCaptureUri = Uri.fromFile(new File(
+									TEMP_PHOTO_FILE_PATH));
+						} else {
+							mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
+						}
+						intent.putExtra(
+								android.provider.MediaStore.EXTRA_OUTPUT,
+								mImageCaptureUri);
+
+						startActivityForResult(intent,
+								PICK_PIC_FROM_CAMERA_ACTION);
+					} catch (ActivityNotFoundException e) {
+
+						e.printStackTrace();
+					}
+
+				}
+			});
+
+			galleryBtn.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+					photoPickerIntent.setType("image/*");
+
+					startActivityForResult(photoPickerIntent,
+							PICK_PIC_FORM_GALLERY_ACTION);
+
+				}
+			});
+
+			dialog.show();
+
+		}
+
+	}
+    
+    private void updateContentAfterLoading(Cursor cursor) {
+		cursor.moveToFirst();
+	
+		File fileFolder = new File(Environment.getExternalStorageDirectory()
+				+ SettingValues.PATH_USER_TX_PREFIX);
+		if (!fileFolder.exists()) {
+			fileFolder.mkdirs();
+		}
+
+		// Program exploit:if there is no external storage,program will crash
+		final String target = Environment.getExternalStorageDirectory()
+				+ SettingValues.PATH_USER_TX_PREFIX
+				+ FilenameUtils.getName(cursor.getString(cursor
+						.getColumnIndex("picUrl")));
+		File file = new File(target);
+		if (!file.exists()) {
+			String downloadUrl = SettingValues.URL_PREFIX
+					+ cursor.getString(cursor.getColumnIndex("picUrl"));
+			FinalHttp fh = new FinalHttp();
+			fh.download(downloadUrl, null, target + ".temp", false,
+					new AjaxCallBack<File>() {
+						@Override
+						public void onSuccess(File t) {
+							
+								if (t.renameTo(new File(target))) {
+
+									new RecToCircleTaskInQushejiao()
+											.execute(target);
+								}
+							
+						}
+
+					});
+		} else {
+			if (CurrentUserHelper.getBitmap() == null) {
+				new RecToCircleTaskInQushejiao().execute(target);
+			} else {
+				head_img
+						.setImageResource(R.drawable.head_white_ring_background);
+				head_img.setImageBitmap(CurrentUserHelper.getBitmap());
+			}
+
+		}
+
+	}
+ 
 
 }

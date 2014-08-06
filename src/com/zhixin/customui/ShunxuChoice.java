@@ -1,19 +1,18 @@
 package com.zhixin.customui;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 
 import com.zhixin.R;
 import com.zhixin.cache.PreviousUserQuestionCache;
 import com.zhixin.domain.Choices;
 import com.zhixin.domain.UserQuestionAnswer;
 import com.zhixin.logic.DatiQuestionAnswer;
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 
 public class ShunxuChoice extends RadioGroup {
 

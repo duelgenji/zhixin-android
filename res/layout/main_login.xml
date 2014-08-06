@@ -7,17 +7,27 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="226dp"
+        android:layout_height="1dp"
+        android:layout_weight="42"
         android:gravity="center" 
         android:orientation="vertical">
-        
+        <View 
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_weight="17.3"
+            />
         <ImageView 
             android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_height="1dp"
+            android:layout_weight="18"
             android:layout_gravity="center"
             android:src="@drawable/ic_launcher"
             />
-        
+        <View 
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_weight="5.9"
+            />
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -30,7 +40,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -63,7 +72,7 @@
                         android:hint="@string/login_phone_edittext_hints"
                         android:maxLength="16"
                         android:textSize="16sp"
-                        android:text=""
+                        android:text="15000379565"
                         android:inputType="phone" />
 
 
@@ -108,7 +117,7 @@
                         android:hint="@string/login_password_input_hints"
                         android:maxLength="30"
                         android:textSize="16sp"
-                        android:text=""/>
+                        android:text="123456"/>
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -116,8 +125,6 @@
                 </LinearLayout>
 
             </RelativeLayout>
-
-
 
 
             <RelativeLayout
@@ -140,38 +147,11 @@
                         android:layout_height="match_parent"
                         android:layout_weight="38" >
                         <ImageButton
-                            android:id="@+id/btnRegister"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:button="@android:color/transparent"
-                            android:background="@drawable/regist_button"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/regist"
-                            android:background="@null"
-                            android:textSize="18sp"
-                            android:gravity="center"
-                            android:textColor="@color/text_black"
-                            android:layout_gravity="center" />
-
-                    </FrameLayout>
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="16.2" />
-                    <FrameLayout
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="38" >
-                        <ImageButton
                             android:id="@+id/btnLogin"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:button="@android:color/transparent"
-                            android:background="@drawable/login_button_blue" />
+                            android:background="@drawable/login_button_blue"/>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -181,6 +161,33 @@
                             android:textSize="18sp"
                             android:gravity="center"
                             android:textColor="@color/text_white"
+                            android:layout_gravity="center" />
+
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="9.4" />
+                    <FrameLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="38" >
+                        <ImageButton
+                            android:id="@+id/btnRegister"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:button="@android:color/transparent"
+                            android:background="@drawable/regist_button" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/regist"
+                            android:background="@null"
+                            android:textSize="18sp"
+                            android:gravity="center"
+                            android:textColor="@color/text_black"
                             android:layout_gravity="center"
                             />
                     </FrameLayout>
@@ -200,18 +207,22 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="80dp"
+        android:layout_height="1dp"
+        android:layout_weight="17"
         android:gravity="center"
-        android:layout_marginTop="20dp"
         android:orientation="vertical"
         >
-
+		<View 
+		    android:layout_width="fill_parent"
+		    android:layout_height="1dp"
+		    android:layout_weight="12.5"
+		    />
         <TextView
             android:id="@+id/txtForgot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="17dp"
             android:gravity="bottom"
             android:text="@string/login_password_forgot"
             android:textColor="@color/text_white"

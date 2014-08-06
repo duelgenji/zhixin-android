@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/round_cornor_rect_small"
+        android:background="@drawable/round_cornor_rect_small_wenda"
         android:paddingBottom="3dp"
         android:paddingLeft="3dp"
         android:paddingRight="3dp"

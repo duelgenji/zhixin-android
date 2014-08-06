@@ -182,7 +182,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.shezhi:
-			new LoadDataTask().execute("userSetting");
+//			new LoadDataTask().execute("userSetting");
 			intent = new Intent(mainActivity,MoreSetting.class);
 			startActivity(intent);
 			shezhi.setEnabled(true);

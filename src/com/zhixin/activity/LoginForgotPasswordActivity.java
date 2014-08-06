@@ -111,6 +111,7 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		btnClearText1 = (ImageButton) this.findViewById(R.id.btnClearText1);
 		btnClearText1.setOnClickListener(this);
 		loginForgotPhoneService = new LoginForgotPhoneService(this);
+		context = this.getApplicationContext();
 
 	}
 
@@ -143,6 +144,9 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 	public void onClick(View v) {
 
 		v.setEnabled(false);
+		phone = txtInputPhone.getText().toString();
+		password = txtInputPwd1.getText().toString().trim();
+		sPwd2 = txtInputPwd2.getText().toString().trim();
 		switch (v.getId()) {
 		case R.id.backup_btn:
 			this.onBackPressed();
@@ -150,14 +154,75 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 			break;
 		// 获取验证码
 		case R.id.im_retrieve_code:
-			sendCode();
-			try {
-				sendCode(phone, password);
-			} catch (ParseException e) {
-				e.printStackTrace();
+			
+			
+			
+			
+			
+			if (phone == null && phone.equals("")) {
+				showToast(this.getString(R.string.logon_toast_phone_empty));
+				return;
 			}
-			handler.postDelayed(runnable, 1000);
-			im_retrieve_code.setEnabled(false);
+//			if (phone.equals("")) {
+//				showToast(this.getString(R.string.logon_toast_phone_empty));
+//				return;
+//			}
+//			if (!MatcherUtil.validateMobile(phone)) {
+//				showToast(this
+//						.getString(R.string.logon_toast_phone_format_incorrect));
+//				return;
+//			}
+			if (txtInputPwd1.getText() == null || txtInputPwd2.getText() == null) {
+				showToast(this.getString(R.string.toast_input_cant_be_null));
+				im_retrieve_code.setEnabled(true);
+				regist_confirm_password.setEnabled(true);
+				return;
+			}
+			
+			if (password.equals("") || sPwd2.equals("")) {
+				showToast(this.getString(R.string.toast_input_cant_be_null));
+				im_retrieve_code.setEnabled(true);
+				regist_confirm_password.setEnabled(true);
+				return;
+			}
+	//		if (!MatcherUtil.validatePwd(password) || !MatcherUtil.validatePwd(sPwd2)) {
+	//			showToast(this.getString(R.string.toast_more_reset_wrong_input_pwd));
+	//			im_retrieve_code.setEnabled(true);
+	//			regist_confirm_password.setEnabled(true);
+	//			return;
+	//		}
+
+			if (!password.equals(sPwd2)) {
+				showToast(this.getString(R.string.toast_more_reset_not_same));
+				im_retrieve_code.setEnabled(true);
+				
+				
+				return;
+			}
+			
+			
+			
+			if(MatcherUtil.validateMobile(phone)){
+				
+					if(MatcherUtil.validatePassword(password) || MatcherUtil.validatePwd(sPwd2)){
+						try {
+							sendCode(phone, password);
+							handler.postDelayed(runnable, 1000);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}else{
+						//密码格式不正确
+						Toast.makeText(_this, "密码格式有误，密码至少8位,且只能包含字母或者数字和_", 5).show();
+					}
+				
+			}else{
+				//手机格式不正确
+				Toast.makeText(_this,"您填写的手机号码错误", 5).show();
+			}
+			
+			
+			im_retrieve_code.setEnabled(true);
 			break;
 		// case R.id.txtResend:
 		// showToast("重新发送验证码");
@@ -192,10 +257,14 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 			}
 			
 			try {
-				sendRequest(captcha, captcha, captcha);
+				sendRequest(phone, password, captcha);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			regist_confirm_password.setEnabled(true);
+//			Intent intent = new Intent(_this, LoginActivity.class);
+//			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//			startActivity(intent);
 			break;
 		default:
 			break;
@@ -203,10 +272,8 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 	}
 	
 	/**
-	 * 修改密码
-	 * @author Administrator
-	 *
-	 */
+//修改密码
+	 
 	private class LoadDataTask extends AsyncTask<String, Void, JSONObject> {
 
 		@Override
@@ -263,9 +330,11 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		}
 
 	}
-	/**
-	 * 发送验证码
-	 */
+/**
+
+
+//	  发送验证码
+
 	private void sendCode(){
 		phone = txtInputPhone.getText().toString();
 		password = txtInputPwd1.getText().toString().trim();
@@ -316,6 +385,9 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 //		new LoadDataTask().execute(phone);
 		
 	}
+	
+	 */
+	 
 	public JSONObject sendCode(String phone,String password) throws ParseException {
         JSONObject result=new JSONObject();
         JSONObject obj = new JSONObject();
@@ -327,17 +399,8 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		}
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
-		try {
-			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_GET);
-			if (result != null && result.getInt("success") == 1) {
-                //。。。。。。。。。
-				Log.i("login","request");
-				Toast.makeText(this, "123456689", Toast.LENGTH_SHORT).show();
-                return result;
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+        requestUrl+="?phone="+phone;
+		new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_GET);
 		return result;
 	}
 	/**
@@ -409,35 +472,7 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		}
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_LOGIN_FORGOT_SET_NEW_PWD);
-		try {
-			result = HttpClient.requestSync(requestUrl, obj,HttpClient.TYPE_GET);
-			if (result != null && result.getInt("success") == 1) {
-                //。。。。。。。。。
-				Log.i("login","request");
-				Toast.makeText(
-						_this,
-						_this.getString(R.string.toast_forget_password_and_modify_it_successfully),
-						Toast.LENGTH_SHORT).show();
-
-				Intent intent = new Intent(_this, LoginActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-				startActivity(intent);
-				_this.finish();
-                return result;
-                
-                
- //不知道这个地方是不是用这个               
-			}else if (obj.getString("success").equals("0")) {
-				String context = ErrHashMap.getErrMessage(obj
-						.getString("message"));
-				context = context == null ? _this
-						.getString(R.string.toast_unknown) : context;
-				String errMsg = obj.getString("message");
-				Toast.makeText(_this, errMsg, 5).show();
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST);
 		return result;
 	}
 
@@ -457,4 +492,72 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		super.onPause();
 		StatService.onPause(this);
 	}
+	
+	// new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST);
+    //参数0——此actuvuty调的第几个后台接口.1——连接后台的Url.2.3
+    private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
+
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result=null;
+			Integer syncType=(Integer)params[0];
+			try {
+				switch(syncType){
+				case 1:
+					//null。。。。传参方式是get
+					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
+					result = HttpClient.requestSync(params[1].toString(), null,(Integer)params[3]);
+					result.put("syncType", syncType);
+					break;
+				case 2:
+					//(JSONObject)params[2]。。。Json解析，post方式
+					result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
+					result.put("syncType", syncType);
+					break;
+				default :
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType=result.getInt("syncType");
+				switch(syncType){
+				case 1:
+					if (result != null && result.getInt("success") == 1) {
+						Toast.makeText(_this, "验证码已发送！", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				case 2:
+					if (result != null && result.getInt("success") == 1) {
+		                //。。。。。。。。。
+						Log.i("login","request");
+						Toast.makeText(
+								_this,
+								_this.getString(R.string.toast_forget_password_and_modify_it_successfully),
+								Toast.LENGTH_SHORT).show();
+		 //不知道这个地方是不是用这个               
+					}else if (result.getString("success").equals("0")) {
+						String context = ErrHashMap.getErrMessage(result
+								.getString("message"));
+						context = context == null ? _this
+								.getString(R.string.toast_unknown) : context;
+						String errMsg = result.getString("message");
+						Toast.makeText(_this, errMsg, 5).show();
+					}
+					break;
+				default:
+					break;
+				}
+			
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+    }
 }

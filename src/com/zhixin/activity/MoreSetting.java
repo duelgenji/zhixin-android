@@ -64,6 +64,7 @@ DialogInterface.OnDismissListener{
 //				.findViewById(R.id.tBtnOpenToMasterAnswer_MoreOption);
 		txtReceiveTime_MoreOption = (TextView) this
 				.findViewById(R.id.txtReceiveTime_MoreOption);
+		txtReceiveTime_MoreOption.setOnClickListener(this);
 
 		// 加载数据
 		getSupportLoaderManager().restartLoader(0, null, this);
@@ -95,7 +96,7 @@ DialogInterface.OnDismissListener{
 			JSONObject jsonObject = new JSONObject();
 			jsonObject.put("iHygkwj", iOA2F);
 			jsonObject.put("iGkdt", iON2F);
-			jsonObject.put("iMzgkwj", iOA2M);
+	//		jsonObject.put("iMzgkwj", iOA2M);
 			jsonObject.put("iSllms", iMode);
 
 			jsonObject.put("sStartTime", startTime);
@@ -116,13 +117,19 @@ DialogInterface.OnDismissListener{
 		if (data.getCount() == 1) {
 			data.moveToFirst();
 			String receiveTime = "";
+			//新消息通知
 			Boolean bNewMsg = data.getInt(data.getColumnIndex("isTs")) == 1;
+			//省流量模式
 			Boolean bMode = data.getInt(data.getColumnIndex("isSllms")) == 1;
+			//是否向好友公开问卷
 			Boolean bOA2F = data.getInt(data.getColumnIndex("isHygkwj")) == 1;
+			//是否向盟主公开问卷
 			Boolean bOA2M = data.getInt(data.getColumnIndex("isMzgkwj")) == 1;
+			//是否公开答题
 			Boolean bON2F = data.getInt(data.getColumnIndex("isGkdt")) == 1;
-
+			//接收通知的开始时间
 			startTime = data.getString(data.getColumnIndex("kssj"));
+			//接收通知的结束时间
 			endTime = data.getString(data.getColumnIndex("jssj"));
 			receiveTime = startTime + "-" + endTime;
 

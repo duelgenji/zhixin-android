@@ -20,7 +20,7 @@ public class MatcherUtil {
 	 * 判断是否为合法的手机号码
 	 */
 	public static boolean validateMobile(String mobile) {
-		String aa = "^1[3458][0-9]{9}$";
+		String aa = "^1[0-9]{10}$";
 
 		if (StringUtils.isEmpty(mobile)) {
 			return false;
@@ -30,7 +30,7 @@ public class MatcherUtil {
 	}
 
     public static boolean validateMobile86(String mobile) {
-        String aa = "^\\+861[3458][0-9]{9}$";
+        String aa = "^\\+861[0-9][0-9]{9}$";
 
         if (StringUtils.isEmpty(mobile)) {
             return false;
@@ -47,8 +47,10 @@ public class MatcherUtil {
 		if (StringUtils.isEmpty(password)) {
 			return false;
 		} else {
-			return password
-					.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=\\S+$).{8,30}$");
+			//	^(\d+\w+[*/+]*){6,12}$
+			return password.matches("^[a-zA-Z0-9][a-zA-Z0-9_]{7,30}$");
+			//^[a-zA-Z0-9][a-zA-Z0-9_]{4,15}$
+		//	return password.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=\\S+$).{8,30}$");
 		}
 	}
 
