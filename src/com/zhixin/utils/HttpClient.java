@@ -194,14 +194,22 @@ public class HttpClient {
 	public final static int TYPE_POST = 2;
 	public final static int TYPE_PUT = 3;
 	public final static int TYPE_DELETE = 4;
+	public final static int TYPE_POST_FORM=5;
+	public final static int TYPE_PUT_FORM=6;
 
 	// **根据类型来发送请求
 	public static JSONObject requestSync(String requestUrl,
-			JSONObject jsonParams, int type) throws JSONException {
-		AjaxParams params = new AjaxParams();
-		if (jsonParams != null) {
-			params.put("json", jsonParams.toString());
+			Object params, int type) throws JSONException {
+		
+		JSONObject jsonParams=null;
+		AjaxParams ajaxParams=null;
+		
+		if(params instanceof JSONObject){
+			jsonParams=(JSONObject) params;
+		}else if(params instanceof AjaxParams){
+			ajaxParams= (AjaxParams)params;
 		}
+		
 		Object resultObj = null;
 		if (NetworkUtils.isNetworkAvailable(MyApplication.getAppContext())) {
 			int count = 0;
@@ -220,6 +228,11 @@ public class HttpClient {
 					case TYPE_DELETE:
 						resultObj = fh.deleteSync(requestUrl);
 						break;
+					case TYPE_POST_FORM:
+						resultObj = fh.postSync(requestUrl, ajaxParams);
+						break;
+					case TYPE_PUT_FORM:
+						resultObj = fh.putSync(requestUrl, ajaxParams);
 					default:
 						break;
 					}
@@ -253,17 +266,22 @@ public class HttpClient {
 							.logOnAction()) {
 						switch (type) {
 						case TYPE_GET:
-							resultObj = fh.getSync(requestUrl, params);
+							resultObj = fh.getSync(requestUrl);
 							break;
 						case TYPE_POST:
-							resultObj = fh.postSync(requestUrl, params);
+							resultObj = fh.postSyncJSON(requestUrl, jsonParams);
 							break;
 						case TYPE_PUT:
-							resultObj = fh.putSync(requestUrl, params);
+							resultObj = fh.putSyncJSON(requestUrl, jsonParams);
 							break;
 						case TYPE_DELETE:
 							resultObj = fh.deleteSync(requestUrl);
 							break;
+						case TYPE_POST_FORM:
+							resultObj = fh.postSync(requestUrl, ajaxParams);
+							break;
+						case TYPE_PUT_FORM:
+							resultObj = fh.putSync(requestUrl, ajaxParams);
 						default:
 							break;
 						}
@@ -346,6 +364,8 @@ public class HttpClient {
 
 	}
 
+	
+	
 	public static JSONObject requestSyncForUnchangedParams(String requestUrl,
 			AjaxParams params) throws JSONException {
 		Object resultObj = fh.postSync(requestUrl, params);

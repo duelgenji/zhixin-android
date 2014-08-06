@@ -345,7 +345,7 @@ public class FinalHttp {
     }
     
     public Object putSync( String url, AjaxParams params) {
-        return putSync(url, paramsToEntity(params),"application/json");
+        return putSync(url, paramsToEntity(params),null);
     }
     
     public Object putSync(String url, HttpEntity entity, String contentType) {
@@ -364,8 +364,6 @@ public class FinalHttp {
     	String response="";
     	org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
     	org.apache.commons.httpclient.methods.PutMethod put = new org.apache.commons.httpclient.methods.PutMethod(url);
-
-		//put.setRequestHeader(new Header("Content-Type", "application/json"));
 		try {
 			put.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(json.toString(), "application/json", "UTF-8"));
 			int responseCode = client.executeMethod(put);
