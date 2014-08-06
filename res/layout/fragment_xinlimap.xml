@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header_without_backward" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8" >
+
+        <ImageButton
+            android:id="@+id/btn_switch_chart"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/switch_animal" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="2" />
+
+    <RelativeLayout
+        android:id="@+id/layout_web"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="58" >
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10" />
+
+</LinearLayout>

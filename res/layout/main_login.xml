@@ -17,6 +17,7 @@
             android:layout_weight="17.3"
             />
         <ImageView 
+            android:id="@+id/login_logo"
             android:layout_width="100dp"
             android:layout_height="1dp"
             android:layout_weight="18"

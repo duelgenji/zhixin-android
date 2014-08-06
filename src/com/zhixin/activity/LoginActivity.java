@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,9 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 	/**用户信息Dao*/
 	private UserInfoDao userInfoDao;
 	/***/
-//	private ImageView imgRegisterTips;
+	private ImageView imgRegisterTips;
+	
+	private ImageView imgLogo;
 
 	private LoginActivity _this;
 	
@@ -70,6 +73,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		btnRegister = (ImageButton) this.findViewById(R.id.btnRegister);
 		btnRegister.setOnClickListener(this);
 
+		imgLogo = (ImageView) this.findViewById(R.id.login_logo);
+		imgLogo.setOnClickListener(this);
 //		imgRegisterTips = (ImageView) this.findViewById(R.id.imgRegisterTips);
 //		imgRegisterTips.setOnClickListener(this);
 
@@ -313,6 +318,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		case R.id.txtForgot:
 			v.setEnabled(false);
 			intent = new Intent(this, LoginForgotPasswordActivity.class);
+			startActivity(intent);
+			v.setEnabled(true);
+			break;
+		case R.id.login_logo:
+			v.setEnabled(false);
+			intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;

@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header_without_backward" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="2" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="8" >
+
+        <ImageButton
+            android:id="@+id/btn_switch_animal"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/switch_animal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_picture"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_weight="50"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp" >
+
+        <ImageButton
+            android:id="@+id/btn_right_border"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_right_border" />
+
+        <ImageButton
+            android:id="@+id/btn_right_inside"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_right_inside" />
+
+        <ImageButton
+            android:id="@+id/btn_body_border"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_body_border" />
+
+        <ImageButton
+            android:id="@+id/btn_body_inside"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_body_inside" />
+
+        <ImageButton
+            android:id="@+id/btn_head_border"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_head_border" />
+
+        <ImageButton
+            android:id="@+id/btn_head_inside"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_head_inside" />
+
+        <ImageButton
+            android:id="@+id/btn_left_border"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_left_border" />
+
+        <ImageButton
+            android:id="@+id/btn_left_inside"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_left_inside" />
+
+        <ImageButton
+            android:id="@+id/btn_eye"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:src="@drawable/psychology_map_bird_eye_border" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="10" />
+
+</LinearLayout>

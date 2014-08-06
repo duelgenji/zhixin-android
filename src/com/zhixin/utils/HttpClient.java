@@ -215,7 +215,7 @@ public class HttpClient {
 						resultObj = fh.postSync(requestUrl, params);
 						break;
 					case TYPE_PUT:
-						resultObj = fh.putSync(requestUrl, params);
+						resultObj = fh.putSyncJSON(requestUrl, jsonParams);
 						break;
 					case TYPE_DELETE:
 						resultObj = fh.deleteSync(requestUrl);
@@ -378,6 +378,13 @@ public class HttpClient {
 	public static void clearHttpCache() {
 		fh = new FinalHttp();
 		fh.configTimeout(SettingValues.MAX_TIME_OUT * 1000);
+	}
+	
+	public static void get(String url, AjaxCallBack<Object> callback){
+
+  	  FinalHttp fh=new FinalHttp();
+  	  fh.get(url,  callback);
+		
 	}
 
 }

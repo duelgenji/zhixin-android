@@ -65,6 +65,7 @@ import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.SyncBasicHttpContext;
+import org.json.JSONObject;
 
 public class FinalHttp {
 
@@ -337,6 +338,25 @@ public class FinalHttp {
         HttpEntityEnclosingRequestBase request = addEntityToRequestBase(new HttpPut(url), entity);
         if(headers != null) request.setHeaders(headers);
         return sendSyncRequest(httpClient, httpContext, request, contentType);
+    }
+    
+    public Object putSyncJSON(String url, JSONObject json) {
+
+    	String response="";
+    	org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
+    	org.apache.commons.httpclient.methods.PutMethod put = new org.apache.commons.httpclient.methods.PutMethod(url);
+
+		//put.setRequestHeader(new Header("Content-Type", "application/json"));
+		try {
+			put.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(json.toString(), "application/json", "UTF-8"));
+			int responseCode = client.executeMethod(put);
+			System.out.println(responseCode);
+
+			response = put.getResponseBodyAsString();
+		} catch (Exception e) {
+
+		}
+		return response;
     }
 
     //------------------delete 请求-----------------------

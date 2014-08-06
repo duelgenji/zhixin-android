@@ -227,7 +227,7 @@
                 android:paddingRight="7.56dp" >
 
                 <LinearLayout
-                    android:id="@+id/layoutAlipayAccountEncash"
+                    android:id="@+id/layoutNameEncash"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_background_middle_white_default"
@@ -277,7 +277,7 @@
                 android:paddingRight="7.56dp" >
 
                 <LinearLayout
-                    android:id="@+id/layoutAlipayAccountEncash"
+                    android:id="@+id/layoutIDCardEncash"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_background_bottom_white_default"

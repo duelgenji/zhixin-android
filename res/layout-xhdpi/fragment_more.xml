@@ -113,7 +113,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
@@ -163,7 +162,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
@@ -213,7 +211,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
@@ -263,7 +260,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
@@ -318,7 +314,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
@@ -373,7 +368,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
@@ -427,7 +421,6 @@
                         android:paddingBottom="20dp"
                         android:paddingTop="20dp" >
                         <ImageButton
-                            android:id="@+id/btnArrowQHT"
                             android:layout_width="30dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="1dp"
