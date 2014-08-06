@@ -80,7 +80,7 @@ public class XinliMapListFragment extends Fragment implements
 				return true;
 			}
 		});
-		webView.loadUrl("file:///android_asset/test.html");
+		webView.loadUrl("file:///android_asset/hc.html");
 		//webView.loadUrl("http://www.hcharts.cn/demo/index.php?p=10");
 
 		return view;
@@ -100,10 +100,16 @@ public class XinliMapListFragment extends Fragment implements
 	
 	private void switchChart(){
 		
-		if(currentType<4){
+		if(currentType<3){
 			webView.loadUrl("javascript:switchChart("+(++currentType)+")");
+		}else if(currentType==3){
+			currentType=4;
+			webView.loadUrl("file:///android_asset/hs.html");
+			webView.loadUrl("javascript:switchChart(0)");
+			
 		}else if(currentType==4){
 			currentType=0;
+			webView.loadUrl("file:///android_asset/hc.html");
 			webView.loadUrl("javascript:switchChart("+currentType+")");
 			
 		}

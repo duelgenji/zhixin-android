@@ -299,6 +299,25 @@ public class FinalHttp {
         return sendSyncRequest(httpClient, httpContext, request, contentType);
     }
     
+    public Object postSyncJSON(String url, JSONObject json) {
+
+    	String response="";
+    	org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
+    	org.apache.commons.httpclient.methods.PostMethod put = new org.apache.commons.httpclient.methods.PostMethod(url);
+
+		//put.setRequestHeader(new Header("Content-Type", "application/json"));
+		try {
+			put.setRequestEntity(new org.apache.commons.httpclient.methods.StringRequestEntity(json.toString(), "application/json", "UTF-8"));
+			int responseCode = client.executeMethod(put);
+			System.out.println(responseCode);
+
+			response = put.getResponseBodyAsString();
+		} catch (Exception e) {
+
+		}
+		return response;
+		
+    }
 
   //------------------put 请求-----------------------
 
@@ -357,6 +376,7 @@ public class FinalHttp {
 
 		}
 		return response;
+		
     }
 
     //------------------delete 请求-----------------------

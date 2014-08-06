@@ -212,7 +212,7 @@ public class HttpClient {
 						resultObj = fh.getSync(requestUrl);
 						break;
 					case TYPE_POST:
-						resultObj = fh.postSync(requestUrl, params);
+						resultObj = fh.postSyncJSON(requestUrl, jsonParams);
 						break;
 					case TYPE_PUT:
 						resultObj = fh.putSyncJSON(requestUrl, jsonParams);
