@@ -75,7 +75,7 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 		iBtnPageBack.setOnClickListener(this);
 		txtPageTitle
 				.setText(this.getString(R.string.title_user_modify_address));
-		btnSubmit = (Button) this.findViewById(R.id.addressSubmit);
+		btnSubmit = (Button) this.findViewById(R.id.addressSubmit); 
 		btnSubmit.setOnClickListener(this);
 
 		txtAddressModifyName = (EditText) this

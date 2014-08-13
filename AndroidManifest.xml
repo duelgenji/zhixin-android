@@ -15,7 +15,7 @@
     
     
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="10"
         android:targetSdkVersion="18" />
 	<uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.zhixin.permission.JPUSH_MESSAGE" />
@@ -395,6 +395,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.DiaoyanResultActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".activity.FragmentStatePagerSupport"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--        

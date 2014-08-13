@@ -87,7 +87,7 @@ public class MainActivity extends FragmentActivity {
 							fm.popBackStack();
 						} else {
 
-							XinliMapListFragment xinliMapFragment = new XinliMapListFragment();
+							XinLiMapFragment xinliMapFragment = new XinLiMapFragment();
 
 							transaction = fm.beginTransaction();
 
@@ -407,7 +407,7 @@ public class MainActivity extends FragmentActivity {
 				break;
 			case R.id.xinliMapBtn:
 
-				XinliMapListFragment xinliMapListFragment = new XinliMapListFragment();
+				XinLiMapFragment xinliMapListFragment = new XinLiMapFragment();
 
 				transaction = fm.beginTransaction();
 

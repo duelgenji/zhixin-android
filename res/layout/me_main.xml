@@ -139,7 +139,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/coinNumberText"
+                android:id="@+id/coinNumberText2"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="1099"

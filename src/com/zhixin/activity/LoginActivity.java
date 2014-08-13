@@ -131,7 +131,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
 		@Override
 		protected JSONObject doInBackground(Object... params) {
-			JSONObject result=null;
+			JSONObject result=new JSONObject();
 			Integer syncType=(Integer)params[0];
 			try {
 				switch(syncType){
@@ -159,11 +159,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
 		                //。。。。。。。。。
-						Toast.makeText(_this, "登陆成功", Toast.LENGTH_SHORT).show();
+						Toast.makeText(_this, "登陆成功", 3).show();
 						Intent intent = new Intent(_this,MainActivity.class);
 						startActivity(intent);
 					}else {
-						Toast.makeText(_this, "账号或密码有误！", Toast.LENGTH_SHORT).show();
+						Toast.makeText(_this, "账号或密码有误！", 3).show();
 					}
 					break;
 				default:

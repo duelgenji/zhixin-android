@@ -24,10 +24,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //四种动物版，已经取消 2014-08-05
-public class XinliMapListFragment_animal extends Fragment implements
+public class XinliMapAnimalFragment extends Fragment implements
 		View.OnClickListener {
 
 	private Activity mainActivity;
+	
+	private View _view;
 
 	private TextView txtPageTitle;
 
@@ -39,6 +41,7 @@ public class XinliMapListFragment_animal extends Fragment implements
 			eyeBorder, leftInside, rightInside, bodyInside, headInside,
 			btnSwitchAnimal;
 
+	
 	private boolean canTouch;
 
 	private int tempColor;
@@ -62,8 +65,9 @@ public class XinliMapListFragment_animal extends Fragment implements
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_xinlimap_animal,
 				container, false);
+		_view=view;
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
-		txtPageTitle.setText(this.getString(R.string.title_me));
+		//txtPageTitle.setText(this.getString(R.string.title_me));
 
 		leftBorder = (ImageButton) view.findViewById(R.id.btn_left_border);
 		rightBorder = (ImageButton) view.findViewById(R.id.btn_right_border);
@@ -92,8 +96,10 @@ public class XinliMapListFragment_animal extends Fragment implements
 
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
+				_view.getParent().requestDisallowInterceptTouchEvent(true);
 				if (event.getAction() == MotionEvent.ACTION_DOWN && canTouch) {
 					canTouch = false;
+					
 					int point_x = (int) event.getX();
 					int point_y = (int) event.getY();
 					if (point_x < bitmap_left.getWidth()
@@ -156,7 +162,7 @@ public class XinliMapListFragment_animal extends Fragment implements
 
 				}
 
-				return false;
+				return true;
 			};
 		});
 

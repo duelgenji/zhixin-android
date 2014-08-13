@@ -12,6 +12,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 
     private TextView txtPageTitle;
     private ImageButton iBtnPageBack;
-    private ImageButton btnAdd;
+    private ImageView btnAdd;
 
 
     private AddressService addressService;
@@ -62,7 +63,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
         iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
         iBtnPageBack.setOnClickListener(this);
         txtPageTitle.setText(this.getString(R.string.title_user_delivery_address));
-        btnAdd= (ImageButton) this.findViewById(R.id.add_address);
+        btnAdd= (ImageView) this.findViewById(R.id.add_address);
         btnAdd.setOnClickListener(this);
         userAddressList=(ListView) this.findViewById(R.id.userAddressList);
 
