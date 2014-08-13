@@ -59,6 +59,7 @@ public class ShareActivity extends Activity {
 								.findViewById(R.id.shareComponent),
 								QBPShareFunction.SHARE_APP, null,
 								_this, 0);
+//						shareFunction = new QBPShareFunction(_this.findViewById(R.id.shareAppComp), QBPShareFunction.SHARE_APP, _this, 0);
 					}
 				});
 

@@ -104,10 +104,10 @@ public class DiaoyanResultActivity extends Activity implements
 		titleOfPage = (TextView) this.findViewById(R.id.title_of_the_page);
 		titleOfPage.setText(getString(R.string.title_qu_diaoyan));
 		diaoyanListDao.deleteWjInList(wjId);
-
-		share = new QBPShareFunction(this.findViewById(R.id.shareComponent),
-				QBPShareFunction.QU_DIAOYAN, diaoyanWj.getTitle(), this,
-				diaoyanWj.getQuestionnarieId());
+//分享
+	//	share = new QBPShareFunction(this.findViewById(R.id.shareComponent),
+	//			QBPShareFunction.QU_DIAOYAN, diaoyanWj.getTitle(), this,
+	//			diaoyanWj.getQuestionnarieId());
 		new Thread(new Runnable() {
 			@Override
 			public void run() {

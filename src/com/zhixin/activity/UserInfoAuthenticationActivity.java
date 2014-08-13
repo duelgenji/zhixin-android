@@ -27,7 +27,7 @@ public class UserInfoAuthenticationActivity extends FragmentActivity implements 
 
     private TextView txtPageTitle;
     private ImageButton iBtnPageBack;
-    private Button submitBtn;
+    private TextView submitBtn;
 
     private Activity _this;
 
@@ -44,7 +44,7 @@ public class UserInfoAuthenticationActivity extends FragmentActivity implements 
         iBtnPageBack =(ImageButton)this.findViewById(R.id.backup_btn);
         iBtnPageBack.setOnClickListener(this);
         txtPageTitle.setText(this.getString(R.string.title_user_authentication));
-        submitBtn= (Button) this.findViewById(R.id.addressSubmit);
+        submitBtn= (TextView)this.findViewById(R.id.addressSubmit);
         submitBtn.setOnClickListener(this);
 
         txtInputNamePersonalProfile=(TextView)  this.findViewById(R.id.txtInputNamePersonalProfile);

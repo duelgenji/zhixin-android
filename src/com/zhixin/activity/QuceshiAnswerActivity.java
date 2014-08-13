@@ -94,9 +94,10 @@ public class QuceshiAnswerActivity extends Activity implements
 					initBtnHideAnswerQCSA();
 				}
 //				share = new QBPShareFunction(QuceshiAnswerActivity.this.findViewById(R.id.shareComponent),
-				share = new QBPShareFunction(QuceshiAnswerActivity.this.findViewById(R.layout.dialog_share_friend),
-						QBPShareFunction.QU_CESHI, wjAnswer.getWjTitle(),
-						QuceshiAnswerActivity.this, wjAnswer.getWjId());
+//分享的
+//				share = new QBPShareFunction(QuceshiAnswerActivity.this.findViewById(R.layout.dialog_share_friend),
+//						QBPShareFunction.QU_CESHI, wjAnswer.getWjTitle(),
+//						QuceshiAnswerActivity.this, wjAnswer.getWjId());
 
 				if (!fromHistoryOrNot) {
 					new AsyncTask<Void	, Void, QuList>() {

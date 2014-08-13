@@ -397,6 +397,10 @@
             android:name=".activity.DiaoyanResultActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
+            android:name=".activity.DuijiangHistoryActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <!--        
         <activity
             android:name=".activity.BaobaoMarketActivity"
@@ -502,10 +506,7 @@
             android:name=".activity.UserFriendContactActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <activity
-            android:name=".activity.DuijiangHistoryActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        
         <activity
             android:name=".activity.DiaoyanHistoryActivity"
             android:screenOrientation="portrait"

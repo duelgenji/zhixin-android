@@ -3,8 +3,6 @@ package com.zhixin.domain;
 import net.tsz.afinal.annotation.sqlite.Id;
 import net.tsz.afinal.annotation.sqlite.Table;
 
-import java.sql.Time;
-
 /**
  * Created by duel on 14-3-7.
  */
@@ -19,9 +17,9 @@ public class UserSettings {
     /**是否对好友公开问卷*/
     private Integer isHygkwj;
     /**是否对门主公开问卷*/
-    private Integer isMzgkwj;
+//    private Integer isMzgkwj;
     /**是否公开答题*/
-    private Integer isGkdt;
+//    private Integer isGkdt;
     /**是否开启省流量模式*/
     private Integer isSllms;
     /**开始时间*/
@@ -53,21 +51,21 @@ public class UserSettings {
         this.isHygkwj = isHygkwj;
     }
 
-    public Integer getIsMzgkwj() {
-        return isMzgkwj;
-    }
+ //   public Integer getIsMzgkwj() {
+ //       return isMzgkwj;
+//    }
 
-    public void setIsMzgkwj(Integer isMzgkwj) {
-        this.isMzgkwj = isMzgkwj;
-    }
+ //   public void setIsMzgkwj(Integer isMzgkwj) {
+ //       this.isMzgkwj = isMzgkwj;
+ //   }
 
-    public Integer getIsGkdt() {
-        return isGkdt;
-    }
+ //   public Integer getIsGkdt() {
+ //       return isGkdt;
+ //   }
 
-    public void setIsGkdt(Integer isGkdt) {
-        this.isGkdt = isGkdt;
-    }
+ //   public void setIsGkdt(Integer isGkdt) {
+ //       this.isGkdt = isGkdt;
+ //   }
 
     public Integer getIsSllms() {
         return isSllms;

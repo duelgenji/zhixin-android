@@ -1,9 +1,6 @@
 package com.zhixin.activity;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,6 +20,7 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -35,11 +33,9 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
-import com.zhixin.daos.UserInfoDao;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.UserInfo;
 import com.zhixin.settings.CurrentUserHelper;
-import com.zhixin.settings.ErrHashMap;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
 import com.zhixin.utils.SqlCursorLoader;
@@ -49,47 +45,100 @@ import com.zhixin.utils.SqlCursorLoader;
  */
 public class UserInfoActivity extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener {
-
 	private TextView txtPageTitle;
 	private ImageButton iBtnPageBack;
-
 	private Activity _this;
-
 	private Boolean pickerExist;
 	private Dialog currentDialog;
-
+	/** 性别*/
 	private LinearLayout layoutSexPersonalProfile;
+	/** 血型*/
 	private LinearLayout layoutBloodTypePersonalProfile;
+	/** 身份认证*/
 	private LinearLayout layoutAuthenticationPersonalProfile;
+	/** 收货地址*/
 	private LinearLayout layoutAddressPersonalProfile;
+	/** 出生日期*/
 	private LinearLayout layoutBirthdayPersonalProfile;
+	/** 电子邮箱*/
 	private LinearLayout layoutEmailPersonalProfile;
-
+	/** 性别显示框*/
 	private TextView txtSexPersonalProfile;
+	/** 出生日期显示框*/
 	private TextView txtBirthPersonalProfile;
+	/** 血型显示框*/
 	private TextView txtBloodTypePersonalProfile;
+	/** 地址显示框*/
 	private TextView txtAddressPersonalProfile;
+	/** 邮箱显示框*/
 	private TextView txtEmailPersonalProfile;
+	/** 身份认证显示框*/
 	private TextView txtAuthenticationPersonalProfile;
-
+	/** 邮箱*/
 	private String email;
-
 	private QubaopenProgressDialog progressDialog;
-/**	Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
+	String birthday,birthDay,defaultAddress,IdCard,iSex,bloodType,sex,blood;
+	Handler handler = new Handler(){
+		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
-				txtSexPersonalProfile.setText("男");
+				if(sex.equals("MALE")){
+					txtSexPersonalProfile.setText("女");
+				}else if(sex.equals("FAMALE")){
+					txtSexPersonalProfile.setText("男");
+				}
+				if (bloodType.equals("A")) {
+					txtBloodTypePersonalProfile.setText("A");
+				}else if (bloodType.equals("B")) {
+					txtBloodTypePersonalProfile.setText("B");
+				}else if (bloodType.equals("O")) {
+					txtBloodTypePersonalProfile.setText("O");
+				}else if (bloodType.equals("AB")) {
+					txtBloodTypePersonalProfile.setText("AB");
+				}else if (bloodType.equals("OTHER")) {
+					txtBloodTypePersonalProfile.setText("OTHER");
+				}
+				txtBirthPersonalProfile.setText(birthday);
+				txtAuthenticationPersonalProfile.setText(IdCard);
+				txtEmailPersonalProfile.setText(email);
+				txtAddressPersonalProfile.setText(defaultAddress);
 				break;
 			case 1:
-				txtSexPersonalProfile.setText("女");
+				if(iSex!=null && iSex.equals("MALE")){
+					txtSexPersonalProfile.setText("女");
+				}else if(iSex!=null && iSex.equals("FAMALE")){
+					txtSexPersonalProfile.setText("男");
+				}
+				if (blood!=null && blood.equals("A")) {
+					txtBloodTypePersonalProfile.setText("A");
+				}else if (blood!=null && blood.equals("B")) {
+					txtBloodTypePersonalProfile.setText("B");
+				}else if (blood!=null && blood.equals("O")) {
+					txtBloodTypePersonalProfile.setText("O");
+				}else if (blood!=null && blood.equals("AB")) {
+					txtBloodTypePersonalProfile.setText("AB");
+				}else if (blood!=null && blood.equals("OTHER")) {
+					txtBloodTypePersonalProfile.setText("其他");
+				}
+				if (birthDay!=null) {
+					txtBirthPersonalProfile.setText(birthDay);
+				}
+				if (IdCard!=null) {
+					txtAuthenticationPersonalProfile.setText(IdCard);
+				}
+				if (email!=null) {
+					txtEmailPersonalProfile.setText(email);
+				}
+				if (defaultAddress!=null) {
+					txtAddressPersonalProfile.setText(defaultAddress);
+				}
 				break;
-
 			default:
 				break;
 			}
 		};
-	};*/
+	};
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,203 +147,150 @@ public class UserInfoActivity extends FragmentActivity implements
 
 		_this = this;
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
-		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
-		iBtnPageBack.setOnClickListener(this);
 		txtPageTitle.setText(this
 				.getString(R.string.title_user_personal_profile));
+		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
+		iBtnPageBack.setOnClickListener(this);
 
 		txtSexPersonalProfile = (TextView) this
 				.findViewById(R.id.txtSexPersonalProfile);
+		
 		txtBirthPersonalProfile = (TextView) this
 				.findViewById(R.id.txtBirthPersonalProfile);
+		
 		txtBloodTypePersonalProfile = (TextView) this
 				.findViewById(R.id.txtBloodTypePersonalProfile);
+		
 		txtAddressPersonalProfile = (TextView) this
 				.findViewById(R.id.txtAddressPersonalProfile);
+		
 		txtEmailPersonalProfile = (TextView) this
 				.findViewById(R.id.txtEmailPersonalProfile);
+		
 		txtAuthenticationPersonalProfile = (TextView) this
 				.findViewById(R.id.txtAuthenticationPersonalProfile);
 
 		layoutSexPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutSexPersonalProfile);
 		layoutSexPersonalProfile.setOnClickListener(this);
+		
 		layoutBloodTypePersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutBloodTypePersonalProfile);
 		layoutBloodTypePersonalProfile.setOnClickListener(this);
+		
 		layoutBirthdayPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutBirthdayPersonalProfile);
 		layoutBirthdayPersonalProfile.setOnClickListener(this);
+		
 		layoutAuthenticationPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutAuthenticationPersonalProfile);
 		layoutAuthenticationPersonalProfile.setOnClickListener(this);
+		
 		layoutAddressPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutAddressPersonalProfile);
 		layoutAddressPersonalProfile.setOnClickListener(this);
+		
 		layoutEmailPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutEmailPersonalProfile);
 		layoutEmailPersonalProfile.setOnClickListener(this);
+		
 		progressDialog = new QubaopenProgressDialog(this);
-
 		pickerExist = false;
 
-	}
-
-	private class LoadDataTask extends AsyncTask<String, Void, JSONObject> {
-
-		@Override
-		protected JSONObject doInBackground(String... params) {
-			// modify sex
-			JSONObject result = new JSONObject();
-			if (params[0] != null && params[0].equals("sex")) {
-				String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_USER_INFO_SEX);
-				JSONObject jsonParams = new JSONObject();
-				try {
-
-					Integer iSex = Integer.parseInt(params[1]);
-					jsonParams.put("sex", iSex);
-					result = HttpClient.requestSync(requestUrl, jsonParams);
-					if (result != null
-							&& result.getString("success").equals("1")) {
-						result.put("sex", iSex);
-						new UserInfoDao().saveUserInfoSex(
-								CurrentUserHelper.getCurrentPhone(), iSex);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			// modify blood type
-			if (params[0] != null && params[0].equals("bloodType")) {
-				String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_USER_INFO_BLOOD_TYPE);
-				JSONObject jsonParams = new JSONObject();
-				try {
-
-					Integer iType = Integer.parseInt(params[1]);
-					jsonParams.put("bloodtype", iType);
-					result = HttpClient.requestSync(requestUrl, jsonParams);
-					if (result != null
-							&& result.getString("success").equals("1")) {
-						result.put("bloodtype", iType);
-						new UserInfoDao().saveUserInfoBloodType(
-								CurrentUserHelper.getCurrentPhone(), iType);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			// modify birthday
-			if (params[0] != null && params[0].equals("birthday")) {
-				String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_USER_INFO_BIRTHDAY);
-				JSONObject jsonParams = new JSONObject();
-				try {
-
-					String sBirth = params[1];
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-					Date date = sdf.parse(sBirth);
-
-					jsonParams.put("birthdate", sBirth);
-					result = HttpClient.requestSync(requestUrl, jsonParams);
-					if (result != null
-							&& result.getString("success").equals("1")) {
-						result.put("birthdate", sBirth);
-						new UserInfoDao().saveUserInfoBirthDay(
-								CurrentUserHelper.getCurrentPhone(), date);
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			}
-
-			// load validate info
-			if (params[0] != null && params[0].equals("validate")) {
-				String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_USER_INFO_GET_ID);
-				JSONObject jsonParams = new JSONObject();
-				try {
-					result = HttpClient.requestSync(requestUrl, null);
-					result.put("validate", "1");
-					if (result != null
-							&& result.getString("success").equals("1")) {
-
-					}
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject jbo) {
-			if (jbo != null) {
-				try {
-					if (jbo.has("validate")) {
-						if (jbo.has("isExist")
-								&& jbo.getString("isExist").equals("1")) {
-							txtAuthenticationPersonalProfile
-									.setText(_this
-											.getString(R.string.user_info_authentication_true));
-						} else if (jbo.getString("isExist").equals("0")) {
-							txtAuthenticationPersonalProfile
-									.setText(_this
-											.getString(R.string.user_info_authentication_false));
-
-						}
-						progressDialog.dismiss();
-
-						return;
-
-					}
-					if (jbo.has("success")
-							&& jbo.getString("success").equals("1")) {
-
-						showToast(_this
-								.getString(R.string.toast_modify_success));
-						getSupportLoaderManager().restartLoader(0, null,
-								UserInfoActivity.this);
-
-					} else if (jbo.getString("success").equals("0")) {
-						String context = ErrHashMap.getErrMessage(jbo
-								.getString("message"));
-						context = context == null ? _this
-								.getString(R.string.toast_unknown) : context;
-						Toast.makeText(_this, context, 5).show();
-					}
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
-			}
-		}
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 	}
-
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
-
 		StatService.onResume(this);
-		// 加载数据
-		progressDialog.show();
-		getSupportLoaderManager().restartLoader(0, null, this);
-		new LoadDataTask().execute("validate");
+//		progressDialog.show();
+//		getSupportLoaderManager().restartLoader(0, null, this);
+		long userId = CurrentUserHelper.getCurrentUserId();
+		 String requestUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_USER_INFO_ADD);
+	        requestUrl+="/"+userId;
+		new LoadDataTask().execute(1,requestUrl,null,HttpClient.TYPE_GET);
 	}
+	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
 
+			@Override
+			protected JSONObject doInBackground(Object... params) {
+				JSONObject result=null;
+				Integer syncType=(Integer)params[0];
+				try {
+					switch(syncType){
+					case 1:
+						//null。。。。传参方式是get
+						//(Integer)params[3]对应上面的HttpClient.TYPE_POST
+						result = HttpClient.requestSync(params[1].toString(), null,(Integer)params[3]);
+						result.put("syncType", syncType);
+						break;
+					case 2:
+						result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
+						result.put("syncType", syncType);
+						break;
+					default :
+						break;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				return result;
+			}
+
+			@Override
+			protected void onPostExecute(JSONObject result) {
+				try {
+					Integer syncType=result.getInt("syncType");
+					switch(syncType){
+					case 1:
+						if (result != null && result.getInt("success") == 1) {
+			                //。。。。。。。。。
+							Toast.makeText(_this, "获取个人资料成功！", Toast.LENGTH_SHORT).show();
+							sex = result.getString("sex");
+							bloodType = result.getString("bloodType");
+							birthday = result.getString("birthday");
+							defaultAddress = result.getString("defaultAddress");
+							email = result.getString("email");
+							IdCard = result.getString("IdCard");
+							Message msg = Message.obtain();
+							msg.what = 0;
+							handler.sendMessage(msg);
+						}else {
+							Toast.makeText(_this, "获取数据失败！", Toast.LENGTH_SHORT).show();
+						}
+						break;
+					case 2:
+						if (result != null && result.getInt("success") == 1) {
+							//。。。。。。。。。
+							int code = result.getInt("success");
+							if(code == 1){
+								Message msg = Message.obtain();
+								msg.what = 1;
+								handler.sendMessage(msg);
+							}
+							Toast.makeText(_this, "获取个人资料成功！", Toast.LENGTH_SHORT).show();
+						}else {
+							Toast.makeText(_this, "获取数据失败！", Toast.LENGTH_SHORT).show();
+						}
+						break;
+					default:
+						break;
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+	    	
+	    }
+		
 	@Override
 	public void onClick(View v) {
 		Intent intent;
@@ -345,12 +341,11 @@ public class UserInfoActivity extends FragmentActivity implements
 						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
 				Boolean isAddressSaved = sharedPref.getBoolean(
 						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
-				if (!isAddressSaved) {
-					showToast("正在加载数据中");
-					v.setEnabled(true);
-					return;
-				}
-
+//				if (!isAddressSaved) {
+//					showToast("正在加载数据中");
+//					v.setEnabled(true);
+//					return;
+//				}
 				intent = new Intent(_this, UserInfoAddressActivity.class);
 				startActivity(intent);
 				v.setEnabled(false);
@@ -383,9 +378,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				.findViewById(R.id.btnFemaleSexPicker);
 		Button btnCancel = (Button) dialog
 				.findViewById(R.id.btnCancelSexPicker);
-
 		currentDialog = dialog;
-
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -393,35 +386,46 @@ public class UserInfoActivity extends FragmentActivity implements
 			}
 		});
 		btnMale.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("sex", "0");
-				txtSexPersonalProfile.setText("男");
-//				Message msg = Message.obtain();
-//				msg.what = 0;
-//				handler.sendMessage(msg);
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					iSex = Integer.parseInt("0");
+					iSex = "MALE";
+					Log.i("INFO", iSex);
+					obj.put("sex", iSex);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
-
 			}
 		});
-
 		btnFemale.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("sex", "1");
-				txtSexPersonalProfile.setText("女");
-//				Message msg = Message.obtain();
-//				msg.what = 1;
-//				handler.sendMessage(msg);
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					iSex = Integer.parseInt("1");
+					iSex = "FEMALE"; 
+					obj.put("sex", iSex);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
 
 			}
 		});
-
 		dialog.show();
-
 	}
 
 	public void BloodTypePicker() {
@@ -433,7 +437,6 @@ public class UserInfoActivity extends FragmentActivity implements
 				pickerExist = false;
 			}
 		};
-		;
 		dialog.setContentView(R.layout.dialog_pick_blood_type);
 		dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 		Window window = dialog.getWindow();
@@ -460,7 +463,19 @@ public class UserInfoActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("bloodType", "0");
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					blood = Integer.parseInt("0");
+					blood = "A";
+					obj.put("bloodType", blood);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
 			}
 		});
@@ -469,7 +484,19 @@ public class UserInfoActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("bloodType", "1");
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					blood = Integer.parseInt("1");
+					blood = "B";
+					obj.put("bloodType", blood);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
 			}
 		});
@@ -477,7 +504,19 @@ public class UserInfoActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("bloodType", "2");
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					blood = Integer.parseInt("2");
+					blood = "O";
+					obj.put("bloodType", blood);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
 			}
 		});
@@ -486,7 +525,19 @@ public class UserInfoActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("bloodType", "3");
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					blood = Integer.parseInt("3");
+					blood = "AB";
+					obj.put("bloodType", blood);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
 			}
 		});
@@ -494,23 +545,30 @@ public class UserInfoActivity extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				new LoadDataTask().execute("bloodType", "4");
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+//					blood = Integer.parseInt("4");
+					blood = "OTHER";
+					obj.put("id", userId);
+					obj.put("bloodType", blood);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
-
 	}
-
 	private int mYear, mMonth, mDay;
-
 	public void DatePicker() {
 		Calendar c = Calendar.getInstance();
 		mYear = c.get(Calendar.YEAR);
 		mMonth = c.get(Calendar.MONTH);
 		mDay = c.get(Calendar.DAY_OF_MONTH);
-
 		final DatePicker datepicker = new DatePicker(_this);
 		String sBirth = "";
 		Integer year = 1995;
@@ -523,13 +581,11 @@ public class UserInfoActivity extends FragmentActivity implements
 				month = Integer.parseInt(sBirth.substring(5, 7)) - 1;
 				day = Integer.parseInt(sBirth.substring(8, 10));
 			}
-		}
-		;
-
+		};
 		datepicker.init(year, month, day, null);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(_this);
-		builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+		builder.setOnCancelListener(new DialogInterface.OnCancelListener(){
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				pickerExist = false;
@@ -545,35 +601,43 @@ public class UserInfoActivity extends FragmentActivity implements
 				mDay = datepicker.getDayOfMonth();
 				// Toast.makeText(_this, mYear+"-"+mMonth+"-"+mDay,
 				// Toast.LENGTH_SHORT).show();
-				new LoadDataTask().execute("birthday", mYear + "-" + mMonth
-						+ "-" + mDay);
+//				new LoadDataTask().execute("birthday", mYear + "-" + mMonth
+//						+ "-" + mDay);
+				JSONObject obj = new JSONObject();
+				long userId = CurrentUserHelper.getCurrentUserId();
+				try {
+					obj.put("birthDay", birthDay);
+					obj.put("id", userId);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_UPDATE);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
 				pickerExist = false;
 			}
 
 		});
 		builder.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
-
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						pickerExist = false;
 					}
-
 				});
 		builder.show();
-	}
-
+	}		
+	
+	
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-		String name = CurrentUserHelper.getCurrentPhone();
+		long userId = CurrentUserHelper.getCurrentUserId();
 		return new SqlCursorLoader(this,
-				"select * from user_info where username='" + name
+				"select * from user_info where username='" + userId
 						+ "' limit 1;", UserInfo.class);
 	}
-
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
 		if (data.getCount() == 1) {
 			data.moveToFirst();
 			Integer sex = data.getInt(data.getColumnIndex("sex"));
@@ -581,11 +645,9 @@ public class UserInfoActivity extends FragmentActivity implements
 			String email = data.getString(data.getColumnIndex("email"));
 			String birthday = data.getString(data.getColumnIndex("birthday"));
 			String address = data.getString(data.getColumnIndex("address"));
-
 			// set sex value
 			if (sex == 1) {
-				txtSexPersonalProfile.setText(_this
-						.getString(R.string.dialog_pick_sex_female));
+				txtSexPersonalProfile.setText(_this.getString(R.string.dialog_pick_sex_female));
 			} else if (sex == 0) {
 				txtSexPersonalProfile.setText(_this
 						.getString(R.string.dialog_pick_sex_male));
@@ -608,11 +670,9 @@ public class UserInfoActivity extends FragmentActivity implements
 				txtBloodTypePersonalProfile.setText(_this
 						.getString(R.string.dialog_pick_blood_type_A));
 			} else if (bloodtype == 1) {
-				txtBloodTypePersonalProfile.setText(_this
-						.getString(R.string.dialog_pick_blood_type_B));
+				txtBloodTypePersonalProfile.setText(_this.getString(R.string.dialog_pick_blood_type_B));
 			} else if (bloodtype == 2) {
-				txtBloodTypePersonalProfile.setText(_this
-						.getString(R.string.dialog_pick_blood_type_O));
+				txtBloodTypePersonalProfile.setText(_this.getString(R.string.dialog_pick_blood_type_O));
 			} else if (bloodtype == 3) {
 				txtBloodTypePersonalProfile.setText(_this
 						.getString(R.string.dialog_pick_blood_type_AB));
@@ -650,7 +710,7 @@ public class UserInfoActivity extends FragmentActivity implements
 	@Override
 	protected void onPause() {
 		super.onPause();
-		StatService.onPause(this);
+		StatService.onPause(_this);
 	}
 
 }

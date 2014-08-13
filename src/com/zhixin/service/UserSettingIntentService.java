@@ -37,6 +37,8 @@ public class UserSettingIntentService extends IntentService {
 			jbo.remove("sStartTime");
 			jbo.remove("sEndTime");
 			jbo.remove("isTs");
+			jbo.remove("isHygkwj");
+			jbo.remove("isSllms");
 			JSONObject orjbo = new JSONObject(data.getStringExtra("json"));
 
 			JSONObject result = HttpClient.requestSync(requestUrl, jbo);

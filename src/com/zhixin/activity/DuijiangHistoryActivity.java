@@ -34,12 +34,11 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 
 	private DuijiangHistoryActivity _this;
 
-	private View duijiangRecordComp;
+//	private View duijiangRecordComp;
 //	private View duijiangStatusComp;
 	private Button syncDataBtn;
 //	private DiaoyanHistoryTabBarLayout radioGroup;
 	private ListView listView;
-	private View tableHead;
 	private View nothingIntheListView;
 	private ImageButton iBtnPageBack;
 
@@ -119,7 +118,6 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
 
@@ -141,7 +139,6 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 		listView = (ListView) this.findViewById(R.id.listView);
 		nothingIntheListView = this.findViewById(R.id.nothingIntheListView);
 		syncDataBtn = (Button) this.findViewById(R.id.syncDataBtn);
-		tableHead = this.findViewById(R.id.tableHead);
 
 //		leftIndicatorTxt = (TextView) this.findViewById(R.id.leftIndicatorTxt);
 //		rightIndicatorTxt = (TextView) this
@@ -157,7 +154,7 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 		((TextView) this.findViewById(R.id.title_of_the_page))
 				.setText(getString(R.string.title_duijiang_history));
 
-		duijiangRecordComp.setOnClickListener(this);
+//		duijiangRecordComp.setOnClickListener(this);
 		syncDataBtn.setOnClickListener(this);
 
 		progressDialog.show();
@@ -191,17 +188,13 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (cursor.getCount() == 0) {
-			if (tableHead.isShown()) {
-				tableHead.setVisibility(View.GONE);
-			}
+		
 			if (!nothingIntheListView.isShown()) {
 				nothingIntheListView.setVisibility(View.VISIBLE);
 			}
 
 		} else {
-			if (!tableHead.isShown()) {
-				tableHead.setVisibility(View.VISIBLE);
-			}
+
 			if (nothingIntheListView.isShown()) {
 				nothingIntheListView.setVisibility(View.GONE);
 			}

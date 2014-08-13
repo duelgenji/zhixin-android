@@ -4,11 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,7 +32,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
 
     private TextView txtPageTitle;
     private ImageButton iBtnPageBack;
-    private Button submitBtn;
+    private TextView submitBtn;
 
         private Activity _this;
 
@@ -51,7 +51,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
         iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
         iBtnPageBack.setOnClickListener(this);
         txtPageTitle.setText(this.getString(R.string.title_user_email));
-        submitBtn= (Button) this.findViewById(R.id.addressSubmit);
+        submitBtn= (TextView) this.findViewById(R.id.addressSubmit);
         submitBtn.setOnClickListener(this);
 
         txtInputEmailPersonalProfile=(EditText)  this.findViewById(R.id.txtInputEmailPersonalProfile);
@@ -74,7 +74,39 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
                 v.setEnabled(true);
                 break;
             case R.id.addressSubmit:
-                sendRequest();
+  //              sendRequest();
+            	
+            	if(txtInputEmailPersonalProfile.getText()==null){
+                    showToast(_this.getString(R.string.toast_input_cant_be_null));
+                    submitBtn.setEnabled(true);
+                    return;
+                }
+                String sEmail=txtInputEmailPersonalProfile.getText().toString().trim();
+
+                if(sEmail.equals("")){
+                    showToast(_this.getString(R.string.toast_input_cant_be_null));
+                    submitBtn.setEnabled(true);
+                    return;
+                }
+                if(MatcherUtil.validateEmail(sEmail)){
+                	String requestUrl = SettingValues.URL_PREFIX
+							+ UserInfoEmailActivity.this
+									.getString(R.string.URL_USER_INFO_UPDATE);
+					JSONObject jsonParams = new JSONObject();
+					long userId = CurrentUserHelper.getCurrentUserId();
+					try {
+						jsonParams.put("email",sEmail);
+						jsonParams.put("id", userId);
+                        sNewEmail=sEmail;
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					new LoadDataTask1().execute(1,requestUrl,jsonParams,HttpClient.TYPE_PUT);
+                }else{
+                    showToast(_this.getString(R.string.toast_user_info_wrong_email));
+                    submitBtn.setEnabled(true);
+                    return;
+                }
                 break;
             default:
                 break;
@@ -82,6 +114,54 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
         }
     }
 
+    private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{
+
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result=null;
+			Integer syncType=(Integer)params[0];
+			try {
+				switch(syncType){
+				case 1:
+					//null。。。。传参方式是get
+					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
+					result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
+					result.put("syncType", syncType);
+					break;
+				default :
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType=result.getInt("syncType");
+				switch(syncType){
+				case 1:
+					if (result != null && result.getInt("success") == 1) {
+		                //。。。。。。。。。
+						txtInputEmailPersonalProfile.setText("");
+						Intent intent = new Intent(_this, UserInfoActivity.class);
+						startActivity(intent);
+						Toast.makeText(_this, "修改昵称成功！", Toast.LENGTH_SHORT).show();
+					}else {
+						Toast.makeText(_this, "修改失败！", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+    }
+    
     private class LoadDataTask extends AsyncTask<JSONObject, Void, JSONObject> {
 
         @Override
@@ -112,8 +192,6 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
                     if(jbo.has("success") && jbo.getString("success").equals("1")){
                         showToast(_this.getString(R.string.toast_modify_success));
                         _this.onBackPressed();
-
-
                     }else if(jbo.getString("success").equals("0")){
                         String context= ErrHashMap.getErrMessage(jbo.getString("message"));
                         context= context==null? _this.getString(R.string.toast_unknown):context;
@@ -165,7 +243,6 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         StatService.onResume(this);
 

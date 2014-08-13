@@ -6,15 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.ParseException;
 
 import net.tsz.afinal.FinalBitmap;
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 
 import org.apache.commons.io.FilenameUtils;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -62,7 +59,6 @@ import com.zhixin.domain.UserInfo;
 import com.zhixin.provider.InternalStorageContentProvider;
 import com.zhixin.service.CropImageIntentService;
 import com.zhixin.settings.CurrentUserHelper;
-import com.zhixin.settings.ErrHashMap;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.RecToCircleTask;
 import com.zhixin.utils.SqlCursorLoader;
@@ -82,31 +78,16 @@ public class ZhibiFragment extends Fragment implements
 	private ImageView headImageViewPlaceHolder;
 
 	private ZhibiService zhibiService;
-
 	private FinalBitmap fb;
 
-	private View levelComp;
-	private View rankComp;
-	private View creditAvailableComp;
-
-	private TextView textViewForLevel;
-	private TextView textViewForRank;
 	private TextView textViewForCreditAvailable;
 	private TextView titleOfThePage;
 	private TextView nickNameTextView;
 	private TextView coinNumberText;
-	private TextView txtQiandaoQSJ;
 
 	private ImageButton editNickNameBtn;
-	private ImageButton iconForQuFriend;
-	private ImageButton quBaoBaoBtn;
-	private ImageButton baobaoMarketBtn;
-
-	private ImageView imgIsRead;
 
 	private LinearLayout layoutCoinQSJ;
-	private LinearLayout layoutMessageQSJ;
-	private LinearLayout layoutQiandaoQSJ;
 
 	private Handler closePicImageDialogHander;
 
@@ -171,52 +152,22 @@ public class ZhibiFragment extends Fragment implements
 		}
 	}
 
-//	private class LevelCompClickListener implements View.OnClickListener {
-//
-//		@Override
-//		public void onClick(View v) {
-//			Intent intent = new Intent(mainActivity, LevelActivity.class);
-//			startActivity(intent);
-//		}
-//	}
+	private class NicknameIconClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			editNickNameBtn.setEnabled(false);
+			Intent intent = new Intent(mainActivity,
+				ModifyNicknameActivity.class);
+			String nickName = nickNameTextView.getText().toString();
+			if (nickName != null && !nickName.equals("")) {
+				intent.putExtra(ModifyNicknameActivity.INTENT_NICKNAME,
+						nickName);
+			}
+			startActivity(intent);
+			editNickNameBtn.setEnabled(true);
+		}
 
-//	private class RankCompClickListener implements View.OnClickListener {
-//
-//		@Override
-//		public void onClick(View v) {
-//			Intent intent = new Intent(mainActivity, RankActivity.class);
-//			startActivity(intent);
-//		}
-//	}
-
-//	private class NicknameIconClickListener implements View.OnClickListener {
-//		@Override
-//		public void onClick(View v) {
-//			editNickNameBtn.setEnabled(false);
-//			Intent intent = new Intent(mainActivity,
-//					ModifyNicknameActivity.class);
-//			String nickName = nickNameTextView.getText().toString();
-//			if (nickName != null && !nickName.equals("")) {
-//				intent.putExtra(ModifyNicknameActivity.INTENT_NICKNAME,
-//						nickName);
-//			}
-//			startActivity(intent);
-//			editNickNameBtn.setEnabled(true);
-//		}
-//
-//	}
-
-//	private class BaobaoMarketBtnClickListener implements View.OnClickListener {
-//
-//		@Override
-//		public void onClick(View v) {
-//			v.setEnabled(false);
-//			Intent intent = new Intent(mainActivity, BaobaoMarketActivity.class);
-//			startActivity(intent);
-//			v.setEnabled(true);
-//		}
-//
-//	}
+	}
 
 //	private class EncashAccountClickListener implements View.OnClickListener {
 //		@Override
@@ -228,25 +179,6 @@ public class ZhibiFragment extends Fragment implements
 //			layoutCoinQSJ.setEnabled(true);
 //		}
 //	}
-//
-//	private class UserMessageClickListener implements View.OnClickListener {
-//		@Override
-//		public void onClick(View v) {
-//			layoutMessageQSJ.setEnabled(false);
-//			Intent intent = new Intent(mainActivity, UserMessageActivity.class);
-//			startActivity(intent);
-//			layoutMessageQSJ.setEnabled(true);
-//		}
-//	}
-
-	private class QiandaoClickListener implements View.OnClickListener {
-		@Override
-		public void onClick(View v) {
-			layoutQiandaoQSJ.setEnabled(false);
-			new LoadDataTask().execute();
-		}
-	}
-
 	private class ClickImageToChangeHeadIcon implements View.OnClickListener {
 
 		@Override
@@ -390,45 +322,21 @@ public class ZhibiFragment extends Fragment implements
 		zhibiService = new ZhibiService(mainActivity);
 		userService = new UserService(mainActivity);
 		headImageView = (ImageView) view.findViewById(R.id.headIconQSJ);
-//		quBaoBaoBtn = (ImageButton) view.findViewById(R.id.quBaoBaoBtn);
-//		quBaoBaoBtn.setOnClickListener(new QuBaoBaoBtnClickListener());
-//
-//		baobaoMarketBtn = (ImageButton) view.findViewById(R.id.baobaoMarketBtn);
-//		baobaoMarketBtn.setOnClickListener(new BaobaoMarketBtnClickListener());
-
-//		levelComp = view.findViewById(R.id.levelComp);
-//		levelComp.setOnClickListener(new LevelCompClickListener());
-//		rankComp = view.findViewById(R.id.rankComp);
-//		rankComp.setOnClickListener(new RankCompClickListener());
-		creditAvailableComp = view.findViewById(R.id.creditAvailableComp);
-
-		textViewForLevel = (TextView) view.findViewById(R.id.textViewForLevel);
-		textViewForRank = (TextView) view.findViewById(R.id.textViewForRank);
 		titleOfThePage = (TextView) view.findViewById(R.id.title_of_the_page);
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
 		coinNumberText = (TextView) view.findViewById(R.id.coinNumberText);
-		txtQiandaoQSJ = (TextView) view.findViewById(R.id.txtQiandaoQSJ);
 		textViewForCreditAvailable = (TextView) view
 				.findViewById(R.id.textViewForCreditAvailable);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
-//		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
+		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
 		layoutCoinQSJ = (LinearLayout) view.findViewById(R.id.layoutCoinQSJ);
 //		layoutCoinQSJ.setOnClickListener(new EncashAccountClickListener());
-		layoutMessageQSJ = (LinearLayout) view
-				.findViewById(R.id.layoutMessageQSJ);
-//		layoutMessageQSJ.setOnClickListener(new UserMessageClickListener());
-		layoutQiandaoQSJ = (LinearLayout) view
-				.findViewById(R.id.layoutQiandaoQSJ);
-		layoutQiandaoQSJ.setOnClickListener(new QiandaoClickListener());
 
-		imgIsRead = (ImageView) view.findViewById(R.id.imgIsRead);
+
 		headImageViewPlaceHolder = (ImageView) view
 				.findViewById(R.id.headIconPHQSJ);
 		headImageViewPlaceHolder
 				.setOnClickListener(new ClickImageToChangeHeadIcon());
-
-//		iconForQuFriend = (ImageButton) view.findViewById(R.id.iconForQuFriend);
-//		iconForQuFriend.setOnClickListener(new QuFriendClickListener());
 
 		titleOfThePage.setText(this.getString(R.string.footer_zhibi));
 
@@ -437,7 +345,7 @@ public class ZhibiFragment extends Fragment implements
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
 		}
-
+/**
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
@@ -458,9 +366,9 @@ public class ZhibiFragment extends Fragment implements
 
 		}.execute();
 
+ */
 		return view;
 	}
-
 	@Override
 	public void onStart() {
 		super.onStart();
@@ -552,30 +460,14 @@ public class ZhibiFragment extends Fragment implements
 
 	private void updateContentAfterLoading(Cursor cursor) {
 		cursor.moveToFirst();
-		textViewForLevel.setText(cursor.getString(cursor
-				.getColumnIndex("levelName")));
-
-		textViewForRank
-				.setText(cursor.getString(cursor.getColumnIndex("rank")));
+		
+		
 		nickNameTextView.setText(cursor.getString(cursor
 				.getColumnIndex("nickname")));
 		coinNumberText.setText(cursor.getString(cursor.getColumnIndex("coin")));
 		textViewForCreditAvailable.setText(cursor.getString(cursor
 				.getColumnIndex("credit")));
-		int qiandaoId = cursor.getInt(cursor.getColumnIndex("qiandaoId"));
-		if (qiandaoId == 1) {
-			txtQiandaoQSJ.setText(R.string.qushejiao_qiandao_already);
-			layoutQiandaoQSJ.setEnabled(false);
-		} else {
-			txtQiandaoQSJ.setText(R.string.qushejiao_qiandao);
-		}
-
-		int isRead = cursor.getInt(cursor.getColumnIndex("unread"));
-		if (isRead == 1) {
-			imgIsRead.setVisibility(View.VISIBLE);
-		} else {
-			imgIsRead.setVisibility(View.INVISIBLE);
-		}
+		
 		File fileFolder = new File(Environment.getExternalStorageDirectory()
 				+ SettingValues.PATH_USER_TX_PREFIX);
 		if (!fileFolder.exists()) {
@@ -705,55 +597,7 @@ public class ZhibiFragment extends Fragment implements
 		mainActivity.registerReceiver(mReceiver, intentFilter);
 	}
 
-	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
-
-		@Override
-		protected JSONObject doInBackground(Object... params) {
-			JSONObject result = new JSONObject();
-			try {
-				result = userService.qiandao();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject jbo) {
-			try {
-				if (jbo.has("success") && jbo.getString("success").equals("1")) {
-
-					layoutQiandaoQSJ.setEnabled(false);
-					txtQiandaoQSJ.setText(R.string.qushejiao_qiandao_already);
-					String outPutString = "恭喜您获得";
-					String jf = jbo.getString("jf");
-					outPutString += jf + "积分的奖励";
-					String extracredit = "";
-					if (jbo.has("extracredit")
-							&& !jbo.getString("extracredit").equals("")) {
-						extracredit = jbo.getString("extracredit");
-						outPutString += ",连续7天签到获得额外" + extracredit + "积分奖励";
-					}
-					showToast(outPutString);
-
-				} else if (jbo.getString("success").equals("0")) {
-					String content = ErrHashMap.getErrMessage(jbo
-							.getString("message"));
-					content = content == null ? mainActivity
-							.getString(R.string.toast_unknown) : content;
-					Toast.makeText(mainActivity, content, 5).show();
-					layoutQiandaoQSJ.setEnabled(true);
-				}
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
-
+	
 	private void showToast(String content) {
 		Toast.makeText(mainActivity, content, 3).show();
 	}

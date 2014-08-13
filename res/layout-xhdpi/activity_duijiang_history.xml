@@ -19,60 +19,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical" >
 
-            <LinearLayout
-                android:id="@+id/tableHead"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_weight="5.44"
-                android:background="@drawable/history_duijang_table_head_background"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/table_head_bianhao"
-                    android:textColor="@color/text_grey"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/table_head_jiangping"
-                    android:textColor="@color/text_grey"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/table_head_riqi"
-                    android:textColor="@color/text_grey"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/table_head_jingbiorjifen"
-                    android:textColor="@color/text_grey"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="@string/table_head_queren"
-                    android:textColor="@color/text_grey"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
             <ListView
                 android:id="@+id/listView"
                 android:layout_width="match_parent"

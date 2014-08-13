@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -33,7 +32,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
 
     private TextView txtPageTitle;
     private ImageButton iBtnPageBack;
-    private Button btnSubmit;
+    private TextView btnSubmit;
 
     private EditText txtAddressAddName;
     private EditText txtAddressAddPhone;
@@ -64,7 +63,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
         iBtnPageBack.setOnClickListener(this);
         txtPageTitle
                 .setText(this.getString(R.string.title_user_add_address));
-        btnSubmit = (Button) this.findViewById(R.id.addressSubmit);
+        btnSubmit = (TextView) this.findViewById(R.id.addressSubmit);
         btnSubmit.setOnClickListener(this);
 
         txtAddressAddName = (EditText) this
@@ -100,6 +99,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
                 break;
             case R.id.txtAddressAddArea:
                 if (!pickerExist) {
+                	pickerExist = true;
                     AreaPicker();
                 }
                 break;
@@ -118,7 +118,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
 
             try {
                 String requestUrl = SettingValues.URL_PREFIX
-                        + getString(R.string.URL_USER_ADDRESS_NEW);
+                        + getString(R.string.URL_USER_ADDRESS);
                 JSONObject jsonParams = jbo[0];
                 result = HttpClient.requestSync(requestUrl, jsonParams);
                 if (result != null && result.has("success")
@@ -279,7 +279,6 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         StatService.onResume(this);
 

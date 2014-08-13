@@ -10,7 +10,7 @@
     <string name="share_title_quduijiang">快来趣宝盆拿奖品！</string>
 
     <!-- save share content here -->
-    <string name="share_content_sharesoft">我正在使用@趣宝盆，不仅好玩有趣而且还能赚积分抽大奖，你也来试试啦~ http://www.qubaopen.com.cn</string>
+    <string name="share_content_sharesoft">我正在使用@知心，不仅好玩有趣而且还能赚积分抽大奖，你也来试试啦~ http://www.zhixin.com.cn</string>
     <string name="share_content_quceshi_part1">我刚做了趣宝盆【</string>
     <string name="share_content_quceshi_part2">】测试，好玩有趣，获取的积分还能抽大奖！</string>
     <string name="share_content_qudiaoyan_part1">我刚做了趣宝盆【</string>
@@ -23,13 +23,13 @@
     <string name="share_content_quduijiang_part2">】，大家也一起来吧！</string>
 
     <!-- save url here -->
-    <string name="share_redirec_url">  应用下载链接:http://www.qubaopen.com.cn</string>
+    <string name="share_redirec_url">  应用下载链接:http://www.zhixin.com.cn</string>
     <string name="share_download"></string>
 
     <!-- share success -->
     <string name="share_success_str1">分享成功，获得</string>
     <string name="share_success_str2">积分</string>
-    <string name="share_image_url">http://www.qubaopen.com.cn/images/btn/logo_96.png</string>
+    <string name="share_image_url">http://www.zhixin.com.cn/images/btn/logo_96.png</string>
     <string name="share_web_url">http://www.qubaopen.com.cn</string>
 
     <!-- share callback -->
@@ -37,6 +37,6 @@
     <string name="share_callback_choujiang">lottery/share.htm</string>
     <string name="share_callback_duijiang">duijiang/share.htm</string>
     <string name="share_callback_huati">yhht/share.htm</string>
-    <string name="share_callback_sharesoft">more/shareSoft.htm</string>
+    <string name="share_callback_sharesoft">userInfos/sharedUserInfo</string>
 
 </resources>
