@@ -45,7 +45,6 @@ CompoundButton.OnCheckedChangeListener, View.OnClickListener {
     	//页面名称
     	((TextView)findViewById(R.id.title_of_the_page))
 		.setText(getString(R.string.title_quduijiang));
-    	
     	gridView = (GridView)findViewById(R.id.duijiangList);
 		backup_btn = (ImageButton)findViewById(R.id.backup_btn);
 		backup_btn.setVisibility(View.INVISIBLE);
@@ -63,7 +62,6 @@ CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 /**		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
-				//连接后台数据接口
 				SharedPreferences sharedPref = mainActivity
 						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 								Context.MODE_PRIVATE);
@@ -81,9 +79,7 @@ CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 			}
 
 		}.execute();
-		
  */
-		
     }
 	@Override
 	public void onClick(View v) {

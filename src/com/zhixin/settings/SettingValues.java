@@ -5,6 +5,7 @@ public class SettingValues {
 
 	//	public static final String URL_PREFIX = "http://qubaopen.com.cn/demo/";
 		public static final String URL_PREFIX = "http://10.0.0.88:8080/know-heart/"; 
+//		public static final String URL_PREFIX = "http://10.0.0.16:8081/";
 		// Setttings in quceshi
 		public static final int QU_LIST_BY_DEFAULT_NEXT_ROUND_NUM = 10;
 

@@ -163,11 +163,11 @@ public class QuHistoryCheckActivity extends FragmentActivity implements
 				if (!sTitle.equals("")) {
 					sOutPut += "<font color=#269BF6>" + sTitle + "</font><br/>";
 				}
-				new QBPShareFunction(
-						QuHistoryCheckActivity.this
-								.findViewById(R.id.shareComponent),
-						QBPShareFunction.QU_CESHI, sTitle,
-						QuHistoryCheckActivity.this, lotteryId);
+//				new QBPShareFunction(
+//						QuHistoryCheckActivity.this
+//								.findViewById(R.id.shareComponent),
+//						QBPShareFunction.QU_CESHI, sTitle,
+//						QuHistoryCheckActivity.this, lotteryId);
 
 			}
 			if (jbo.has("sContent")) {

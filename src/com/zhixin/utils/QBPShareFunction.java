@@ -62,7 +62,7 @@ public class QBPShareFunction implements View.OnClickListener {
 			smsBtn.setOnClickListener(this);
 		}
 
-		this.keyWord = keyWord;
+//		this.keyWord = keyWord;
 		this.shareId = shareId;
 		this.context = context;
 		this.keyId = keyId;
@@ -76,29 +76,29 @@ public class QBPShareFunction implements View.OnClickListener {
 		case SHARE_APP:
 			this.shareTitle = context.getString(R.string.share_title_sharesoft);
 			this.shareContent = context
-					.getString(R.string.share_content_sharesoft)
-					+ " 接头暗号:"
-					+ keyWord;
+					.getString(R.string.share_content_sharesoft);
+//					+ " 接头暗号:"
+//					+ keyWord;
 			break;
 		case QU_CESHI:
 			this.shareTitle = context.getString(R.string.share_title_quceshi);
 			this.shareContent = context
 					.getString(R.string.share_content_quceshi_part1)
-					+ keyWord
+//					+ keyWord
 					+ context.getString(R.string.share_content_quceshi_part2);
 			break;
 		case QU_DIAOYAN:
 			this.shareTitle = context.getString(R.string.share_title_qudiaoyan);
 			this.shareContent = context
 					.getString(R.string.share_content_qudiaoyan_part1)
-					+ keyWord
+//					+ keyWord
 					+ context.getString(R.string.share_content_qudiaoyan_part2);
 			break;
 		case QU_HUATI:
 			this.shareTitle = context.getString(R.string.share_title_quhuati);
 			this.shareContent = context
 					.getString(R.string.share_content_quhuati_part1)
-					+ keyWord
+//					+ keyWord
 					+ context.getString(R.string.share_content_quhuati_part2);
 
 			break;
@@ -107,7 +107,7 @@ public class QBPShareFunction implements View.OnClickListener {
 					.getString(R.string.share_title_quchoujiang);
 			this.shareContent = context
 					.getString(R.string.share_content_quchoujiang_part1)
-					+ keyWord
+//					+ keyWord
 					+ context
 							.getString(R.string.share_content_quchoujiang_part2);
 			break;
@@ -117,7 +117,7 @@ public class QBPShareFunction implements View.OnClickListener {
 					.getString(R.string.share_title_quduijiang);
 			this.shareContent = context
 					.getString(R.string.share_content_quduijiang_part1)
-					+ keyWord
+//					+ keyWord
 					+ context
 							.getString(R.string.share_content_quduijiang_part2);
 			break;

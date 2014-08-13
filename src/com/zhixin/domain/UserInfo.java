@@ -19,6 +19,15 @@ public class UserInfo {
 	private String name;
 
 	private int memberId;
+	private long userId;
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 
 	// sex 0 for male 1 for female
 	private int sex;

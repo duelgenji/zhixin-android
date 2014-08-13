@@ -5,6 +5,7 @@ import java.text.ParseException;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
+import net.tsz.afinal.http.AjaxParams;
 
 import org.apache.commons.io.FilenameUtils;
 import org.json.JSONException;
@@ -54,10 +55,8 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	private ToggleButton checkAgreement;
     private TextView txtAgreeTips;
     private TextView txtAgreePrivacyTips;
-
     private ImageButton btnClearText;
     private RegistPhoneActivity _this;
-	
 	//获取验证码
 	private ImageButton ib_get_reg_code;
 	//倒计时
@@ -97,15 +96,10 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 			}
 		}
 	};
-	
 	private EditText firstLinePassword;
-
 	private TextView registConfirmPassword;
-
 	private Context context;
-
 	private Toast phoneInvalidToast;
-	
 //	private Toast passwordInvalidToast;
 	private ImageView take_pic;
 	private ImageView head_img;
@@ -129,16 +123,8 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 			CurrentUserHelper.saveBitmap(result);
 			head_img.setImageResource(R.drawable.head_white_ring_background);
 			head_img.setImageBitmap(result);
-	
-		
-
 	}
-
 }
-	
-	
-	
-	
 	private Toast iDontAgreeToast;
 
 	@Override
@@ -146,7 +132,6 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.zhuce);
-		
 		//倒计时
 		reg_code_time = (TextView)findViewById(R.id.reg_code_time);
         txtPageTitle= (TextView)findViewById(R.id.title_of_the_page);
@@ -175,8 +160,8 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         //获取验证码
         ib_get_reg_code = (ImageButton) findViewById(R.id.ib_get_reg_code);
         ib_get_reg_code.setOnClickListener(this);
-        clearTextviewBtn = (ImageButton)findViewById(R.id.clearTextviewBtn);
-		clearTextviewBtn.setOnClickListener(this);
+//        clearTextviewBtn = (ImageButton)findViewById(R.id.clearTextviewBtn);
+//		clearTextviewBtn.setOnClickListener(this);
 		validateCodeEditText = (EditText) this.findViewById(R.id.validate_code);
 
 		SharedPreferences sharedPref = this.getSharedPreferences(
@@ -187,23 +172,12 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 
 		txtPageTitle = (TextView)findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this.getString(R.string.title_set_pwd));
-		iBtnPageBack = (ImageButton)findViewById(R.id.backup_btn);
-		iBtnPageBack.setOnClickListener(this);
-
-		registConfirmPassword = (TextView)findViewById(R.id.regist_confirm_password);
-		firstLinePassword = (EditText)findViewById(R.id.password_first_line);
-
-		registConfirmPassword.setOnClickListener(this);
 		
 
+		registConfirmPassword = (TextView)findViewById(R.id.regist_confirm_password);
+		registConfirmPassword.setOnClickListener(this);
+		firstLinePassword = (EditText)findViewById(R.id.password_first_line);
     }
-
-	
-	
-
-
-
-    
 	@Override
 	public void onClick(View v) {
 //		v.setEnabled(false);
@@ -246,7 +220,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         					if(MatcherUtil.validatePassword(password)){
         						try {
 	        						sendValidateCode(phone);
-	        						handler.postDelayed(runnable, 1000);
+//	        						handler.postDelayed(runnable, 1000);
         						} catch (ParseException e) {
         						    e.printStackTrace();
         						}
@@ -289,14 +263,6 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		}
 //		v.setEnabled(true);
 	}
-	
-    
-    
-	/**
-	 * 发送验证码
-	 */
-	
-	//szs
 	public JSONObject sendValidateCode(String phone) throws ParseException {
 //		phone = validateFields();
 		JSONObject result=new JSONObject();
@@ -317,17 +283,13 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	
 	public JSONObject actionConfirm(String phone,String password,String captcha) throws ParseException {
         JSONObject result=new JSONObject();
-        JSONObject obj = new JSONObject();
-        try {
+        AjaxParams obj = new AjaxParams();
 			obj.put("phone", phone);
 			obj.put("password", password);
 			obj.put("captcha", captcha);
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
-        new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST);
+        new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST_FORM);
 		return result;
 	}
 	
@@ -344,34 +306,6 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
         StatService.onPause(this);
     }
 
-    private String validateFields() {
-    	
-		// check user has agree or not
-		if (!checkAgreement.isChecked()) {
-			if (iDontAgreeToast == null) {
-				iDontAgreeToast = Toast.makeText(_this, getResources()
-						.getString(R.string.regist_i_dont_agree), 5);
-			}
-			iDontAgreeToast.show();
-			ib_get_reg_code.setEnabled(true);
-			return null;
-		}
-		// checkThePhoneValidity
-
-		if (!MatcherUtil.validateMobile(txtPhone.getText().toString())) {
-			if (phoneInvalidToast == null) {
-				phoneInvalidToast = Toast.makeText(_this, getResources()
-						.getString(R.string.regist_phone_invalid), 5);
-			}
-			phoneInvalidToast.show();
-			ib_get_reg_code.setEnabled(true);
-			return null;
-		} else {
-			return txtPhone.getText().toString();
-		}
-		
-	}
-    
     // new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST);
     //参数0——此actuvuty调的第几个后台接口.1——连接后台的Url.2.3
     private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
@@ -390,7 +324,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 					break;
 				case 2:
 					//(JSONObject)params[2]。。。Json解析，post方式
-					result = HttpClient.requestSync(params[1].toString(),(JSONObject)params[2],(Integer)params[3]);
+					result = HttpClient.requestSync(params[1].toString(),params[2],(Integer)params[3]);
 					result.put("syncType", syncType);
 					break;
 				default :
@@ -410,6 +344,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
 						Toast.makeText(_this, "验证码已发送！", Toast.LENGTH_SHORT).show();
+						handler.postDelayed(runnable, 1000);
 					}else {
 						Toast.makeText(_this, "请求出错！", Toast.LENGTH_SHORT).show();
 					}

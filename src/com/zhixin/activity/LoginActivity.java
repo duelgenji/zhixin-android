@@ -138,7 +138,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 				case 1:
 					//null。。。。传参方式是get
 					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
-
 					result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
 					result.put("syncType", syncType);
 					break;
@@ -159,9 +158,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
 		                //。。。。。。。。。
-						Toast.makeText(_this, "登陆成功", 3).show();
+						long userId = result.getLong("userId");
+						CurrentUserHelper.saveCurrentUserId(userId);
+						Toast.makeText(_this, "登陆成功", Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(_this,MainActivity.class);
 						startActivity(intent);
+						
+						//这个是设置你的Intent来自那个页面(setType==login)
+						//intent.setType("login");
+						//Intent带值传递可以传很多类型
+						//intent.putExtra("userid", userId);
 					}else {
 						Toast.makeText(_this, "账号或密码有误！", 3).show();
 					}
@@ -312,6 +318,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 //		case R.id.imgRegisterTips:
 			v.setEnabled(false);
 			intent = new Intent(this, RegistPhoneActivity.class);
+			
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
@@ -348,10 +355,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 				btnLogin.setEnabled(true);
 				return;
 			}
-			
-			
-			
-			
 		if(MatcherUtil.validateMobile(phone)){	
 			if(MatcherUtil.validatePassword(password)){
 				try {
@@ -365,23 +368,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 				btnLogin.setEnabled(true);
 			}
 		}else {
-			
 			//手机格式不正确
 			Toast.makeText(_this,"您填写的手机号码错误", 5).show();
 			btnLogin.setEnabled(true);
 		}	
 //		btnRegister.setEnabled(false);	
-			
-		
-			
 		btnLogin.setEnabled(true);
-			
-//			if (!MatcherUtil.validateMobile(phone)) {
-//				Toast.makeText(this,getResources().getString(R.string.logon_toast_phone_format_incorrect), 3).show();
-//				btnLogin.setEnabled(true);
-//				return;
-//			}
-			
 			break;
 		default:
 			break;

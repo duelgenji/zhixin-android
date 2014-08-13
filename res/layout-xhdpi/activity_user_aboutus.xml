@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        >
+<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" 
-    android:weightSum="96.1">
+    >
 
     <include
         android:layout_width="fill_parent"
         android:layout_height="27dp"
-        layout="@layout/header_user_info_address" />
+        layout="@layout/header_without_backward" />
 
 	<View
 	    android:layout_width="fill_parent"
@@ -166,10 +170,7 @@
                 android:layout_weight="3.4" />
         </LinearLayout>
 	</LinearLayout>
-	<ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        >
+	
 
 
         <TextView
@@ -183,5 +184,5 @@
             android:text="关于趣宝盆\n\n趣宝盆,是一款让您利用闲暇时间填写趣味测试的同时,了解自己,赚取积分的测试软件.我们立志于帮助用户将闲散的时间汇集起来,通过趣味的方式,使之实现价值.希望我们的努力能对您有些许的帮助!\n\nWEB网址:  www.qubaopen.com.cn\n官方微博: @趣宝盆之家\n官方微信:   趣宝盆\n软件版本:   v1.1\n\n关于隐私\n\n您的手机号码和身份证号码仅会被作为趣宝盆登陆、奖品发放和调研认证，我们不会向任何第三方透露您的手机号码，您的号码也不会被第三方搜索引擎检索到。\n\n特别鸣谢：良品ui的倾情帮助"/>
 
 
-    </ScrollView>
-</LinearLayout>
+	</LinearLayout>
+ </ScrollView>

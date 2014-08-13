@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 
-import com.zhixin.activity.ZhibiFragment;
-
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
+
+import com.zhixin.activity.MeFragment;
+import com.zhixin.activity.ZhibiFragment;
 
 /*
  * The solution is taken from here: http://stackoverflow.com/questions/10042695/how-to-get-camera-result-as-a-uri-in-data-folder
@@ -30,7 +31,7 @@ public class InternalStorageContentProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		try {
-			File mFile = new File(ZhibiFragment.TEMP_PHOTO_FILE_PATH);
+			File mFile = new File(MeFragment.TEMP_PHOTO_FILE_PATH);
 			if (!mFile.exists()) {
 				mFile.createNewFile();
 				getContext().getContentResolver().notifyChange(CONTENT_URI,

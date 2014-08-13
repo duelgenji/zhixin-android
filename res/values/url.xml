@@ -11,6 +11,9 @@
     <string name="URL_REGIST_SETUP_PASSWORD">users/register</string>
     <string name="URL_LOGIN_FORGOT_TOKEN">user/forgottoken.htm</string>
     <string name="URL_LOGIN_FORGOT_SET_NEW_PWD">users/resetPassword</string>
+    <string name="URL_USER_INFO_ADD">userInfos/retrievePersonalInfo</string>
+    <string name="URL_USER_SETTING">userUDIDs/retrieveUserUDID</string>
+    <string name="URL_USER_INFO_UPDATE">userInfos</string>
     <string name="URL_CHOUJIANG_LIST">lottery/list.htm</string>
     <string name="URL_DUIJIANG_LIST">duijiang/list.htm</string>
     <string name="URL_CHOUJIANG_DRAW">lottery/draw.htm</string>
@@ -29,9 +32,9 @@
     <string name="URL_BAOBAO_MARKET_CHANGE_TURN">yhbb/getRandomList.htm</string>
     <string name="URL_ROLLING_LIST_INFO">xtgg/getRollingList.htm</string>
     <string name="URL_QU_GONG_GAO_LIST">xtgg/getList.htm</string>
-    <string name="URL_MORE_SETTINGS">more/optionChange.htm</string>
+    <string name="URL_MORE_SETTINGS">userUDIDs</string>
     <string name="URL_GET_OPTION">more/getOption.htm</string>
-    <string name="URL_MORE_SUGGESTION">more/suggestion.htm</string>
+    <string name="URL_MORE_SUGGESTION">userFeedBacks</string>
     <string name="URL_MORE_RESET">user/resetpwd.htm</string>
     <string name="URL_GET_XQWJ">xqwj/getXqwj.htm</string>
     <string name="URL_USER_INFO_EMAIL">member/modifyemail.htm</string>
@@ -40,7 +43,7 @@
     <string name="URL_USER_INFO_BIRTHDAY">member/modifybirthdate.htm</string>
     <string name="URL_USER_INFO_ID">member/validateid.htm</string>
     <string name="URL_USER_INFO_GET_ID">member/getVerification.htm</string>
-    <string name="URL_USER_ADDRESS">yhxx/getAddressList.htm</string>
+    <string name="URL_USER_ADDRESS">userReceiveAddresses</string>
     <string name="URL_USER_ADDRESS_NEW">userInfos</string>
     <string name="URL_USER_ADDRESS_MODIFY">yhxx/modifyAddress.htm</string>
     <string name="URL_USER_ADDRESS_DELETE">yhxx/deleteAddress.htm</string>

@@ -5,8 +5,6 @@ import java.text.ParseException;
 import org.json.JSONException;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -27,7 +25,6 @@ import com.zhixin.R;
 import com.zhixin.adapter.XinliziceListAdapter;
 import com.zhixin.datasynservice.QuListService;
 import com.zhixin.datasynservice.XinliziceListService;
-import com.zhixin.dialog.InstructionDialog;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.XinliziceList;
 import com.zhixin.settings.SettingValues;
@@ -180,21 +177,21 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 			@Override
 			protected void onPostExecute(Boolean result) {
-				if (result) {
-					InstructionDialog qushouyeFirst = new InstructionDialog(
-							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
-					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
-						@Override
-						public void onDismiss(DialogInterface dialog) {
-							new InstructionDialog(_this,
-									SettingValues.INSTRUCTION_QUCESHI_LIST2)
-									.show();
-						}
-					});
+//				if (result) {
+//					InstructionDialog qushouyeFirst = new InstructionDialog(
+//							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
+//					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
+//						@Override
+//						public void onDismiss(DialogInterface dialog) {
+//							new InstructionDialog(_this,
+//									SettingValues.INSTRUCTION_QUCESHI_LIST2)
+//									.show();
+//						}
+//					});
 
-					qushouyeFirst.show();
+//					qushouyeFirst.show();
 
-				}
+//				}
 			}
 
 		}.execute();
