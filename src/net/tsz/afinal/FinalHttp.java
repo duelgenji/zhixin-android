@@ -18,6 +18,7 @@ package net.tsz.afinal;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executor;
@@ -56,6 +57,7 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.entity.HttpEntityWrapper;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
@@ -299,6 +301,23 @@ public class FinalHttp {
         return sendSyncRequest(httpClient, httpContext, request, contentType);
     }
     
+    
+    //afinal 支持json  by duel 20140815
+    public Object postSyncJSON2(String url, JSONObject json) {
+    	
+
+        StringEntity se;
+		try {
+			se = new StringEntity(json.toString());
+	        HttpEntityEnclosingRequestBase request = addEntityToRequestBase(new HttpPost(url), se);
+	        return sendSyncRequest(httpClient, httpContext, request, "application/json");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		return null;
+    }
+    
     public Object postSyncJSON(String url, JSONObject json) {
 
     	String response="";
@@ -357,6 +376,22 @@ public class FinalHttp {
         HttpEntityEnclosingRequestBase request = addEntityToRequestBase(new HttpPut(url), entity);
         if(headers != null) request.setHeaders(headers);
         return sendSyncRequest(httpClient, httpContext, request, contentType);
+    }
+    
+    //afinal 支持json  by duel 20140815
+    public Object putSyncJSON2(String url, JSONObject json) {
+    	
+
+        StringEntity se;
+		try {
+			se = new StringEntity(json.toString());
+	        HttpEntityEnclosingRequestBase request = addEntityToRequestBase(new HttpPut(url), se);
+	        return sendSyncRequest(httpClient, httpContext, request, "application/json");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+		return null;
     }
     
     public Object putSyncJSON(String url, JSONObject json) {
