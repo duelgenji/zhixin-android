@@ -14,13 +14,13 @@ import android.content.Context;
 
 public class QuListService {
 	public static class QuceshiSqlMaker {
-		public static final int ALL_TEST = 0;
-		public static final int XINGE_TEST = 1;
-		public static final int QINGAN_TEST = 2;
-		public static final int ZHICHANG_TEST = 3;
-		public static final int XINGZUO_TEST = 4;
-		public static final int ZHILI_TEST = 5;
-		public static final int QITA_TEST = 6;
+//		public static final int ALL_TEST = 0;
+//		public static final int XINGE_TEST = 1;
+//		public static final int QINGAN_TEST = 2;
+//		public static final int ZHICHANG_TEST = 3;
+//		public static final int XINGZUO_TEST = 4;
+//		public static final int ZHILI_TEST = 5;
+//		public static final int QITA_TEST = 6;
 
 		public static final int DEFAULT_ORDER = 0;
 		public static final int TUIJIAN_ORDER = 0;
@@ -28,26 +28,25 @@ public class QuListService {
 		public static final int TIME_ORDER = 2;
 		public static final int CREDIT_ORDER = 3;
 
-		public static String makeSql(int order, int type) {
+		public static String makeSql(int order) {
 			StringBuffer sqlBuffer = new StringBuffer();
 			sqlBuffer.append("select * from qu_list");
-			if (type != ALL_TEST) {
+//			if (type != ALL_TEST) {
 				sqlBuffer.append(" where type=");
-				sqlBuffer.append(type);
+//				sqlBuffer.append(type);
 				sqlBuffer.append(" and wjorder=");
 				sqlBuffer.append(order);
 				sqlBuffer.append(" and controlFlag=0");
-			} else {
+//			} else {
 				sqlBuffer.append(" where wjorder=");
 				sqlBuffer.append(order);
 				sqlBuffer.append(" and controlFlag=0");
-			}
+//			}
 			sqlBuffer.append(" order by _id asc");
 			return sqlBuffer.toString();
 
 		}
 	}
-
 	private Context context;
 	private QuListDao quListDao;
 
@@ -56,23 +55,20 @@ public class QuListService {
 		this.quListDao = new QuListDao();
 	}
 
-	public String refreshData(int order, int type, boolean refresh)
+	public String refreshData(int order, boolean refresh)
 			throws JSONException, ParseException {
 		String url = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_QUCESHI_LIST);
 		JSONObject requestParams;
 		if (refresh) {
 			requestParams = new JSONObject();
-			if (type != 0) {
-				requestParams.put("iType", String.valueOf(type));
-			}
 			requestParams.put("iOrderBy", String.valueOf(order));
 		} else {
-			requestParams = quListDao.getOldData(order, type);
+			requestParams = quListDao.getOldData(order);
 		}
 		JSONObject result = HttpClient.requestSync(url, requestParams);
 		if (result != null && result.getString("success").equals("1")) {
-			quListDao.saveDataByJson(result, order, type, refresh);
+			quListDao.saveDataByJson(result, order,refresh);
 
 		} else if (result != null) {
 			return result.getString("message");

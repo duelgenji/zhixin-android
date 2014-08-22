@@ -33,13 +33,11 @@
 			    android:layout_width="40dp"
 			    android:layout_height="match_parent"
 			    android:orientation="horizontal" >
-
                 <FrameLayout
                     android:id="@+id/tagFragment1"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:visibility="gone" >
-
                     <ImageView
                         android:id="@+id/tagImage"
                         android:layout_width="wrap_content"

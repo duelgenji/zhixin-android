@@ -54,6 +54,7 @@ import android.widget.Toast;
 
 /**
  * The activity can crop specific region of interest from an image.
+ * 相册里的裁剪图片上传
  */
 public class CropImage extends MonitoredActivity {
 
@@ -441,11 +442,9 @@ public class CropImage extends MonitoredActivity {
         super.onDestroy();
 
         if (mBitmap != null) {
-
             mBitmap.recycle();
         }
     }
-
 
     Runnable mRunFaceDetection = new Runnable() {
         @SuppressWarnings("hiding")
@@ -479,27 +478,21 @@ public class CropImage extends MonitoredActivity {
             if (faceRect.left < 0) {
                 faceRect.inset(-faceRect.left, -faceRect.left);
             }
-
             if (faceRect.top < 0) {
                 faceRect.inset(-faceRect.top, -faceRect.top);
             }
-
             if (faceRect.right > imageRect.right) {
                 faceRect.inset(faceRect.right - imageRect.right,
                         faceRect.right - imageRect.right);
             }
-
             if (faceRect.bottom > imageRect.bottom) {
                 faceRect.inset(faceRect.bottom - imageRect.bottom,
                         faceRect.bottom - imageRect.bottom);
             }
-
             hv.setup(mImageMatrix, imageRect, faceRect, mCircleCrop,
                     mAspectX != 0 && mAspectY != 0);
-
             mImageView.add(hv);
         }
-
         // Create a default HightlightView if we found no face in the picture.
         private void makeDefault() {
 

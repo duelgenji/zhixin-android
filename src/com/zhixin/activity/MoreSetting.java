@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ DialogInterface.OnDismissListener{
 	private TextView txtReceiveTime_MoreOption;
 	private ToggleButton tBtnEconomize_MoreOption;
 	private ToggleButton tBtnOpenToFriendAnswer_MoreOption;
+	
+	private Button logOutBtn;
 
 	private TimePickerDialog timePickerDialog;
 	private Activity _this;
@@ -62,7 +65,8 @@ DialogInterface.OnDismissListener{
 				tBtnNewMessage_MoreOption.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if (push.equals("true")) {
+	//					if (push.equals("true")) {
+							if (push==true) {	
 							ischecked = true;
 						}else {
 							ischecked = false;
@@ -72,7 +76,8 @@ DialogInterface.OnDismissListener{
 				tBtnEconomize_MoreOption.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						if (saveFlow.equals("true")) {
+//						if (saveFlow.equals("true")) {
+						if (saveFlow == true) {
 							ischecked = true;
 						}else {
 							ischecked = false;
@@ -82,8 +87,8 @@ DialogInterface.OnDismissListener{
 				tBtnOpenToFriendAnswer_MoreOption.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
-						if (publicAnswersToFriend.equals("true")) {
+//						if (publicAnswersToFriend.equals("true")) {
+						if (publicAnswersToFriend   == true) {
 							ischecked = true;
 						}else {
 							ischecked = false;
@@ -135,13 +140,15 @@ DialogInterface.OnDismissListener{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_user_setting);
-		
 		_this = this;
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
 		txtPageTitle.setText(this.getString(R.string.title_more_option));
 
+		logOutBtn = (Button) this.findViewById(R.id.logOutBtn);
+		logOutBtn.setOnClickListener(this);
+		
 		tBtnNewMessage_MoreOption = (ToggleButton) this
 				.findViewById(R.id.tBtnNewMessage_MoreOption);
 		tBtnNewMessage_MoreOption.setOnClickListener(this);
@@ -228,7 +235,6 @@ DialogInterface.OnDismissListener{
 		}
 
 	}
-
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 
@@ -249,6 +255,12 @@ DialogInterface.OnDismissListener{
 				timePickerDialog.show();
 			}
 			break;
+		case R.id.tBtnEconomize_MoreOption:
+			tBtnEconomize_MoreOption.setChecked(true);
+			break;
+		case R.id.logOutBtn:
+			logOut();
+			break;
 		default:
 			break;
 
@@ -256,14 +268,24 @@ DialogInterface.OnDismissListener{
 		v.setEnabled(true);
 	}
 
+	private void logOut() {
+		// TODO Auto-generated method stub
+		CurrentUserHelper.clearCurrentPhone();
+		Intent intent = new Intent(MoreSetting.this, InitialActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+				| Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+		this.finish();
+		HttpClient.clearHttpCache();
+	}
 	@Override
 	protected void onResume() {
 		super.onResume();
 		StatService.onResume(this);
-		long userId = CurrentUserHelper.getCurrentUserId();
+//		long userId = CurrentUserHelper.getCurrentUserId();
 		 String requestUrl = SettingValues.URL_PREFIX
 					+ getString(R.string.URL_USER_SETTING);
-	        requestUrl+="/"+userId;
+//	        requestUrl+="/"+userId;
 		new LoadDataTask().execute(1,requestUrl,null,HttpClient.TYPE_GET);
 
 	}
@@ -311,11 +333,11 @@ DialogInterface.OnDismissListener{
 		                //。。。。。。。。。
 						Toast.makeText(_this, "获取设置成功！", Toast.LENGTH_SHORT).show();
 						
-						push = result.getBoolean("true");
-						startTime = result.getString("09:00");
-						endTime = result.getString("22:00");
-						saveFlow = result.getBoolean("false");
-						publicAnswersToFriend = result.getBoolean("false");
+						push = result.getBoolean("push");
+						startTime = result.getString("startTime");
+						endTime = result.getString("endTime");
+						saveFlow = result.getBoolean("saveFlow");
+						publicAnswersToFriend = result.getBoolean("publicAnswersToFriend");
 						Message msg = Message.obtain();
 						msg.what = 0;
 						handler.sendMessage(msg);

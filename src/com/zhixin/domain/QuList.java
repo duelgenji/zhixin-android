@@ -9,31 +9,33 @@ import net.tsz.afinal.annotation.sqlite.Table;
 public class QuList {
 	@Id(column = "_id")
 	private int _id;
-
+	/**问题题目id*/
 	private int questionnarieId;
-
+	/**题目*/
 	private String title;
-
+	/**图片*/
+	private String picUrl;
+	/***/
 	private int credit;
-
+	/***/
 	private int popularity;
-
+	/**类型*/
 	private int type;
-
+	/***/
 	private int recommend;
-
+	/**时间*/
 	private Date time;
-
+	/**好友*/
 	private int friends;
-
+	/**金币*/
 	private int coin;
-
+	/***/
 	private int failCredit;
-
+	/**标签*/
 	private String tags;
-
+	/**问卷顺序*/
 	private int wjorder;
-
+	/***/
 	private int controlFlag; // 0 normal 1 questionnaire has been taken
 
 	public int get_id() {
@@ -91,7 +93,15 @@ public class QuList {
 	public void setRecommend(int recommend) {
 		this.recommend = recommend;
 	}
+	public String getPicUrl() {
+		return picUrl;
+	}
 
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
+
+	
 	public Date getTime() {
 		return time;
 	}

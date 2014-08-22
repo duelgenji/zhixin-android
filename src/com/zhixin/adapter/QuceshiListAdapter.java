@@ -17,14 +17,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhixin.R;
-import com.zhixin.activity.DiaoyanContentActivity;
 import com.zhixin.activity.QuceshiContentActivity;
 
 public class QuceshiListAdapter extends CursorAdapter {
 
 	// type 0 for quceshi
 	// type 1 for qudiaoyan
-	private int type;
+//	private int type;
 
 	private QuceshiListAdapter _this;
 
@@ -46,25 +45,12 @@ public class QuceshiListAdapter extends CursorAdapter {
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
 				v.setBackgroundColor(context.getResources().getColor(
 						R.color.general_activity_background));
-				Intent intent;
-				switch (_this.type) {
-				case 0:
+					Intent intent;
 					intent = new Intent(context, QuceshiContentActivity.class);
 					intent.putExtra(
 							QuceshiContentActivity.INTENT_QUESIONNARE_ID,
 							questionnareId);
 					context.startActivity(intent);
-					break;
-				case 1:
-					intent = new Intent(context, DiaoyanContentActivity.class);
-					intent.putExtra(
-							DiaoyanContentActivity.INTENT_QUESIONNARE_ID,
-							questionnareId);
-					context.startActivity(intent);
-					break;
-				default:
-					break;
-				}
 			} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
 				v.setBackgroundColor(context.getResources().getColor(
 						R.color.general_activity_background));
@@ -74,12 +60,10 @@ public class QuceshiListAdapter extends CursorAdapter {
 
 	}
 
-	public QuceshiListAdapter(Context context, Cursor c, int type) {
+	public QuceshiListAdapter(Context context, Cursor c) {
 		super(context, c, FLAG_REGISTER_CONTENT_OBSERVER);
 		_this = this;
 		this.context = context;
-		this.type = type;
-		
 	}
 
 	@Override
@@ -189,7 +173,7 @@ public class QuceshiListAdapter extends CursorAdapter {
 			img_quceshi_list.setVisibility(View.GONE);
 		}
 
-		// tag injection
+		// tag injection标签显示
 
 		FrameLayout tagFragment1 = (FrameLayout) rowView
 				.findViewById(R.id.tagFragment1);

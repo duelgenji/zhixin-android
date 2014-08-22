@@ -1,8 +1,12 @@
 package com.zhixin.activity;
 
-import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +18,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -22,36 +25,28 @@ import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
+import com.zhixin.adapter.WenJuanShuJu;
+import com.zhixin.adapter.XinLiZiCeAdapter;
 import com.zhixin.adapter.XinliziceListAdapter;
-import com.zhixin.datasynservice.QuListService;
 import com.zhixin.datasynservice.XinliziceListService;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.XinliziceList;
 import com.zhixin.settings.SettingValues;
-import com.zhixin.utils.SqlCursorLoader;
+import com.zhixin.utils.HttpClient;
 
 public class XinliziceListActivity extends FragmentActivity implements
 LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener,
 OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
-
-	private ViewGroup xinliziceTypePickerComp;
-
 	private TextView xinliziceTypeIndicator;
-
 	private ListView xinliziceList;
 	private QubaopenProgressDialog progressDialog;
-
 	private XinliziceListAdapter adapter;
 
-	private XinliziceListService xinliziceListService;
 
 	private XinliziceListActivity _this;
-
 	private boolean refreshListIsRefreshing;
-
 	private int order = 0;
-
-	private int type = 0;
+	private Context context;
 
 	private int currentFirstVisibleItem;
 	private int currentVisibleItemCount;
@@ -64,9 +59,12 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 	private SwipeRefreshLayout xinliziceListParent;
 	
-	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
-		private boolean refreshFlag;
+	private List<WenJuanShuJu> list = new ArrayList<WenJuanShuJu>();;
+	
+	private XinLiZiCeAdapter adapter2;
 
+	private class LoadDataTask extends AsyncTask<Integer, Void, List<WenJuanShuJu>> {
+		private boolean refreshFlag;
 		public LoadDataTask(boolean refreshFlag) {
 			super();
 			this.refreshFlag = refreshFlag;
@@ -76,37 +74,39 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 		}
 
 		@Override
-		protected String doInBackground(Integer... params) {
-
+		protected ArrayList<WenJuanShuJu> doInBackground(Integer... params) {
+			XinliziceList xinliziceList = new XinliziceList();
 			int order = params[0];
-			int type = params[1];
 			try {
-				return xinliziceListService.refreshData(order, type, this.refreshFlag);
-			} catch (ParseException e) {
-				e.printStackTrace();
+				String requestUrl = SettingValues.URL_PREFIX
+						+ context.getString(R.string.URL_XINLIZICE_LIST);
+				JSONObject result = HttpClient.requestSync(requestUrl, null, HttpClient.TYPE_GET);
+				if (result != null && result.getString("success").equals("1")) {
+					WenJuanShuJu wjsj=null;
+					JSONArray json=(JSONArray) result.get("data");
+					for (int i = 0; i < json.length(); i++) {
+						wjsj=new WenJuanShuJu();
+						JSONObject obj=json.getJSONObject(i);
+						wjsj.setManagementType(obj.get("managementType").toString());
+						wjsj.setTitile(obj.get("title").toString());
+						wjsj.setSelfId(Long.valueOf(obj.get("selfId").toString()
+								));
+						list.add(wjsj);
+					}
+					//adapter2 = new XinLiZiCeAdapter(_this, list);
+				}
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			return null;
+			return (ArrayList<WenJuanShuJu>) list;
 		}
 
+
 		@Override
-		protected void onPostExecute(String params) {
-
-			if (params == null) {
-				getSupportLoaderManager().restartLoader(0, null,
-						XinliziceListActivity.this);
-			} else {
-				if (xinliziceList != null) {
-
-				}
-				if (params.equals("err204")) {
-					shouldGetMoreData = false;
-				}
-				if (progressDialog.isShowing()) {
-					progressDialog.dismiss();
-				}
-
+		protected void onPostExecute(List<WenJuanShuJu> list) {
+			if (list!=null) {
+				adapter2 = new XinLiZiCeAdapter(_this, list);
+				xinliziceList.setAdapter(adapter2);
 			}
 			if (xinliziceListParent.isRefreshing()) {
 				xinliziceListParent.setRefreshing(false);
@@ -116,12 +116,10 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 		@Override
 		protected void onCancelled() {
 			super.onCancelled();
-
 			if (xinliziceListParent.isRefreshing()) {
 				xinliziceListParent.setRefreshing(false);
 			}
 		}
-
 	}
 	
 	@Override
@@ -135,36 +133,34 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	private void init() {
 		shouldGetMoreData = true;
 
-		xinliziceListService = new XinliziceListService(this);
+		context = this.getApplicationContext();
+		
 		progressDialog = new QubaopenProgressDialog(this);
 
 		xinliziceListParent = (SwipeRefreshLayout) this
 				.findViewById(R.id.xinliziceListParent);
-		xinliziceListParent.setColorScheme(R.color.text_blue,
-				R.color.general_activity_background, R.color.text_blue,
+		xinliziceListParent.setColorScheme(R.color.text_orange,
+				R.color.general_activity_background, R.color.text_orange,
 				R.color.general_activity_background);
 
 		xinliziceListParent.setOnRefreshListener(this);
 
 		this.findViewById(R.id.backup_btn).setOnClickListener(this);
 
-		xinliziceTypePickerComp = (ViewGroup) this
-				.findViewById(R.id.xinliziceTypeComponent);
-
-
 		xinliziceList = (ListView) this.findViewById(R.id.xinliziceList);
-
+		
+		
+		
 		xinliziceTypeIndicator = (TextView) this
 				.findViewById(R.id.xinliziceTypeIndicator);
-
+		xinliziceTypeIndicator.setText(getString(R.string.title_xinlizice));
+		
 		refreshDataTask = new LoadDataTask(true);
 		refreshListIsRefreshing = false;
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
 		}
-		refreshDataTask.execute(order, type);
-
-		xinliziceTypePickerComp.setOnClickListener(this);
+		refreshDataTask.execute(order);
 
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
@@ -177,21 +173,6 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 			@Override
 			protected void onPostExecute(Boolean result) {
-//				if (result) {
-//					InstructionDialog qushouyeFirst = new InstructionDialog(
-//							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
-//					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
-//						@Override
-//						public void onDismiss(DialogInterface dialog) {
-//							new InstructionDialog(_this,
-//									SettingValues.INSTRUCTION_QUCESHI_LIST2)
-//									.show();
-//						}
-//					});
-
-//					qushouyeFirst.show();
-
-//				}
 			}
 
 		}.execute();
@@ -201,11 +182,9 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 	@Override
 	public void onClick(View v) {
-		boolean cancelSuccess = true;
 		switch (v.getId()) {
 		case R.id.backup_btn:
 			this.onBackPressed();
-
 			break;
 		default:
 			break;
@@ -222,15 +201,12 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
-		return new SqlCursorLoader(this, QuListService.QuceshiSqlMaker.makeSql(
-				order, type), XinliziceList.class);
+		return null;
+//		return new SqlCursorLoader(this, QuListService.QuceshiSqlMaker.makeSql(
+//				order, type), XinliziceList.class);
 	}
-
-
-	
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
 		if (adapter == null) {
 			adapter = new XinliziceListAdapter(this, cursor, 0);
 			xinliziceList.setAdapter(adapter);
@@ -241,14 +217,12 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 		// quList.onRefreshComplete();
 		// this.refreshListIsRefreshing = false;
 		// }
-
 		xinliziceList.setOnScrollListener(this);
 
 		if (progressDialog.isShowing()
 				&& refreshDataTask.getStatus() == AsyncTask.Status.FINISHED) {
 			progressDialog.dismiss();
 		}
-	
 	}
 
 	@Override
@@ -284,7 +258,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 						if (!progressDialog.isShowing()) {
 							progressDialog.show();
 						}
-						refreshDataTask.execute(order, type);
+						refreshDataTask.execute(order);
 					}
 				}
 			}
@@ -293,7 +267,6 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
 
@@ -313,8 +286,29 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 			// if (!progressDialog.isShowing()) {
 			// progressDialog.show();
 			// }
-			refreshDataTask.execute(order, type);
+			try {
+				list=refreshDataTask.execute(order).get();
+				adapter2 = new XinLiZiCeAdapter(_this, list); 
+				xinliziceList.setAdapter(adapter2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ExecutionException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 
 	}
+
+	/*private class ItemCheckListener implements OnItemSelectedListener{
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+	}
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+	}
+	}*/
 }

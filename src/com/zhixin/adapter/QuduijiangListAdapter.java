@@ -53,11 +53,11 @@ public class QuduijiangListAdapter extends CursorAdapter {
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
-		// TextView pointsConsumeTextView = (TextView) view
-		// .findViewById(R.id.pointsConsume);
-		//
-		// pointsConsumeTextView.setText(cursor.getString(cursor
-		// .getColumnIndex("pointsConsume")));
+		/* TextView pointsConsumeTextView = (TextView) view
+				 .findViewById(R.id.pointsConsume);
+		
+		 pointsConsumeTextView.setText(cursor.getString(cursor
+		 .getColumnIndex("pointsConsume")));*/
 
         updatingContentInView(view,cursor);
 	}
@@ -151,11 +151,9 @@ public class QuduijiangListAdapter extends CursorAdapter {
         } else {
            lotteryImage.setImageResource(R.drawable.quchoujiang_default_background);
         }
-
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if("0".equals(cursor.getString(cursor.getColumnIndex("type")))){
                     final AlertDialog dlg = new AlertDialog.Builder(context).create();
                     dlg.show();
@@ -179,8 +177,6 @@ public class QuduijiangListAdapter extends CursorAdapter {
                         }
                     });
 
-
-
                 }else if("1".equals(cursor.getString(cursor.getColumnIndex("type")))){
 
                     SharedPreferences sharedPref = context.getSharedPreferences(
@@ -202,7 +198,6 @@ public class QuduijiangListAdapter extends CursorAdapter {
                     intent.putExtra(QuduijiangAddressActivity.KEY_INTENT_DUIJIANG_URL,picUrl);
                     context.startActivity(intent);
                 }
-
             }
         });
 

@@ -5,10 +5,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,7 +34,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
 
     private TextView txtPageTitle;
     private ImageButton iBtnPageBack;
-    private TextView btnSubmit;
+    private Button btnSubmit;
 
     private EditText txtAddressAddName;
     private EditText txtAddressAddPhone;
@@ -63,7 +65,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
         iBtnPageBack.setOnClickListener(this);
         txtPageTitle
                 .setText(this.getString(R.string.title_user_add_address));
-        btnSubmit = (TextView) this.findViewById(R.id.addressSubmit);
+        btnSubmit = (Button) this.findViewById(R.id.addressSubmit);
         btnSubmit.setOnClickListener(this);
 
         txtAddressAddName = (EditText) this
@@ -87,14 +89,70 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
 
     @Override
     public void onClick(View v) {
-        v.setEnabled(false);
+//        v.setEnabled(false);
         switch (v.getId()) {
             case R.id.backup_btn:
                 this.onBackPressed();
                 v.setEnabled(true);
                 break;
             case R.id.addressSubmit:
-                sendRequest();
+//                sendRequest();
+            	
+            	 try {
+                     JSONObject jsonParams = new JSONObject();
+                     String name ="";
+                     String phone="";
+                     String code="";
+                     String address="";
+                     String iSfId="";
+                     String iCsId="";
+                     String iDqId="";
+
+                     name=txtAddressAddName.getText().toString();
+                     phone=txtAddressAddPhone.getText().toString();
+                     code=txtAddressAddCode.getText().toString();
+                     address=txtAddressAddAddress.getText().toString();
+                     if(StringUtils.isBlank(name)){
+                         showToast("收货人不能为空");
+                         return;
+                     }
+                     if(StringUtils.isBlank(phone)){
+                         showToast("手机号码不能为空");
+                         return;
+                     }
+                     if(StringUtils.isBlank(address)){
+                         showToast("详细地址不能为空");
+                         return;
+                     }
+                     if(this.sfdm!=null && !this.sfdm.equals("") && !this.sfdm.equals("0")){
+                         iSfId=this.sfdm;
+                         if(this.csdm!=null && !this.csdm.equals("") && !this.csdm.equals("0")){
+                             iCsId=this.csdm;
+                             if(this.dqdm!=null && !this.dqdm.equals("") && !this.dqdm.equals("0")){
+                                 iDqId=this.dqdm;
+                             }
+                         }
+                     }
+
+                     //showToast(name+phone+code+address+iSfId+iCsId+iDqId);
+
+                     jsonParams.put("sName",name);
+                     jsonParams.put("iSfId",iSfId);
+                     jsonParams.put("iCsId",iCsId);
+                     jsonParams.put("iDqId",iDqId);
+                     jsonParams.put("sAddress",address);
+                     jsonParams.put("sPhone",phone);
+                     jsonParams.put("sPostCode",code);
+                     String requestUrl = SettingValues.URL_PREFIX
+     						+ getString(R.string.URL_USER_ADDRESS);
+                     new LoadDataTask1().execute(1,requestUrl,jsonParams,HttpClient.TYPE_POST);
+                     
+//                     new LoadDataTask().execute(jsonParams);
+                 } catch (JSONException e) {
+                     e.printStackTrace();
+                 }
+            	
+            	
                 v.setEnabled(true);
                 break;
             case R.id.txtAddressAddArea:
@@ -109,7 +167,57 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
         }
     }
 
+    private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{
 
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result=null;
+			Integer syncType=(Integer)params[0];
+			try {
+				switch(syncType){
+				case 1:
+					//null。。。。传参方式是get
+					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
+					result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
+					result.put("syncType", syncType);
+					break;
+				default :
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType=result.getInt("syncType");
+				switch(syncType){
+				case 1:
+					if (result != null && result.getInt("success") == 1) {
+		                //。。。。。。。。。
+						Intent intent = new Intent(_this, UserInfoAddressActivity.class);
+						startActivity(intent);
+						Toast.makeText(_this, "提交地址成功！", Toast.LENGTH_SHORT).show();
+					}else {
+						Toast.makeText(_this, "提交数据失败！", Toast.LENGTH_SHORT).show();
+					}
+					break;
+				
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+    	
+    }
+    
     private class LoadDataTask extends AsyncTask<JSONObject, Void, JSONObject> {
 
         @Override
@@ -256,7 +364,6 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
             }
 
             //showToast(name+phone+code+address+iSfId+iCsId+iDqId);
-
             jsonParams.put("sName",name);
             jsonParams.put("iSfId",iSfId);
             jsonParams.put("iCsId",iCsId);

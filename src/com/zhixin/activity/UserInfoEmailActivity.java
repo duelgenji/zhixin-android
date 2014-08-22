@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
 
     private TextView txtPageTitle;
     private ImageButton iBtnPageBack;
-    private TextView submitBtn;
+    private Button submitBtn;
 
         private Activity _this;
 
@@ -51,7 +52,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
         iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
         iBtnPageBack.setOnClickListener(this);
         txtPageTitle.setText(this.getString(R.string.title_user_email));
-        submitBtn= (TextView) this.findViewById(R.id.addressSubmit);
+        submitBtn= (Button) this.findViewById(R.id.addressSubmit);
         submitBtn.setOnClickListener(this);
 
         txtInputEmailPersonalProfile=(EditText)  this.findViewById(R.id.txtInputEmailPersonalProfile);
@@ -67,7 +68,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        v.setEnabled(false);
+      //  v.setEnabled(false);
         switch (v.getId()) {
             case R.id.backup_btn:
                 this.onBackPressed();
@@ -75,7 +76,6 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
                 break;
             case R.id.addressSubmit:
   //              sendRequest();
-            	
             	if(txtInputEmailPersonalProfile.getText()==null){
                     showToast(_this.getString(R.string.toast_input_cant_be_null));
                     submitBtn.setEnabled(true);
@@ -91,13 +91,12 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
                 if(MatcherUtil.validateEmail(sEmail)){
                 	String requestUrl = SettingValues.URL_PREFIX
 							+ UserInfoEmailActivity.this
-									.getString(R.string.URL_USER_INFO_UPDATE);
+									.getString(R.string.URL_USER_UPDATE);
 					JSONObject jsonParams = new JSONObject();
 					long userId = CurrentUserHelper.getCurrentUserId();
 					try {
 						jsonParams.put("email",sEmail);
 						jsonParams.put("id", userId);
-                        sNewEmail=sEmail;
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -107,13 +106,12 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
                     submitBtn.setEnabled(true);
                     return;
                 }
-                break;
+                submitBtn.setEnabled(true);
+                break; 
             default:
                 break;
-
         }
     }
-
     private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{
 
 		@Override
@@ -148,7 +146,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
 						txtInputEmailPersonalProfile.setText("");
 						Intent intent = new Intent(_this, UserInfoActivity.class);
 						startActivity(intent);
-						Toast.makeText(_this, "修改昵称成功！", Toast.LENGTH_SHORT).show();
+						Toast.makeText(_this, "修改邮箱成功！", Toast.LENGTH_SHORT).show();
 					}else {
 						Toast.makeText(_this, "修改失败！", Toast.LENGTH_SHORT).show();
 					}

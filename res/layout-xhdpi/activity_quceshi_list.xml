@@ -23,72 +23,18 @@
             android:scaleType="fitCenter"
             android:src="@drawable/header_back_button" />
 
-        <RelativeLayout
-            android:id="@+id/quceshiTypeComponent"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp" >
-
+ 
             <TextView
-                android:id="@+id/quceshiTypeIndicator"
+                android:id="@+id/title_of_the_page"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:spinnerMode="dropdown"
                 android:text="全部测试"
                 android:textColor="@color/text_white"
                 android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@id/quceshiTypeIndicator"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/drop_down_triangle_icon" />
-        </RelativeLayout>
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:paddingBottom="7dp"
-            android:paddingTop="7dp" >
-
-            <ImageButton
-                android:id="@+id/quceshiOrderComponent"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:src="@drawable/quceshi_order" />
-
-            <TextView
-                android:id="@+id/quceshiOrderIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|left"
-                android:layout_marginLeft="6dp"
-                android:text="@string/quceshi_order_default"
-                android:textColor="@color/text_white"
-                android:textSize="11sp" />
-
-            <ImageView
-                android:layout_width="7dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="3dp"
-                android:src="@drawable/drop_down_triangle_icon" />
-        </FrameLayout>
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

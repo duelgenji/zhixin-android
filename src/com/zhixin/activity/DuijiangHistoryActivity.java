@@ -249,7 +249,7 @@ public class DuijiangHistoryActivity extends FragmentActivity implements
 			break;
 			*/
 		case R.id.syncDataBtn:
-//			radioGroup.setRightChecked();
+		//	radioGroup.setRightChecked();
 			if (statusPicker == null) {
 				statusPicker = new HistoryDuijiangStatusPicker(this);
 				int[] topAndLeftMarginOfStatusPicker = new int[2];
