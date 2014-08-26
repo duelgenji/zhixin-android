@@ -181,7 +181,6 @@ public class QuceshiContentActivity extends Activity implements
 		this.findViewById(R.id.backup_btn).setOnClickListener(this);
 
 		if (!progressDialog.isShowing()) {
-
 			progressDialog.show();
 		}
 		if (questionId == 0) {

@@ -31,10 +31,11 @@ public class XinLiMapFragment extends Fragment {
 	private int currIndex = 0;
 	private int offset = 0;
 	private int position_one;
-	public final static int num = 3;
+	public final static int num = 4;
 	Fragment home1;
 	Fragment home2;
 	Fragment home3;
+	Fragment home4;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,10 +58,13 @@ public class XinLiMapFragment extends Fragment {
 		home1 = new XinliMapCharacterFragment();
 		home2 = new XinliMapMoodFragment();
 		home3 = new XinliMapPersonalFragment();
+		//home4 = new XinliMapCrossSystemFragment();
+		home4 = new XinliMapCard1Fragment();
 
 		fragmentsList.add(home1);
 		fragmentsList.add(home2);
 		fragmentsList.add(home3);
+		fragmentsList.add(home4);
 
 		mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(),
 				fragmentsList));
@@ -76,6 +80,8 @@ public class XinLiMapFragment extends Fragment {
 					txtPageTitle.setText("情绪管理");
 				}else if(position==2){
 					txtPageTitle.setText("个人发展");
+				}else if(position==3){
+					txtPageTitle.setText("测试页");
 				}
 				
 				

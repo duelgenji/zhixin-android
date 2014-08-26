@@ -42,8 +42,8 @@
                 <RelativeLayout
                     android:id="@+id/layout_first"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/folder_blue_small" >
+                    android:layout_height="100dp"
+                    android:background="@drawable/card_small_1" >
 
                     <TextView
                         android:id="@+id/txtTitle1"
@@ -57,9 +57,9 @@
                 <RelativeLayout
                     android:id="@+id/layout_second"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="50dp"
-                    android:background="@drawable/folder_green_small" >
+                    android:background="@drawable/card_small_2" >
 
                     <TextView
                         android:id="@+id/txtTitle2"
@@ -73,9 +73,9 @@
                 <RelativeLayout
                     android:id="@+id/layout_third"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="100dp"
-                    android:background="@drawable/folder_jade_small" >
+                    android:background="@drawable/card_small_3" >
 
                     <TextView
                         android:id="@+id/txtTitle3"
@@ -89,9 +89,9 @@
                 <RelativeLayout
                     android:id="@+id/layout_fourth"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="150dp"
-                    android:background="@drawable/folder_red_small" >
+                    android:background="@drawable/card_small_4" >
 
                     <TextView
                         android:id="@+id/txtTitle4"
@@ -115,9 +115,9 @@
                 <RelativeLayout
                     android:id="@+id/layout_fifth"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="200dp"
-                    android:background="@drawable/folder_orange_small" >
+                    android:background="@drawable/card_small_2" >
 
                     <TextView
                         android:id="@+id/txtTitle5"
@@ -126,6 +126,8 @@
                         android:layout_marginLeft="10dp"
                         android:text="能力5"
                         android:textSize="20sp" />
+
+                 	
                 </RelativeLayout>
             </RelativeLayout>
         </LinearLayout>

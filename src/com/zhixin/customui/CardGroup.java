@@ -1,139 +1,66 @@
-package com.zhixin.activity;
+package com.zhixin.customui;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+
 import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.IntEvaluator;
 import com.nineoldandroids.animation.ValueAnimator;
+import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.ValueAnimator.AnimatorUpdateListener;
 import com.zhixin.R;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.LightingColorFilter;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroup.MarginLayoutParams;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.webkit.WebSettings;
-import android.webkit.WebSettings.LayoutAlgorithm;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+//层叠卡片型ui
 
-public class XinliMapPersonalFragment extends Fragment implements
-		View.OnClickListener {
-
-	private Activity mainActivity;
-
-	private Intent intent;
+public class CardGroup {
 
 	private View _view;
-	
-	private RelativeLayout layoutFirst, layoutSecond, layoutThird,
-			layoutFourth, layoutFifth;
+
+	private Context context;
 
 	private List<RelativeLayout> layoutList;
 	private List<Boolean> isOpenList;
 	private List<Integer> changePixelList;
 
+	private List<Integer> colorList;
+
 	private ValueAnimator currentAnimator;
-	
-	private boolean isRunning=false;
-	
+
+	private boolean isRunning = false;
+
 	private RelativeLayout nextAnimLayout;
-	
-	private Button btnAdd;
-	
+
 	private ScrollView scrollView;
 
 	private RelativeLayout layoutParent;
 
-	//数量 包括0
-	private int numberOfLayout = 4;
+	private int numberOfLayout;
 
-	private List<Integer> drawableList; 
-	private List<Integer> colorList; 
-
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		this.mainActivity = activity;
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-
-		View view = inflater.inflate(R.layout.fragment_xinlimap_personal,
-				container, false);
-		_view= view;
+	public CardGroup(View v, Context c) {
+		// TODO Auto-generated constructor stub
+		context = c;
+		_view = v;
 		layoutList = new ArrayList<RelativeLayout>();
 		isOpenList = new ArrayList<Boolean>();
 		changePixelList = new ArrayList<Integer>();
-		btnAdd= (Button) view.findViewById(R.id.btn_add);		
-		btnAdd.setOnClickListener(this);
-		
-		scrollView = (ScrollView) view.findViewById(R.id.layout_scroll);
-		layoutParent=(RelativeLayout)_view.findViewById(R.id.layout_parent);
-		
-		
-		layoutFirst = (RelativeLayout) view.findViewById(R.id.layout_first);
-		layoutSecond = (RelativeLayout) view.findViewById(R.id.layout_second);
-		layoutThird = (RelativeLayout) view.findViewById(R.id.layout_third);
-		layoutFourth = (RelativeLayout) view.findViewById(R.id.layout_fourth);
-		layoutFifth = (RelativeLayout) view.findViewById(R.id.layout_fifth);
-		layoutList.add(layoutFirst);
-		isOpenList.add(false);
-		changePixelList.add(0);
-		layoutList.add(layoutSecond);
-		isOpenList.add(false);
-		changePixelList.add(0);
-		layoutList.add(layoutThird);
-		isOpenList.add(false);
-		changePixelList.add(0);
-		layoutList.add(layoutFourth);
-		isOpenList.add(false);
-		changePixelList.add(0);
-		layoutList.add(layoutFifth);
-		isOpenList.add(false);
-		changePixelList.add(0);
-		
-		
-		drawableList=new ArrayList<Integer>();
-		drawableList.add(R.drawable.card_small_1);
-		drawableList.add(R.drawable.card_small_2);
-		drawableList.add(R.drawable.card_small_3);
-		drawableList.add(R.drawable.card_small_4);
-		drawableList.add(R.drawable.card_small_5);
-		drawableList.add(R.drawable.card_small_6);
-		drawableList.add(R.drawable.card_small_7);
-		colorList=new ArrayList<Integer>(); 
+		scrollView = (ScrollView) _view.findViewById(R.id.layout_scroll);
+		layoutParent = (RelativeLayout) _view.findViewById(R.id.layout_parent);
 
-	    
+		colorList = new ArrayList<Integer>();
 		colorList.add(Color.parseColor("#42aaff"));
 		colorList.add(Color.parseColor("#db3c41"));
 		colorList.add(Color.parseColor("#c671fb"));
@@ -141,22 +68,15 @@ public class XinliMapPersonalFragment extends Fragment implements
 		colorList.add(Color.parseColor("#4aae32"));
 		colorList.add(Color.parseColor("#ecaa5b"));
 		colorList.add(Color.parseColor("#f3542d"));
-
-		layoutFirst.setOnClickListener(this);
-		layoutSecond.setOnClickListener(this);
-		layoutThird.setOnClickListener(this);
-		layoutFourth.setOnClickListener(this);
-		layoutFifth.setOnClickListener(this);
-		return view;
+		numberOfLayout = -1;
 
 	}
 
-	
-	//view height动画
+	// view 改变height动画
 	private void performAnimate(final View target, final int start,
-			final int end,Integer duration) {
+			final int end, Integer duration) {
 
-		isRunning=true;
+		isRunning = true;
 		ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 100000);
 		valueAnimator.addListener(new AnimatorListener() {
 
@@ -176,14 +96,14 @@ public class XinliMapPersonalFragment extends Fragment implements
 			public void onAnimationEnd(Animator arg0) {
 				// TODO Auto-generated method stub
 
-				isRunning=false;
-				if(nextAnimLayout!=null){
-					changeHeight(nextAnimLayout,null);
-					nextAnimLayout=null;
-				}else{
+				isRunning = false;
+				if (nextAnimLayout != null) {
+					changeHeight(nextAnimLayout, null);
+					nextAnimLayout = null;
+				} else {
 					scrollView.requestChildFocus(layoutParent, target);
 				}
-				
+
 			}
 
 			@Override
@@ -234,10 +154,10 @@ public class XinliMapPersonalFragment extends Fragment implements
 		currentAnimator = valueAnimator;
 		valueAnimator.setDuration(duration).start();
 	}
-	
-	//view margin动画
+
+	// view 改变margin动画
 	private void performAnimateMargin(final View target, final int start,
-			final int end,Integer duration) {
+			final int end, Integer duration) {
 		ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 100000);
 
 		valueAnimator.addUpdateListener(new AnimatorUpdateListener() {
@@ -268,51 +188,8 @@ public class XinliMapPersonalFragment extends Fragment implements
 		valueAnimator.setDuration(duration).start();
 	}
 
-	@Override
-	public void onClick(View v) {
-		int index, currentHeight;
-		switch (v.getId()) {
-		case R.id.layout_fifth:
-			closeOpened((RelativeLayout) v);
-			changeHeight((RelativeLayout) v,null);
-			// Animation scaleAnimation= new ScaleAnimation((float) 1.0, (float)
-			// 1.0,
-			// (float) 1.0, (float) 1.5);
-			//
-			// ValueAnimator animation = ValueAnimator.ofFloat(0f, 1f);
-			// animation.setDuration(1000);
-			// Animation am =AnimationUtils.loadAnimation(mainActivity,
-			// R.anim.changeheight);
-			// scaleAnimation.setDuration(1000);
-			// scaleAnimation.setFillAfter(true);
-			// layoutFifth.startAnimation(scaleAnimation);
-			break;
-		case R.id.layout_fourth:
-			closeOpened((RelativeLayout) v);
-			changeHeight((RelativeLayout) v,null);
-			break;
-		case R.id.layout_third:
-			closeOpened((RelativeLayout) v);
-			changeHeight((RelativeLayout) v,null);
-			break;
-		case R.id.layout_second:
-			closeOpened((RelativeLayout) v);
-			changeHeight((RelativeLayout) v,null);
-			break;
-		case R.id.layout_first:
-			closeOpened((RelativeLayout) v);
-			changeHeight((RelativeLayout) v,null);
-			break;
-		case R.id.btn_add:
-			addLayout();
-			break;
-		default:
-			break;
-		}
-	}
-
 	// 点击文件夹 展开
-	private void changeHeight(RelativeLayout rl,Integer deruation) {
+	private void changeHeight(RelativeLayout rl, Integer duration) {
 		int index, currentHeight;
 		// 判断是否有动画正在运行
 		if (isRunning) {
@@ -321,37 +198,43 @@ public class XinliMapPersonalFragment extends Fragment implements
 		rl.setEnabled(false);
 		index = layoutList.indexOf(rl);
 		currentHeight = rl.getHeight();
-		deruation=(deruation==null?200:deruation);
+		duration = (duration == null ? 200 : duration);
 		if (!isOpenList.get(index)) {
 			changePixelList.set(index, 360);
 			performAnimate(rl, currentHeight,
-					currentHeight + changePixelList.get(index),deruation);
-			changeMargin(rl,deruation);
+					currentHeight + changePixelList.get(index), duration);
+			changeMargin(rl, duration);
+			rotateArrow(rl,false,duration);
 			isOpenList.set(index, true);
 
 		} else {
 			performAnimate(rl, currentHeight,
-					currentHeight - changePixelList.get(index),deruation);
-			changeMargin(rl,deruation);
+					currentHeight - changePixelList.get(index), duration);
+			changeMargin(rl, duration);
+			rotateArrow(rl,true,duration);
 			isOpenList.set(index, false);
 		}
+		
+	
+		
 	}
 
+	// 关闭已经打开的了
 	private void closeOpened(RelativeLayout rl) {
 		for (int i = 0; i < isOpenList.size(); i++) {
-			if (isOpenList.get(i) && layoutList.get(i)!=rl) {
-				changeHeight(layoutList.get(i),50);
-				nextAnimLayout=rl;
+			if (isOpenList.get(i) && layoutList.get(i) != rl) {
+				changeHeight(layoutList.get(i), 50);
+				nextAnimLayout = rl;
 			}
 		}
 
 	}
 
 	// 遍历在自己之上的layout 进行margin动画
-	private void changeMargin(RelativeLayout rl,Integer deruation) {
+	private void changeMargin(RelativeLayout rl, Integer deruation) {
 		int pos = layoutList.indexOf(rl);
 		int changePixel = changePixelList.get(pos);
-		deruation=(deruation==null?200:deruation);
+		deruation = (deruation == null ? 200 : deruation);
 		if (!isOpenList.get(pos)) {
 			Log.d("login1", "pos: " + pos);
 			for (int i = pos + 1; i <= numberOfLayout; i++) {
@@ -359,7 +242,7 @@ public class XinliMapPersonalFragment extends Fragment implements
 				int currentMargin = ((RelativeLayout.LayoutParams) layout
 						.getLayoutParams()).topMargin;
 				performAnimateMargin(layout, currentMargin, currentMargin
-						+ changePixel,deruation);
+						+ changePixel, deruation);
 			}
 		} else {
 			for (int i = pos + 1; i <= numberOfLayout; i++) {
@@ -367,50 +250,98 @@ public class XinliMapPersonalFragment extends Fragment implements
 				int currentMargin = ((RelativeLayout.LayoutParams) layout
 						.getLayoutParams()).topMargin;
 				performAnimateMargin(layout, currentMargin, currentMargin
-						- changePixel,deruation);
+						- changePixel, deruation);
 			}
 		}
 
 	}
-	
-	
-	//左边色块
-	private void addColorBlock(RelativeLayout rl){
-		
-		ImageView view = new ImageView(mainActivity);
-		RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(24,180);
-		view.setLayoutParams(lp);
-		view.setBackgroundColor(colorList.get((layoutList.size())%7));
-		rl.addView(view);
-		
-	}
-	
-	//增加一块文件夹
-	private void addLayout(){
-		RelativeLayout rl=new RelativeLayout(mainActivity);
-		RelativeLayout.LayoutParams lp=new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,180);
-		//lp.topMargin=layoutList.size()*50*3;
-		lp.topMargin=((RelativeLayout.LayoutParams)layoutList.get(layoutList.size()-1).getLayoutParams()).topMargin+150;
+
+	// 增加一层文件夹
+	public void addLayout() {
+		RelativeLayout rl = new RelativeLayout(context);
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, 180);
+		// lp.topMargin=layoutList.size()*50*3;
+		if (layoutList.size() == 0) {
+			lp.topMargin = 0;
+		} else {
+			lp.topMargin = ((RelativeLayout.LayoutParams) layoutList.get(
+					layoutList.size() - 1).getLayoutParams()).topMargin + 135;
+
+		}
 		rl.setLayoutParams(lp);
-		//rl.setBackgroundResource(drawableList.get((layoutList.size())%7));
+		// rl.setBackgroundResource(drawableList.get((layoutList.size())%7));
 		rl.setBackgroundResource(R.drawable.card_small_origin);
-		layoutParent.addView(rl);
 		addColorBlock(rl);
+		addArrow(rl);
+		layoutParent.addView(rl);
 		layoutList.add(rl);
 		isOpenList.add(false);
 		changePixelList.add(0);
 		numberOfLayout++;
 
 		rl.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				closeOpened((RelativeLayout) v);
-				changeHeight((RelativeLayout) v,null);
+				changeHeight((RelativeLayout) v, null);
 			}
 		});
-		
+
 	}
 
+	// 左边色块
+	private void addColorBlock(RelativeLayout rl) {
+
+		ImageView view = new ImageView(context);
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(24,
+				180);
+		view.setLayoutParams(lp);
+		view.setBackgroundColor(colorList.get((layoutList.size()) % 7));
+		view.setTag("block");
+		rl.addView(view);
+
+	}		
+	
+	//右侧箭头
+	private void addArrow(RelativeLayout rl){
+		ImageView view = new ImageView(context);
+		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT);
+		lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+		lp.topMargin=60;
+		lp.rightMargin=45;
+		view.setLayoutParams(lp);
+		view.setImageResource(R.drawable.card_arrow_origin);
+		view.setBackgroundColor(colorList.get((layoutList.size()) % 7));
+		view.setTag("arrow");
+		rl.addView(view);
+	}
+	
+	//旋转箭头
+	private void rotateArrow(RelativeLayout rl,boolean isOpen,int duration){
+		ImageView iv=(ImageView)rl.findViewWithTag("arrow");
+		RotateAnimation operatingAnim;
+		
+		if(!isOpen){
+			operatingAnim = new RotateAnimation(0, 179,Animation.RELATIVE_TO_SELF, 
+					0.5f,Animation.RELATIVE_TO_SELF,0.5f);  
+		}else{
+			operatingAnim = new RotateAnimation(180, 359,Animation.RELATIVE_TO_SELF, 
+					0.5f,Animation.RELATIVE_TO_SELF,0.5f);  
+		}
+		LinearInterpolator lin = new LinearInterpolator();  
+		operatingAnim.setInterpolator(lin); 
+		operatingAnim.setDuration(duration);
+		operatingAnim.setFillAfter(true);
+		iv.startAnimation(operatingAnim);  
+	}
+
+	//增加卡片标题
+	private void addCardTitle(RelativeLayout rl){}
+	
+	//增加卡片内容
+	private void addCardContent(RelativeLayout rl){}
 }

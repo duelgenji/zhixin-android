@@ -1,10 +1,13 @@
 package com.zhixin.activity;
 
+import net.tsz.afinal.http.AjaxParams;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zhixin.R;
+import com.zhixin.customui.CardGroup;
 import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.utils.ConvertData4HighCharts;
 import com.zhixin.utils.HttpClient;
@@ -31,6 +34,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,18 +43,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //心理地图第一页
-public class XinliMapCharacterFragment extends Fragment implements
+public class XinliMapCard1Fragment extends Fragment implements
 		View.OnClickListener {
 
 	private Activity mainActivity;
 
-	private WebView webView;
 
 	private RelativeLayout layoutPicture;
 
 	private ImageButton btnSwitchChart;
-
-	private int currentType = 0;
+	
+	private CardGroup cardGroup;
+	
+	private Button btnAdd;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -61,64 +66,20 @@ public class XinliMapCharacterFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_xinlimap_character,
+		View view = inflater.inflate(R.layout.fragment_xinlimap_card1,
 				container, false);
-
-		btnSwitchChart = (ImageButton) view.findViewById(R.id.btn_switch_chart);
-		btnSwitchChart.setOnClickListener(this);
-
-		webView = (WebView) view.findViewById(R.id.webView);
-		WebSettings settings = webView.getSettings();
-		// settings.setUseWideViewPort(true);
-		// settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
-		// settings.setSupportZoom(true);
-		// settings.setBuiltInZoomControls(true);
-		settings.setJavaScriptEnabled(true);
-		// settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-		// settings.setLoadWithOverviewMode(true);
-		webView.setWebViewClient(new WebViewClient() {
-
-			@Override
-			public void onReceivedError(WebView view, int errorCode,
-					String description, String failingUrl) {
-				// TODO Auto-generated method stub
-				super.onReceivedError(view, errorCode, description, failingUrl);
-				Toast.makeText(mainActivity, "没网" + errorCode, 3).show();
-			}
-
-			@Override
-			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
-				view.loadUrl(url); // 在当前的webview中跳转到新的url
-
-				return true;
-			}
-		});
-		webView.loadUrl("http://10.0.0.88/hc_android.html");
+		cardGroup=new CardGroup(view, mainActivity);
+		cardGroup.addLayout();
+		cardGroup.addLayout();
+		cardGroup.addLayout();
+		cardGroup.addLayout();
+		cardGroup.addLayout();
+		cardGroup.addLayout();
 		
-
-		webView.setWebViewClient(new WebViewClient() {
-			@Override
-			public void onPageFinished(WebView view, String url) {
-				// TODO Auto-generated method stub
-				super.onPageFinished(view, url);
-
-				new LoadDataTask().execute(1);
-			
-			}
-		});
-		// webView.loadUrl("http://www.hcharts.cn/demo/index.php?p=10");
-
-		webView.setOnTouchListener(new View.OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				v.getParent().requestDisallowInterceptTouchEvent(true);
-				if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				}
-				return false;
-			}
-		});
+		btnAdd= (Button)view.findViewById(R.id.btn_add);
+		btnAdd.setOnClickListener(this);
+		
+		//new LoadDataTask().execute(1);
 
 		return view;
 
@@ -127,30 +88,15 @@ public class XinliMapCharacterFragment extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_switch_chart:
-			switchChart();
-			break;
+		case R.id.btn_add:
+			new LoadDataTask().execute(2);
+//			Intent intent = new Intent(mainActivity, QuceshiContentActivity.class);
+//			startActivity(intent);
 		default:
 			break;
 		}
 	}
 
-	private void switchChart() {
-
-		if (currentType < 3) {
-			webView.loadUrl("javascript:switchChart(" + (++currentType) + ")");
-		} else if (currentType == 3) {
-			currentType = 4;
-			webView.loadUrl("http://10.0.0.88/hs.html");
-			webView.loadUrl("javascript:switchChart(0)");
-
-		} else if (currentType == 4) {
-			currentType = 0;
-			webView.loadUrl("http://10.0.0.88/hc.html");
-			webView.loadUrl("javascript:switchChart(" + currentType + ")");
-
-		}
-	}
 
 	// 向服务器请求数据
 	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
@@ -162,11 +108,23 @@ public class XinliMapCharacterFragment extends Fragment implements
 			try {
 				switch (syncType) {
 				case 1:
-//					result = HttpClient.requestSync("http://10.0.0.88:8080/know-heart/mapStatistics/" +
-//							"retrieveMapStatistics?type=SDS",
-//							null, HttpClient.TYPE_GET);
+					result = HttpClient.requestSync("http://10.0.0.88:8080/know-heart/mapStatistics/" +
+							"retrieveMapStatistics?type=ALL",
+							null, HttpClient.TYPE_GET);
 					result.put("syncType", syncType);
-					result.put("success", 1);
+					//result.put("success", 1);
+					break;
+				case 2:
+					  AjaxParams obj = new AjaxParams();
+						obj.put("selfId", "12");
+						obj.put("questionJson", "[{\"questionId\": 270,\"contents\":[{\"id\":827}]}," + "{\"questionId\": 271,\"contents\":[{\"id\":828},{\"id\":829}]},"
+								+ "{\"questionId\": 272,\"contents\":[{\"id\":830,\"cnt\":\"你好你\"}," + "{\"id\":831,\"cnt\":\"dddddddd\"}]},{\"questionId\": 273,\"contents\":[{\"id\":832,\"order\":1},"
+								+ "{\"id\":833,\"order\":2},{\"id\":834,\"order\":3}]}," + "{\"questionId\": 274,\"contents\":[{\"id\":836}]}]");
+						//obj.put("questionJson", "[{\"questionId\": 270,\"contents\":[{\"id\":827}]},{\"questionId\": 271,\"contents\":[{\"id\":828},{\"id\":829}]},{\"questionId\": 272,\"contents\":[{\"id\":830,\"cnt\":\"你好你\"},{\"id\":831,\"cnt\":\"dddddddd\"}]},{\"questionId\": 273,\"contents\":[{\"id\":832,\"order\":1},{\"id\":833,\"order\":2},{\"id\":834,\"order\":3}]},{\"questionId\": 274,\"contents\":[{\"id\":836}]}]");
+					result = HttpClient.requestSync("http://10.0.0.11:8081/selfs/calculateSelfResult",
+							obj, HttpClient.TYPE_POST_FORM);
+					result.put("syncType", syncType);
+					//result.put("success", 1);
 					break;
 				default:
 					break;
@@ -201,7 +159,6 @@ public class XinliMapCharacterFragment extends Fragment implements
 						String r=(new ConvertData4HighCharts().getSpiderData(new JSONObject(s))).toString();
 						
 						
-						webView.loadUrl("javascript:switchChart(2,'" + r + "')");
 						
 					} else {
 						//Toast.makeText(mainActivity, "失败", 3).show();
