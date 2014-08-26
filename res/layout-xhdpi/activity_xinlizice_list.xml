@@ -23,40 +23,18 @@
             android:scaleType="fitCenter"
             android:src="@drawable/header_back_button" />
 
-        <RelativeLayout
-            android:id="@+id/xinliziceTypeComponent"
+        <TextView
+            android:id="@+id/xinliziceTypeIndicator"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp" >
-
-            <TextView
-                android:id="@+id/xinliziceTypeIndicator"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:spinnerMode="dropdown"
-                android:text="全部测试"
-                android:textColor="@color/text_white"
-                android:textSize="18sp" />
-
-            <ImageView
-                android:layout_width="12dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="7dp"
-                android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@id/xinliziceTypeIndicator"
-                android:adjustViewBounds="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/drop_down_triangle_icon" />
-        </RelativeLayout>
-
-      
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:spinnerMode="dropdown"
+            android:text="全部测试"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

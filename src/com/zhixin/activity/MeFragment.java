@@ -89,7 +89,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		this.mainActivity = activity;
 	}
 	//修改昵称的部分
-	Handler handler = new Handler(){
+/**	Handler handler = new Handler(){
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
@@ -100,6 +100,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 			}
 		};
 	};
+	*/
 	private class NicknameIconClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -314,7 +315,6 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 							e.printStackTrace();
 						}
 						mainActivity.runOnUiThread(new Runnable() {
-
 							@Override
 							public void run() {
 //								if (progressDialog.isShowing()) {
@@ -336,25 +336,22 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 				intent.putExtra(CropImage.IMAGE_PATH,
 						data.getStringExtra(CropImage.IMAGE_PATH));
 				mainActivity.startService(intent);
-
 				if (closePicImageDialogHander != null) {
 					closePicImageDialogHander.sendEmptyMessage(0);
 				}
-
 			}
 			break;
 		}
-
 	}
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
-		long userId = CurrentUserHelper.getCurrentUserId();
+//		long userId = CurrentUserHelper.getCurrentUserId();
 		 String requestUrl = SettingValues.URL_PREFIX
 					+ getString(R.string.URL_USER_INFO_ADD);
-	        requestUrl+="/"+userId;
+//	        requestUrl+="/"+userId;
 		new LoadDataTask1().execute(1,requestUrl,null,HttpClient.TYPE_GET);
 	}
 	private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{
@@ -391,9 +388,10 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		                //。。。。。。。。。
 						Toast.makeText(mainActivity, "获取个人资料成功！", Toast.LENGTH_SHORT).show();
 						nickName = result.getString("nickName");
-						Message msg = Message.obtain();
-						msg.what = 0;
-						handler.sendMessage(msg);
+	//					Message msg = Message.obtain();
+	//					msg.what = 0;
+	//					handler.sendMessage(msg);
+						nickNameTextView.setText(nickName);
 					}else {
 						Toast.makeText(mainActivity, "获取数据失败！", Toast.LENGTH_SHORT).show();
 					}

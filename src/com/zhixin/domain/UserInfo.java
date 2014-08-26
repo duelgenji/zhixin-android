@@ -51,17 +51,7 @@ public class UserInfo {
 
 	private int coin;
 
-	private int credit;
-
-	private int historyCredit;
-
 	private int historyCoin;
-
-	private int rank;
-
-	private int rankMonth;
-
-	private int rankWeek;
 
 	private int unsend;
 
@@ -70,14 +60,6 @@ public class UserInfo {
 	private int qiandaoId;
 
 	private int fameValue;
-
-	private int petNumber;
-
-	private int level;
-
-	private String levelName;
-
-	private String levelPromotionTips;
 
 	public String getUsername() {
 		return username;
@@ -199,30 +181,6 @@ public class UserInfo {
 		this.coin = coin;
 	}
 
-	public int getCredit() {
-		return credit;
-	}
-
-	public void setCredit(int credit) {
-		this.credit = credit;
-	}
-
-	public int getHistoryCredit() {
-		return historyCredit;
-	}
-
-	public void setHistoryCredit(int historyCredit) {
-		this.historyCredit = historyCredit;
-	}
-
-	public int getRank() {
-		return rank;
-	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-
 	public int getUnsend() {
 		return unsend;
 	}
@@ -261,56 +219,6 @@ public class UserInfo {
 
 	public void setFameValue(int fameValue) {
 		this.fameValue = fameValue;
-	}
-
-	public int getPetNumber() {
-		return petNumber;
-	}
-
-	public void setPetNumber(int petNumber) {
-		this.petNumber = petNumber;
-	}
-
-	public String getLevelPromotionTips() {
-		return levelPromotionTips;
-	}
-
-	public void setLevelPromotionTips(String levelPromotionTips) {
-		this.levelPromotionTips = levelPromotionTips;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
-	}
-
-	public int getRankMonth() {
-		return rankMonth;
-	}
-
-	public void setRankMonth(int rankMonth) {
-		this.rankMonth = rankMonth;
-	}
-
-	public int getRankWeek() {
-		return rankWeek;
-	}
-
-	public void setRankWeek(int rankWeek) {
-		this.rankWeek = rankWeek;
-	}
-
-	
-
-	public String getLevelName() {
-		return levelName;
-	}
-
-	public void setLevelName(String levelName) {
-		this.levelName = levelName;
 	}
 
 }

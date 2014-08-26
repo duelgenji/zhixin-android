@@ -3,7 +3,9 @@
 
     <!-- save request context here -->
     <string name="URL_USER_LOGON">users/login</string>
-    <string name="URL_QUCESHI_LIST">xqwj/getXqwjList.htm</string>
+    <string name="URL_USER_UPDATE">users</string>
+    <string name="URL_QUCESHI_LIST">interests</string>
+    <string name="URL_XINLIZICE_LIST">selfs/retrieveSelf</string>
     <string name="URL_REGIST_PHONE">users/register</string>
     <string name="URL_REGIST_INVITE">user/yqmvalidate.htm</string>
     <string name="URL_REGIST_VALIDATE">user/validate.htm</string>
@@ -32,7 +34,7 @@
     <string name="URL_BAOBAO_MARKET_CHANGE_TURN">yhbb/getRandomList.htm</string>
     <string name="URL_ROLLING_LIST_INFO">xtgg/getRollingList.htm</string>
     <string name="URL_QU_GONG_GAO_LIST">xtgg/getList.htm</string>
-    <string name="URL_MORE_SETTINGS">userUDIDs</string>
+    <string name="URL_MORE_SETTINGS">userUDIDs/modifyUDID</string>
     <string name="URL_GET_OPTION">more/getOption.htm</string>
     <string name="URL_MORE_SUGGESTION">userFeedBacks</string>
     <string name="URL_MORE_RESET">user/resetpwd.htm</string>

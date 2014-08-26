@@ -2,19 +2,27 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="67.84dp"
-    android:background="@drawable/list"
     android:orientation="horizontal" 
-    
+    android:layout_marginBottom="5dp"
+    android:id="@+id/ll_xlzc"
+    >
+<!--   <FrameLayout 
+    android:id="@+id/framelayout_qingxu"
+    android:layout_width="match_parent"
+    android:layout_height="67.84dp"
+    android:background="@drawable/list"
+    android:orientation="horizontal"  
+    android:layout_marginBottom="5dp"
     >
     <ImageView
-        android:id="@+id/img_xlzc"
+        android:id="@+id/img_xlzc_qingxu"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="3dp"
         android:src="@drawable/qingxu" />
 
 	<TextView 
-	    android:id="@+id/tv_title"
+	    android:id="@+id/tv_title_qingxu"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:text="你的情绪管理怎么样？"
@@ -27,6 +35,126 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:src="@drawable/right_arrow_xinlizice"
-	    android:layout_gravity="center_vertical" />
+	    android:layout_gravity="right|center_vertical" />
+   </FrameLayout>
+   <FrameLayout 
+    android:id="@+id/framelayout_nengli"
+    android:layout_width="match_parent"
+    android:layout_height="67.84dp"
+    android:background="@drawable/list"
+    android:orientation="horizontal"
+    android:layout_marginBottom="5dp" 
+    >
+    <ImageView
+        android:id="@+id/img_xlzc_nengli"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="3dp"
+        android:src="@drawable/nengli" />
 
+	<TextView 
+	    android:id="@+id/tv_title_nengli"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="你的情绪管理怎么样？"
+	    android:textSize="20sp"
+	    android:layout_marginLeft="5dp"
+	    android:layout_gravity="center"
+	    />
+
+	<ImageView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/right_arrow_xinlizice"
+	    android:layout_gravity="right|center_vertical"
+	     />
+   </FrameLayout>
+   <FrameLayout 
+    android:id="@+id/framelayout_xingge"
+    android:layout_width="match_parent"
+    android:layout_height="67.84dp"
+    android:background="@drawable/list"
+    android:orientation="horizontal" 
+    android:layout_marginBottom="5dp" 
+    >
+    <ImageView
+        android:id="@+id/img_xlzc_xingge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="3dp"
+        android:src="@drawable/xingge" />
+
+	<TextView 
+	    android:id="@+id/tv_title_xingge"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="你的能力强项是哪些？"
+	    android:textSize="20sp"
+	    android:layout_marginLeft="5dp"
+	    android:layout_gravity="center"
+	    />
+
+	<ImageView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/right_arrow_xinlizice"
+	    android:layout_gravity="right|center_vertical" />
+   </FrameLayout>
+   <FrameLayout 
+    android:id="@+id/framelayout_xingge"
+    android:layout_width="match_parent"
+    android:layout_height="67.84dp"
+    android:background="@drawable/list"
+    android:orientation="horizontal" 
+    android:layout_marginBottom="5dp" 
+    >
+    <ImageView
+        android:id="@+id/img_xlzc_xingge"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="3dp"
+        android:src="@drawable/qingxu" />
+
+	<TextView 
+	    android:id="@+id/tv_title_xingge"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:text="看到什么样性格的你？"
+	    android:textSize="20sp"
+	    android:layout_marginLeft="5dp"
+	    android:layout_gravity="center"
+	    />
+	<ImageView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/right_arrow_xinlizice"
+	    android:layout_gravity="right|center_vertical" />
+   </FrameLayout>
+   
+    -->
+    <ImageView
+        android:id="@+id/img_xlzc"
+        android:layout_width="1dp"
+        android:layout_weight="3"
+        android:layout_height="match_parent"
+        android:padding="3dp"
+        android:src="@drawable/qingxu" />
+	<TextView 
+	    android:id="@+id/tv_title"
+	    android:layout_width="1dp"
+	    android:layout_weight="15"
+	    android:layout_height="wrap_content"
+	    android:text="你的心情会随什么改变？"
+	    android:textSize="20sp"
+	    android:layout_marginLeft="5dp"
+	    android:layout_gravity="center"
+	    />
+
+	<ImageView
+	    android:layout_width="1dp"
+	    android:layout_weight="3"
+	    android:layout_height="wrap_content"
+	    android:src="@drawable/right_arrow_xinlizice"
+	    android:layout_gravity="right|center_vertical" />
+   
 </LinearLayout>

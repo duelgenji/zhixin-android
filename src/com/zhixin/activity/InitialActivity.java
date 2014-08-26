@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
-import com.zhixin.database.Initial;
 import com.zhixin.datasynservice.RegistService;
 import com.zhixin.service.GetAddressIntentService;
 import com.zhixin.settings.CurrentUserHelper;
@@ -62,19 +61,15 @@ public class InitialActivity extends InstrumentedActivity {
 
 			@Override
 			protected Boolean doInBackground(Void... params) {
-				Initial initial = new Initial(InitialActivity.this);
+				
 				Boolean isAddressSaved = false;
-				try {
-					initial.initDb();
 					SharedPreferences sharedPref = InitialActivity.this
 							.getSharedPreferences(
 									SettingValues.FILE_NAME_SETTINGS,
 									Context.MODE_PRIVATE);
 					isAddressSaved = sharedPref.getBoolean(
 							SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				
 				return isAddressSaved;
 			}
 

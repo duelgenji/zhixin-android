@@ -11,7 +11,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.zhixin.daos.UserLevelDao.LevelAndName;
 import com.zhixin.database.DbManager;
 import com.zhixin.domain.UserInfo;
 
@@ -27,14 +26,14 @@ public class UserInfoDao {
 //		检查用户信息是否存在
 		if (db.tableExists(UserInfo.class)) {			
 			user = db.findUniqueByWhere(UserInfo.class, "username='"+username+"'");
+		
 		}
 		if (user == null) {
 			user = new UserInfo();
 			user.setUsername(username);
 			user.setPassword(password);
-			user = saveUserForFirsttime_particial(jbo, user);
+		   //user = saveUserForFirsttime_particial(jbo, user);
 			db.save(user);
-
 		} else {
 			user = saveUserForFirsttime_particial(jbo, user);
 			user.setPassword(password);
@@ -188,23 +187,6 @@ public class UserInfoDao {
 
 			if (!StringUtils.isEmpty(result.getString("coin"))) {
 				user.setCoin(result.getInt("coin"));
-			}
-
-			if (!StringUtils.isEmpty(result.getString("credit"))) {
-				user.setCredit(result.getInt("credit"));
-			}
-
-			if (!StringUtils.isEmpty(result.getString("historyCredit"))) {
-				user.setHistoryCredit(result.getInt("historyCredit"));
-				LevelAndName ln = new UserLevelDao().getLevel(user
-						.getHistoryCredit());
-				
-				user.setLevel(ln.getLevel());
-				user.setLevelName(ln.getName());
-			}
-
-			if (!StringUtils.isEmpty(result.getString("rank"))) {
-				user.setRank(result.getInt("rank"));
 			}
 
 			if (!StringUtils.isEmpty(result.getString("unsend"))) {

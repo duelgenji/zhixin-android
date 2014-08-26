@@ -1,12 +1,6 @@
 package com.zhixin.adapter;
 
-import java.util.ArrayList;
-
 import org.apache.commons.lang3.StringUtils;
-
-import com.zhixin.R;
-import com.zhixin.activity.DiaoyanContentActivity;
-import com.zhixin.activity.QuceshiContentActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +10,12 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.zhixin.R;
+import com.zhixin.activity.DiaoyanContentActivity;
+import com.zhixin.activity.QuceshiContentActivity;
 
 public class XinliziceListAdapter extends CursorAdapter{
 
@@ -96,116 +93,19 @@ public class XinliziceListAdapter extends CursorAdapter{
 	private View updatingContentInView(final View rowView, Cursor cursor) {
 
 		TextView questionareTitle = (TextView) rowView
-				.findViewById(R.id.questionareTitle);
-		TextView answerNumberTextView = (TextView) rowView
-				.findViewById(R.id.answerNumberTextView);
-		TextView answerFriendNumber = (TextView) rowView
-				.findViewById(R.id.answerFriendNumber);
-		TextView quceDiaoCoinText = (TextView) rowView
-				.findViewById(R.id.quceDiaoCoinText);
-		TextView quceDiaoCreditText = (TextView) rowView
-				.findViewById(R.id.quceDiaoCreditText);
-		ImageView quceDiaoCoinImage = (ImageView) rowView
-				.findViewById(R.id.quceDiaoCoinImage);
-		ImageView quceDiaoCreditImage = (ImageView) rowView
-				.findViewById(R.id.quceDiaoCreditImage);
-
+				.findViewById(R.id.tv_title);
 		// necessary injection
 		questionareTitle.setText(cursor.getString(cursor
 				.getColumnIndex("title")));
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("popularity")))) {
-			answerNumberTextView.setText(cursor.getString(cursor
-					.getColumnIndex("popularity")));
-		} else {
-			answerNumberTextView.setText("0");
-		}
-
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("friends")))) {
-			answerFriendNumber.setText(cursor.getString(cursor
-					.getColumnIndex("friends")));
-		} else {
-			answerFriendNumber.setText("0");
-		}
-
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("credit")))) {
-			int value = cursor.getInt(cursor.getColumnIndex("credit"));
-			if (value == 0) {
-				quceDiaoCreditImage.setVisibility(View.INVISIBLE);
-				quceDiaoCreditText.setVisibility(View.INVISIBLE);
-			} else {
-				quceDiaoCreditImage.setVisibility(View.VISIBLE);
-				quceDiaoCreditText.setVisibility(View.VISIBLE);
-				quceDiaoCreditText.setText(String.valueOf(value));
-			}
-		} else {
-			quceDiaoCreditImage.setVisibility(View.INVISIBLE);
-			quceDiaoCreditText.setVisibility(View.INVISIBLE);
-		}
-
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("credit")))) {
-			int value = cursor.getInt(cursor.getColumnIndex("credit"));
-			if (value == 0) {
-				quceDiaoCreditImage.setVisibility(View.INVISIBLE);
-				quceDiaoCreditText.setVisibility(View.INVISIBLE);
-			} else {
-				quceDiaoCreditImage.setVisibility(View.VISIBLE);
-				quceDiaoCreditText.setVisibility(View.VISIBLE);
-				quceDiaoCreditText.setText(String.valueOf(value));
-			}
-		} else {
-			quceDiaoCreditImage.setVisibility(View.INVISIBLE);
-			quceDiaoCreditText.setVisibility(View.INVISIBLE);
-		}
-
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("coin")))) {
-			int value = cursor.getInt(cursor.getColumnIndex("coin"));
-			if (value == 0) {
-				quceDiaoCoinImage.setVisibility(View.INVISIBLE);
-				quceDiaoCoinText.setVisibility(View.INVISIBLE);
-			} else {
-				quceDiaoCoinImage.setVisibility(View.VISIBLE);
-				quceDiaoCoinText.setVisibility(View.VISIBLE);
-				quceDiaoCoinText.setText(String.valueOf(value));
-			}
-		} else {
-			quceDiaoCoinImage.setVisibility(View.INVISIBLE);
-			quceDiaoCoinText.setVisibility(View.INVISIBLE);
-		}
 
 		// tag injection
 
-		FrameLayout tagFragment1 = (FrameLayout) rowView
-				.findViewById(R.id.tagFragment1);
-		FrameLayout tagFragment2 = (FrameLayout) rowView
-				.findViewById(R.id.tagFragment2);
-		FrameLayout tagFragment3 = (FrameLayout) rowView
-				.findViewById(R.id.tagFragment3);
-		FrameLayout tagFragment4 = (FrameLayout) rowView
-				.findViewById(R.id.tagFragment4);
-		FrameLayout tagFragment5 = (FrameLayout) rowView
-				.findViewById(R.id.tagFragment5);
-		tagFragment1.setVisibility(View.GONE);
-		tagFragment2.setVisibility(View.GONE);
-		tagFragment3.setVisibility(View.GONE);
-		tagFragment4.setVisibility(View.GONE);
-		tagFragment5.setVisibility(View.GONE);
-		ArrayList<FrameLayout> frameList = new ArrayList<FrameLayout>();
-
-		frameList.add(tagFragment1);
-		frameList.add(tagFragment2);
-		frameList.add(tagFragment3);
-		frameList.add(tagFragment4);
-		frameList.add(tagFragment5);
+		ImageView  img_xlzc = (ImageView) rowView.findViewById(R.id.img_xlzc);
 
 		String tags = cursor.getString(cursor.getColumnIndex("tags"));
 		if (StringUtils.isNotEmpty(tags)) {
 			String[] tagArray = tags.split(";");
-
+/**
 			for (int i = 0; i < tagArray.length; i++) {
 				int index = Integer.parseInt(tagArray[i]);
 				FrameLayout frame = frameList.get(i);
@@ -262,7 +162,7 @@ public class XinliziceListAdapter extends CursorAdapter{
 				}
 				frame.setVisibility(View.VISIBLE);
 			}
-
+ */
 		}
 		int questionnareId = cursor.getInt(cursor
 				.getColumnIndex("questionnarieId"));

@@ -44,7 +44,6 @@ public class SqlCursorLoader extends CursorLoader {
                 cursor.getCount();
                 cursor.registerContentObserver(mObserver);
             }
-
             return cursor;
 
         }else{

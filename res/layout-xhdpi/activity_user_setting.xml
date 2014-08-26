@@ -273,12 +273,26 @@
 
                     </RelativeLayout>
                 </LinearLayout>
-
             </RelativeLayout>
 
-            
-
-            
-
         </LinearLayout>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:layout_marginTop="30dp"
+                >
+                <Button
+                    android:id="@+id/logOutBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                   android:text="退出"
+                   android:textSize="18sp"
+                   android:textColor="@color/text_white"
+                    android:background="@drawable/more_logout"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter">
+                </Button>
+                </RelativeLayout>
 </LinearLayout>

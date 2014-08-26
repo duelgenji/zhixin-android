@@ -16,7 +16,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -28,8 +27,6 @@ import com.zhixin.adapter.QuceshiListAdapter;
 import com.zhixin.datasynservice.QuListService;
 import com.zhixin.dialog.InstructionDialog;
 import com.zhixin.dialog.QubaopenProgressDialog;
-import com.zhixin.dialog.QuceshiOrderPickerDialog;
-import com.zhixin.dialog.QuceshiTypePickerDialog;
 import com.zhixin.domain.QuList;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.SqlCursorLoader;
@@ -37,21 +34,13 @@ import com.zhixin.utils.SqlCursorLoader;
 public class QuceshiListActivity extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener,
 		OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
-//类型的选择
-	private QuceshiTypePickerDialog quceshiTypePickerDialog;
-	private QuceshiOrderPickerDialog quceshiOrderPickerDialog;
-
-	private ViewGroup qucehiTypePickerComp;
-	private View quceshiOrderComponent;
-
-	private TextView quceshiTypeIndicator;
-	private TextView quceshiOrderIndicator;
-
+	/**趣测试列表 */
 	private ListView quList;
+	/**loading */
 	private QubaopenProgressDialog progressDialog;
-
+	/**趣测试adapter */
 	private QuceshiListAdapter adapter;
-
+	
 	private QuListService quListService;
 
 	private QuceshiListActivity _this;
@@ -70,7 +59,7 @@ public class QuceshiListActivity extends FragmentActivity implements
 	private LoadDataTask refreshDataTask;
 
 	private boolean shouldGetMoreData;
-
+	/**下拉刷新*/
 	private SwipeRefreshLayout quListParent;
 
 	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
@@ -86,11 +75,10 @@ public class QuceshiListActivity extends FragmentActivity implements
 
 		@Override
 		protected String doInBackground(Integer... params) {
-
 			int order = params[0];
-			int type = params[1];
+//			int type = params[1];
 			try {
-				return quListService.refreshData(order, type, this.refreshFlag);
+				return quListService.refreshData(order, this.refreshFlag);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} catch (JSONException e) {
@@ -101,13 +89,11 @@ public class QuceshiListActivity extends FragmentActivity implements
 
 		@Override
 		protected void onPostExecute(String params) {
-
 			if (params == null) {
 				getSupportLoaderManager().restartLoader(0, null,
 						QuceshiListActivity.this);
 			} else {
 				if (quList != null) {
-
 				}
 				if (params.equals("err204")) {
 					shouldGetMoreData = false;
@@ -121,80 +107,14 @@ public class QuceshiListActivity extends FragmentActivity implements
 				quListParent.setRefreshing(false);
 			}
 		}
-
 		@Override
 		protected void onCancelled() {
 			super.onCancelled();
-
-			if (quListParent.isRefreshing()) {
+			if (quListParent.isRefreshing()){
 				quListParent.setRefreshing(false);
 			}
 		}
-
 	}
-
-	private class TypePickerDialogDismissListener implements
-			DialogInterface.OnDismissListener {
-
-		@Override
-		public void onDismiss(DialogInterface arg0) {
-
-			if (quceshiTypePickerDialog.isPickTypeOrNot()) {
-				if (type != quceshiTypePickerDialog.getType()) {
-					type = quceshiTypePickerDialog.getType();
-					quceshiTypeIndicator.setText(quceshiTypePickerDialog
-							.getTypeStr());
-
-					refreshDataTask = new LoadDataTask(true);
-					if (!progressDialog.isShowing()) {
-						progressDialog.show();
-					}
-					refreshDataTask.execute(order, type);
-				}
-			} else {
-				if (refreshDataTask.isCancelled()) {
-					refreshDataTask = new LoadDataTask(true);
-					if (!progressDialog.isShowing()) {
-						progressDialog.show();
-					}
-					refreshDataTask.execute(order, type);
-				}
-			}
-		}
-	}
-
-	private class OrderPickerDialogDismissListener implements
-			DialogInterface.OnDismissListener {
-
-		@Override
-		public void onDismiss(DialogInterface arg0) {
-
-			if (quceshiOrderPickerDialog.isPickOrderOrNot()) {
-				if (order != quceshiOrderPickerDialog.getOrder()) {
-
-					order = quceshiOrderPickerDialog.getOrder();
-					quceshiOrderIndicator.setText(quceshiOrderPickerDialog
-							.getOrderStr());
-
-					refreshDataTask = new LoadDataTask(true);
-					if (!progressDialog.isShowing()) {
-						progressDialog.show();
-					}
-					refreshDataTask.execute(order, type);
-				}
-			} else {
-				if (refreshDataTask.isCancelled()) {
-					refreshDataTask = new LoadDataTask(true);
-					if (!progressDialog.isShowing()) {
-						progressDialog.show();
-					}
-
-					refreshDataTask.execute(order, type);
-				}
-			}
-		}
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -215,13 +135,13 @@ public class QuceshiListActivity extends FragmentActivity implements
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
 
 		return new SqlCursorLoader(this, QuListService.QuceshiSqlMaker.makeSql(
-				order, type), QuList.class);
+				order), QuList.class);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (adapter == null) {
-			adapter = new QuceshiListAdapter(this, cursor, 0);
+			adapter = new QuceshiListAdapter(this, cursor);
 			quList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);
@@ -248,33 +168,9 @@ public class QuceshiListActivity extends FragmentActivity implements
 
 	@Override
 	public void onClick(View v) {
-		boolean cancelSuccess = true;
 		switch (v.getId()) {
-		case R.id.quceshiTypeComponent:
-
-			if (refreshDataTask.getStatus() == AsyncTask.Status.RUNNING) {
-				cancelSuccess = refreshDataTask.cancel(true);
-			}
-
-			if (!quceshiTypePickerDialog.isShowing()) {
-				quceshiTypePickerDialog.show();
-			}
-
-			break;
-		case R.id.quceshiOrderComponent:
-
-			if (refreshDataTask.getStatus() == AsyncTask.Status.RUNNING) {
-				cancelSuccess = refreshDataTask.cancel(true);
-			}
-
-			if (!quceshiOrderPickerDialog.isShowing()) {
-				quceshiOrderPickerDialog.show();
-			}
-
-			break;
 		case R.id.backup_btn:
 			this.onBackPressed();
-
 			break;
 		default:
 			break;
@@ -284,43 +180,20 @@ public class QuceshiListActivity extends FragmentActivity implements
 
 	private void init() {
 		shouldGetMoreData = true;
-
 		quListService = new QuListService(this);
 		progressDialog = new QubaopenProgressDialog(this);
-
 		quListParent = (SwipeRefreshLayout) this
 				.findViewById(R.id.quListParent);
-		quListParent.setColorScheme(R.color.text_blue,
-				R.color.general_activity_background, R.color.text_blue,
+		quListParent.setColorScheme(R.color.text_orange,
+				R.color.general_activity_background, R.color.text_orange,
 				R.color.general_activity_background);
-
 		quListParent.setOnRefreshListener(this);
+	
+		((TextView)findViewById(R.id.title_of_the_page))
+		.setText(getString(R.string.title_quceshi));
 
 		this.findViewById(R.id.backup_btn).setOnClickListener(this);
-
-		quceshiTypePickerDialog = new QuceshiTypePickerDialog(this,
-				android.R.style.Theme_Translucent_NoTitleBar);
-		quceshiTypePickerDialog
-				.setOnDismissListener(new TypePickerDialogDismissListener());
-		quceshiTypePickerDialog.setOwnerActivity(this);
-		qucehiTypePickerComp = (ViewGroup) this
-				.findViewById(R.id.quceshiTypeComponent);
-
-		quceshiOrderPickerDialog = new QuceshiOrderPickerDialog(this,
-				android.R.style.Theme_Translucent_NoTitleBar);
-
-		quceshiOrderPickerDialog
-				.setOnDismissListener(new OrderPickerDialogDismissListener());
-		quceshiOrderPickerDialog.setOwnerActivity(this);
-		quceshiOrderComponent = (View) this
-				.findViewById(R.id.quceshiOrderComponent);
-
 		quList = (ListView) this.findViewById(R.id.quList);
-
-		quceshiTypeIndicator = (TextView) this
-				.findViewById(R.id.quceshiTypeIndicator);
-		quceshiOrderIndicator = (TextView) this
-				.findViewById(R.id.quceshiOrderIndicator);
 
 		refreshDataTask = new LoadDataTask(true);
 		refreshListIsRefreshing = false;
@@ -328,9 +201,6 @@ public class QuceshiListActivity extends FragmentActivity implements
 			progressDialog.show();
 		}
 		refreshDataTask.execute(order, type);
-
-		quceshiOrderComponent.setOnClickListener(this);
-		qucehiTypePickerComp.setOnClickListener(this);
 
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
@@ -354,14 +224,10 @@ public class QuceshiListActivity extends FragmentActivity implements
 									.show();
 						}
 					});
-
 					qushouyeFirst.show();
-
 				}
 			}
-
 		}.execute();
-
 	}
 
 	@Override

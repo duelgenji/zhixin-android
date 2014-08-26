@@ -20,7 +20,6 @@ import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -83,9 +82,9 @@ public class UserInfoActivity extends FragmentActivity implements
 			switch (msg.what) {
 			case 0:
 				if(sex.equals("MALE")){
-					txtSexPersonalProfile.setText("女");
-				}else if(sex.equals("FAMALE")){
 					txtSexPersonalProfile.setText("男");
+				}else if(sex.equals("FEMALE")){
+					txtSexPersonalProfile.setText("女");
 				}
 				if (bloodType.equals("A")) {
 					txtBloodTypePersonalProfile.setText("A");
@@ -96,7 +95,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}else if (bloodType.equals("AB")) {
 					txtBloodTypePersonalProfile.setText("AB");
 				}else if (bloodType.equals("OTHER")) {
-					txtBloodTypePersonalProfile.setText("OTHER");
+					txtBloodTypePersonalProfile.setText("其他");
 				}
 				txtBirthPersonalProfile.setText(birthday);
 				txtAuthenticationPersonalProfile.setText(IdCard);
@@ -105,9 +104,9 @@ public class UserInfoActivity extends FragmentActivity implements
 				break;
 			case 1:
 				if(iSex!=null && iSex.equals("MALE")){
+					txtSexPersonalProfile.setText(" 男");
+				}else if(iSex!=null && iSex.equals("FEMALE")){
 					txtSexPersonalProfile.setText("女");
-				}else if(iSex!=null && iSex.equals("FAMALE")){
-					txtSexPersonalProfile.setText("男");
 				}
 				if (blood!=null && blood.equals("A")) {
 					txtBloodTypePersonalProfile.setText("A");
@@ -210,10 +209,10 @@ public class UserInfoActivity extends FragmentActivity implements
 		StatService.onResume(this);
 //		progressDialog.show();
 //		getSupportLoaderManager().restartLoader(0, null, this);
-		long userId = CurrentUserHelper.getCurrentUserId();
+//		long userId = CurrentUserHelper.getCurrentUserId();
 		 String requestUrl = SettingValues.URL_PREFIX
 					+ getString(R.string.URL_USER_INFO_ADD);
-	        requestUrl+="/"+userId;
+//	        requestUrl+="/"+userId;
 		new LoadDataTask().execute(1,requestUrl,null,HttpClient.TYPE_GET);
 	}
 	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
@@ -393,7 +392,6 @@ public class UserInfoActivity extends FragmentActivity implements
 				try {
 //					iSex = Integer.parseInt("0");
 					iSex = "MALE";
-					Log.i("INFO", iSex);
 					obj.put("sex", iSex);
 					obj.put("id", userId);
 				} catch (JSONException e) {
@@ -603,10 +601,11 @@ public class UserInfoActivity extends FragmentActivity implements
 				// Toast.LENGTH_SHORT).show();
 //				new LoadDataTask().execute("birthday", mYear + "-" + mMonth
 //						+ "-" + mDay);
+				birthDay = mYear + "-" + mMonth + "-" + mDay;
 				JSONObject obj = new JSONObject();
 				long userId = CurrentUserHelper.getCurrentUserId();
 				try {
-					obj.put("birthDay", birthDay);
+					obj.put("birthday", birthDay);
 					obj.put("id", userId);
 				} catch (JSONException e) {
 					e.printStackTrace();
@@ -702,7 +701,6 @@ public class UserInfoActivity extends FragmentActivity implements
 	public void onLoaderReset(Loader<Cursor> loader) {
 
 	}
-
 	private void showToast(String content) {
 		Toast.makeText(this, content, 3).show();
 	}

@@ -9,6 +9,24 @@ public class XinliziceList {
 	@Id(column = "_id")
 	private int _id;
 
+	private long selfId;
+	
+	public long getSelfId() {
+		return selfId;
+	}
+
+	public void setSelfId(long selfId) {
+		this.selfId = selfId;
+	}
+
+	public String getManagementType() {
+		return managementType;
+	}
+
+	public void setManagementType(String managementType) {
+		this.managementType = managementType;
+	}
+
 	private int questionnarieId;
 
 	private String title;
@@ -17,7 +35,7 @@ public class XinliziceList {
 
 	private int popularity;
 
-	private int type;
+	private String managementType;
 
 	private int recommend;
 
@@ -73,14 +91,6 @@ public class XinliziceList {
 
 	public void setPopularity(int popularity) {
 		this.popularity = popularity;
-	}
-
-	public int getType() {
-		return type;
-	}
-
-	public void setType(int type) {
-		this.type = type;
 	}
 
 	public int getRecommend() {

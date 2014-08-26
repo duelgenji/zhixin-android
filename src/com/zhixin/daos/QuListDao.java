@@ -19,12 +19,12 @@ import com.zhixin.utils.HttpClient;
 
 public class QuListDao {
 
-	public boolean saveDataByJson(JSONObject jbo, int order, int type,
+	public boolean saveDataByJson(JSONObject jbo, int order,
 			boolean refreshFlag) throws JSONException, ParseException {
 		JSONArray array = jbo.getJSONArray("aData");
 
 		if (refreshFlag) {
-			deleteAll(type, order);
+			deleteAll(order);
 		}
 
 		QuList quList;
@@ -108,32 +108,32 @@ public class QuListDao {
 		}
 	}
 
-	private void deleteAll(int type, int order) {
+	private void deleteAll( int order) {
 		if (DbManager.getDatabase().tableExists(QuList.class)) {
 			String sql = "delete from qu_list where wjorder=" + order;
-			if (type != 0) {
-				sql = sql + " and type=" + type;
-			}
+//			if (type != 0) {
+//				sql = sql + " and type=" + type;
+//			}
 			DbManager.getDatabase().exeCustomerSql(sql);
 		}
 	}
 
-	public JSONObject getOldData(int order, int type) throws JSONException {
+	public JSONObject getOldData(int order) throws JSONException {
 		JSONObject jbo = new JSONObject();
-		if (type != 0) {
-			jbo.put("iType", String.valueOf(type));
-		}
+//		if (type != 0) {
+//			jbo.put("iType", String.valueOf(type));
+//		}
 		jbo.put("iOrderBy", String.valueOf(order));
 		String sql;
 		switch (order) {
 		case 0:
 		case 1:
-			if (type != 0) {
-				sql = "type=" + type + " and wjorder=" + order
-						+ " and controlFlag=0";
-			} else {
+//			if (type != 0) {
+//				sql = "type=" + type + " and wjorder=" + order
+//						+ " and controlFlag=0";
+//			} else {
 				sql = "wjorder=" + order + " and controlFlag=0";
-			}
+//			}
 			List<QuList> quList = DbManager.getDatabase().findAllByWhere(
 					QuList.class, sql);
 			JSONArray array = new JSONArray();
@@ -147,14 +147,14 @@ public class QuListDao {
 			break;
 		case 2:
 		case 3:
-			if (type != 0) {
-				sql = "select * from qu_list where type=" + type
-						+ " and wjorder=" + order + " and controlFlag=0"
-						+ " order by _id desc limit 1";
-			} else {
+//			if (type != 0) {
+//				sql = "select * from qu_list where type=" + type
+//						+ " and wjorder=" + order + " and controlFlag=0"
+//						+ " order by _id desc limit 1";
+//			} else {
 				sql = "select * from qu_list where wjorder=" + order
 						+ " and controlFlag=0" + " order by _id desc limit 1";
-			}
+//			}
 
 			QuList lastOne = DbManager.getDatabase().findUniqueBySql(
 					QuList.class, sql);

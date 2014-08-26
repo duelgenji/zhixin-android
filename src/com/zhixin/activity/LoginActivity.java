@@ -22,13 +22,10 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
-import com.zhixin.common.RequestLogic;
 import com.zhixin.daos.UserInfoDao;
 import com.zhixin.settings.CurrentUserHelper;
-import com.zhixin.settings.ErrHashMap;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
-import com.zhixin.utils.ImeiUtils;
 import com.zhixin.utils.MatcherUtil;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
@@ -58,6 +55,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 	private LoginActivity _this;
 	
 	private Context context;
+	
+	private String phone;
+	
+	private String password;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +112,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         try {
         	obj.put("phone", phone);
         	obj.put("password", password);
-        	//sobj+="{\"phone\":\"13621673989\",\"password\":\"123456aa\"}";
-			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -160,6 +159,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		                //。。。。。。。。。
 						long userId = result.getLong("userId");
 						CurrentUserHelper.saveCurrentUserId(userId);
+						
+						CurrentUserHelper.saveCurrentPhone(phone);
+						try {
+							userInfoDao.saveUserForFirsttime(result,
+									password);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
 						Toast.makeText(_this, "登陆成功", Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(_this,MainActivity.class);
 						startActivity(intent);
@@ -184,131 +193,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		
     	
     }
-	
-	
-	
-	public void loginAction() {
-
-		if (StringUtils.isEmpty(phoneStr.getText())) {
-
-			if (phoneEmptyToast == null) {
-				phoneEmptyToast = Toast.makeText(this, getResources()
-						.getString(R.string.logon_toast_phone_empty), 3);
-
-			}
-			phoneEmptyToast.show();
-			btnLogin.setEnabled(true);
-			return;
-		}
-
-		if (StringUtils.isEmpty(passwordStr.getText())) {
-
-			Toast.makeText(this, "密码为空", Toast.LENGTH_SHORT).show();
-			btnLogin.setEnabled(true);
-			return;
-		}
-
-		final String logonUrl = SettingValues.URL_PREFIX
-				+ getResources().getString(R.string.URL_USER_LOGON);
-
-		final String phone = phoneStr.getText().toString();
-		final String password = passwordStr.getText().toString();
-		if (!MatcherUtil.validateMobile(phone)) {
-			Toast.makeText(
-					this,
-					getResources().getString(
-							R.string.logon_toast_phone_format_incorrect), 3)
-					.show();
-			btnLogin.setEnabled(true);
-			return;
-		}
-
-		JSONObject jsonParams = new JSONObject();
-		try {
-			jsonParams.put("phone", phoneStr);
-			jsonParams.put("pwd", passwordStr);
-			String code = ImeiUtils.getImeiCode(this);
-			if (code != null) {
-				jsonParams.put("imei", code);
-			}
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-
-		HttpClient.request(logonUrl, jsonParams, new RequestLogic() {
-
-			@Override
-			public void onLoading(long count, long current) {
-
-			}
-//登陆成功
-			@Override
-			public void whenSuccess(final JSONObject result) {
-
-				new AsyncTask<Void, Void, Void>() {
-
-					@Override
-					protected Void doInBackground(Void... params) {
-						CurrentUserHelper.saveCurrentPhone(phone);
-						try {
-							userInfoDao.saveUserForFirsttime(result,
-									password);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-						return null;
-					}
-
-					@Override
-					protected void onPostExecute(Void params) {
-						Intent intent = new Intent(_this, MainActivity.class);
-						intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
-								| Intent.FLAG_ACTIVITY_NEW_TASK);
-						startActivity(intent);
-						_this.finish();
-
-					}
-				}.execute();
-
-			}
-//登陆失败
-			@Override
-			public void whenFail(JSONObject message) {
-
-				try {
-					String errMessage = message.getString("message");
-					if (StringUtils.isAsciiPrintable(errMessage)) {
-						errMessage = ErrHashMap.getErrMessage(message
-								.getString("message"));
-					}
-
-					Toast.makeText(_this, errMessage, Toast.LENGTH_SHORT)
-							.show();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} finally {
-
-					btnLogin.setEnabled(true);
-				}
-
-			}
-//			如果是请求失败就吐司
-			@Override
-			public void whenRequestFail(String errcode) {
-				if (requestFailToast == null) {
-					requestFailToast = Toast.makeText(
-							LoginActivity.this,
-							getResources().getString(
-									R.string.toast_request_fail), 5);
-				}
-				requestFailToast.show();
-				btnLogin.setEnabled(true);
-			}
-		});
-
-	}
 
 	@Override
 	public void onClick(View v) {
@@ -336,8 +220,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 			break;
 		case R.id.btnLogin:
 			v.setEnabled(false);
-			String phone = phoneStr.getText().toString();
-			String password = passwordStr.getText().toString();
+			phone = phoneStr.getText().toString();
+			password = passwordStr.getText().toString();
 			if (StringUtils.isEmpty(phone)) {
 
 				if (phoneEmptyToast == null) {

@@ -46,8 +46,10 @@ public class UserAddressService {
     }
 
     public Void saveUserAddress() throws ParseException {
+    	long userId = CurrentUserHelper.getCurrentUserId();
         String requestUrl = SettingValues.URL_PREFIX
                 + context.getString(R.string.URL_USER_ADDRESS);
+        requestUrl+="/"+userId;
         try {
             JSONObject result = HttpClient.requestSync(requestUrl, null);
             if (result != null && result.getInt("success") == 1) {
