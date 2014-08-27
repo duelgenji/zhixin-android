@@ -283,12 +283,17 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	
 	public JSONObject actionConfirm(String phone,String password,String captcha) throws ParseException {
         JSONObject result=new JSONObject();
-        AjaxParams obj = new AjaxParams();
-			obj.put("phone", phone);
-			obj.put("password", password);
-			obj.put("captcha", captcha);
+        JSONObject obj = new JSONObject();
+			try {
+				obj.put("phone", phone);
+				obj.put("password", password);
+				obj.put("captcha", captcha);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         String requestUrl = SettingValues.URL_PREFIX
-				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
+				+ context.getString(R.string.URL_REGIST_SETUP_PASSWORD);
         new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST_FORM);
 		return result;
 	}

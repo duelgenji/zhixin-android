@@ -399,7 +399,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 			}
 		});
@@ -418,7 +418,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 
 			}
@@ -473,7 +473,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 			}
 		});
@@ -494,7 +494,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 			}
 		});
@@ -514,7 +514,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 			}
 		});
@@ -535,7 +535,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 			}
 		});
@@ -555,7 +555,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				dialog.dismiss();
 			}
 		});
@@ -612,7 +612,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_UPDATE);
-				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT);
+				new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
 				pickerExist = false;
 			}
 

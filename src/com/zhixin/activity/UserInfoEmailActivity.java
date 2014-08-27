@@ -100,7 +100,7 @@ public class UserInfoEmailActivity  extends FragmentActivity implements View.OnC
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					new LoadDataTask1().execute(1,requestUrl,jsonParams,HttpClient.TYPE_PUT);
+					new LoadDataTask1().execute(1,requestUrl,jsonParams,HttpClient.TYPE_PUT_JSON);
                 }else{
                     showToast(_this.getString(R.string.toast_user_info_wrong_email));
                     submitBtn.setEnabled(true);

@@ -254,7 +254,7 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 			obj.put("captcha", captcha);
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_LOGIN_FORGOT_SET_NEW_PWD);
-		new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST_FORM);
+		new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_POST_NORMAL);
 		return result;
 	}
 

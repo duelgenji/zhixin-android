@@ -114,7 +114,7 @@ public class MoreSuggestionActivity  extends FragmentActivity implements View.On
 				+ context.getString(R.string.URL_MORE_SUGGESTION);
         
         Log.i(SettingValues.URL_PREFIX, obj.toString());
-        new LoadDataTask1().execute(1,requestUrl,obj,HttpClient.TYPE_POST);
+        new LoadDataTask1().execute(1,requestUrl,obj,HttpClient.TYPE_POST_JSON);
 		return result;
 	}
     private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{

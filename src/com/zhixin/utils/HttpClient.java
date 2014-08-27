@@ -191,11 +191,12 @@ public class HttpClient {
 	}
 
 	public final static int TYPE_GET = 1;
-	public final static int TYPE_POST = 2;
-	public final static int TYPE_PUT = 3;
+	public final static int TYPE_POST_JSON = 2;
+	public final static int TYPE_PUT_JSON = 3;
 	public final static int TYPE_DELETE = 4;
-	public final static int TYPE_POST_FORM=5;
-	public final static int TYPE_PUT_FORM=6;
+	public final static int TYPE_POST_NORMAL=5;
+	public final static int TYPE_PUT_NORMAL=6;
+	public final static int TYPE_POST_FORM=7;
 
 	// **根据类型来发送请求
 	public static JSONObject requestSync(String requestUrl,
@@ -219,20 +220,24 @@ public class HttpClient {
 					case TYPE_GET:
 						resultObj = fh.getSync(requestUrl);
 						break;
-					case TYPE_POST:
+					case TYPE_POST_JSON:
 						resultObj = fh.postSyncJSON2(requestUrl, jsonParams);
 						break;
-					case TYPE_PUT:
+					case TYPE_PUT_JSON:
 						resultObj = fh.putSyncJSON2(requestUrl, jsonParams);
 						break;
 					case TYPE_DELETE:
 						resultObj = fh.deleteSync(requestUrl);
 						break;
-					case TYPE_POST_FORM:
+					case TYPE_POST_NORMAL:
 						resultObj = fh.postSync(requestUrl, ajaxParams);
 						break;
-					case TYPE_PUT_FORM:
+					case TYPE_PUT_NORMAL:
 						resultObj = fh.putSync(requestUrl, ajaxParams);
+						break;
+					case TYPE_POST_FORM:
+						resultObj = fh.postSyncJSONForm(requestUrl, jsonParams);
+						break;
 					default:
 						break;
 					}
@@ -268,19 +273,19 @@ public class HttpClient {
 						case TYPE_GET:
 							resultObj = fh.getSync(requestUrl);
 							break;
-						case TYPE_POST:
+						case TYPE_POST_JSON:
 							resultObj = fh.postSyncJSON(requestUrl, jsonParams);
 							break;
-						case TYPE_PUT:
+						case TYPE_PUT_JSON:
 							resultObj = fh.putSyncJSON(requestUrl, jsonParams);
 							break;
 						case TYPE_DELETE:
 							resultObj = fh.deleteSync(requestUrl);
 							break;
-						case TYPE_POST_FORM:
+						case TYPE_POST_NORMAL:
 							resultObj = fh.postSync(requestUrl, ajaxParams);
 							break;
-						case TYPE_PUT_FORM:
+						case TYPE_PUT_NORMAL:
 							resultObj = fh.putSync(requestUrl, ajaxParams);
 						default:
 							break;

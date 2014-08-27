@@ -122,7 +122,7 @@ public class XinliMapCard1Fragment extends Fragment implements
 								+ "{\"id\":833,\"order\":2},{\"id\":834,\"order\":3}]}," + "{\"questionId\": 274,\"contents\":[{\"id\":836}]}]");
 						//obj.put("questionJson", "[{\"questionId\": 270,\"contents\":[{\"id\":827}]},{\"questionId\": 271,\"contents\":[{\"id\":828},{\"id\":829}]},{\"questionId\": 272,\"contents\":[{\"id\":830,\"cnt\":\"你好你\"},{\"id\":831,\"cnt\":\"dddddddd\"}]},{\"questionId\": 273,\"contents\":[{\"id\":832,\"order\":1},{\"id\":833,\"order\":2},{\"id\":834,\"order\":3}]},{\"questionId\": 274,\"contents\":[{\"id\":836}]}]");
 					result = HttpClient.requestSync("http://10.0.0.11:8081/selfs/calculateSelfResult",
-							obj, HttpClient.TYPE_POST_FORM);
+							obj, HttpClient.TYPE_POST_NORMAL);
 					result.put("syncType", syncType);
 					//result.put("success", 1);
 					break;

@@ -145,7 +145,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements View
                      jsonParams.put("sPostCode",code);
                      String requestUrl = SettingValues.URL_PREFIX
      						+ getString(R.string.URL_USER_ADDRESS);
-                     new LoadDataTask1().execute(1,requestUrl,jsonParams,HttpClient.TYPE_POST);
+                     new LoadDataTask1().execute(1,requestUrl,jsonParams,HttpClient.TYPE_POST_JSON);
                      
 //                     new LoadDataTask().execute(jsonParams);
                  } catch (JSONException e) {

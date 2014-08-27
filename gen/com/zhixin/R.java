@@ -740,62 +740,34 @@ containing a value of this type.
     }
     public static final class id {
         public static final int accountInfoList=0x7f0b000e;
-<<<<<<< HEAD
-        public static final int action_settings=0x7f0b0273;
-        public static final int activityContent=0x7f0b0178;
-        public static final int addChoiceBtn=0x7f0b00d9;
-        public static final int add_address=0x7f0b024a;
-        public static final int addressSubmit=0x7f0b0249;
-        public static final int allRecordBtn=0x7f0b01b0;
-        public static final int allStatusBtn=0x7f0b01b4;
-        public static final int answerContent=0x7f0b0199;
-        public static final int answerFriendNumber=0x7f0b0156;
-        public static final int answerNumberTextView=0x7f0b0155;
-        public static final int answerTitle=0x7f0b0198;
-        public static final int back_home_btn=0x7f0b024e;
-=======
-        public static final int action_settings=0x7f0b026e;
+        public static final int action_settings=0x7f0b026f;
         public static final int activityContent=0x7f0b0174;
         public static final int addChoiceBtn=0x7f0b00d5;
-        public static final int add_address=0x7f0b0245;
-        public static final int addressSubmit=0x7f0b0244;
+        public static final int add_address=0x7f0b0246;
+        public static final int addressSubmit=0x7f0b0245;
         public static final int allRecordBtn=0x7f0b01ad;
         public static final int allStatusBtn=0x7f0b01b1;
         public static final int answerContent=0x7f0b0196;
         public static final int answerFriendNumber=0x7f0b0152;
         public static final int answerNumberTextView=0x7f0b0151;
         public static final int answerTitle=0x7f0b0195;
-        public static final int back_home_btn=0x7f0b0249;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
+        public static final int back_home_btn=0x7f0b024a;
         public static final int backup_btn=0x7f0b005c;
         public static final int banbenhao=0x7f0b00e8;
         public static final int baobaoListBBM=0x7f0b018a;
         public static final int baobaoTips=0x7f0b006c;
         public static final int baobaoTitleBBM=0x7f0b0188;
         public static final int blueBar=0x7f0b006e;
-<<<<<<< HEAD
-        public static final int btnABBloodTypePicker=0x7f0b01c6;
-        public static final int btnABloodTypePicker=0x7f0b01c3;
-        public static final int btnAccept=0x7f0b0182;
-        public static final int btnAdd=0x7f0b0176;
-        public static final int btnAddFriend=0x7f0b0184;
-        public static final int btnAddressManage=0x7f0b024b;
-        public static final int btnAddressModifyDefault=0x7f0b0110;
-        public static final int btnAddressModifyDelete=0x7f0b010f;
-        public static final int btnAddressPickerCancel=0x7f0b01c2;
-        public static final int btnAddressPickerOK=0x7f0b01c1;
-=======
         public static final int btnABBloodTypePicker=0x7f0b01c3;
         public static final int btnABloodTypePicker=0x7f0b01c0;
         public static final int btnAccept=0x7f0b017e;
         public static final int btnAdd=0x7f0b0172;
         public static final int btnAddFriend=0x7f0b0180;
-        public static final int btnAddressManage=0x7f0b0246;
+        public static final int btnAddressManage=0x7f0b0247;
         public static final int btnAddressModifyDefault=0x7f0b010c;
         public static final int btnAddressModifyDelete=0x7f0b010b;
         public static final int btnAddressPickerCancel=0x7f0b01bf;
         public static final int btnAddressPickerOK=0x7f0b01be;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int btnArrowQHT=0x7f0b004f;
         public static final int btnBBloodTypePicker=0x7f0b01c1;
         public static final int btnCancel=0x7f0b01a8;
@@ -814,32 +786,10 @@ containing a value of this type.
         public static final int btnGetToken=0x7f0b0023;
         public static final int btnGroupUserMessage=0x7f0b0112;
         public static final int btnHideAnswerQCSA=0x7f0b0082;
-<<<<<<< HEAD
-        public static final int btnHistory=0x7f0b024d;
-        public static final int btnLSCS=0x7f0b020d;
-        public static final int btnLSDY=0x7f0b020e;
-        public static final int btnLogin=0x7f0b0263;
-        public static final int btnLotteryUserMessage=0x7f0b0118;
-        public static final int btnMaleSexPicker=0x7f0b01cc;
-        public static final int btnNext=0x7f0b0044;
-        public static final int btnOBloodTypePicker=0x7f0b01c5;
-        public static final int btnOtherBloodTypePicker=0x7f0b01c7;
-        public static final int btnPrivateUserMessage=0x7f0b0119;
-        public static final int btnQCS=0x7f0b020a;
-        public static final int btnQDY=0x7f0b020b;
-        public static final int btnQHT=0x7f0b020c;
-        public static final int btnQuchoujiangList=0x7f0b0220;
-        public static final int btnQuduijiangList=0x7f0b0221;
-        public static final int btnRefuse=0x7f0b0183;
-        public static final int btnRegister=0x7f0b0264;
-        public static final int btnRemoveMessage=0x7f0b0180;
-        public static final int btnRequestUserMessage=0x7f0b011a;
-        public static final int btnSearch=0x7f0b00ee;
-=======
-        public static final int btnHistory=0x7f0b0248;
+        public static final int btnHistory=0x7f0b0249;
         public static final int btnLSCS=0x7f0b020a;
         public static final int btnLSDY=0x7f0b020b;
-        public static final int btnLogin=0x7f0b025e;
+        public static final int btnLogin=0x7f0b025f;
         public static final int btnLotteryUserMessage=0x7f0b0114;
         public static final int btnMaleSexPicker=0x7f0b01c9;
         public static final int btnNext=0x7f0b0044;
@@ -852,11 +802,10 @@ containing a value of this type.
         public static final int btnQuchoujiangList=0x7f0b021c;
         public static final int btnQuduijiangList=0x7f0b021d;
         public static final int btnRefuse=0x7f0b017f;
-        public static final int btnRegister=0x7f0b025f;
+        public static final int btnRegister=0x7f0b0260;
         public static final int btnRemoveMessage=0x7f0b017c;
         public static final int btnRequestUserMessage=0x7f0b0116;
         public static final int btnSearch=0x7f0b00ea;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int btnSharePyq=0x7f0b0080;
         public static final int btnShareQqkj=0x7f0b007f;
         public static final int btnShareSMS=0x7f0b00e7;
@@ -867,35 +816,8 @@ containing a value of this type.
         public static final int btnSubmitAndCheckAnswerQHTC=0x7f0b00ce;
         public static final int btnSubmitCompany=0x7f0b004b;
         public static final int btnSubmitSuggestion=0x7f0b0060;
-<<<<<<< HEAD
-        public static final int btnSystemUserMessage=0x7f0b0117;
-        public static final int btn_add=0x7f0b0235;
-        public static final int btn_body_border=0x7f0b022d;
-        public static final int btn_body_inside=0x7f0b022e;
-        public static final int btn_cancel=0x7f0b01f2;
-        public static final int btn_eye=0x7f0b0233;
-        public static final int btn_head_border=0x7f0b022f;
-        public static final int btn_head_inside=0x7f0b0230;
-        public static final int btn_left_border=0x7f0b0231;
-        public static final int btn_left_inside=0x7f0b0232;
-        public static final int btn_right_border=0x7f0b022b;
-        public static final int btn_right_inside=0x7f0b022c;
-        public static final int btn_share_pyq=0x7f0b01f1;
-        public static final int btn_share_qq=0x7f0b01ef;
-        public static final int btn_share_wx=0x7f0b01f0;
-        public static final int btn_share_xlwb=0x7f0b01ee;
-        public static final int btn_switch=0x7f0b023d;
-        public static final int btn_switch_animal=0x7f0b0229;
-        public static final int btn_switch_chart=0x7f0b023b;
-        public static final int buttonQFI=0x7f0b00b9;
-        public static final int buyBaobaoBtn=0x7f0b0149;
-        public static final int buyButton=0x7f0b0164;
-        public static final int cancelBtn=0x7f0b01ed;
-        public static final int chakanjiangpingBtn=0x7f0b01b9;
-        public static final int changeTurnBBM=0x7f0b018c;
-=======
         public static final int btnSystemUserMessage=0x7f0b0113;
-        public static final int btn_add=0x7f0b0233;
+        public static final int btn_add=0x7f0b0231;
         public static final int btn_body_border=0x7f0b0229;
         public static final int btn_body_inside=0x7f0b022a;
         public static final int btn_cancel=0x7f0b01ef;
@@ -910,15 +832,15 @@ containing a value of this type.
         public static final int btn_share_qq=0x7f0b01ec;
         public static final int btn_share_wx=0x7f0b01ed;
         public static final int btn_share_xlwb=0x7f0b01eb;
+        public static final int btn_switch=0x7f0b0239;
         public static final int btn_switch_animal=0x7f0b0225;
-        public static final int btn_switch_chart=0x7f0b0231;
+        public static final int btn_switch_chart=0x7f0b0237;
         public static final int buttonQFI=0x7f0b00b5;
         public static final int buyBaobaoBtn=0x7f0b0145;
         public static final int buyButton=0x7f0b0160;
         public static final int cancelBtn=0x7f0b01ea;
         public static final int chakanjiangpingBtn=0x7f0b01b6;
         public static final int changeTurnBBM=0x7f0b0189;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int chatContainer=0x7f0b0011;
         public static final int chatInputViewGroup=0x7f0b0010;
         public static final int chatMessageTextView=0x7f0b012a;
@@ -937,27 +859,15 @@ containing a value of this type.
         public static final int clearTextviewBtn=0x7f0b0048;
         public static final int clickArea=0x7f0b0224;
         public static final int coinIcon=0x7f0b006b;
-<<<<<<< HEAD
-        public static final int coinIconImage=0x7f0b0162;
-        public static final int coinNumberText=0x7f0b0226;
-        public static final int coinNumberText2=0x7f0b0267;
-        public static final int coinTips=0x7f0b0146;
-        public static final int coinValue=0x7f0b0133;
-        public static final int coinValueQBB=0x7f0b0147;
-        public static final int coinValueQF=0x7f0b0163;
-        public static final int coinValueQFI=0x7f0b00ba;
-        public static final int confirmBtn=0x7f0b01ec;
-=======
         public static final int coinIconImage=0x7f0b015e;
         public static final int coinNumberText=0x7f0b0222;
-        public static final int coinNumberText2=0x7f0b0262;
+        public static final int coinNumberText2=0x7f0b0263;
         public static final int coinTips=0x7f0b0142;
         public static final int coinValue=0x7f0b012f;
         public static final int coinValueQBB=0x7f0b0143;
         public static final int coinValueQF=0x7f0b015f;
         public static final int coinValueQFI=0x7f0b00b6;
         public static final int confirmBtn=0x7f0b01e9;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int container=0x7f0b0046;
         public static final int contentFragment=0x7f0b0045;
         public static final int contentQFI=0x7f0b0163;
@@ -1000,36 +910,12 @@ containing a value of this type.
         public static final int expandable_list_view=0x7f0b0028;
         public static final int experienceBarPercent=0x7f0b0032;
         public static final int experienceValue=0x7f0b0031;
-<<<<<<< HEAD
-        public static final int fahuozhongBtn=0x7f0b01b8;
-        public static final int failureTextView=0x7f0b01a3;
-        public static final int fameTips=0x7f0b0174;
-        public static final int fameValueBBM=0x7f0b0175;
-        public static final int fenshuTextView=0x7f0b0190;
-        public static final int fl_dycs=0x7f0b025d;
-        public static final int friendAnswerList=0x7f0b019a;
-        public static final int gift_title=0x7f0b0135;
-        public static final int goto_first=0x7f0b021b;
-        public static final int goto_last=0x7f0b021c;
-        public static final int headIconBBM=0x7f0b0171;
-        public static final int headIconImage=0x7f0b016e;
-        public static final int headIconPHQBB=0x7f0b0143;
-        public static final int headIconPHQF=0x7f0b012a;
-        public static final int headIconPHQSJ=0x7f0b0222;
-        public static final int headIconPlaceHolder=0x7f0b016d;
-        public static final int headIconPlaceHolderBBM=0x7f0b0170;
-        public static final int headIconPlaceHolderQHYDA=0x7f0b015b;
-        public static final int headIconQBB=0x7f0b0144;
-        public static final int headIconQF=0x7f0b012b;
-        public static final int headIconQHYDA=0x7f0b015c;
-        public static final int headIconQSJ=0x7f0b0223;
-=======
         public static final int fahuozhongBtn=0x7f0b01b5;
         public static final int failureTextView=0x7f0b01a0;
         public static final int fameTips=0x7f0b0170;
         public static final int fameValueBBM=0x7f0b0171;
         public static final int fenshuTextView=0x7f0b018d;
-        public static final int fl_dycs=0x7f0b0258;
+        public static final int fl_dycs=0x7f0b0259;
         public static final int friendAnswerList=0x7f0b0197;
         public static final int gift_title=0x7f0b0131;
         public static final int goto_first=0x7f0b0217;
@@ -1046,30 +932,19 @@ containing a value of this type.
         public static final int headIconQF=0x7f0b0127;
         public static final int headIconQHYDA=0x7f0b0158;
         public static final int headIconQSJ=0x7f0b021f;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int headImageIcon=0x7f0b002c;
         public static final int headImageIconPlaceHolder=0x7f0b002b;
         public static final int headImageQBB=0x7f0b0070;
         public static final int headImageQFI=0x7f0b00b2;
         public static final int headImageWhiteRingBackground=0x7f0b0061;
         public static final int headImageinQBB=0x7f0b0062;
-<<<<<<< HEAD
-        public static final int head_img=0x7f0b026e;
-        public static final int hideAnswerTxt=0x7f0b0083;
-        public static final int huatiBtnGroup=0x7f0b00d3;
-        public static final int huatiContainer=0x7f0b00d0;
-        public static final int ib_get_reg_code=0x7f0b0271;
-        public static final int iconContact=0x7f0b00f0;
-        public static final int iconRecommend=0x7f0b00f5;
-=======
-        public static final int head_img=0x7f0b0269;
+        public static final int head_img=0x7f0b026a;
         public static final int hideAnswerTxt=0x7f0b0083;
         public static final int huatiBtnGroup=0x7f0b00cf;
         public static final int huatiContainer=0x7f0b00cc;
-        public static final int ib_get_reg_code=0x7f0b026c;
+        public static final int ib_get_reg_code=0x7f0b026d;
         public static final int iconContact=0x7f0b00ec;
         public static final int iconRecommend=0x7f0b00f1;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int im_retrieve_code=0x7f0b0040;
         public static final int image=0x7f0b0184;
         public static final int imageComp=0x7f0b019d;
@@ -1085,49 +960,26 @@ containing a value of this type.
         public static final int imgGongGao_5=0x7f0b0205;
         public static final int imgIsDefault=0x7f0b0177;
         public static final int imgPicQGG=0x7f0b0072;
-<<<<<<< HEAD
-        public static final int imgTotalNumberQHT=0x7f0b013d;
-        public static final int img_QWCS=0x7f0b0258;
-        public static final int img_dycs=0x7f0b025f;
-        public static final int img_gift=0x7f0b0136;
-        public static final int img_huishouzhan=0x7f0b0256;
-        public static final int img_huishouzhangaizi=0x7f0b0255;
-        public static final int img_kuang=0x7f0b025e;
-        public static final int img_quceshi_list=0x7f0b014c;
-        public static final int img_tingzhengqi=0x7f0b025a;
-        public static final int img_type=0x7f0b0077;
-        public static final int img_xin=0x7f0b025b;
-        public static final int img_xlzc=0x7f0b0185;
-        public static final int indexTitle=0x7f0b0177;
-        public static final int instructionDialogMainImage=0x7f0b019e;
-        public static final int inviteCodeEditText=0x7f0b00e4;
-        public static final int keyButton=0x7f0b019b;
-        public static final int layoutAbout=0x7f0b026d;
-        public static final int layoutAboutus=0x7f0b0216;
-        public static final int layoutAction=0x7f0b0181;
-        public static final int layoutAddressPersonalProfile=0x7f0b0101;
-=======
         public static final int imgTotalNumberQHT=0x7f0b0139;
-        public static final int img_QWCS=0x7f0b0253;
-        public static final int img_dycs=0x7f0b025a;
+        public static final int img_QWCS=0x7f0b0254;
+        public static final int img_dycs=0x7f0b025b;
         public static final int img_gift=0x7f0b0132;
-        public static final int img_huishouzhan=0x7f0b0251;
-        public static final int img_huishouzhangaizi=0x7f0b0250;
-        public static final int img_kuang=0x7f0b0259;
+        public static final int img_huishouzhan=0x7f0b0252;
+        public static final int img_huishouzhangaizi=0x7f0b0251;
+        public static final int img_kuang=0x7f0b025a;
         public static final int img_quceshi_list=0x7f0b0148;
-        public static final int img_tingzhengqi=0x7f0b0255;
+        public static final int img_tingzhengqi=0x7f0b0256;
         public static final int img_type=0x7f0b0077;
-        public static final int img_xin=0x7f0b0256;
+        public static final int img_xin=0x7f0b0257;
         public static final int img_xlzc=0x7f0b0182;
         public static final int indexTitle=0x7f0b0173;
         public static final int instructionDialogMainImage=0x7f0b019b;
         public static final int inviteCodeEditText=0x7f0b00e0;
         public static final int keyButton=0x7f0b0198;
-        public static final int layoutAbout=0x7f0b0268;
+        public static final int layoutAbout=0x7f0b0269;
         public static final int layoutAboutus=0x7f0b0213;
         public static final int layoutAction=0x7f0b017d;
         public static final int layoutAddressPersonalProfile=0x7f0b00fd;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int layoutAlipayAccountEncash=0x7f0b001b;
         public static final int layoutAuthenticationPersonalProfile=0x7f0b00f9;
         public static final int layoutBirthdayPersonalProfile=0x7f0b00f7;
@@ -1142,15 +994,9 @@ containing a value of this type.
         public static final int layoutContentQDYC=0x7f0b009d;
         public static final int layoutContentQGG=0x7f0b0073;
         public static final int layoutContentQHTC=0x7f0b0078;
-<<<<<<< HEAD
-        public static final int layoutDefaultAddress=0x7f0b00af;
-        public static final int layoutDuijiang=0x7f0b0269;
-        public static final int layoutEmailPersonalProfile=0x7f0b0103;
-=======
         public static final int layoutDefaultAddress=0x7f0b00ab;
-        public static final int layoutDuijiang=0x7f0b0264;
+        public static final int layoutDuijiang=0x7f0b0265;
         public static final int layoutEmailPersonalProfile=0x7f0b00ff;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int layoutExpendAccount=0x7f0b000b;
         public static final int layoutFriendAnswerQCSA=0x7f0b0084;
         public static final int layoutHeadIconArea=0x7f0b013e;
@@ -1164,30 +1010,7 @@ containing a value of this type.
         public static final int layoutLeftFlag=0x7f0b0098;
         public static final int layoutMoreOption=0x7f0b0215;
         public static final int layoutMyLordButton=0x7f0b0066;
-<<<<<<< HEAD
-        public static final int layoutMyprofile=0x7f0b0268;
-        public static final int layoutNameEncash=0x7f0b001d;
-        public static final int layoutOtherAddress=0x7f0b00b2;
-        public static final int layoutQRCode=0x7f0b00c5;
-        public static final int layoutRank=0x7f0b00bb;
-        public static final int layoutRecommend=0x7f0b00f4;
-        public static final int layoutResetPwd=0x7f0b0219;
-        public static final int layoutRightFlag=0x7f0b00ad;
-        public static final int layoutSexPersonalProfile=0x7f0b00f9;
-        public static final int layoutShareAppComp=0x7f0b026b;
-        public static final int layoutSuggestion=0x7f0b0213;
-        public static final int layoutUpdate=0x7f0b0215;
-        public static final int layout_content=0x7f0b023c;
-        public static final int layout_fifth=0x7f0b0243;
-        public static final int layout_first=0x7f0b0237;
-        public static final int layout_fourth=0x7f0b0240;
-        public static final int layout_parent=0x7f0b0236;
-        public static final int layout_picture=0x7f0b022a;
-        public static final int layout_scroll=0x7f0b0234;
-        public static final int layout_second=0x7f0b0239;
-        public static final int layout_third=0x7f0b023e;
-=======
-        public static final int layoutMyprofile=0x7f0b0263;
+        public static final int layoutMyprofile=0x7f0b0264;
         public static final int layoutNameEncash=0x7f0b001d;
         public static final int layoutOtherAddress=0x7f0b00ae;
         public static final int layoutQRCode=0x7f0b00c1;
@@ -1196,19 +1019,18 @@ containing a value of this type.
         public static final int layoutResetPwd=0x7f0b0216;
         public static final int layoutRightFlag=0x7f0b00a9;
         public static final int layoutSexPersonalProfile=0x7f0b00f5;
-        public static final int layoutShareAppComp=0x7f0b0266;
+        public static final int layoutShareAppComp=0x7f0b0267;
         public static final int layoutSuggestion=0x7f0b0210;
         public static final int layoutUpdate=0x7f0b0212;
-        public static final int layout_content=0x7f0b0232;
-        public static final int layout_fifth=0x7f0b023e;
-        public static final int layout_first=0x7f0b0235;
-        public static final int layout_fourth=0x7f0b023b;
-        public static final int layout_parent=0x7f0b0234;
+        public static final int layout_content=0x7f0b0238;
+        public static final int layout_fifth=0x7f0b023f;
+        public static final int layout_first=0x7f0b0233;
+        public static final int layout_fourth=0x7f0b023c;
+        public static final int layout_parent=0x7f0b0232;
         public static final int layout_picture=0x7f0b0226;
         public static final int layout_scroll=0x7f0b0230;
-        public static final int layout_second=0x7f0b0237;
-        public static final int layout_third=0x7f0b0239;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
+        public static final int layout_second=0x7f0b0235;
+        public static final int layout_third=0x7f0b023a;
         public static final int layout_web=0x7f0b0027;
         public static final int levelActivityIcon=0x7f0b0033;
         public static final int levelBBM=0x7f0b016f;
@@ -1227,45 +1049,19 @@ containing a value of this type.
         public static final int lingjiangBtn=0x7f0b0199;
         public static final int lingjiangText=0x7f0b019a;
         public static final int listView=0x7f0b0014;
-<<<<<<< HEAD
-        public static final int ll_DYCS=0x7f0b025c;
-        public static final int ll_QWCS=0x7f0b0257;
-        public static final int ll_XLQZ=0x7f0b0259;
-        public static final int ll_XLZC=0x7f0b0252;
-        public static final int ll_XQHSZ=0x7f0b0254;
-        public static final int logOutBtn=0x7f0b021a;
-        public static final int login_logo=0x7f0b0260;
-        public static final int mainImage=0x7f0b0227;
-        public static final int meBtn=0x7f0b0200;
-        public static final int meImage=0x7f0b0201;
-        public static final int meText=0x7f0b0202;
-        public static final int menu_heart_beat=0x7f0b0253;
-        public static final int messageBtn=0x7f0b01fd;
-        public static final int messageButton=0x7f0b0165;
-        public static final int messageImage=0x7f0b01fe;
-        public static final int messageSendingProgressBar=0x7f0b01a2;
-        public static final int messageText=0x7f0b01ff;
-        public static final int messageTextview=0x7f0b0012;
-        public static final int myCreditTextView=0x7f0b016a;
-        public static final int myHuatiBtn=0x7f0b024f;
-        public static final int myPaticipateHuati=0x7f0b00d4;
-        public static final int myPublishHuati=0x7f0b00d5;
-        public static final int myrankTextView=0x7f0b0169;
-        public static final int myrankTextViewtips=0x7f0b0168;
-=======
-        public static final int ll_DYCS=0x7f0b0257;
-        public static final int ll_QWCS=0x7f0b0252;
-        public static final int ll_XLQZ=0x7f0b0254;
-        public static final int ll_XLZC=0x7f0b024d;
-        public static final int ll_XQHSZ=0x7f0b024f;
+        public static final int ll_DYCS=0x7f0b0258;
+        public static final int ll_QWCS=0x7f0b0253;
+        public static final int ll_XLQZ=0x7f0b0255;
+        public static final int ll_XLZC=0x7f0b024e;
+        public static final int ll_XQHSZ=0x7f0b0250;
         public static final int ll_xlzc=0x7f0b0181;
         public static final int logOutBtn=0x7f0b0119;
-        public static final int login_logo=0x7f0b025b;
+        public static final int login_logo=0x7f0b025c;
         public static final int mainImage=0x7f0b0223;
         public static final int meBtn=0x7f0b01fd;
         public static final int meImage=0x7f0b01fe;
         public static final int meText=0x7f0b01ff;
-        public static final int menu_heart_beat=0x7f0b024e;
+        public static final int menu_heart_beat=0x7f0b024f;
         public static final int messageBtn=0x7f0b01fa;
         public static final int messageButton=0x7f0b0161;
         public static final int messageImage=0x7f0b01fb;
@@ -1273,12 +1069,11 @@ containing a value of this type.
         public static final int messageText=0x7f0b01fc;
         public static final int messageTextview=0x7f0b0012;
         public static final int myCreditTextView=0x7f0b0166;
-        public static final int myHuatiBtn=0x7f0b024a;
+        public static final int myHuatiBtn=0x7f0b024b;
         public static final int myPaticipateHuati=0x7f0b00d0;
         public static final int myPublishHuati=0x7f0b00d1;
         public static final int myrankTextView=0x7f0b0165;
         public static final int myrankTextViewtips=0x7f0b0164;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int nextQuestionBtn=0x7f0b008d;
         public static final int nickNameQBB=0x7f0b0063;
         public static final int nickNameQF=0x7f0b015c;
@@ -1294,23 +1089,13 @@ containing a value of this type.
         public static final int nothingImageView=0x7f0b0016;
         public static final int nothingIntheListView=0x7f0b0015;
         public static final int pager=0x7f0b0029;
-<<<<<<< HEAD
-        public static final int password=0x7f0b0262;
-        public static final int password_first_line=0x7f0b026a;
-        public static final int password_second_line=0x7f0b026c;
-        public static final int petNumberQFI=0x7f0b00bf;
-        public static final int phone=0x7f0b0261;
-        public static final int picArea=0x7f0b0141;
-        public static final int pickDialog=0x7f0b01af;
-=======
-        public static final int password=0x7f0b025d;
-        public static final int password_first_line=0x7f0b0265;
-        public static final int password_second_line=0x7f0b0267;
+        public static final int password=0x7f0b025e;
+        public static final int password_first_line=0x7f0b0266;
+        public static final int password_second_line=0x7f0b0268;
         public static final int petNumberQFI=0x7f0b00bb;
-        public static final int phone=0x7f0b025c;
+        public static final int phone=0x7f0b025d;
         public static final int picArea=0x7f0b013d;
         public static final int pickDialog=0x7f0b01ac;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int prevQuestionBtn=0x7f0b008c;
         public static final int prizeButtonQBB=0x7f0b0146;
         public static final int programeOverlayDisplayControllArea=0x7f0b008a;
@@ -1333,66 +1118,6 @@ containing a value of this type.
         public static final int quceDiaoCreditImage=0x7f0b0155;
         public static final int quceDiaoCreditText=0x7f0b0156;
         public static final int quceshiContentArea=0x7f0b008b;
-<<<<<<< HEAD
-        public static final int quceshiList=0x7f0b021e;
-        public static final int quceshiOrderComponent=0x7f0b0092;
-        public static final int quceshiOrderDefault=0x7f0b01d0;
-        public static final int quceshiOrderIndicator=0x7f0b0093;
-        public static final int quceshiOrderJifen=0x7f0b01d3;
-        public static final int quceshiOrderRenqi=0x7f0b01d1;
-        public static final int quceshiOrderTime=0x7f0b01d4;
-        public static final int quceshiOrderTuijian=0x7f0b01d2;
-        public static final int quceshiTypeAll=0x7f0b01d5;
-        public static final int quceshiTypeComponent=0x7f0b0090;
-        public static final int quceshiTypeIndicator=0x7f0b0091;
-        public static final int quceshiTypeQinggan=0x7f0b01d7;
-        public static final int quceshiTypeQita=0x7f0b01db;
-        public static final int quceshiTypeXinge=0x7f0b01d6;
-        public static final int quceshiTypeXingzuo=0x7f0b01d9;
-        public static final int quceshiTypeZhichang=0x7f0b01d8;
-        public static final int quceshiTypeZhili=0x7f0b01da;
-        public static final int quceshi_order_spinner=0x7f0b0246;
-        public static final int quceshi_type_spinner=0x7f0b0245;
-        public static final int qudiaoyanOrderComponent=0x7f0b00a7;
-        public static final int qudiaoyanOrderDefault=0x7f0b01dc;
-        public static final int qudiaoyanOrderIndicator=0x7f0b00a8;
-        public static final int qudiaoyanOrderJifen=0x7f0b01e2;
-        public static final int qudiaoyanOrderJinbi=0x7f0b01e0;
-        public static final int qudiaoyanOrderMujiliang=0x7f0b01dd;
-        public static final int qudiaoyanOrderShijian=0x7f0b01df;
-        public static final int qudiaoyanOrderTuijian=0x7f0b01de;
-        public static final int qudiaoyanOrderXianshi=0x7f0b01e1;
-        public static final int qudiaoyanTypeAll=0x7f0b01e3;
-        public static final int qudiaoyanTypeComponent=0x7f0b00a5;
-        public static final int qudiaoyanTypeDianzishangwu=0x7f0b01e4;
-        public static final int qudiaoyanTypeIndicator=0x7f0b00a6;
-        public static final int qudiaoyanTypeKehudiaocha=0x7f0b01e6;
-        public static final int qudiaoyanTypeQita=0x7f0b01e9;
-        public static final int qudiaoyanTypeRenliziyuan=0x7f0b01e7;
-        public static final int qudiaoyanTypeShichangdiaocha=0x7f0b01e5;
-        public static final int qudiaoyanTypeXiaoyuandiaocha=0x7f0b01e8;
-        public static final int querenComp=0x7f0b013b;
-        public static final int questionTitleViewGroup=0x7f0b0088;
-        public static final int questionareTitle=0x7f0b014d;
-        public static final int questionare_main_Title=0x7f0b015f;
-        public static final int qugonggaoFlipper=0x7f0b0203;
-        public static final int qugonggaoIndicator=0x7f0b0209;
-        public static final int quhuatiList=0x7f0b00d6;
-        public static final int radioBtnDanxuan=0x7f0b00db;
-        public static final int radioBtnDuoxuan=0x7f0b00dd;
-        public static final int rankAllBtn=0x7f0b00e0;
-        public static final int rankIcon=0x7f0b00bc;
-        public static final int rankImage=0x7f0b016b;
-        public static final int rankList=0x7f0b00e3;
-        public static final int rankMonthBtn=0x7f0b00e1;
-        public static final int rankValue=0x7f0b016c;
-        public static final int rankValueQFI=0x7f0b00bd;
-        public static final int rankWeekBtn=0x7f0b00e2;
-        public static final int reg_code_time=0x7f0b0272;
-        public static final int registInviteBtn=0x7f0b00e5;
-        public static final int regist_confirm_password=0x7f0b0247;
-        public static final int regist_i_agree=0x7f0b00e7;
-=======
         public static final int quceshiList=0x7f0b021a;
         public static final int quceshiOrderDefault=0x7f0b01cd;
         public static final int quceshiOrderJifen=0x7f0b01d0;
@@ -1406,8 +1131,8 @@ containing a value of this type.
         public static final int quceshiTypeXingzuo=0x7f0b01d6;
         public static final int quceshiTypeZhichang=0x7f0b01d5;
         public static final int quceshiTypeZhili=0x7f0b01d7;
-        public static final int quceshi_order_spinner=0x7f0b0241;
-        public static final int quceshi_type_spinner=0x7f0b0240;
+        public static final int quceshi_order_spinner=0x7f0b0242;
+        public static final int quceshi_type_spinner=0x7f0b0241;
         public static final int qudiaoyanOrderComponent=0x7f0b00a3;
         public static final int qudiaoyanOrderDefault=0x7f0b01d9;
         public static final int qudiaoyanOrderIndicator=0x7f0b00a4;
@@ -1443,11 +1168,10 @@ containing a value of this type.
         public static final int rankValue=0x7f0b0168;
         public static final int rankValueQFI=0x7f0b00b9;
         public static final int rankWeekBtn=0x7f0b00de;
-        public static final int reg_code_time=0x7f0b026d;
+        public static final int reg_code_time=0x7f0b026e;
         public static final int registInviteBtn=0x7f0b00e1;
-        public static final int regist_confirm_password=0x7f0b0242;
+        public static final int regist_confirm_password=0x7f0b0243;
         public static final int regist_i_agree=0x7f0b00e3;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int remainingTime=0x7f0b008e;
         public static final int rewardImage=0x7f0b0094;
         public static final int rightArrow=0x7f0b00ef;
@@ -1461,58 +1185,24 @@ containing a value of this type.
         public static final int sendMessageBtn=0x7f0b0013;
         public static final int shareAppComp=0x7f0b020f;
         public static final int shareComponent=0x7f0b007b;
-<<<<<<< HEAD
-        public static final int shareContent=0x7f0b00ea;
-        public static final int shezhi=0x7f0b011c;
-        public static final int shunxuChoiceNo=0x7f0b01a7;
-        public static final int signature=0x7f0b0266;
-        public static final int skipBtn=0x7f0b0250;
-        public static final int spinnerAddressPickerCS=0x7f0b01bf;
-        public static final int spinnerAddressPickerDQ=0x7f0b01c0;
-        public static final int spinnerAddressPickerSF=0x7f0b01be;
-        public static final int statusImage=0x7f0b0134;
-        public static final int statusPic=0x7f0b01a6;
-        public static final int submit=0x7f0b0248;
-        public static final int submitBtn=0x7f0b0251;
-        public static final int syncDataBtn=0x7f0b024c;
-=======
         public static final int shareContent=0x7f0b00e6;
         public static final int shezhi=0x7f0b0118;
         public static final int shunxuChoiceNo=0x7f0b01a4;
-        public static final int signature=0x7f0b0261;
-        public static final int skipBtn=0x7f0b024b;
+        public static final int signature=0x7f0b0262;
+        public static final int skipBtn=0x7f0b024c;
         public static final int spinnerAddressPickerCS=0x7f0b01bc;
         public static final int spinnerAddressPickerDQ=0x7f0b01bd;
         public static final int spinnerAddressPickerSF=0x7f0b01bb;
         public static final int statusImage=0x7f0b0130;
         public static final int statusPic=0x7f0b01a3;
-        public static final int submit=0x7f0b0243;
-        public static final int submitBtn=0x7f0b024c;
-        public static final int syncDataBtn=0x7f0b0247;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
+        public static final int submit=0x7f0b0244;
+        public static final int submitBtn=0x7f0b024d;
+        public static final int syncDataBtn=0x7f0b0248;
         public static final int tBtnEconomize_MoreOption=0x7f0b0051;
         public static final int tBtnNewMessage_MoreOption=0x7f0b004c;
         public static final int tBtnOpenToFriendAnswer_MoreOption=0x7f0b0053;
         public static final int tBtnOpenToFriendNews_MoreOption=0x7f0b0055;
         public static final int tBtnOpenToMasterAnswer_MoreOption=0x7f0b0057;
-<<<<<<< HEAD
-        public static final int tagFragment1=0x7f0b014e;
-        public static final int tagFragment2=0x7f0b0151;
-        public static final int tagFragment3=0x7f0b0152;
-        public static final int tagFragment4=0x7f0b0153;
-        public static final int tagFragment5=0x7f0b0154;
-        public static final int tagImage=0x7f0b014f;
-        public static final int tagText=0x7f0b0150;
-        public static final int take_pic=0x7f0b026f;
-        public static final int text=0x7f0b021d;
-        public static final int textView1=0x7f0b00f1;
-        public static final int textView2=0x7f0b00f6;
-        public static final int textViewForCreditAvailable=0x7f0b00f2;
-        public static final int timePickerEnd=0x7f0b01eb;
-        public static final int timePickerStart=0x7f0b01ea;
-        public static final int timeQFI=0x7f0b0166;
-        public static final int title=0x7f0b0137;
-=======
         public static final int tagFragment1=0x7f0b014a;
         public static final int tagFragment2=0x7f0b014d;
         public static final int tagFragment3=0x7f0b014e;
@@ -1520,7 +1210,7 @@ containing a value of this type.
         public static final int tagFragment5=0x7f0b0150;
         public static final int tagImage=0x7f0b014b;
         public static final int tagText=0x7f0b014c;
-        public static final int take_pic=0x7f0b026a;
+        public static final int take_pic=0x7f0b026b;
         public static final int text=0x7f0b0219;
         public static final int textView1=0x7f0b00ed;
         public static final int textView2=0x7f0b00f2;
@@ -1529,7 +1219,6 @@ containing a value of this type.
         public static final int timePickerStart=0x7f0b01e7;
         public static final int timeQFI=0x7f0b0162;
         public static final int title=0x7f0b0133;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int title_of_the_page=0x7f0b005d;
         public static final int toggleBtnAddressDefault=0x7f0b00ac;
         public static final int toggleBtnAddressOther=0x7f0b00af;
@@ -1568,15 +1257,9 @@ containing a value of this type.
         public static final int txtCoinEncash=0x7f0b001a;
         public static final int txtContactCompany=0x7f0b004a;
         public static final int txtContactSuggestion=0x7f0b005f;
-<<<<<<< HEAD
-        public static final int txtContent=0x7f0b00ae;
-        public static final int txtContent4=0x7f0b0242;
-        public static final int txtContentCJResult=0x7f0b00a0;
-=======
         public static final int txtContent=0x7f0b00aa;
-        public static final int txtContent4=0x7f0b023d;
+        public static final int txtContent4=0x7f0b023e;
         public static final int txtContentCJResult=0x7f0b009c;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int txtContentCompany=0x7f0b0049;
         public static final int txtContentQDYA=0x7f0b00a8;
         public static final int txtContentQDYC=0x7f0b00a0;
@@ -1588,15 +1271,9 @@ containing a value of this type.
         public static final int txtDefaultAddress=0x7f0b00ad;
         public static final int txtEmailPersonalProfile=0x7f0b0100;
         public static final int txtExpendAccount=0x7f0b000c;
-<<<<<<< HEAD
-        public static final int txtForgot=0x7f0b0265;
-        public static final int txtFriendsNumberQHT=0x7f0b0140;
-        public static final int txtHotTitleQHT=0x7f0b00ca;
-=======
-        public static final int txtForgot=0x7f0b0260;
+        public static final int txtForgot=0x7f0b0261;
         public static final int txtFriendsNumberQHT=0x7f0b013c;
         public static final int txtHotTitleQHT=0x7f0b00c6;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int txtIdEncash=0x7f0b0020;
         public static final int txtIncomeAccount=0x7f0b0008;
         public static final int txtInputEmailPersonalProfile=0x7f0b0111;
@@ -1632,27 +1309,15 @@ containing a value of this type.
         public static final int txtReceiveTime_MoreOption=0x7f0b004e;
         public static final int txtRemainTime=0x7f0b0042;
         public static final int txtResend=0x7f0b0043;
-<<<<<<< HEAD
-        public static final int txtSexPersonalProfile=0x7f0b00fa;
-        public static final int txtSingleQHTP=0x7f0b00dc;
-        public static final int txtStatusContact=0x7f0b017e;
-        public static final int txtTimeQGG=0x7f0b00c2;
-        public static final int txtTitle1=0x7f0b0238;
-        public static final int txtTitle2=0x7f0b023a;
-        public static final int txtTitle3=0x7f0b023f;
-        public static final int txtTitle4=0x7f0b0241;
-        public static final int txtTitle5=0x7f0b0244;
-=======
         public static final int txtSexPersonalProfile=0x7f0b00f6;
         public static final int txtSingleQHTP=0x7f0b00d8;
         public static final int txtStatusContact=0x7f0b017a;
         public static final int txtTimeQGG=0x7f0b00be;
-        public static final int txtTitle1=0x7f0b0236;
-        public static final int txtTitle2=0x7f0b0238;
-        public static final int txtTitle3=0x7f0b023a;
-        public static final int txtTitle4=0x7f0b023c;
-        public static final int txtTitle5=0x7f0b023f;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
+        public static final int txtTitle1=0x7f0b0234;
+        public static final int txtTitle2=0x7f0b0236;
+        public static final int txtTitle3=0x7f0b023b;
+        public static final int txtTitle4=0x7f0b023d;
+        public static final int txtTitle5=0x7f0b0240;
         public static final int txtTitleQCSA=0x7f0b007a;
         public static final int txtTitleQCSC=0x7f0b0089;
         public static final int txtTitleQDYC=0x7f0b009f;
@@ -1668,29 +1333,16 @@ containing a value of this type.
         public static final int txtTotalNumberQHT=0x7f0b013a;
         public static final int unlockBaobaoBtn=0x7f0b0147;
         public static final int userActivityList=0x7f0b0034;
-<<<<<<< HEAD
-        public static final int userAddressList=0x7f0b00b4;
-        public static final int userContactList=0x7f0b00f7;
-        public static final int userMessageList=0x7f0b011b;
-        public static final int userSearchList=0x7f0b00f8;
-        public static final int validate_code=0x7f0b0270;
-        public static final int viewBlankQHTC=0x7f0b00d1;
-        public static final int webView=0x7f0b00ce;
-        public static final int webViewTest=0x7f0b011d;
-        public static final int weizhongjiangBtn=0x7f0b01b6;
-        public static final int wendaArea=0x7f0b01a8;
-=======
         public static final int userAddressList=0x7f0b00b0;
         public static final int userContactList=0x7f0b00f3;
         public static final int userMessageList=0x7f0b0117;
         public static final int userSearchList=0x7f0b00f4;
-        public static final int validate_code=0x7f0b026b;
+        public static final int validate_code=0x7f0b026c;
         public static final int viewBlankQHTC=0x7f0b00cd;
         public static final int webView=0x7f0b00ca;
         public static final int webViewTest=0x7f0b011a;
         public static final int weizhongjiangBtn=0x7f0b01b3;
         public static final int wendaArea=0x7f0b01a5;
->>>>>>> 5eec58d93dc77fd26e59ecceb801db73743f6579
         public static final int wjTitle=0x7f0b008f;
         public static final int wjtime=0x7f0b012e;
         public static final int wjtitle=0x7f0b012d;

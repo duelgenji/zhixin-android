@@ -205,7 +205,7 @@ public class ModifyNicknameActivity extends Activity implements
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-					new LoadDataTask().execute(1,requestUrl,jsonParams,HttpClient.TYPE_PUT);
+					new LoadDataTask().execute(1,requestUrl,jsonParams,HttpClient.TYPE_PUT_JSON);
 
 					submit.setEnabled(true);
 				} else {
