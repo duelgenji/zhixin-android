@@ -50,7 +50,7 @@ public class ShareActivity extends Activity {
 								UserInfo.class,
 								"memberId="
 										+ CurrentUserHelper
-												.getCurrentMemberId());
+												.getCurrentUserId());
 				_this.runOnUiThread(new Runnable() {
 					@Override
 					public void run() {

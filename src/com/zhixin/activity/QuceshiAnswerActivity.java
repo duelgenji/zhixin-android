@@ -28,6 +28,7 @@ import com.zhixin.dialog.InstructionDialog;
 import com.zhixin.domain.QuList;
 import com.zhixin.domain.QuUserWjAnswer;
 import com.zhixin.service.QuAnswerPrivacySettingService;
+import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.QBPShareFunction;
 
@@ -167,8 +168,7 @@ public class QuceshiAnswerActivity extends Activity implements
 		add_adress = (ImageView) findViewById(R.id.add_address);
 		add_adress.setOnClickListener(this);
 		
-		isPublicAnswer = userSettingsDao.getUserSettings().getIsHygkwj()
-				.equals(1) ? true : false;
+		isPublicAnswer = userSettingsDao.getUserSettings(CurrentUserHelper.getCurrentUserId()).isPublicAnswersToFriend();
 		btnHideAnswerQCSA = (ToggleButton) this
 				.findViewById(R.id.btnHideAnswerQCSA);
 		hideAnswerTxt = (TextView) this.findViewById(R.id.hideAnswerTxt);

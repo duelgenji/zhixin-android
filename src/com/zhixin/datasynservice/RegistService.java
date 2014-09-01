@@ -42,9 +42,9 @@ public class RegistService {
 		JSONObject jsonParams = new JSONObject();
 		jsonParams.put("phone", phone);
 		jsonParams.put("pwd", password);
-		if (CurrentUserHelper.getCurrentMemberId() != 0) {
+		if (CurrentUserHelper.getCurrentUserId() != 0) {
 			jsonParams.put("uuid", SettingValues.JPUSH_ALIAS_PREFIX
-					+ CurrentUserHelper.getCurrentMemberId());
+					+ CurrentUserHelper.getCurrentUserId());
 		}
 		JSONObject result = HttpClient.requestSync(requestUrl, jsonParams);
 

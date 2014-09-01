@@ -27,7 +27,7 @@ public class UserAddressService {
                     "address,postCode,isDefault,phone,sfmc,csmc,dqmc" +
                     " from user_address " +
                     "where memberId="
-                    + CurrentUserHelper.getCurrentMemberId();
+                    + CurrentUserHelper.getCurrentUserId();
             return sql;
         }
 
@@ -35,7 +35,7 @@ public class UserAddressService {
             String sql = "select _id,memberId,dzId,name," +
                     "address,isDefault,phone from user_address " +
                     "where isDefault='1' and memberId="
-                    + CurrentUserHelper.getCurrentMemberId();
+                    + CurrentUserHelper.getCurrentUserId();
             return sql;
         }
     }

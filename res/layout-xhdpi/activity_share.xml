@@ -9,139 +9,138 @@
 
     <include layout="@layout/header" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginTop="12dp"
-        android:layout_weight="50"
-        android:background="@drawable/level_description_background"
-        android:orientation="vertical"
-        android:weightSum="50" >
 
-        
-
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:background="@drawable/level_description_seprator" />
+            android:layout_height="0dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="12dp"
+            android:layout_weight="50"
+            android:weightSum="50"
+            android:background="@drawable/level_description_background"
+            android:orientation="vertical" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="25"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="26dp" >
-
-            <TextView
-                android:id="@+id/shareContent"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/share_content_sharesoft"
-                android:textColor="@color/text_black"
-                android:textSize="18sp" />
-        </RelativeLayout>
-
-        <!-- begin share component -->
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="3" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:paddingBottom="5dp"
-                android:text="@string/quhuati_share"
-                android:textColor="@color/text_black"
-                android:textSize="@dimen/text_size_custom_small" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.1dp"
-            android:layout_marginLeft="68dp"
-            android:layout_marginRight="68dp"
-            android:background="@drawable/level_description_seprator" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_weight="6.75" >
+                android:layout_height="0.1dp"
+                android:background="@drawable/level_description_seprator" />
 
             <RelativeLayout
-                android:id="@+id/shareComponent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true" >
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="25"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="26dp" >
 
-                <ImageButton
-                    android:id="@+id/btnShareXlwb"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/share_round_icon_xlwb" />
-
-                <ImageButton
-                    android:id="@+id/btnShareTxwb"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toRightOf="@id/btnShareXlwb"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/share_round_icon_txwb" />
-
-                <ImageButton
-                    android:id="@+id/btnShareWx"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toRightOf="@id/btnShareTxwb"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/share_round_icon_wx" />
-
-                <ImageButton
-                    android:id="@+id/btnShareQqkj"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toRightOf="@id/btnShareWx"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/share_round_icon_qqkj" />
-
-                <ImageButton
-                    android:id="@+id/btnSharePyq"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toRightOf="@id/btnShareQqkj"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/share_round_icon_pyq" />
-
-                <ImageButton
-                    android:id="@+id/btnShareSMS"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_toRightOf="@id/btnSharePyq"
-                    android:background="@null"
-                    android:padding="5dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/share_icon_sms" />
+                <TextView
+                    android:id="@+id/shareContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/share_content_sharesoft"
+                    android:textColor="@color/text_black"
+                    android:textSize="18sp" />
             </RelativeLayout>
-        </RelativeLayout>
-        <!-- end of share component -->
 
-    </LinearLayout>
+            <!-- begin share component -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="3" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/quhuati_share"
+                    android:textColor="@color/text_black"
+                    android:textSize="@dimen/text_size_custom_small" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.1dp"
+                android:layout_marginLeft="68dp"
+                android:layout_marginRight="68dp"
+                android:background="@drawable/level_description_seprator" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="6.75" >
+
+                <RelativeLayout
+                    android:id="@+id/shareComponent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true" >
+
+                    <ImageButton
+                        android:id="@+id/btnShareXlwb"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/share_round_icon_xlwb" />
+
+                    <ImageButton
+                        android:id="@+id/btnShareTxwb"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_toRightOf="@id/btnShareXlwb"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/share_round_icon_txwb" />
+
+                    <ImageButton
+                        android:id="@+id/btnShareWx"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_toRightOf="@id/btnShareTxwb"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/share_round_icon_wx" />
+
+                    <ImageButton
+                        android:id="@+id/btnShareQqkj"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_toRightOf="@id/btnShareWx"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/share_round_icon_qqkj" />
+
+                    <ImageButton
+                        android:id="@+id/btnSharePyq"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_toRightOf="@id/btnShareQqkj"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/share_round_icon_pyq" />
+
+                    <ImageButton
+                        android:id="@+id/btnShareSMS"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_toRightOf="@id/btnSharePyq"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/share_icon_sms" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <!-- end of share component -->
+
+        </LinearLayout>
+
 
 </LinearLayout>

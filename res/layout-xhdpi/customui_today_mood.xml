@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true" >
+
+    <RelativeLayout
+        android:id="@+id/layout_pick_mood"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="500dp" >
+
+        <ImageView
+            android:id="@+id/img_mood_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="25dp"
+            android:src="@drawable/today_mood_round_background" />
+
+        <ImageView
+            android:id="@+id/img_mood_close"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/today_mood_close" />
+
+        <RelativeLayout
+            android:id="@+id/layout_mood_face_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="200dp" >
+
+            <ImageView
+                android:id="@+id/btn_mood_face_1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/today_mood_face_1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mood_face_1"
+                android:layout_centerHorizontal="true"
+                android:text="郁闷"
+                android:textColor="@color/text_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_mood_face_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="130dp" >
+
+            <ImageView
+                android:id="@+id/btn_mood_face_2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/today_mood_face_2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mood_face_2"
+                android:text="无聊"
+                android:textColor="@color/text_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_mood_face_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="70dp" >
+
+            <ImageView
+                android:id="@+id/btn_mood_face_3"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/today_mood_face_3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mood_face_3"
+                android:text="得瑟 "
+                android:textColor="@color/text_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_mood_face_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="110dp"
+            android:layout_marginTop="70dp" >
+
+            <ImageView
+                android:id="@+id/btn_mood_face_4"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/today_mood_face_4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mood_face_4"
+                android:layout_centerHorizontal="true"
+                android:text="　丢人"
+                android:textColor="@color/text_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_mood_face_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="60dp"
+            android:layout_marginTop="130dp" >
+
+            <ImageView
+                android:id="@+id/btn_mood_face_5"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/today_mood_face_5" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mood_face_5"
+                android:layout_centerHorizontal="true"
+                android:text="求安慰"
+                android:textColor="@color/text_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_mood_face_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="45dp"
+            android:layout_marginTop="200dp" >
+
+            <ImageView
+                android:id="@+id/btn_mood_face_6"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/today_mood_face_6" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_mood_face_6"
+                android:layout_centerHorizontal="true"
+                android:text="纠结"
+                android:textColor="@color/text_white"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_mood_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="-0dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100" >
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12" />
+
+            <RelativeLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:layout_weight="76"
+                android:gravity="bottom" >
+
+                <ImageView
+                    android:id="@+id/img_mood_switch_panel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/today_mood_panel_with_text" />
+
+                <ImageView
+                    android:id="@+id/img_mood_switch_arrow"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/today_mood_arrow_up" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="12" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/modify_nickname_textview_background"
+            android:background="@drawable/input_background_single_white_default"
             android:orientation="horizontal" >
 
             <View

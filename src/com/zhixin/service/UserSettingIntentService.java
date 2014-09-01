@@ -43,7 +43,7 @@ public class UserSettingIntentService extends IntentService {
 
 			JSONObject result = HttpClient.requestSync(requestUrl, jbo);
 			if (result != null && result.getString("success").equals("1")) {
-				userSettingsDao.updateSettings(orjbo);
+				userSettingsDao.saveUserSettings(orjbo);
 			}
 
 			String[] startTime = orjbo.getString("sStartTime").split(":");

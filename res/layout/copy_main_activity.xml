@@ -229,9 +229,50 @@
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-
-         <include layout="@layout/customui_today_mood" />
         
+        
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true" >
+
+            <RelativeLayout
+                android:id="@+id/layout_pick_mood"
+                android:layout_width="match_parent"
+                android:layout_height="400dp" 
+                android:layout_marginTop="270dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="50dp"
+                    android:src="@drawable/today_mood_round_background" />
+                
+                <ImageView
+                    android:id="@+id/btn_mood_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="130dp"
+                    android:src="@drawable/today_mood_close" />
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/btn_mood_open"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="bottom|center"
+                android:src="@drawable/today_mood_panel_default" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="25dp"
+                android:src="@drawable/today_mood_arrow_up_1" />
+        </FrameLayout>
     </RelativeLayout>
 
 </LinearLayout>

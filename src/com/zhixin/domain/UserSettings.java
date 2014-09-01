@@ -10,84 +10,91 @@ import net.tsz.afinal.annotation.sqlite.Table;
 @Table(name = "user_settings")
 public class UserSettings {
     @Id(column = "_id")
+   
     /**id*/
     private int _id;
+    
+    /**用户id*/
+    private long userId;
+  
     /**是否提示*/
-    private Integer isTs;
+    private boolean isPush;
+   
     /**是否对好友公开问卷*/
-    private Integer isHygkwj;
+    private boolean isPublicAnswersToFriend;
+   
     /**是否对门主公开问卷*/
 //    private Integer isMzgkwj;
+  
     /**是否公开答题*/
 //    private Integer isGkdt;
+   
     /**是否开启省流量模式*/
-    private Integer isSllms;
+    private boolean isSaveFlow;
+   
     /**开始时间*/
-    private String kssj;
+    private String statTime;
+   
     /**结束时间*/
-    private String jssj;
+    private String endTime;
 
-    public int get_id() {
-        return _id;
-    }
+	public int get_id() {
+		return _id;
+	}
 
-    public void set_id(int _id) {
-        this._id = _id;
-    }
+	public void set_id(int _id) {
+		this._id = _id;
+	}
 
-    public Integer getIsTs() {
-        return isTs;
-    }
+	public long getUserId() {
+		return userId;
+	}
 
-    public void setIsTs(Integer isTs) {
-        this.isTs = isTs;
-    }
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 
-    public Integer getIsHygkwj() {
-        return isHygkwj;
-    }
 
-    public void setIsHygkwj(Integer isHygkwj) {
-        this.isHygkwj = isHygkwj;
-    }
+	public boolean isPush() {
+		return isPush;
+	}
 
- //   public Integer getIsMzgkwj() {
- //       return isMzgkwj;
-//    }
+	public void setPush(boolean isPush) {
+		this.isPush = isPush;
+	}
 
- //   public void setIsMzgkwj(Integer isMzgkwj) {
- //       this.isMzgkwj = isMzgkwj;
- //   }
+	public boolean isPublicAnswersToFriend() {
+		return isPublicAnswersToFriend;
+	}
 
- //   public Integer getIsGkdt() {
- //       return isGkdt;
- //   }
+	public void setPublicAnswersToFriend(boolean isPublicAnswersToFriend) {
+		this.isPublicAnswersToFriend = isPublicAnswersToFriend;
+	}
 
- //   public void setIsGkdt(Integer isGkdt) {
- //       this.isGkdt = isGkdt;
- //   }
+	public boolean isSaveFlow() {
+		return isSaveFlow;
+	}
 
-    public Integer getIsSllms() {
-        return isSllms;
-    }
+	public void setSaveFlow(boolean isSaveFlow) {
+		this.isSaveFlow = isSaveFlow;
+	}
 
-    public void setIsSllms(Integer isSllms) {
-        this.isSllms = isSllms;
-    }
+	public String getStatTime() {
+		return statTime;
+	}
 
-    public String getKssj() {
-        return kssj;
-    }
+	public void setStatTime(String statTime) {
+		this.statTime = statTime;
+	}
 
-    public void setKssj(String kssj) {
-        this.kssj = kssj;
-    }
+	public String getEndTime() {
+		return endTime;
+	}
 
-    public String getJssj() {
-        return jssj;
-    }
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
 
-    public void setJssj(String jssj) {
-        this.jssj = jssj;
-    }
+
+   
 }

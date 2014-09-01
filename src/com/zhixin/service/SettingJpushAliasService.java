@@ -25,13 +25,14 @@ public class SettingJpushAliasService extends IntentService {
 
 	@Override
 	protected void onHandleIntent(Intent intent) {
-		final String memberId = CurrentUserHelper.getCurrentMemberId() + "";
-		UserSettings userSettings = new UserSettingsDao().getUserSettings();
+//		final String memberId = CurrentUserHelper.getCurrentMemberId() + "";
+		final String userId = CurrentUserHelper.getCurrentUserId() + "";
+		UserSettings userSettings = new UserSettingsDao().getUserSettings(CurrentUserHelper.getCurrentUserId());
 
 		if (userSettings != null) {
-			int isTs = userSettings.getIsTs();
+			Boolean isTs = userSettings.isPush();
 
-			if (isTs == 1) {
+			if (isTs) {
 				if (JPushInterface.isPushStopped(MyApplication.getAppContext())) {
 
 					JPushInterface.resumePush(MyApplication.getAppContext());
@@ -52,7 +53,7 @@ public class SettingJpushAliasService extends IntentService {
 			if (!onGoing) {
 				onGoing = true;
 				JPushInterface.setAliasAndTags(this,
-						SettingValues.JPUSH_ALIAS_PREFIX + memberId, null,
+						SettingValues.JPUSH_ALIAS_PREFIX + userId, null,
 						new TagAliasCallback() {
 
 							@Override

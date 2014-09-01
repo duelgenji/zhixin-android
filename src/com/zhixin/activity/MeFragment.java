@@ -178,7 +178,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 						UserSettings us = DbManager.getDatabase().findById(1,
 								UserSettings.class);
 
-						us.setIsHygkwj(result.getInt("iHygkwj"));
+						us.setPublicAnswersToFriend(result.getBoolean("publicAnswersToFriend"));
 						DbManager.getDatabase().update(us);
 					}
 

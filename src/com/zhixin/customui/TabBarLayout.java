@@ -47,7 +47,7 @@ public class TabBarLayout extends RelativeLayout{
 		switch (this.getId()) {
 		case R.id.zhijiBtn:
 			imageBackground
-					.setImageResource(R.drawable.zhiji_default);
+					.setImageResource(R.drawable.zhiji_pressed);
 			break;
 		case R.id.xinliMapBtn:
 			imageBackground
@@ -75,7 +75,7 @@ public class TabBarLayout extends RelativeLayout{
 		switch (this.getId()) {
 		case R.id.zhijiBtn:
 			imageBackground
-					.setImageResource(R.drawable.zhiji_pressed);
+					.setImageResource(R.drawable.zhiji_default);
 			break;
 		case R.id.xinliMapBtn:
 			imageBackground

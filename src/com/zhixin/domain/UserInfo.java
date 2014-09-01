@@ -18,7 +18,7 @@ public class UserInfo {
 	// member's real name,it is supposed to be stored with the validated id.
 	private String name;
 
-	private int memberId;
+//	private int memberId;
 	private long userId;
 
 	public long getUserId() {
@@ -30,16 +30,16 @@ public class UserInfo {
 	}
 
 	// sex 0 for male 1 for female
-	private int sex;
+	private String sex;
 
-	private String nickname;
+	private String nickName;
 
 	private Date birthday;
 
 	private String identityNumber;
 
 	// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
-	private int bloodtype;
+	private String bloodType;
 
 	private String district;
 
@@ -85,28 +85,28 @@ public class UserInfo {
 		this._id = _id;
 	}
 
-	public int getMemberId() {
-		return memberId;
-	}
+//	public int getMemberId() {
+//		return memberId;
+//	}
+//
+//	public void setMemberId(int memberId) {
+//		this.memberId = memberId;
+//	}
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
-	}
-
-	public int getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(int sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getNickName() {
+		return nickName;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public Date getBirthday() {
@@ -125,12 +125,12 @@ public class UserInfo {
 		this.identityNumber = identityNumber;
 	}
 
-	public int getBloodtype() {
-		return bloodtype;
+	public String getBloodType() {
+		return bloodType;
 	}
 
-	public void setBloodtype(int bloodtype) {
-		this.bloodtype = bloodtype;
+	public void setBloodType(String bloodtype) {
+		this.bloodType = bloodType;
 	}
 
 	public String getDistrict() {

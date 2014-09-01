@@ -17,7 +17,7 @@ public class UserAddressDao {
         JSONArray aData = jbo.getJSONArray("aData");
         JSONObject jboInA;
 
-        int userId= CurrentUserHelper.getCurrentMemberId();
+        long userId= CurrentUserHelper.getCurrentUserId();
         UserAddress userAddress;
         AddressDao addressDao=new AddressDao();
         String iSfId;
@@ -30,7 +30,7 @@ public class UserAddressDao {
         for (int i = 0; i < aData.length(); i++) {
             jboInA = aData.getJSONObject(i);
             userAddress = new UserAddress();
-            userAddress.setMemberId(userId);
+            userAddress.setUserId(userId);
             userAddress.setDzId(jboInA.getInt("iDzId"));
             userAddress.setName(jboInA.getString("sName"));
             iSfId=!jboInA.has("iSfId")?"":jboInA.getString("iSfId");
@@ -110,7 +110,7 @@ public class UserAddressDao {
     private void deleteAllAddress() {
         if (DbManager.getDatabase().tableExists(UserAddress.class)) {
             String sql = "delete from user_address where memberId="
-                    + CurrentUserHelper.getCurrentMemberId();
+                    + CurrentUserHelper.getCurrentUserId();
             DbManager.getDatabase().exeCustomerSql(sql);
         }
     }
@@ -118,7 +118,7 @@ public class UserAddressDao {
     private void setNoDefault() {
         if (DbManager.getDatabase().tableExists(UserAddress.class)) {
             String sql = "update user_address set isDefault='0' where memberId="
-                    + CurrentUserHelper.getCurrentMemberId();
+                    + CurrentUserHelper.getCurrentUserId();
             DbManager.getDatabase().exeCustomerSql(sql);
         }
     }

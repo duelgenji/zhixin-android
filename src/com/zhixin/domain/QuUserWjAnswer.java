@@ -10,7 +10,7 @@ public class QuUserWjAnswer {
 	@Id(column = "_id")
 	private int _id;
 
-	private int memberId;
+	private long userId;
 
 	private int wjId;
 
@@ -38,12 +38,12 @@ public class QuUserWjAnswer {
 		this._id = _id;
 	}
 
-	public int getMemberId() {
-		return memberId;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setMemberId(int memberId) {
-		this.memberId = memberId;
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public int getWjId() {

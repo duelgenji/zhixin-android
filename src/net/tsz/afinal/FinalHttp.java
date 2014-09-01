@@ -337,7 +337,7 @@ public class FinalHttp {
 
 		StringEntity se;
 		try {
-			se = new StringEntity(json.toString());
+			se = new StringEntity(json.toString(),"UTF-8");
 			HttpEntityEnclosingRequestBase request = addEntityToRequestBase(
 					new HttpPost(url), se);
 			return sendSyncRequest(httpClient, httpContext, request,
@@ -446,7 +446,7 @@ public class FinalHttp {
 
 		StringEntity se;
 		try {
-			se = new StringEntity(json.toString());
+			se = new StringEntity(json.toString(),"UTF-8");
 			HttpEntityEnclosingRequestBase request = addEntityToRequestBase(
 					new HttpPut(url), se);
 			return sendSyncRequest(httpClient, httpContext, request,

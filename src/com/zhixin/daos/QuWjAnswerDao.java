@@ -44,7 +44,7 @@ public class QuWjAnswerDao {
 				&& StringUtils.isNotEmpty(jbo.getString("answerNo"))) {
 			ans.setAnswerChoiceNo(jbo.getString("answerNo"));
 		}
-		ans.setMemberId(CurrentUserHelper.getCurrentMemberId());
+		ans.setUserId(CurrentUserHelper.getCurrentUserId());
 		ans.setWjId(wjId);
 		ans.setAnswerTime(new Date());
 		ans.setControlFlag(0);
@@ -56,7 +56,7 @@ public class QuWjAnswerDao {
 	private void deleteAll(int wjId) {
 		if (DbManager.getDatabase().tableExists(QuUserWjAnswer.class)) {
 			String sql = "delete from qu_user_wj_answer where wjId=" + wjId
-					+ " and memberId=" + CurrentUserHelper.getCurrentMemberId();
+					+ " and memberId=" + CurrentUserHelper.getCurrentUserId();
 			DbManager.getDatabase().exeCustomerSql(sql);
 
 		}

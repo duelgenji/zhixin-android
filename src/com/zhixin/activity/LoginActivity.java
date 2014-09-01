@@ -161,6 +161,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 						CurrentUserHelper.saveCurrentUserId(userId);
 						
 						CurrentUserHelper.saveCurrentPhone(phone);
+						CurrentUserHelper.saveCurrentUserId(userId);
+//						CurrentUserHelper.saveCurrentPassword(password);
 						try {
 							userInfoDao.saveUserForFirsttime(result,
 									password);

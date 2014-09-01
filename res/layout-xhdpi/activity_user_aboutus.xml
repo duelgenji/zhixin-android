@@ -1,188 +1,194 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        >
-<LinearLayout 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    >
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
 
-    <include
-        android:layout_width="fill_parent"
-        android:layout_height="27dp"
-        layout="@layout/header_without_backward" />
+    <include layout="@layout/header_with_backward" />
 
-	<View
-	    android:layout_width="fill_parent"
-	    android:layout_height="46dp" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="89.1" >
 
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="80dp"
-	    android:gravity="center_horizontal"
-	    android:orientation="horizontal" >
-
-	    <ImageView
-	        android:layout_width="80dp"
-	        android:layout_height="80dp"
-	        android:layout_gravity="center"
-	        android:src="@drawable/logo" />
-
-	    <LinearLayout
-	        android:layout_width="wrap_content"
-	        android:layout_height="fill_parent"
-	        android:layout_marginLeft="5dp"
-	        android:orientation="vertical" >
-
-	        <ImageView
-	            android:layout_width="60dp"
-	            android:layout_height="40dp"
-	            android:layout_marginTop="10dp"
-	            android:src="@drawable/for_ios" />
-
-	        <LinearLayout
-	            android:layout_width="wrap_content"
-	            android:layout_height="40dp"
-	            android:layout_gravity="center"
-	            android:orientation="horizontal" >
-
-	            <ImageView
-	                android:layout_width="40dp"
-	                android:layout_height="30dp"
-	                android:layout_gravity="center"
-	                android:src="@drawable/zhixin" />
-
-	            <TextView
-	                android:id="@+id/banbenhao"
-	                android:layout_width="wrap_content"
-	                android:layout_height="25dp"
-	                android:layout_gravity="bottom"
-	                android:layout_marginLeft="2dp"
-	                android:text="v.1.0.0" />
-	        </LinearLayout>
-	    </LinearLayout>
-	</LinearLayout>
-
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:orientation="vertical"
-	    android:layout_marginTop="30dp"
-	    android:padding="10dp" >
-
-	     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/input_background_top_white_default"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.9" />
-
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="88.3"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:text="官方网站"
-                android:textSize="18dp" />
-			<TextView 
-			    android:layout_width="1dp"
-			    android:layout_height="fill_parent"
-			    android:layout_weight="88.3"
-			    android:gravity="center_vertical|right"
-			    android:hint="www.zhixin.com.cn"
-			    android:textSize="13sp"
-			   
-			    />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.4" />
-        </LinearLayout>
-	    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/input_background_top_white_default"
-            android:orientation="horizontal" >
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.9" />
-
-            <TextView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="88.3"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:text="官方微博"
-                android:textSize="18dp" />
-			<TextView 
-			    android:layout_width="1dp"
-			    android:layout_height="fill_parent"
-			    android:layout_weight="88.3"
-			    android:gravity="center_vertical|right"
-			    android:hint="zhixin"
-			    android:textSize="13sp"
-			    />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.4" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/input_background_top_white_default"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.9" />
+                android:layout_width="fill_parent"
+                android:layout_height="46dp" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="80dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/logo" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/for_ios" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/zhixin" />
+
+                        <TextView
+                            android:id="@+id/banbenhao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="2dp"
+                            android:text="v.1.0.0" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:padding="10dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_background_top_white_default"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.9" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="88.3"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:text="官方网站"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="88.3"
+                        android:gravity="center_vertical|right"
+                        android:hint="www.zhixin.com.cn"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_background_middle_white_default"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.9" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="88.3"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:text="官方微博"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="88.3"
+                        android:gravity="center_vertical|right"
+                        android:hint="zhixin"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.4" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/input_background_bottom_white_default"
+                    android:orientation="horizontal" >
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.9" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="88.3"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:text="官方微信"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="1dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="88.3"
+                        android:gravity="center_vertical|right"
+                        android:hint="知心"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="3.4" />
+                </LinearLayout>
+            </LinearLayout>
 
             <TextView
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="88.3"
-                android:background="@null"
-                android:gravity="center_vertical"
-                android:text="官方微信"
-                android:textSize="18dp" />
-			<TextView 
-			    android:layout_width="1dp"
-			    android:layout_height="fill_parent"
-			    android:layout_weight="88.3"
-			    android:gravity="center_vertical|right"
-			    android:hint="知心"
-			    android:textSize="13sp"
-			    />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3.4" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lineSpacingMultiplier="1.1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="20dp"
+                android:text="关于趣宝盆\n\n趣宝盆,是一款让您利用闲暇时间填写趣味测试的同时,了解自己,赚取积分的测试软件.我们立志于帮助用户将闲散的时间汇集起来,通过趣味的方式,使之实现价值.希望我们的努力能对您有些许的帮助!\n\nWEB网址:  www.qubaopen.com.cn\n官方微博: @趣宝盆之家\n官方微信:   趣宝盆\n软件版本:   v1.1\n\n关于隐私\n\n您的手机号码和身份证号码仅会被作为趣宝盆登陆、奖品发放和调研认证，我们不会向任何第三方透露您的手机号码，您的号码也不会被第三方搜索引擎检索到。\n\n特别鸣谢：良品ui的倾情帮助"
+                android:textSize="18sp" />
         </LinearLayout>
-	</LinearLayout>
-	
+    </ScrollView>
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:lineSpacingMultiplier="1.1"
-            android:textSize="18sp"
-            android:text="关于趣宝盆\n\n趣宝盆,是一款让您利用闲暇时间填写趣味测试的同时,了解自己,赚取积分的测试软件.我们立志于帮助用户将闲散的时间汇集起来,通过趣味的方式,使之实现价值.希望我们的努力能对您有些许的帮助!\n\nWEB网址:  www.qubaopen.com.cn\n官方微博: @趣宝盆之家\n官方微信:   趣宝盆\n软件版本:   v1.1\n\n关于隐私\n\n您的手机号码和身份证号码仅会被作为趣宝盆登陆、奖品发放和调研认证，我们不会向任何第三方透露您的手机号码，您的号码也不会被第三方搜索引擎检索到。\n\n特别鸣谢：良品ui的倾情帮助"/>
-
-
-	</LinearLayout>
- </ScrollView>
+</LinearLayout>

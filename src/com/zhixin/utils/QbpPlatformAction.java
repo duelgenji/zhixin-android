@@ -195,7 +195,7 @@ public class QbpPlatformAction implements PlatformActionListener {
 					} else {
 						params.put("duijiangNumber", keyId);
 						params.put("memberId",
-								CurrentUserHelper.getCurrentMemberId());
+								CurrentUserHelper.getCurrentUserId());
 						requestUrl = SettingValues.URL_PREFIX
 								+ context
 										.getString(R.string.share_callback_duijiang);

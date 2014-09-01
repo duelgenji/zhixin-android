@@ -20,18 +20,20 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhixin.R;
 import com.zhixin.datasynservice.MainMenuService;
 import com.zhixin.settings.MyApplication;
+import com.zhixin.utils.AnimationUtils;
 
 public class MainmenuFragment extends Fragment implements
 LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 
 	/***/
-	
 	/***/
 //	private FragmentManager fm;
 	/**心理自测按钮*/
@@ -48,6 +50,85 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 	
 	private Animation animation, animation1, animation2,animation3,animation4,animation5;
 	private ImageView img1,img2,img3,img4, img5;
+
+	private RelativeLayout layoutPickMood;
+
+	private RelativeLayout layoutMoodSwitch;
+
+	private ImageView imgMoodClose;
+	private ImageView imgMoodArrow;
+	private ImageView imgMoodPanel;
+	private ImageView imgMoodBackground;
+	
+	private RelativeLayout layoutMoodFace1,layoutMoodFace2,layoutMoodFace3,layoutMoodFace4,layoutMoodFace5,layoutMoodFace6;
+	
+	private boolean isMoodOpen=false;
+	private boolean isMoodFirst=true;
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		
+		View view = inflater.inflate(R.layout.main_activity, container,
+				false);
+		_this=this;
+		imageLoader = ImageLoader.getInstance();
+		imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
+				.cacheOnDisc(true).build();
+		//心里自测的动画
+		ll_XLZC = (LinearLayout) view.findViewById(R.id.ll_XLZC);
+		ll_XLZC.setOnClickListener(this);
+		img1 = (ImageView) view.findViewById(R.id.menu_heart_beat);
+		//心情回收站的动画
+		ll_XQHSZ = (LinearLayout) view.findViewById(R.id.ll_XQHSZ);
+		ll_XQHSZ.setOnClickListener(this);
+		img2 = (ImageView) view.findViewById(R.id.img_huishouzhangaizi);
+		//趣味测试的动画
+		img3 = (ImageView) view.findViewById(R.id.img_QWCS);
+		ll_QWCS =  (LinearLayout) view.findViewById(R.id.ll_QWCS);
+		ll_QWCS.setOnClickListener(this);
+		//心理求助的动画
+		ll_XLQZ= (LinearLayout) view.findViewById(R.id.ll_XLQZ);
+		ll_XLQZ.setOnClickListener(this);
+		img4 = (ImageView) view.findViewById(R.id.img_xin);
+		//调研测试
+		ll_DYCS = (LinearLayout) view.findViewById(R.id.ll_DYCS);
+		ll_DYCS.setOnClickListener(this);
+		img5 = (ImageView) view.findViewById(R.id.img_dycs);
+
+		layoutPickMood =(RelativeLayout) view.findViewById(R.id.layout_pick_mood);
+		layoutMoodSwitch =(RelativeLayout) view.findViewById(R.id.layout_mood_switch);
+		imgMoodClose =(ImageView) view.findViewById(R.id.img_mood_close);
+		imgMoodClose.setOnClickListener(this);
+		imgMoodBackground=(ImageView) view.findViewById(R.id.img_mood_background);
+		imgMoodBackground.setOnClickListener(this);
+		imgMoodPanel=(ImageView) view.findViewById(R.id.img_mood_switch_panel);
+		imgMoodPanel.setOnClickListener(this);
+		imgMoodArrow=(ImageView) view.findViewById(R.id.img_mood_switch_arrow);
+		AnimationUtils.startImgBackGround(imgMoodArrow);
+
+		layoutMoodFace1=(RelativeLayout) view.findViewById(R.id.layout_mood_face_1);
+		layoutMoodFace2=(RelativeLayout) view.findViewById(R.id.layout_mood_face_2);
+		layoutMoodFace3=(RelativeLayout) view.findViewById(R.id.layout_mood_face_3);
+		layoutMoodFace4=(RelativeLayout) view.findViewById(R.id.layout_mood_face_4);
+		layoutMoodFace5=(RelativeLayout) view.findViewById(R.id.layout_mood_face_5);
+		layoutMoodFace6=(RelativeLayout) view.findViewById(R.id.layout_mood_face_6);
+		layoutMoodFace1.setOnClickListener(this);
+		layoutMoodFace2.setOnClickListener(this);
+		layoutMoodFace3.setOnClickListener(this);
+		layoutMoodFace4.setOnClickListener(this);
+		layoutMoodFace5.setOnClickListener(this);
+		layoutMoodFace6.setOnClickListener(this);
+		
+
+		mainMenuService = new MainMenuService(MyApplication.getAppContext());
+//		new LoadDataTask().execute();
+//		setIndexImage(0);
+
+		return view;
+	}
+	
+	
 	Handler handler = new Handler() {
 		public void handleMessage(android.os.Message msg) {
 			switch (msg.what) {
@@ -75,6 +156,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 	private ImageLoader imageLoader;
 	/***/
 	private DisplayImageOptions imageOptions;
+	private MainmenuFragment _this;
 	private Activity mainActivity;
 	@Override
 	public void onAttach(Activity activity) {
@@ -106,6 +188,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		case R.id.ll_XQHSZ:
 			InitialAnimation();
 			img2.startAnimation(animation3);
+			v.setEnabled(true);
 			break;
 		case R.id.ll_QWCS:
 			InitialAnimation();
@@ -117,7 +200,66 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		case R.id.ll_XLQZ:
 			InitialAnimation();
 			img4.startAnimation(animation5);
+			v.setEnabled(true);
+			break;
+		case R.id.img_mood_switch_panel:
+			if(isMoodFirst){
+				isMoodFirst=false;
+				imgMoodPanel.setBackgroundResource(R.drawable.today_mood_panel_default);
+				AnimationUtils.performAnimateMarginBottom(layoutMoodSwitch, 0,-90, 333);
+			}
+			
+			if(!isMoodOpen){
+				isMoodOpen=true;
+				imgMoodArrow.setBackgroundResource(R.drawable.today_mood_arrow_down);
+				AnimationUtils.startImgBackGround(imgMoodArrow);
+				AnimationUtils.performAnimateMarginTop(layoutPickMood, 1500,810, 500);
+			}
+			else{
+				isMoodOpen=false;
+				imgMoodArrow.setBackgroundResource(R.drawable.today_mood_arrow_up);
+				AnimationUtils.startImgBackGround(imgMoodArrow);
+				AnimationUtils.performAnimateMarginTop(layoutPickMood, 810,1500, 500);
+				imgMoodPanel.setEnabled(true);
+			} 
+			break;
+		case R.id.img_mood_close:
+			isMoodOpen=false;
+			imgMoodArrow.setBackgroundResource(R.drawable.today_mood_arrow_up);
+			AnimationUtils.startImgBackGround(imgMoodArrow);
+			AnimationUtils.performAnimateMarginTop(layoutPickMood, 810,1500, 500);
+			v.setEnabled(true);
+			imgMoodPanel.setEnabled(true);
+			break;
+		case R.id.img_mood_background:
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_face_1:
+			Toast.makeText(mainActivity, "face1", 3).show();
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_face_2:
+			Toast.makeText(mainActivity, "face2", 3).show();
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_face_3:
+			Toast.makeText(mainActivity, "face3", 3).show();
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_face_4:
+			Toast.makeText(mainActivity, "face4", 3).show();
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_face_5:
+			Toast.makeText(mainActivity, "face5", 3).show();
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_face_6:
+			Toast.makeText(mainActivity, "face6", 3).show();
+			v.setEnabled(true);
+			break;
 		default:
+			v.setEnabled(true);
 			break;
 		}
 	}
@@ -169,7 +311,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 				Message msg = Message.obtain();
 				msg.what = 1;
 				handler.sendMessage(msg);
-			}
+			}	
 		});
 		animation2 = new TranslateAnimation(15, 0, 15, 0);
 		animation2.setDuration(500);
@@ -190,40 +332,5 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 	public void onLoaderReset(Loader<Cursor> arg0) {
 		
 	}
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.main_activity, container,
-				false);
-
-		imageLoader = ImageLoader.getInstance();
-		imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
-				.cacheOnDisc(true).build();
-		//心里自测的动画
-		ll_XLZC = (LinearLayout) view.findViewById(R.id.ll_XLZC);
-		ll_XLZC.setOnClickListener(this);
-		img1 = (ImageView) view.findViewById(R.id.menu_heart_beat);
-		//心情回收站的动画
-		ll_XQHSZ = (LinearLayout) view.findViewById(R.id.ll_XQHSZ);
-		ll_XQHSZ.setOnClickListener(this);
-		img2 = (ImageView) view.findViewById(R.id.img_huishouzhangaizi);
-		//趣味测试的动画
-		img3 = (ImageView) view.findViewById(R.id.img_QWCS);
-		ll_QWCS =  (LinearLayout) view.findViewById(R.id.ll_QWCS);
-		ll_QWCS.setOnClickListener(this);
-		//心理求助的动画
-		ll_XLQZ= (LinearLayout) view.findViewById(R.id.ll_XLQZ);
-		ll_XLQZ.setOnClickListener(this);
-		img4 = (ImageView) view.findViewById(R.id.img_xin);
-		//调研测试
-		ll_DYCS = (LinearLayout) view.findViewById(R.id.ll_DYCS);
-		ll_DYCS.setOnClickListener(this);
-		img5 = (ImageView) view.findViewById(R.id.img_dycs);
-
-		mainMenuService = new MainMenuService(MyApplication.getAppContext());
-//		new LoadDataTask().execute();
-//		setIndexImage(0);
-
-		return view;
-	}
+	
 }

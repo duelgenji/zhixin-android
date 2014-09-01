@@ -79,21 +79,21 @@ public class CurrentUserHelper {
 		return CURRENT_MEMBER_BITMAP;
 	}
 
-	public static int getCurrentMemberId() {
-		if (CURRENT_MEMBER_ID == 0) {
-			String phone = getCurrentPhone();
-			String sql = "select * from user_info where username = '" + phone
-					+ "'";
-			UserInfo user = DbManager.getDatabase().findUniqueBySql(
-					UserInfo.class, sql);
-			if (user != null) {
-				CURRENT_MEMBER_ID = user.getMemberId();
-			}
-			return CURRENT_MEMBER_ID;
-		} else {
-			return CURRENT_MEMBER_ID;
-		}
-	}
+//	public static int getCurrentMemberId() {
+//		if (CURRENT_MEMBER_ID == 0) {
+//			String phone = getCurrentPhone();
+//			String sql = "select * from user_info where username = '" + phone
+//					+ "'";
+//			UserInfo user = DbManager.getDatabase().findUniqueBySql(
+//					UserInfo.class, sql);
+//			if (user != null) {
+//				CURRENT_MEMBER_ID = user.getUserId();
+//			}
+//			return CURRENT_MEMBER_ID;
+//		} else {
+//			return CURRENT_MEMBER_ID;
+//		}
+//	}
 
 	public static void clearCurrentPhone() {
 		CURRENT_MEMBER_PHONE = null;
