@@ -13,13 +13,15 @@ public class SettingValues {
 		// save the key of the current active memberId after you log on
 		public static final String FILE_NAME_SETTINGS = "fileNameSettings";
 
-		public static final String KEY_CURRENT_ACTIVE_MEMBER_ID = "keyCurrentActiveMemberId";
-
 		public static final String KEY_TEMP_USER_PHONE_FOR_REGIST_USE = "keyTempUserPhoneForRegistUse";
 
 		public static final String KEY_CURRENT_ADDRESS_SAVED = "keyCurrentAddressSaved";
+		
+		public static final String KEY_CURRENT_ACTIVE_USER_ID = "keyCurrentActiveUserId";
 
-		public static final String KEY_CURRENT_ACTIVE_MEMBER_PHONE = "keyCurrentActiveMemberPhone";
+		public static final String KEY_CURRENT_ACTIVE_USER_PHONE = "keyCurrentActiveUserPhone";
+		
+		public static final String KEY_CURRENT_ACTIVE_USER_NICKNAME = "keyCurrentActiveUserNickname";
 
 		public static final int COUNT_DOWN_TIME_FOR_VALIDATE_MESSAGE = 10;
 

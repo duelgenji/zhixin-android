@@ -9,6 +9,7 @@
     <string name="regist_phone_invalid">您填写的手机号码错误</string>
     <string name="regist_invite_code_empty">您没有填写邀请码</string>
     <string name="nickname_empty">您填写的昵称为空!</string>
+    <string name="signature_empty">签名为空!</string>
     <string name="request_fail">请求失败</string>
     <string name="toast_input_cant_be_null">亲，输入的内容不能为空噢！</string>
     <string name="toast_input_contact_cant_be_null">亲，请填写联系方式噢！</string>
@@ -56,6 +57,7 @@
 	<string name="toast_tow_line_password_not_match">亲，您输入的密码不一致</string>
 	<string name="toast_log_on_fail">登录失败!</string>
 	<string name="toast_nickname_length_too_long">超出长度,最长7个汉字</string>
+	<string name="toast_signature_length_too_long">超出长度,最长20个汉字</string>
 	<string name="toast_forget_password_and_modify_it_successfully">修改密码成功!</string>
 	
 </resources>

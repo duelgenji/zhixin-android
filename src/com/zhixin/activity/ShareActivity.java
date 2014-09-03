@@ -48,7 +48,7 @@ public class ShareActivity extends Activity {
 				final UserInfo userInfo = DbManager.getDatabase()
 						.findUniqueByWhere(
 								UserInfo.class,
-								"memberId="
+								"userId="
 										+ CurrentUserHelper
 												.getCurrentUserId());
 				_this.runOnUiThread(new Runnable() {

@@ -4,20 +4,18 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    
-    <supports-screens 
-       android:anyDensity="true" 
-       android:largeScreens="true" 
-       android:normalScreens="true" 
-       android:smallScreens="true" 
-       android:xlargeScreens="true" /> 
-    
-    
-    
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
     <uses-sdk
         android:minSdkVersion="10"
         android:targetSdkVersion="18" />
-	<uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="com.zhixin.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -43,8 +41,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <uses-feature android:name="android.hardware.camera" />
-    
-     <!-- Required -->
+
+    <!-- Required -->
     <permission
         android:name="com.zhixin.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
@@ -60,10 +58,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
-    
-    
-    
-   <application
+
+    <application
         android:name=".settings.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -80,7 +76,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity android:name="eu.janmuller.android.simplecropimage.CropImage" />
+        <activity android:name="eu.janmuller.android.simplecropimage.CropImage" />
         <activity
             android:name="cn.sharesdk.framework.ShareSDKUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -91,10 +87,7 @@
             <!--
             	AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter
             	的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。 
-            	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
-
-
-
+            	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
             -->
             <meta-data
                 android:name="AuthorizeAdapter"
@@ -103,10 +96,7 @@
             <!--
             	QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter
             	的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。 
-            	开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
-
-
-
+            	开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
             -->
             <meta-data
                 android:name="QZoneWebShareAdapter"
@@ -114,10 +104,7 @@
 
             <!--
             	Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是
-            	“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权
-
-
-
+            	“db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权
             -->
             <intent-filter>
                 <data android:scheme="db-7janx53ilz11gbs" />
@@ -131,10 +118,7 @@
             <!--
             	如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
             	事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
-            	则分享结束以后不能得到正确的回调
-
-
-
+            	则分享结束以后不能得到正确的回调
             -->
             <intent-filter>
                 <data android:scheme="tencent101041230" />
@@ -156,7 +140,8 @@
             android:name=".provider.InternalStorageContentProvider"
             android:authorities="com.zhixin.provider"
             android:exported="true" />
-         <activity
+
+        <activity
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -166,12 +151,13 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-         <activity
+        <activity
             android:name=".activity.RegistPhoneActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
-<!--        <activity
+        <!--
+            <activity
             android:name=".activity.RegistInviteActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
@@ -185,20 +171,22 @@
             android:name=".activity.RegistSetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>    -->
+        </activity>
+        -->
         <activity
             android:name=".activity.FristInIntroduceActivity"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
-         <activity
+        <activity
             android:name=".activity.ModifyNicknameActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
-        </activity>   
+        </activity>
 
-  <!--       <service
+        <!--
+             <service
             android:name=".services.CountDowntimerService"
             android:exported="false" />
 
@@ -227,8 +215,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan" >
-        </activity>     -->
-        
+        </activity>
+        -->
+
+
         <!-- Required -->
         <service
             android:name="cn.jpush.android.service.PushService"
@@ -262,7 +252,7 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-         <!-- User defined. -->
+        <!-- User defined. -->
         <receiver
             android:name="com.zhixin.utils.QbpMessageReceiver"
             android:enabled="true" >
@@ -281,8 +271,8 @@
                 <category android:name="com.zhixin" />
             </intent-filter>
         </receiver>
-        
-         <!-- Required SDK核心功能 -->
+
+        <!-- Required SDK核心功能 -->
         <activity
             android:name="cn.jpush.android.ui.PushActivity"
             android:configChanges="orientation|keyboardHidden"
@@ -316,7 +306,7 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="5214fcd804fe93e5ebb2f1a7" />
-        
+
         <activity
             android:name="com.zhixin.activity.MorePrivacyActivity"
             android:screenOrientation="portrait"
@@ -370,6 +360,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
+            android:name=".activity.InterestListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
             android:name=".activity.XinliziceListActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -401,7 +395,12 @@
             android:name=".activity.DuijiangHistoryActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        <!--        
+         <activity
+            android:name=".activity.ModifySignatureActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>   
+        <!--
         <activity
             android:name=".activity.BaobaoMarketActivity"
             android:screenOrientation="portrait"
@@ -551,11 +550,10 @@
         <activity
             android:name="com.myqbp.activity.ViewPagerDemoActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Light.NoTitleBar" />
-      --> 
-      
-      
-      <activity
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        -->
+
+        <activity
             android:name=".activity.LoginForgotPhoneActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
@@ -563,14 +561,14 @@
             android:name=".activity.LoginForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
-        
-        <service android:name=".service.UserSettingIntentService"/>
-        <service android:name=".services.CropImageIntentService" />
-        <service android:name=".services.GetAddressIntentService" />
-        <service android:name=".services.SettingJpushAliasService" />
-        <service android:name=".services.UploadUserJpushAliasService" />
-		<service android:name=".service.QuAnswerPrivacySettingService"/>
-        
+
+        <service android:name=".service.UserSettingIntentService" />
+        <service android:name=".service.CropImageIntentService" />
+        <service android:name=".service.GetAddressIntentService" />
+        <service android:name=".service.SettingJpushAliasService" />
+        <service android:name=".service.UploadUserJpushAliasService" />
+        <service android:name=".service.QuAnswerPrivacySettingService" />
+
         <!-- 渠道商编号 -->
         <meta-data
             android:name="BaiduMobAd_CHANNEL"
@@ -595,15 +593,6 @@
         <meta-data
             android:name="BaiduMobAd_ONLY_WIFI"
             android:value="true" />
-      
-        
-        
-        
-        
-        
-        
-        
-        
     </application>
 
 </manifest>

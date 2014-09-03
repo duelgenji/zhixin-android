@@ -73,7 +73,7 @@
                         android:hint="@string/login_phone_edittext_hints"
                         android:maxLength="16"
                         android:textSize="16sp"
-                        android:text="13524053695"
+                        android:text="13917377795"
                         android:inputType="phone" />
 
 
@@ -118,7 +118,7 @@
                         android:hint="@string/login_password_input_hints"
                         android:maxLength="30"
                         android:textSize="16sp"
-                        android:text="wahaha123"/>
+                        android:text="123456aa"/>
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"

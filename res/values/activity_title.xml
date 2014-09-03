@@ -8,6 +8,7 @@
     <string name="title_set_pwd">设置密码</string>
     <string name="head_skip_hits">跳过</string>
     <string name="head_modify_nickname">修改昵称</string>
+    <string name="head_modify_signature">修改签名</string>
     <string name="head_level">等级</string>
     <string name="head_rank_list">排行榜</string>
     <string name="head_qu_friend">趣好友</string>

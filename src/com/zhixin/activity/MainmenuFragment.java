@@ -173,7 +173,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 			InitialAnimation();
 			// img1.startAnimation(animation);
 			img5.startAnimation(animation);
-			intent = new Intent(mainActivity, QuceshiListActivity.class);
+			intent = new Intent(mainActivity, InterestListActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
@@ -193,7 +193,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		case R.id.ll_QWCS:
 			InitialAnimation();
 			img3.startAnimation(animation4);
-			intent = new Intent(mainActivity,QuceshiListActivity.class);
+			intent = new Intent(mainActivity,InterestListActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;

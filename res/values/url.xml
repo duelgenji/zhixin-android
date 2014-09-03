@@ -81,12 +81,6 @@
     <string name="URL_FRIEND_RECOMMEND">yhhy/recommendFriends.htm</string>
     <string name="URL_FRIEND_RECOMMEND_RELOAD">yhhy/getRandomList.htm</string>
     <string name="URL_GET_HISTORY_DUIJIANG">home/getCjDjList.htm</string>
-    <string name="URL_QUBAOBAO_PRIZE">yhbb/giveCredit.htm</string>
-    <string name="URL_QUBAOBAO_RELEASE">yhbb/deletePet.htm</string>
-    <string name="URL_QUBAOBAO_BUY">yhbb/buyPet.htm</string>
-    <string name="URL_TAKE_HUATI_OR_NOT">yhht/isDone.htm</string>
-    <string name="URL_DO_HUATI">yhht/doYhht.htm</string>
-    <string name="URL_GET_HUATI_RESULT">yhht/getYhhtResultById.htm</string>
     <string name="URL_LING_JIANG">home/lingjiang.htm</string>
     <string name="URL_LING_JIANG_CONFIRM">home/lotteryconfirm.htm</string>
     <string name="URL_LING_JIANG_DENY">home/lotterynoconfirm.htm</string>
@@ -100,6 +94,9 @@
     <string name="URL_GET_USER_LORD">yhbb/getYhmz.htm</string>
     <string name="URL_DELETE_FRIEND">yhhy/deleteFriend.htm</string>
     <string name="URL_CONFIRM_DIAOYAN_HISTORY">dywj/historyListConfirm.htm</string>
+    
+    
+    <string name="URL_INTEREST_GET_LIST">interests/retrieveInterest</string>
 
 
 </resources>

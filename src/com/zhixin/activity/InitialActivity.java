@@ -53,9 +53,10 @@ public class InitialActivity extends InstrumentedActivity {
 		float density = getResources().getDisplayMetrics().density;
 		float dpHeight = outMetrics.heightPixels / density;
 		float dpWidth = outMetrics.widthPixels / density;
-		Log.i("current screen height", String.valueOf(dpHeight));
-		Log.i("current screen width", String.valueOf(dpWidth));
-		Log.i("current sdk version", android.os.Build.VERSION.SDK_INT + "");
+		Log.i("phone","density" + String.valueOf(density));
+		Log.i("phone","height" + String.valueOf(dpHeight));
+		Log.i("phone","width" + String.valueOf(dpWidth));
+		Log.i("phone", "sdk version" + android.os.Build.VERSION.SDK_INT);
 
 		new AsyncTask<Void, Void, Boolean>() {
 

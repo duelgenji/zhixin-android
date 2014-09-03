@@ -19,6 +19,7 @@ import cn.sharesdk.framework.ShareSDK;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
+import com.zhixin.asynctask.loginAsyncTask;
 import com.zhixin.customui.TabBarLayout;
 import com.zhixin.datasynservice.MainMenuService;
 import com.zhixin.dialog.InstructionDialog;
@@ -229,10 +230,11 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
-
+		_this = this;
 		service = new MainMenuService(MyApplication.getAppContext());
 		new LoadDataTask().execute();
 
+		//new loginAsyncTask().execute();
 		startLogOnService();
 
 		_this = this;
@@ -349,13 +351,13 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		StatService.onResume(this);
+		//StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		StatService.onPause(this);
+		//StatService.onPause(this);
 	}
 
 	private FragmentManager.OnBackStackChangedListener initalFinishListener = new OnBackStackChangedListener() {

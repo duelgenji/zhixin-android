@@ -3,6 +3,7 @@ package com.zhixin.activity;
 import java.text.ParseException;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,15 +24,17 @@ import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
+import com.zhixin.adapter.InterestListAdapter;
 import com.zhixin.adapter.QuceshiListAdapter;
-import com.zhixin.datasynservice.QuListService;
+import com.zhixin.datasynservice.InterestListService;
 import com.zhixin.dialog.InstructionDialog;
 import com.zhixin.dialog.QubaopenProgressDialog;
+import com.zhixin.domain.InterestList;
 import com.zhixin.domain.QuList;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.SqlCursorLoader;
 
-public class QuceshiListActivity extends FragmentActivity implements
+public class InterestListActivity extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener,
 		OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	/**趣测试列表 */
@@ -39,11 +42,11 @@ public class QuceshiListActivity extends FragmentActivity implements
 	/**loading */
 	private QubaopenProgressDialog progressDialog;
 	/**趣测试adapter */
-	private QuceshiListAdapter adapter;
+	private InterestListAdapter adapter;
 	
-	private QuListService quListService;
+	private InterestListService quListService;
 
-	private QuceshiListActivity _this;
+	private InterestListActivity _this;
 
 	private boolean refreshListIsRefreshing;
 
@@ -62,7 +65,7 @@ public class QuceshiListActivity extends FragmentActivity implements
 	/**下拉刷新*/
 	private SwipeRefreshLayout quListParent;
 
-	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
+	private class LoadDataTask extends AsyncTask<Integer, Void, JSONObject> {
 		private boolean refreshFlag;
 
 		public LoadDataTask(boolean refreshFlag) {
@@ -74,11 +77,11 @@ public class QuceshiListActivity extends FragmentActivity implements
 		}
 
 		@Override
-		protected String doInBackground(Integer... params) {
+		protected JSONObject doInBackground(Integer... params) {
 			int order = params[0];
 //			int type = params[1];
 			try {
-				return quListService.refreshData(order, this.refreshFlag);
+				return quListService.getInterestList(null,null,null);
 			} catch (ParseException e) {
 				e.printStackTrace();
 			} catch (JSONException e) {
@@ -88,24 +91,9 @@ public class QuceshiListActivity extends FragmentActivity implements
 		}
 
 		@Override
-		protected void onPostExecute(String params) {
-			if (params == null) {
-				getSupportLoaderManager().restartLoader(0, null,
-						QuceshiListActivity.this);
-			} else {
-				if (quList != null) {
-				}
-				if (params.equals("err204")) {
-					shouldGetMoreData = false;
-				}
-				if (progressDialog.isShowing()) {
-					progressDialog.dismiss();
-				}
-
-			}
-			if (quListParent.isRefreshing()) {
-				quListParent.setRefreshing(false);
-			}
+		protected void onPostExecute(JSONObject params) {
+			getSupportLoaderManager().restartLoader(0, null, _this);
+			
 		}
 		@Override
 		protected void onCancelled() {
@@ -134,14 +122,13 @@ public class QuceshiListActivity extends FragmentActivity implements
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
 
-		return new SqlCursorLoader(this, QuListService.QuceshiSqlMaker.makeSql(
-				order), QuList.class);
+		return new SqlCursorLoader(this, InterestListService.QuceshiSqlMaker.makeSql(), InterestList.class);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (adapter == null) {
-			adapter = new QuceshiListAdapter(this, cursor);
+			adapter = new InterestListAdapter(this, cursor);
 			quList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);
@@ -180,7 +167,7 @@ public class QuceshiListActivity extends FragmentActivity implements
 
 	private void init() {
 		shouldGetMoreData = true;
-		quListService = new QuListService(this);
+		quListService = new InterestListService(this);
 		progressDialog = new QubaopenProgressDialog(this);
 		quListParent = (SwipeRefreshLayout) this
 				.findViewById(R.id.quListParent);

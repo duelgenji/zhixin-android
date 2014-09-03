@@ -248,7 +248,7 @@ public class UserInfoActivity extends FragmentActivity implements
 					Integer syncType=result.getInt("syncType");
 					switch(syncType){
 					case 1:
-						if (result != null && result.getInt("success") == 1) {
+						if (result != null && result.getString("success").equals("1")) {
 			                //。。。。。。。。。
 							Toast.makeText(_this, "获取个人资料成功！", Toast.LENGTH_SHORT).show();
 							sex = result.getString("sex");

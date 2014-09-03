@@ -33,6 +33,8 @@ public class UserInfo {
 	private String sex;
 
 	private String nickName;
+	
+	private String signature;
 
 	private Date birthday;
 
@@ -107,6 +109,14 @@ public class UserInfo {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
+	}
+
+	public String getSignature() {
+		return signature;
+	}
+
+	public void setSignature(String signature) {
+		this.signature = signature;
 	}
 
 	public Date getBirthday() {

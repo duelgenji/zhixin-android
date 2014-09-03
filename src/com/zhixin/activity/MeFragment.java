@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,8 +40,10 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
+import com.zhixin.daos.UserInfoDao;
 import com.zhixin.database.DbManager;
 import com.zhixin.datasynservice.MainMenuService;
+import com.zhixin.domain.UserInfo;
 import com.zhixin.domain.UserSettings;
 import com.zhixin.provider.InternalStorageContentProvider;
 import com.zhixin.service.CropImageIntentService;
@@ -74,10 +77,12 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 	private Intent intent;
 	
 	private TextView nickNameTextView;
-	
 	private String nickName;
-	
 	private ImageButton editNickNameBtn;
+	
+	private TextView signatureTextView;
+	
+	private String signature;
 	
 	static final int PICK_PIC_FROM_CAMERA_ACTION = 10;
 	static final int PICK_PIC_FORM_GALLERY_ACTION = 20;
@@ -117,19 +122,66 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		}
 
 	}
+	private class SignatureClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			signatureTextView.setEnabled(false);
+			intent = new Intent(mainActivity,
+					ModifySignatureActivity.class);
+			signature = signatureTextView.getText().toString();
+			if (signature != null && !signature.equals("")) {
+				intent.putExtra(ModifySignatureActivity.INTENT_SIGNATURE,
+						signature);
+			}
+			startActivity(intent);
+			signatureTextView.setEnabled(true);
+		}
+
+	}
 	//初始化	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.me_main, container,
 				false);
+		initView(view);
+		
+		 String requestUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_USER_INFO_ADD);
+		new LoadDataTask1().execute(1,requestUrl,null,HttpClient.TYPE_GET);
+		return view;
+		
+	}
+	
+	private void initView(View view){
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this.getString(R.string.title_me));
 		
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
+//		nickName = CurrentUserHelper.getCurrentNickName();
+//		nickNameTextView.setText(nickName);
+		UserInfo userInfo = new UserInfo();
+		UserInfoDao userInfoDao = new UserInfoDao();
+		userInfo = userInfoDao.getUserByphone(CurrentUserHelper.getCurrentPhone());
+		if (userInfo.getNickName() != null) {
+			nickName = userInfo.getNickName();
+		}else {
+			nickName = "";
+			
+		}
+		nickNameTextView.setText(nickName);
 		nickNameTextView.setOnClickListener(this);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
 		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
+		
+		if (userInfo.getSignature() != null) {
+			signature = userInfo.getSignature();
+		}else {
+			signature = "";
+		}
+		signatureTextView = (TextView) view.findViewById(R.id.signature);
+		signatureTextView.setText(signature);
+		signatureTextView.setOnClickListener(new SignatureClickListener());
 		
 		layoutMyprofile = (LinearLayout) view.findViewById(R.id.layoutMyprofile);
 		layoutMyprofile.setOnClickListener(this);
@@ -137,8 +189,6 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		layoutDuijiang = (LinearLayout) view.findViewById(R.id.layoutDuijiang);
 		layoutDuijiang.setOnClickListener(this);
 		
-//		layoutDafen = (LinearLayout) view.findViewById(R.id.layoutDafen);
-//		layoutDafen.setOnClickListener(this);
 		layoutShareAppComp = (LinearLayout) view.findViewById(R.id.layoutShareAppComp);
 		layoutShareAppComp.setOnClickListener(this);
 		
@@ -158,9 +208,8 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 				.findViewById(R.id.headIconPHQSJ);
 		headImageViewPlaceHolder
 				.setOnClickListener(new ClickImageToChangeHeadIcon());
-		return view;
-		
 	}
+	
 	//设置的连接后台
 	private class LoadDataTask extends AsyncTask<String, Void, String> {
 		@Override
@@ -345,14 +394,8 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 	}
 	@Override
 	public void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
-//		long userId = CurrentUserHelper.getCurrentUserId();
-		 String requestUrl = SettingValues.URL_PREFIX
-					+ getString(R.string.URL_USER_INFO_ADD);
-//	        requestUrl+="/"+userId;
-		new LoadDataTask1().execute(1,requestUrl,null,HttpClient.TYPE_GET);
 	}
 	private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{
 
@@ -384,14 +427,19 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 				Integer syncType=result.getInt("syncType");
 				switch(syncType){
 				case 1:
-					if (result != null && result.getInt("success") == 1) {
+					if (result != null && result.getString("success").equals("1")) {
 		                //。。。。。。。。。
 						Toast.makeText(mainActivity, "获取个人资料成功！", Toast.LENGTH_SHORT).show();
-						nickName = result.getString("nickName");
-	//					Message msg = Message.obtain();
-	//					msg.what = 0;
-	//					handler.sendMessage(msg);
-						nickNameTextView.setText(nickName);
+						try {
+							nickName = result.getString("nickName");
+							signature = result.getString("signature");
+							Log.i("个人签名", signature);
+							
+							nickNameTextView.setText(nickName);
+							signatureTextView.setText(signature);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}else {
 						Toast.makeText(mainActivity, "获取数据失败！", Toast.LENGTH_SHORT).show();
 					}

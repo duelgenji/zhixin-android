@@ -21,6 +21,7 @@
     <string name="regist_password_tips">请输入密码至少包含8位，包含数字和字母</string>
     <string name="regist_password_again">请确认密码</string>
     <string name="modify_nickname">请输入昵称</string>
+    <string name="modify_signature">个性签名</string>
     <string name="regist_invite_hint">天王盖地虎，暗号说清楚！</string>
     <string name="more_suggestion_hint">用得不爽了，请一定告诉我们！我们才能做得更好~</string>
     <string name="more_suggestion_contact">手机号码/Email地址</string>

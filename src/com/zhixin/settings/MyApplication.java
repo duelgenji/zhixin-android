@@ -32,4 +32,10 @@ public class MyApplication extends Application {
 	public static Context getAppContext() {
 		return MyApplication.context;
 	}
+	
+	public static float getDensity() {
+		return  context.getResources().getDisplayMetrics().density;
+	}
+	
+	
 }

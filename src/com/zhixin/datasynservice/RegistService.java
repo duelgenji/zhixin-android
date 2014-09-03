@@ -41,12 +41,12 @@ public class RegistService {
 		}
 		JSONObject jsonParams = new JSONObject();
 		jsonParams.put("phone", phone);
-		jsonParams.put("pwd", password);
-		if (CurrentUserHelper.getCurrentUserId() != 0) {
-			jsonParams.put("uuid", SettingValues.JPUSH_ALIAS_PREFIX
-					+ CurrentUserHelper.getCurrentUserId());
-		}
-		JSONObject result = HttpClient.requestSync(requestUrl, jsonParams);
+		jsonParams.put("password", password);
+//		if (CurrentUserHelper.getCurrentUserId() != 0) {
+//			jsonParams.put("uuid", SettingValues.JPUSH_ALIAS_PREFIX
+//					+ CurrentUserHelper.getCurrentUserId());
+//		}
+		JSONObject result = HttpClient.requestSync(requestUrl, jsonParams,HttpClient.TYPE_PUT_JSON);
 
 		if (result != null && result.getInt("success") == 1) {
 			userInfoDao.saveUserForFirsttime(result, password);

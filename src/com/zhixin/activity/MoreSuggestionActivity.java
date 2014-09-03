@@ -144,7 +144,7 @@ public class MoreSuggestionActivity  extends FragmentActivity implements View.On
 				Integer syncType=result.getInt("syncType");
 				switch(syncType){
 				case 1:
-					if (result != null && result.getInt("success") == 1) {
+					if (result != null && result.getString("success").equals("1")) {
 		                //。。。。。。。。。
 //						long userId = result.getLong("userId");
 //						CurrentUserHelper.saveCurrentUserId(userId);

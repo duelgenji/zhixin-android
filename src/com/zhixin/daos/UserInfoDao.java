@@ -77,7 +77,11 @@ public class UserInfoDao {
 			}else {
 				user.setNickName("");
 			}
-
+			if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
+				user.setSignature(jbo.getString("signature"));
+			}else {
+				user.setSignature("");
+			}
 			if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
 				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 				Date date = formatter.parse(jbo.getString("birthday"));
@@ -141,7 +145,11 @@ public class UserInfoDao {
 		}else {
 			user.setNickName("");
 		}
-
+		if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
+			user.setSignature(jbo.getString("signature"));
+		}else {
+			user.setSignature("");
+		}
 		if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
 			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = formatter.parse(jbo.getString("birthday"));
@@ -257,7 +265,36 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
-
+	public void saveUserInfoNickNameById(long id, String nickName) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);
+			user.setNickName(nickName);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setNickName(nickName);
+			DbManager.getDatabase().update(user);
+		}
+	}
+	
+	public void saveUserInfoSignatureById(long id, String signature) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);
+			user.setSignature(signature);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setSignature(signature);
+			DbManager.getDatabase().update(user);
+		}
+	}
+	
 	public String getUserPasswordByPhone(String phone) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
