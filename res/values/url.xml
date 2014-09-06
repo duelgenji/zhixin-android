@@ -101,6 +101,7 @@
     <string name="URL_INTEREST_GET_QUESTION">interestQuestions/findByInterest</string>
     
      <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
+     <string name="URL_GET_GIFT_LIST1">rewardActivitys/retrieveOnlineReward1</string>
     
     
 
