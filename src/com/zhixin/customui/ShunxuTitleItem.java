@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.zhixin.R;
 import com.zhixin.domain.Choices;
+import com.zhixin.domain.Options;
 
 public class ShunxuTitleItem extends FrameLayout implements
 		View.OnClickListener {
@@ -20,7 +21,7 @@ public class ShunxuTitleItem extends FrameLayout implements
 
 	private TextView titleText;
 
-	private Choices currentChoices;
+	private Options currentChoices;
 
 	private ShunxuItem boundedItem;
 
@@ -55,13 +56,13 @@ public class ShunxuTitleItem extends FrameLayout implements
 		this.choiceText = str;
 	}
 
-	public Choices getCurrentChoices() {
+	public Options getCurrentChoices() {
 		return currentChoices;
 	}
 
-	public void setCurrentChoices(Choices currentChoices) {
+	public void setCurrentChoices(Options currentChoices) {
 		this.currentChoices = currentChoices;
-		setText(currentChoices.getChoiceNo());
+		setText(currentChoices.getOptionNum());
 	}
 
 	public boolean hasValueYet() {

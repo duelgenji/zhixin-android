@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhixin.R;
+import com.zhixin.activity.InterestContentActivity;
 import com.zhixin.activity.QuceshiContentActivity;
 
 public class InterestListAdapter extends CursorAdapter {
@@ -46,9 +47,9 @@ public class InterestListAdapter extends CursorAdapter {
 				v.setBackgroundColor(context.getResources().getColor(
 						R.color.general_activity_background));
 					Intent intent;
-					intent = new Intent(context, QuceshiContentActivity.class);
+					intent = new Intent(context, InterestContentActivity.class);
 					intent.putExtra(
-							QuceshiContentActivity.INTENT_QUESIONNARE_ID,
+							InterestContentActivity.INTENT_INTEREST_ID,
 							interestId);
 					context.startActivity(intent);
 			} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
@@ -70,7 +71,7 @@ public class InterestListAdapter extends CursorAdapter {
 	public View newView(Context context, Cursor cursor, ViewGroup parent) {
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View rowView = inflater.inflate(R.layout.adapter_quce_diao_item,
+		View rowView = inflater.inflate(R.layout.adapter_interest_list_item,
 				parent, false);
 
 		return updatingContentInView(rowView, cursor);
@@ -91,10 +92,6 @@ public class InterestListAdapter extends CursorAdapter {
 				.findViewById(R.id.answerNumberTextView);
 		TextView answerFriendNumber = (TextView) rowView
 				.findViewById(R.id.answerFriendNumber);
-		TextView quceDiaoCoinText = (TextView) rowView
-				.findViewById(R.id.quceDiaoCoinText);
-		ImageView quceDiaoCoinImage = (ImageView) rowView
-				.findViewById(R.id.quceDiaoCoinImage);
 
 		// necessary injection
 		questionareTitle.setText(cursor.getString(cursor
@@ -115,24 +112,10 @@ public class InterestListAdapter extends CursorAdapter {
 			answerFriendNumber.setText("0");
 		}
 
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("golds")))) {
-			int value = cursor.getInt(cursor.getColumnIndex("golds"));
-			if (value == 0) {
-				quceDiaoCoinImage.setVisibility(View.INVISIBLE);
-				quceDiaoCoinText.setVisibility(View.INVISIBLE);
-			} else {
-				quceDiaoCoinImage.setVisibility(View.VISIBLE);
-				quceDiaoCoinText.setVisibility(View.VISIBLE);
-				quceDiaoCoinText.setText(String.valueOf(value));
-			}
-		} else {
-			quceDiaoCoinImage.setVisibility(View.INVISIBLE);
-			quceDiaoCoinText.setVisibility(View.INVISIBLE);
-		}
+		
 		if(StringUtils.isNotEmpty(cursor.getString(cursor
 				.getColumnIndex("picPath")))){
-			img_quceshi_list.setVisibility(View.VISIBLE);
+			//img_quceshi_list.setVisibility(View.VISIBLE);
 		}else{
 			img_quceshi_list.setVisibility(View.GONE);
 		}
@@ -171,8 +154,8 @@ public class InterestListAdapter extends CursorAdapter {
 				FrameLayout frame = frameList.get(i);
 
 				ImageView tagImage = (ImageView) frame
-						.findViewById(R.id.tagImage);
-				TextView tagText = (TextView) frame.findViewById(R.id.tagText);
+						.findViewWithTag("tagImage");
+				TextView tagText = (TextView) frame.findViewWithTag("tagText");
 
 				switch (index) {
 				case 1:
@@ -219,9 +202,9 @@ public class InterestListAdapter extends CursorAdapter {
 			}
 
 		}
-		int questionnareId = cursor.getInt(cursor
+		int interestId = cursor.getInt(cursor
 				.getColumnIndex("interestId"));
-		rowView.setOnTouchListener(new QuListTouchListener(questionnareId));
+		rowView.setOnTouchListener(new QuListTouchListener(interestId));
 
 		return rowView;
 

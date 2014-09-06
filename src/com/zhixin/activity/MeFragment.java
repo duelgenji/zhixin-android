@@ -78,11 +78,12 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 	
 	private TextView nickNameTextView;
 	private String nickName;
+	private String localNickName;
 	private ImageButton editNickNameBtn;
 	
 	private TextView signatureTextView;
-	
 	private String signature;
+	private String localSignature;
 	
 	static final int PICK_PIC_FROM_CAMERA_ACTION = 10;
 	static final int PICK_PIC_FORM_GALLERY_ACTION = 20;
@@ -106,38 +107,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		};
 	};
 	*/
-	private class NicknameIconClickListener implements View.OnClickListener {
-		@Override
-		public void onClick(View v) {
-			editNickNameBtn.setEnabled(false);
-			intent = new Intent(mainActivity,
-					ModifyNicknameActivity.class);
-			nickName = nickNameTextView.getText().toString();
-			if (nickName != null && !nickName.equals("")) {
-				intent.putExtra(ModifyNicknameActivity.INTENT_NICKNAME,
-						nickName);
-			}
-			startActivity(intent);
-			editNickNameBtn.setEnabled(true);
-		}
-
-	}
-	private class SignatureClickListener implements View.OnClickListener {
-		@Override
-		public void onClick(View v) {
-			signatureTextView.setEnabled(false);
-			intent = new Intent(mainActivity,
-					ModifySignatureActivity.class);
-			signature = signatureTextView.getText().toString();
-			if (signature != null && !signature.equals("")) {
-				intent.putExtra(ModifySignatureActivity.INTENT_SIGNATURE,
-						signature);
-			}
-			startActivity(intent);
-			signatureTextView.setEnabled(true);
-		}
-
-	}
+	
 	//初始化	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -164,23 +134,23 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		UserInfoDao userInfoDao = new UserInfoDao();
 		userInfo = userInfoDao.getUserByphone(CurrentUserHelper.getCurrentPhone());
 		if (userInfo.getNickName() != null) {
-			nickName = userInfo.getNickName();
+			localNickName = userInfo.getNickName();
 		}else {
-			nickName = "";
+			localNickName = "";
 			
 		}
-		nickNameTextView.setText(nickName);
+		nickNameTextView.setText(localNickName);
 		nickNameTextView.setOnClickListener(this);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
 		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
 		
 		if (userInfo.getSignature() != null) {
-			signature = userInfo.getSignature();
+			localSignature = userInfo.getSignature();
 		}else {
-			signature = "";
+			localSignature = "";
 		}
 		signatureTextView = (TextView) view.findViewById(R.id.signature);
-		signatureTextView.setText(signature);
+		signatureTextView.setText(localSignature);
 		signatureTextView.setOnClickListener(new SignatureClickListener());
 		
 		layoutMyprofile = (LinearLayout) view.findViewById(R.id.layoutMyprofile);
@@ -208,6 +178,39 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 				.findViewById(R.id.headIconPHQSJ);
 		headImageViewPlaceHolder
 				.setOnClickListener(new ClickImageToChangeHeadIcon());
+	}
+	
+	private class NicknameIconClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			editNickNameBtn.setEnabled(false);
+			intent = new Intent(mainActivity,
+					ModifyNicknameActivity.class);
+			localNickName = nickNameTextView.getText().toString();
+			if (localNickName != null && !localNickName.equals("")) {
+				intent.putExtra(ModifyNicknameActivity.INTENT_NICKNAME,
+						localNickName);
+			}
+			startActivity(intent);
+			editNickNameBtn.setEnabled(true);
+		}
+
+	}
+	private class SignatureClickListener implements View.OnClickListener {
+		@Override
+		public void onClick(View v) {
+			signatureTextView.setEnabled(false);
+			intent = new Intent(mainActivity,
+					ModifySignatureActivity.class);
+			localSignature = signatureTextView.getText().toString();
+			if (localSignature != null && !localSignature.equals("")) {
+				intent.putExtra(ModifySignatureActivity.INTENT_SIGNATURE,
+						localSignature);
+			}
+			startActivity(intent);
+			signatureTextView.setEnabled(true);
+		}
+
 	}
 	
 	//设置的连接后台
@@ -401,7 +404,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
 		@Override
 		protected JSONObject doInBackground(Object... params) {
-			JSONObject result=null;
+			JSONObject result = null;
 			Integer syncType=(Integer)params[0];
 			try {
 				switch(syncType){
@@ -409,6 +412,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 					//null。。。。传参方式是get
 					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(), null,(Integer)params[3]);
+					Log.i("用户信息请求结果", result+"");
 					result.put("syncType", syncType);
 					break;
 				

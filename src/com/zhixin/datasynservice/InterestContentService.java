@@ -4,36 +4,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zhixin.R;
+import com.zhixin.daos.InterestContentDao;
 import com.zhixin.daos.QuContentDao;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
 
 import android.content.Context;
+import android.util.Log;
 
-public class QuceshiContentService {
+public class InterestContentService {
 
 	private Context context;
 
-	private QuContentDao quContentDao;
+	private InterestContentDao interestContentDao;
 
-	public QuceshiContentService(Context context) {
+	public InterestContentService(Context context) {
 		this.context = context;
-		quContentDao = new QuContentDao();
+		interestContentDao = new InterestContentDao();
 	}
 
-	public String saveData(int questionnareId) throws JSONException {
-		if (!quContentDao.isWjExists(questionnareId)) {
+	public String getInterestContent(int interestId) throws JSONException {
+		if (!interestContentDao.isInterestExists(interestId)) {
 			String requestUrl = SettingValues.URL_PREFIX
-					+ context.getString(R.string.URL_GET_XQWJ);
+					+ context.getString(R.string.URL_INTEREST_GET_QUESTION);
 
-			JSONObject requestParams = new JSONObject();
-			requestParams.put("iWjId", questionnareId);
-			JSONObject result = HttpClient.requestSync(requestUrl,
-					requestParams);
+			requestUrl+="/"+interestId;
+			JSONObject result = HttpClient.requestSync(requestUrl,null,HttpClient.TYPE_GET);
+			
 			if (result != null
 					&& (!result.has("success") || result.getString("success")
 							.equals("1"))) {
-				quContentDao.saveAQuestionnare(result, questionnareId);
+				interestContentDao.saveInterestContent(result, interestId);
 			} else if (result != null
 					&& result.getString("success").equals("0")) {
 				return result.getString("message");

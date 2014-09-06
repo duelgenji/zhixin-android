@@ -344,8 +344,8 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void setPushAliasSettings() {
-		Intent intent = new Intent(this, SettingJpushAliasService.class);
-		startService(intent);
+		//Intent intent = new Intent(this, SettingJpushAliasService.class);
+		//startService(intent);
 	}
 
 	@Override

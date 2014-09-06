@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import com.zhixin.R;
 import com.zhixin.cache.PreviousUserQuestionCache;
 import com.zhixin.domain.Choices;
+import com.zhixin.domain.Options;
 import com.zhixin.domain.UserQuestionAnswer;
 import com.zhixin.logic.DatiQuestionAnswer;
 
@@ -19,13 +20,13 @@ public class ShunxuChoice extends RadioGroup {
 	private Context context;
 	private LayoutInflater inflater;
 
-	private List<? extends Choices> choiceList;
+	private List<? extends Options> choiceList;
 	private HashMap<Integer, ShunxuItem> shunxuItemList;
 	private ShunxuViewGroup shunxuViewGroup;
 	
 	private List<? extends UserQuestionAnswer> answerList;
 
-	public ShunxuChoice(Context context, List<? extends Choices> choiceList,
+	public ShunxuChoice(Context context, List<? extends Options> choiceList,
 			ShunxuViewGroup shunxuViewGroup,
 			List<? extends UserQuestionAnswer> answerList) {
 		super(context);
@@ -42,7 +43,7 @@ public class ShunxuChoice extends RadioGroup {
 		inflater = LayoutInflater.from(context);
 		inflater.inflate(R.layout.customui_duoxuan, this);
 		shunxuItemList = new HashMap<Integer, ShunxuItem>();
-		for (Choices aChoice : choiceList) {
+		for (Options aChoice : choiceList) {
 			ShunxuItem choiceItem = new ShunxuItem(context, aChoice);
 			choiceItem.setShunxuViewGroup(shunxuViewGroup);
 			choiceItem.setLayoutParams(new LinearLayout.LayoutParams(
@@ -50,7 +51,7 @@ public class ShunxuChoice extends RadioGroup {
 
 			addView(choiceItem);
 
-			shunxuItemList.put(aChoice.getChoiceId(), choiceItem);
+			shunxuItemList.put(aChoice.getOptionId(), choiceItem);
 
 		}
 		if (answerList != null){
@@ -62,9 +63,9 @@ public class ShunxuChoice extends RadioGroup {
 	
 	private void setHistoryAnswerChecked(){
 		for (UserQuestionAnswer userQuestionAnswer:answerList){
-			for (Choices aChoice : choiceList){
-				if (aChoice.getChoiceId() == userQuestionAnswer.getChoiceId()){
-					shunxuItemList.get(aChoice.getChoiceId()).performClick();
+			for (Options aChoice : choiceList){
+				if (aChoice.getOptionId() == userQuestionAnswer.getChoiceId()){
+					shunxuItemList.get(aChoice.getOptionId()).performClick();
 					break;
 				}
 			}

@@ -197,6 +197,7 @@ public class HttpClient {
 	public final static int TYPE_POST_NORMAL=5;
 	public final static int TYPE_PUT_NORMAL=6;
 	public final static int TYPE_POST_FORM=7;
+	public final static int TYPE_PUT_FORM=8;
 
 	// **根据类型来发送请求
 	public static JSONObject requestSync(String requestUrl,
@@ -237,6 +238,9 @@ public class HttpClient {
 						break;
 					case TYPE_POST_FORM:
 						resultObj = fh.postSyncJSONForm(requestUrl, jsonParams);
+						break;
+					case TYPE_PUT_FORM:
+						resultObj = fh.putSync(requestUrl);
 						break;
 					default:
 						break;

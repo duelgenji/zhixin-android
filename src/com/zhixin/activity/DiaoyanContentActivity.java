@@ -270,21 +270,21 @@ public class DiaoyanContentActivity extends Activity implements
 			quceshiContentArea.addView(duoxuanChoice);
 			break;
 		case 3:
-			wenda = new Wenda(this, diaoyanDatiDataObject.getQuestionId(),
-					diaoyanDatiDataObject.getDiaoyanQuestion()
-							.getChoiceNumber(),
-					PreviousUserQuestionCache.getInstance());
-			wenda.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			quceshiContentArea.addView(wenda);
+//			wenda = new Wenda(this, diaoyanDatiDataObject.getQuestionId(),
+//					diaoyanDatiDataObject.getDiaoyanQuestion()
+//							.getChoiceNumber(),
+//					PreviousUserQuestionCache.getInstance());
+//			wenda.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//					LayoutParams.WRAP_CONTENT));
+//			quceshiContentArea.addView(wenda);
 			break;
 		case 4:
-			ShunxuChoice aShunxuChoice = new ShunxuChoice(this,
-					diaoyanDatiDataObject.getChoices(), shunxuViewGroup,
-					PreviousUserQuestionCache.getInstance());
-			aShunxuChoice.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			quceshiContentArea.addView(aShunxuChoice);
+//			ShunxuChoice aShunxuChoice = new ShunxuChoice(this,
+//					diaoyanDatiDataObject.getChoices(), shunxuViewGroup,
+//					PreviousUserQuestionCache.getInstance());
+//			aShunxuChoice.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+//			quceshiContentArea.addView(aShunxuChoice);
 
 			break;
 		case 5:

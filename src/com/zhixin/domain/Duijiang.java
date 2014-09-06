@@ -1,5 +1,6 @@
 package com.zhixin.domain;
 
+import android.R.integer;
 import net.tsz.afinal.annotation.sqlite.Id;
 import net.tsz.afinal.annotation.sqlite.Table;
 
@@ -11,13 +12,32 @@ public class Duijiang {
 	private int lotteryId;
 
 	private String picUrl;
-
+	
+	private String title;
+	
+	private String content;
+	
+	//每人参与次数,0为不限
     private int creditConsume;
-
+    
+    //金币消耗量
     private int coinConsume;
 
-	private String title;
-    private String content;
+    //奖品总数
+    private int totalCountLimit;
+    
+    //剩余数量
+    private int currnetCount;
+    
+    private Boolean isNew;
+    
+    private String rewardType;
+    
+    //奖品状态
+    private String status;
+    
+	
+    
 
     public String getContent() {
         return content;
@@ -76,4 +96,46 @@ public class Duijiang {
     public void setCoinConsume(int coinConsume) {
         this.coinConsume = coinConsume;
     }
+
+	public int getTotalCountLimit() {
+		return totalCountLimit;
+	}
+
+	public void setTotalCountLimit(int totalCountLimit) {
+		this.totalCountLimit = totalCountLimit;
+	}
+
+	public int getCurrnetCount() {
+		return currnetCount;
+	}
+
+	public void setCurrnetCount(int currnetCount) {
+		this.currnetCount = currnetCount;
+	}
+
+	public Boolean getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Boolean isNew) {
+		this.isNew = isNew;
+	}
+
+	public String getRewardType() {
+		return rewardType;
+	}
+
+	public void setRewardType(String rewardType) {
+		this.rewardType = rewardType;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+    
+    
 }

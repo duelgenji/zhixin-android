@@ -29,7 +29,7 @@ import com.zhixin.customui.ShunxuTitleItem;
 import com.zhixin.customui.ShunxuViewGroup;
 import com.zhixin.customui.Wenda;
 import com.zhixin.datasynservice.QuceshiAnswerService;
-import com.zhixin.datasynservice.QuceshiContentService;
+import com.zhixin.datasynservice.InterestContentService;
 import com.zhixin.dialog.DafenFenshuOverlayer;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.UserQuestionAnswer;
@@ -45,7 +45,7 @@ View.OnClickListener, DatiDataObject.DiaoyanDatiLoadFinished{
 	public static final String INTENT_QUESIONNARE_ID = "quesionnareId";
 	public static final String CURRENT_QUESTION = "currentQuestion";
 
-	private QuceshiContentService quceshiContentService;
+	private InterestContentService quceshiContentService;
 	private QuceshiAnswerService quceshiAnswerService;
 	private int questionnareId;
 
@@ -82,7 +82,7 @@ View.OnClickListener, DatiDataObject.DiaoyanDatiLoadFinished{
 		protected String doInBackground(Integer... params) {
 			try {
 				if (theFirstTime) {
-					String message = quceshiContentService.saveData(params[0]);
+					String message = quceshiContentService.getInterestContent(params[0]);
 					if (message == null) {
 						quDatiLogicObject = new DatiLogicObject(questionnareId,
 								0);
@@ -169,7 +169,7 @@ View.OnClickListener, DatiDataObject.DiaoyanDatiLoadFinished{
 		questionTitleViewGroup = (RelativeLayout) this
 				.findViewById(R.id.questionTitleViewGroup);
 
-		quceshiContentService = new QuceshiContentService(this);
+		quceshiContentService = new InterestContentService(this);
 		quceshiAnswerService = new QuceshiAnswerService(this);
 
 		questionnareId = getIntent().getIntExtra(INTENT_QUESIONNARE_ID, 0);
@@ -236,20 +236,20 @@ View.OnClickListener, DatiDataObject.DiaoyanDatiLoadFinished{
 			quceshiContentArea.addView(duoxuanChoice);
 			break;
 		case 3:
-			wenda = new Wenda(this, quDatiDataObject.getQuestionId(),
-					quDatiDataObject.getDiaoyanQuestion().getChoiceNumber(),
-					PreviousUserQuestionCache.getInstance());
-			wenda.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-					LayoutParams.WRAP_CONTENT));
-			quceshiContentArea.addView(wenda);
+//			wenda = new Wenda(this, quDatiDataObject.getQuestionId(),
+//					quDatiDataObject.getDiaoyanQuestion().getChoiceNumber(),
+//					PreviousUserQuestionCache.getInstance());
+//			wenda.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//					LayoutParams.WRAP_CONTENT));
+//			quceshiContentArea.addView(wenda);
 			break;
 		case 4:
-			ShunxuChoice aShunxuChoice = new ShunxuChoice(this,
-					quDatiDataObject.getChoices(), shunxuViewGroup,
-					PreviousUserQuestionCache.getInstance());
-			aShunxuChoice.setLayoutParams(new LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-			quceshiContentArea.addView(aShunxuChoice);
+//			ShunxuChoice aShunxuChoice = new ShunxuChoice(this,
+//					quDatiDataObject.getChoices(), shunxuViewGroup,
+//					PreviousUserQuestionCache.getInstance());
+//			aShunxuChoice.setLayoutParams(new LayoutParams(
+//					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+//			quceshiContentArea.addView(aShunxuChoice);
 
 			break;
 		case 5:

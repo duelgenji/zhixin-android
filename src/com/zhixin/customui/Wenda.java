@@ -10,6 +10,7 @@ import android.widget.RadioGroup;
 
 import com.zhixin.R;
 import com.zhixin.cache.PreviousUserQuestionCache;
+import com.zhixin.domain.Options;
 import com.zhixin.domain.UserQuestionAnswer;
 import com.zhixin.enums.QuestionTypeEnums;
 
@@ -26,26 +27,25 @@ public class Wenda extends RadioGroup {
 
 	private List<? extends UserQuestionAnswer> userQuestionAnswer;
 
-	public Wenda(Context context, int quQuestion, int choiceNumber,
+	public Wenda(Context context, List<? extends Options> choiceList,
 			List<? extends UserQuestionAnswer> userQuestionAnswer) {
 		super(context);
 		this.context = context;
-		this.questionId = quQuestion;
-		this.choiceNumber = choiceNumber;
 		this.userQuestionAnswer = userQuestionAnswer;
 		PreviousUserQuestionCache.clearCache();
 		wendaItemList = new ArrayList<WendaItem>();
-		init();
+
+		init(choiceList);
 
 	}
 
-	private void init() {
+	private void init(List<? extends Options> choiceList) {
 
 		inflater = LayoutInflater.from(context);
 		inflater.inflate(R.layout.customui_danxuan, this);
 
-		for (int i = 0; i < choiceNumber; i++) {
-			WendaItem choiceItem = new WendaItem(context);
+		for (int i = 0; i < choiceList.size(); i++) {
+			WendaItem choiceItem = new WendaItem(context,choiceList.get(i));
 			choiceItem.setLayoutParams(new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			if (userQuestionAnswer != null) {
@@ -86,6 +86,10 @@ public class Wenda extends RadioGroup {
 					.getTypeCode());
 			userQuestionAnswer.setQuestionId(questionId);
 			userQuestionAnswer.setAnswer(anItem.getAnswer());
+			userQuestionAnswer.setChoiceId(anItem.getQuChoice()
+					.getOptionId());
+			userQuestionAnswer.setChoiceNo(anItem.getQuChoice()
+					.getOptionNum());
 			ans.add(userQuestionAnswer);
 		}
 

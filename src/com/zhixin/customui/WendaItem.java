@@ -3,6 +3,8 @@ package com.zhixin.customui;
 import org.apache.commons.lang3.StringUtils;
 
 import com.zhixin.R;
+import com.zhixin.domain.Choices;
+import com.zhixin.domain.Options;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,12 +19,15 @@ public class WendaItem extends RelativeLayout {
 	private Context context;
 	private LayoutInflater inflater;
 	private EditText wendaArea;
-	private int questionId;
+	private Options quChoice;
 	
-	public WendaItem(Context context) {
+
+
+	public WendaItem(Context context, Options quChoice) {
 		super(context);
 		this.context = context;
 		inflater = LayoutInflater.from(context);
+		this.quChoice = quChoice;
 		init();
 	}
 
@@ -41,5 +46,13 @@ public class WendaItem extends RelativeLayout {
 	
 	public void setAnswer(String str){
 		wendaArea.setText(str);	
+	}
+	
+	public Options getQuChoice() {
+		return quChoice;
+	}
+
+	public void setQuChoice(Options quChoice) {
+		this.quChoice = quChoice;
 	}
 }

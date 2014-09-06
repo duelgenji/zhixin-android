@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zhixin.domain.Choices;
+import com.zhixin.domain.Options;
 import com.zhixin.domain.UserQuestionAnswer;
 import com.zhixin.enums.QuestionTypeEnums;
 
@@ -38,7 +39,7 @@ public class ShunxuViewGroup extends LinearLayout {
 		items.add((ShunxuTitleItem) child);
 	}
 
-	public void addText(Choices choices, ShunxuItem shunxuItem) {
+	public void addText(Options choices, ShunxuItem shunxuItem) {
 		for (ShunxuTitleItem anItem : items) {
 			if (!anItem.hasValueYet()) {
 				anItem.setCurrentChoices(choices);
@@ -59,7 +60,7 @@ public class ShunxuViewGroup extends LinearLayout {
 			for (ShunxuTitleItem anItem : items) {
 				userQuestionAnswer = new UserQuestionAnswer();
 				userQuestionAnswer.setChoiceId(anItem.getCurrentChoices()
-						.getChoiceId());
+						.getOptionId());
 				
 				userQuestionAnswer.setQuestionId(anItem.getCurrentChoices()
 						.getQuestionId());

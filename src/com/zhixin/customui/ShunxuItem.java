@@ -8,12 +8,13 @@ import android.widget.TextView;
 
 import com.zhixin.R;
 import com.zhixin.domain.Choices;
+import com.zhixin.domain.Options;
 
 public class ShunxuItem extends LinearLayout implements View.OnClickListener {
 
 	private Context context;
 	private LayoutInflater inflater;
-	private Choices quChoice;
+	private Options quChoice;
 	private TextView choiceNoTextView;
 	private TextView choiceTitleTextView;
 
@@ -22,7 +23,7 @@ public class ShunxuItem extends LinearLayout implements View.OnClickListener {
 	// outsider view
 	private ShunxuViewGroup shunxuViewGroup;
 
-	public ShunxuItem(Context context, Choices quChoice) {
+	public ShunxuItem(Context context, Options quChoice) {
 		super(context);
 		this.context = context;
 
@@ -31,15 +32,15 @@ public class ShunxuItem extends LinearLayout implements View.OnClickListener {
 		init(quChoice);
 	}
 
-	private void init(Choices aChoice) {
+	private void init(Options aChoice) {
 		isChecked = false;
 		inflater.inflate(R.layout.customui_shunxu_item, this);
 
 		choiceNoTextView = (TextView) this.findViewById(R.id.choiceNoTextView);
-		choiceNoTextView.setText(aChoice.getChoiceNo());
+		choiceNoTextView.setText(aChoice.getOptionNum());
 		choiceTitleTextView = (TextView) this
 				.findViewById(R.id.choiceTitleTextView);
-		choiceTitleTextView.setText(aChoice.getChoiceTitle());
+		choiceTitleTextView.setText(aChoice.getOptionContent());
 
 		this.setOnClickListener(this);
 	}
@@ -62,7 +63,7 @@ public class ShunxuItem extends LinearLayout implements View.OnClickListener {
 
 	}
 
-	public Choices getQuChoice() {
+	public Options getQuChoice() {
 		return quChoice;
 	}
 

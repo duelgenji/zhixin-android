@@ -1,9 +1,6 @@
 package com.zhixin.daos;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import net.tsz.afinal.FinalDb;
 
@@ -68,9 +65,9 @@ public class UserInfoDao {
 			}
 			// sex 0 for male 1 for female
 			if (StringUtils.isNotEmpty(jbo.getString("sex"))) {
-				user.setSex(jbo.getString("sex"));
+				user.setSex(jbo.getInt("sex"));
 			}else {
-				user.setSex("");
+				user.setSex(2);
 			}
 			if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 				user.setNickName(jbo.getString("nickName"));
@@ -83,11 +80,11 @@ public class UserInfoDao {
 				user.setSignature("");
 			}
 			if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
-				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-				Date date = formatter.parse(jbo.getString("birthday"));
-				user.setBirthday(date);
+//				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//				Date date = formatter.parse(jbo.getString("birthday"));
+				user.setBirthDay(jbo.getString("birthday"));
 			}else {
-				user.setBirthday(new Date());
+				user.setBirthDay("");
 			}
 			if (StringUtils.isNotEmpty(jbo.getString("IdCard"))) {
 				user.setIdentityNumber(jbo.getString("IdCard"));
@@ -96,9 +93,9 @@ public class UserInfoDao {
 			}
 			// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
 			if (StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
-				user.setBloodType(jbo.getString("bloodType"));
+				user.setBloodType(jbo.getInt("bloodType"));
 			}else {
-				user.setBloodType("");
+				user.setBloodType(4);
 			}
 			if (StringUtils.isNotEmpty(jbo.getString("district"))) {
 				user.setDistrict(jbo.getString("district"));
@@ -136,9 +133,9 @@ public class UserInfoDao {
 		}
 		// sex 0 for male 1 for female
 		if (StringUtils.isNotEmpty(jbo.getString("sex"))) {
-			user.setSex(jbo.getString("sex"));
+			user.setSex(jbo.getInt("sex"));
 		}else {
-			user.setSex("");
+			user.setSex(2);
 		}
 		if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 			user.setNickName(jbo.getString("nickName"));
@@ -151,18 +148,19 @@ public class UserInfoDao {
 			user.setSignature("");
 		}
 		if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
-			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = formatter.parse(jbo.getString("birthday"));
-			user.setBirthday(date);
+//			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//			Date date = formatter.parse(jbo.getString("birthday"));
+			user.setBirthDay(jbo.getString("birthday"));
 		}else {
-			user.setBirthday(new Date());
+//			user.setBirthDay(new Date());
+			user.setBirthDay("");
 		}
 		
 		// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
 		if (StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
-			user.setBloodType(jbo.getString("bloodType"));
+			user.setBloodType(jbo.getInt("bloodType"));
 		}else {
-			user.setBloodType("");
+			user.setBloodType(4);
 		}
 		if (StringUtils.isNotEmpty(jbo.getString("district"))) {
 			user.setDistrict(jbo.getString("district"));
@@ -220,8 +218,21 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
-
-	public void saveUserInfoSex(String phone, String sex) {
+	public void saveUserInfoEmailById(long id, String email) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);
+			user.setEmail(email);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setEmail(email);
+			DbManager.getDatabase().update(user);
+		}
+	}
+	public void saveUserInfoSex(String phone, Integer sex) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
@@ -235,8 +246,21 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
-
-	public void saveUserInfoBloodType(String phone, String type) {
+	public void saveUserInfoSexById(long id, Integer sex) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);
+			user.setSex(sex);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setSex(sex);
+			DbManager.getDatabase().update(user);
+		}
+	}
+	public void saveUserInfoBloodType(String phone, Integer type) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
@@ -250,18 +274,45 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
-
-	public void saveUserInfoBirthDay(String phone, Date date) {
+	public void saveUserInfoBloodTypeById(long id, Integer type) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);;
+			user.setBloodType(type);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setBloodType(type);
+			DbManager.getDatabase().update(user);
+		}
+	}
+	public void saveUserInfoBirthDay(String phone, String date) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
 		if (user == null) {
 			user = new UserInfo();
 			user.setUsername(phone);
-			user.setBirthday(date);
+			user.setBirthDay(date);
 			DbManager.getDatabase().save(user);
 		} else {
-			user.setBirthday(date);
+			user.setBirthDay(date);
+			DbManager.getDatabase().update(user);
+		}
+	}
+	public void saveUserInfoBirthDayById(long id, String date) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);
+			user.setBirthDay(date);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setBirthDay(date);
 			DbManager.getDatabase().update(user);
 		}
 	}
@@ -294,7 +345,20 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
-	
+	public void saveUserInfoDefaultAddressById(long id, String defaultAddress) {
+		String sql = "select * from user_info where userId='" + id + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		if (user == null) {
+			user = new UserInfo();
+			user.setUserId(id);
+			user.setAddress(defaultAddress);
+			DbManager.getDatabase().save(user);
+		} else {
+			user.setAddress(defaultAddress);
+			DbManager.getDatabase().update(user);
+		}
+	}
 	public String getUserPasswordByPhone(String phone) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -348,6 +412,13 @@ public class UserInfoDao {
 
 	public UserInfo getUserByphone(String phone) {
 		String sql = "select * from user_info where username='" + phone + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		return user;
+	}
+	
+	public UserInfo getUserById(Long id) {
+		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
 		return user;

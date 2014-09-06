@@ -2,7 +2,7 @@
 <resources>
 
     <!-- save request context here -->
-    <string name="URL_USER_LOGON">users/login</string>
+   <string name="URL_USER_LOGON">users/login</string>
     <string name="URL_USER_UPDATE">users</string>
     <string name="URL_QUCESHI_LIST">interests</string>
     <string name="URL_XINLIZICE_LIST">selfs/retrieveSelf</string>
@@ -47,6 +47,7 @@
     <string name="URL_USER_INFO_GET_ID">member/getVerification.htm</string>
     <string name="URL_USER_ADDRESS">userReceiveAddresses</string>
     <string name="URL_USER_ADDRESS_NEW">userInfos</string>
+    <string name="URL_USER_INFO_STATE">userInfos/modifyUserInfoStatus</string>
     <string name="URL_USER_ADDRESS_MODIFY">yhxx/modifyAddress.htm</string>
     <string name="URL_USER_ADDRESS_DELETE">yhxx/deleteAddress.htm</string>
     <string name="URL_SUBMIT_ANSWER">xqwj/doXqwj.htm</string>
@@ -97,6 +98,10 @@
     
     
     <string name="URL_INTEREST_GET_LIST">interests/retrieveInterest</string>
-
+    <string name="URL_INTEREST_GET_QUESTION">interestQuestions/findByInterest</string>
+    
+     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
+    
+    
 
 </resources>

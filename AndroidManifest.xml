@@ -373,6 +373,12 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan" />
+         <activity
+            android:name=".activity.InterestContentActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activity.QuceshiAnswerActivity"
             android:screenOrientation="portrait"
