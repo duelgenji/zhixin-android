@@ -180,7 +180,8 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		case R.id.ll_XLZC:
 			AnimationDrawable hbDrawable = (AnimationDrawable) img1.getDrawable();
 			hbDrawable.start();
-			intent = new Intent(mainActivity,XinliziceListActivity.class);
+			//intent = new Intent(mainActivity,XinliziceListActivity.class);
+			intent = new Intent(mainActivity,SelfListActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;

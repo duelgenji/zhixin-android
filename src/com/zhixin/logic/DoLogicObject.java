@@ -102,7 +102,7 @@ public class DoLogicObject {
 			case 0:
 				currentQuestion = DbManager.getDatabase().findUniqueBySql(
 						InterestQuestion.class,
-						"select * from interest_question where interestId=" + wjId
+						"select * from interest_question where questionnaireId=" + wjId
 								+ " order by questionId asc limit 1");
 				break;
 			case 1:
@@ -157,9 +157,9 @@ public class DoLogicObject {
 			break;
 		}
 
-		initQuestions(currentQuestion.getInterestId());
+		initQuestions(currentQuestion.getQuestionnaireId());
 
-		historyAnswerCursor = new DatiAnswerCursor(currentQuestion.getInterestId(),
+		historyAnswerCursor = new DatiAnswerCursor(currentQuestion.getQuestionnaireId(),
 				cate, currentQuestionNo);
 
 	}
@@ -205,9 +205,13 @@ public class DoLogicObject {
 					if(innerSt.hasMoreTokens()){
 						innerSt.nextToken();
 						String midStr=innerSt.nextToken();
-						if(midStr.equals("0") || midStr.equals(currentAnswer.get(0))){
+
+						if(midStr.equals("0") || midStr.equals(""+currentAnswer.get(0).getChoiceId())){
 							String lastStr=innerSt.nextToken();
 							Log.i("login1","单选题型跳转  逻辑跳转"+lastStr);	
+							if(lastStr.equals("0")){
+								return null;
+							}
 							return Integer.parseInt(lastStr);
 						}
 					}
@@ -223,7 +227,6 @@ public class DoLogicObject {
 						if(midStr.equals("0")){
 							String lastStr=innerSt.nextToken();
 							Log.i("login1","其他题型跳转  逻辑跳转"+lastStr);	
-							
 							return Integer.parseInt(lastStr);
 						}
 					}
@@ -232,10 +235,10 @@ public class DoLogicObject {
 		
 
 			Log.i("login1","莫名跳转");	
-			return currentQuestion.getQuestionId()+1;
+			return getNextQuesiton();
 		}else{
 			Log.i("login1","无order跳转");	
-			return currentQuestion.getQuestionId()+1;
+			return getNextQuesiton();
 		}
 		
 //		switch (currentQuestion.getQuestionType()) {	
@@ -392,7 +395,7 @@ public class DoLogicObject {
 	}
 
 	public int getWjId() {
-		return currentQuestion.getInterestId();
+		return currentQuestion.getQuestionnaireId();
 	}
 
 	private void saveMatrixAnswer() {
@@ -411,7 +414,7 @@ public class DoLogicObject {
 			case 0:
 			questionList = DbManager.getDatabase().findAllByWhere(
 					InterestQuestion.class,
-					"interestId=" + wjId );
+					"questionnaireId=" + wjId );
 
 			break;
 			case 1:	
@@ -422,6 +425,21 @@ public class DoLogicObject {
 		}
 	}
 	
+	/**
+	 * 单纯获取题目编号的下一题   不判断逻辑  如果没有下一题 返回null
+	 * */
+	private Integer getNextQuesiton(){
+		
+		Integer currentNoAddOne=Integer.parseInt(currentQuestion.getQuestionNum())+1;
+		Integer listNo;
+		for(int i=0;i<questionList.size();i++){
+			listNo=Integer.parseInt(questionList.get(i).getQuestionNum());
+			if(currentNoAddOne==listNo){
+				return listNo;
+			}
+		}
+		return null;
+	}
 	
 
 }

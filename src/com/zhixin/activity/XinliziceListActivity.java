@@ -27,7 +27,8 @@ import com.baidu.mobstat.StatService;
 import com.zhixin.R;
 import com.zhixin.adapter.WenJuanShuJu;
 import com.zhixin.adapter.XinLiZiCeAdapter;
-import com.zhixin.adapter.XinliziceListAdapter;
+import com.zhixin.adapter.SelfListAdapter;
+import com.zhixin.daos.SelfListDao;
 import com.zhixin.datasynservice.XinliziceListService;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.XinliziceList;
@@ -40,7 +41,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	private TextView xinliziceTypeIndicator;
 	private ListView xinliziceList;
 	private QubaopenProgressDialog progressDialog;
-	private XinliziceListAdapter adapter;
+	private SelfListAdapter adapter;
 
 
 	private XinliziceListActivity _this;
@@ -82,6 +83,8 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 						+ context.getString(R.string.URL_XINLIZICE_LIST);
 				JSONObject result = HttpClient.requestSync(requestUrl, null, HttpClient.TYPE_GET);
 				if (result != null && result.getString("success").equals("1")) {
+					SelfListDao selfListDao=new SelfListDao();
+					selfListDao.saveSelfList(result);
 					WenJuanShuJu wjsj=null;
 					JSONArray json=(JSONArray) result.get("data");
 					for (int i = 0; i < json.length(); i++) {
@@ -125,7 +128,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setContentView(R.layout.activity_xinlizice_list);
+		setContentView(R.layout.activity_self_list);
 		_this = this;
 		init();
 	}
@@ -138,7 +141,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 		progressDialog = new QubaopenProgressDialog(this);
 
 		xinliziceListParent = (SwipeRefreshLayout) this
-				.findViewById(R.id.xinliziceListParent);
+				.findViewById(R.id.selfListParent);
 		xinliziceListParent.setColorScheme(R.color.text_orange,
 				R.color.general_activity_background, R.color.text_orange,
 				R.color.general_activity_background);
@@ -147,12 +150,12 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 		this.findViewById(R.id.backup_btn).setOnClickListener(this);
 
-		xinliziceList = (ListView) this.findViewById(R.id.xinliziceList);
+		xinliziceList = (ListView) this.findViewById(R.id.selfList);
 		
 		
 		
 		xinliziceTypeIndicator = (TextView) this
-				.findViewById(R.id.xinliziceTypeIndicator);
+				.findViewById(R.id.title_of_the_page);
 		xinliziceTypeIndicator.setText(getString(R.string.title_xinlizice));
 		
 		refreshDataTask = new LoadDataTask(true);
@@ -208,7 +211,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (adapter == null) {
-			adapter = new XinliziceListAdapter(this, cursor, 0);
+			adapter = new SelfListAdapter(this, cursor);
 			xinliziceList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);

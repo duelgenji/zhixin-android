@@ -99,6 +99,9 @@
     
     <string name="URL_INTEREST_GET_LIST">interests/retrieveInterest</string>
     <string name="URL_INTEREST_GET_QUESTION">interestQuestions/findByInterest</string>
+    <string name="URL_SELF_GET_LIST">selfs/retrieveSelf</string>
+    <string name="URL_SELF_GET_LIST_INFO">selfs/retrieveSelfScript</string>
+    <string name="URL_SELF_GET_QUESTION">selfQuestions/findBySelf</string>
     
      <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
     

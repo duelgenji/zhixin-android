@@ -31,7 +31,7 @@ public class InterestContentDao {
 			jboInArray = questionsArray.getJSONObject(i);
 			interestQuestion = new InterestQuestion();
 			interestQuestion.setQuestionId(jboInArray.getInt("questionId"));
-			interestQuestion.setInterestId(interestId);
+			interestQuestion.setQuestionnaireId(interestId);
 
 			interestQuestion.setQuestionContent(jboInArray.getString("questionContent"));
 
@@ -132,9 +132,9 @@ public class InterestContentDao {
 				&& DbManager.getDatabase().tableExists(InterestOption.class)) {
 			String sql = "delete from interest_option where questionId "
 					+ "in (select distinct questionId "
-					+ "from interest_question where interestId=" + interestId + ")";
+					+ "from interest_question where questionnaireId=" + interestId + ")";
 			DbManager.getDatabase().exeCustomerSql(sql);
-			sql = "delete from interest_question where interestId=" + interestId;
+			sql = "delete from interest_question where questionnaireId=" + interestId;
 			DbManager.getDatabase().exeCustomerSql(sql);
 		}
 	}
@@ -219,7 +219,7 @@ public class InterestContentDao {
 	}
 
 	public boolean isInterestExists(int interestId) {
-		String sql = "interestId=" + interestId;
+		String sql = "questionnaireId=" + interestId;
 		List<InterestQuestion> list = DbManager.getDatabase().findAllByWhere(
 				InterestQuestion.class, sql);
 		if (list.size() > 0) {

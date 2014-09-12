@@ -2,7 +2,7 @@ package com.zhixin.domain;
 
 public class Question2 {
 
-	private int interestId;
+	private int questionnaireId;
 
 	private int questionId;
 
@@ -36,12 +36,12 @@ public class Question2 {
 	/**矩阵题标记*/
 	private boolean matrix;
 
-	public int getInterestId() {
-		return interestId;
+	public int getQuestionnaireId() {
+		return questionnaireId;
 	}
 
-	public void setInterestId(int interestId) {
-		this.interestId = interestId;
+	public void setQuestionnaireId(int questionnaireId) {
+		this.questionnaireId = questionnaireId;
 	}
 
 	public int getQuestionId() {

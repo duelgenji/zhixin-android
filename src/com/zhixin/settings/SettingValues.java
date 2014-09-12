@@ -23,6 +23,12 @@ public class SettingValues {
 		
 		public static final String KEY_CURRENT_ACTIVE_USER_NICKNAME = "keyCurrentActiveUserNickname";
 
+		public static final String KEY_PHONE_HEIGHT = "keyPhoneHeight";
+
+		public static final String KEY_PHONE_WIDTH = "keyPhoneWidth";
+
+		public static final String KEY_PHONE_DENSITY = "keyPhoneDensity";
+
 		public static final int COUNT_DOWN_TIME_FOR_VALIDATE_MESSAGE = 10;
 
 		public static final int MAX_ONCE_GET_MESSAGE = 15;

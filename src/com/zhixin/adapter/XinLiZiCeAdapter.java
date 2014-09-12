@@ -38,18 +38,18 @@ public class XinLiZiCeAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		convertView = LayoutInflater.from(context).inflate(
-				R.layout.adapter_xinlizice_qingxu_item, null);
+				R.layout.adapter_self_list_item, null);
 		LinearLayout ll = (LinearLayout) convertView.findViewById(R.id.ll_xlzc);
 		ImageView img_xlzc = (ImageView) convertView.findViewById(R.id.img_xlzc);
 		TextView tv_title = (TextView) convertView.findViewById(R.id.tv_title);
 		String type = list.get(position).getManagementType();
 		String titile = list.get(position).getTitile();
 		if(type.equals("Personal")){
-			img_xlzc.setImageResource(R.drawable.xingge);
+			img_xlzc.setImageResource(R.drawable.icon_self_type_character);
 		}else if (type.equals("Character")) {
-			img_xlzc.setImageResource(R.drawable.nengli);
+			img_xlzc.setImageResource(R.drawable.icon_self_type_personal);
 		}else if (type.equals("Emotional")) {
-			img_xlzc.setImageResource(R.drawable.qingxu);
+			img_xlzc.setImageResource(R.drawable.icon_self_type_emotional);
 		}
 		tv_title.setText(titile);
 		return convertView;

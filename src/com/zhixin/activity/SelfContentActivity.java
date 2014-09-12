@@ -31,6 +31,7 @@ import com.zhixin.customui.ShunxuViewGroup;
 import com.zhixin.customui.Wenda;
 import com.zhixin.datasynservice.QuceshiAnswerService;
 import com.zhixin.datasynservice.InterestContentService;
+import com.zhixin.datasynservice.SelfContentService;
 import com.zhixin.dialog.DafenFenshuOverlayer2;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.UserQuestionAnswer;
@@ -40,15 +41,15 @@ import com.zhixin.logic.DoDataObject;
 import com.zhixin.logic.DoLogicObject;
 import com.zhixin.utils.NetworkUtils;
 
-public class InterestContentActivity extends Activity implements
+public class SelfContentActivity extends Activity implements
 		View.OnClickListener, DoDataObject.DiaoyanDatiLoadFinished {
 
-	public static final String INTENT_INTEREST_ID = "interestId";
+	public static final String INTENT_SELF_ID = "selfId";
 	public static final String CURRENT_QUESTION = "currentQuestion";
 
-	private InterestContentService interestContentService;
+	private SelfContentService selfContentService;
 	private QuceshiAnswerService quceshiAnswerService;
-	private Integer interestId;
+	private Integer selfId;
 
 	private RelativeLayout quceshiContentArea;
 
@@ -85,9 +86,9 @@ public class InterestContentActivity extends Activity implements
 		protected String doInBackground(Integer... params) {
 			try {
 				if (theFirstTime) {
-					String message = interestContentService.getInterestContent(params[0]);
+					String message = selfContentService.getSelfContent(params[0]);
 					if (message == null) {
-						quDatiLogicObject = new DoLogicObject(interestId,0);
+						quDatiLogicObject = new DoLogicObject(selfId,0);
 					}
 
 					return message;
@@ -103,11 +104,11 @@ public class InterestContentActivity extends Activity implements
 		@Override
 		protected void onPostExecute(String params) {
 			if (params == null) {
-				quDatiDataObject = new DoDataObject(quDatiLogicObject
-						.getCurrentQuestion().getQuestionId(), 0);
-				quDatiDataObject
-						.setmQuDatiLoadFinished(InterestContentActivity.this);
-				quDatiDataObject.execute();
+//				quDatiDataObject = new DoDataObject(quDatiLogicObject
+//						.getCurrentQuestion().getQuestionId(), 0);
+//				quDatiDataObject
+//						.setmQuDatiLoadFinished(SelfContentActivity.this);
+//				quDatiDataObject.execute();
 			}
 		}
 	}
@@ -147,11 +148,11 @@ public class InterestContentActivity extends Activity implements
 		questionTitleViewGroup = (RelativeLayout) this
 				.findViewById(R.id.questionTitleViewGroup);
 		
-		interestContentService =new InterestContentService(this);
-		interestId = getIntent().getIntExtra(INTENT_INTEREST_ID, 0);
+		selfContentService =new SelfContentService(this);
+		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
 		int questionId = intent.getIntExtra(CURRENT_QUESTION, 0);
 		if (questionId == 0) {
-			new LoadDataTask(true).execute(interestId);
+			new LoadDataTask(true).execute(selfId);
 		} else {
 			new LoadDataTask(false).execute(questionId);
 		}
@@ -228,7 +229,7 @@ public class InterestContentActivity extends Activity implements
 			Integer nextQuestionId = quDatiLogicObject.getNextQuestionId();
 			//Integer nextQuestionId=quDatiDataObject.getQuestionId()+1;
 			if (nextQuestionId != null) {
-				Intent intent = new Intent(this, InterestContentActivity.class);
+				Intent intent = new Intent(this, SelfContentActivity.class);
 				intent.putExtra(CURRENT_QUESTION, nextQuestionId.intValue());
 				startActivity(intent);
 			} else {
@@ -238,7 +239,7 @@ public class InterestContentActivity extends Activity implements
 					AlertDialog alert = new AlertDialog.Builder(this)
 							.setTitle("提示")
 							.setMessage(
-									InterestContentActivity.this
+									SelfContentActivity.this
 											.getString(R.string.submmit_wj_tips))
 							.setPositiveButton("确定",
 									new DialogInterface.OnClickListener() {// 设置确定按钮
@@ -278,7 +279,7 @@ public class InterestContentActivity extends Activity implements
 		Integer prevQuestionId = quDatiLogicObject.getHistoryAnswerCursor()
 				.previousQuestion();
 		if (prevQuestionId != null) {
-			Intent intent = new Intent(this, InterestContentActivity.class);
+			Intent intent = new Intent(this, SelfContentActivity.class);
 			intent.putExtra(CURRENT_QUESTION, prevQuestionId.intValue());
 			startActivity(intent);
 		}
@@ -303,13 +304,13 @@ public class InterestContentActivity extends Activity implements
 		AlertDialog alert = new AlertDialog.Builder(this)
 				.setTitle("提示")
 				.setMessage(
-						InterestContentActivity.this
+						SelfContentActivity.this
 								.getString(R.string.back_wj_tips))
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {// 设置确定按钮
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								InterestContentActivity.super.onBackPressed();
+								SelfContentActivity.super.onBackPressed();
 							}
 						})
 				.setNegativeButton("取消", new DialogInterface.OnClickListener() {// 设置取消按钮
@@ -435,7 +436,7 @@ public class InterestContentActivity extends Activity implements
 					nextQuestionBtn
 							.setBackgroundResource(R.drawable.question_next);
 					nextQuestionBtn
-							.setOnClickListener(InterestContentActivity.this);
+							.setOnClickListener(SelfContentActivity.this);
 				}
 			};
 			countDownTimer.start();

@@ -108,12 +108,12 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 			this.limitTime = diaoyanQuestion.getLimitTime();
 
 		}
-		this.wjId = diaoyanQuestion.getInterestId();
+		this.wjId = diaoyanQuestion.getQuestionnaireId();
 
 		switch (cate) {
 		case 0:
 			questionSumInWj = DbManager.getDatabase()
-					.findAllByWhere(InterestQuestion.class, "interestId=" + wjId).size();
+					.findAllByWhere(InterestQuestion.class, "questionnaireId=" + wjId).size();
 
 			break;
 		case 1:
