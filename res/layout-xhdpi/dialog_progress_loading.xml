@@ -4,7 +4,6 @@
     android:layout_height="110dp"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:background="#FFFFFF"
     android:paddingLeft="15dp"
     android:paddingRight="15dp" >
 

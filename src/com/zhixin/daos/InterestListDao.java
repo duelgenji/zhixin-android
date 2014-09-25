@@ -1,6 +1,5 @@
 package com.zhixin.daos;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +23,10 @@ public class InterestListDao {
 		JSONArray array = jbo.getJSONArray("data");
 		InterestList interestList;
 		JSONObject jboInA;
+		Integer page = jbo.getInt("page");
+		if(page==null || page.equals(0)){
+			deleteAll();
+		}
 		for (int i = 0; i < array.length(); i++) {
 			jboInA = array.getJSONObject(i);
 			interestList = new InterestList();
@@ -31,7 +34,7 @@ public class InterestListDao {
 			if (jboInA.has("interestId")
 					&& StringUtils.isNotEmpty(jboInA.getString("interestId"))) {
 				interestList.setInterestId(jboInA.getInt("interestId"));
-				deleteById(jboInA.getInt("interestId"));
+				//deleteById(jboInA.getInt("interestId"));
 			}
 			if (jboInA.has("title")
 					&& StringUtils.isNotEmpty(jboInA.getString("title"))) {
@@ -94,6 +97,13 @@ public class InterestListDao {
 		return false;
 	}
 
+	private void deleteAll() {
+		if (DbManager.getDatabase().tableExists(InterestList.class)) {
+			String sql = "delete from interest_list ";
+			DbManager.getDatabase().exeCustomerSql(sql);
+		}
+	}
+	
 	private void deleteById(int id) {
 		if (DbManager.getDatabase().tableExists(InterestList.class)) {
 			String sql = "delete from interest_list where interestId=" + id;

@@ -9,6 +9,8 @@ import com.zhixin.domain.InterestOption;
 import com.zhixin.domain.InterestQuestion;
 import com.zhixin.domain.Options;
 import com.zhixin.domain.Question2;
+import com.zhixin.domain.SelfOption;
+import com.zhixin.domain.SelfQuestion;
 
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -27,7 +29,7 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 
 	private int wjId;
 
-	private Question2 diaoyanQuestion;
+	private Question2 question;
 
 	private int score;
 
@@ -43,8 +45,11 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 
 	private String questionTitle;
 
-	// cate 0 for quceshi
-	// cate 1 for qudiaoyan
+	/**
+	 * cate 0 for interest  兴趣测试
+	 * cate 1 for survey    调研测试
+	 * cate 2 for self      自测  
+	 * */
 	private int cate;
 
 	private int limitTime;
@@ -56,10 +61,10 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 
 	@Override
 	protected Void doInBackground(Void... params) {
-		Question2 diaoyanQuestion = null;
+		Question2 question = null;
 		switch (cate) {
 		case 0:
-			diaoyanQuestion = DbManager.getDatabase().findUniqueBySql(
+			question = DbManager.getDatabase().findUniqueBySql(
 					InterestQuestion.class,
 					"select * from interest_question where questionId=" + questionId);
 
@@ -69,12 +74,16 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 //					DiaoyanQuestion.class,
 //					"select * from diaoyan_question where questionId="
 //							+ questionId);
-
+			break;
+		case 2:
+			question = DbManager.getDatabase().findUniqueBySql(
+					SelfQuestion.class,
+					"select * from self_question where questionId=" + questionId);
 			break;
 		}
 
-		questionType = diaoyanQuestion.getQuestionType();
-		isMatrix = diaoyanQuestion.isMatrix();
+		questionType = question.getQuestionType();
+		isMatrix = question.isMatrix();
 		if (isMatrix) {
 //			diaoyanQuestionMatrixList = DbManager.getDatabase().findAllByWhere(
 //					DiaoyanQuestion.class,
@@ -90,7 +99,7 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 //			}
 
 		} else {
-			this.diaoyanQuestion = diaoyanQuestion;
+			this.question = question;
 
 			switch (cate) {
 			case 0:
@@ -101,14 +110,18 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 //				choices = DbManager.getDatabase().findAllByWhere(
 //						DiaoyanChoices.class, "questionId=" + questionId);
 				break;
+			case 2:
+				choices = DbManager.getDatabase().findAllByWhere(
+						SelfOption.class, "questionId=" + questionId);
+				break;
 			}
 
-			this.questionNo = diaoyanQuestion.getQuestionNum();
-			this.questionTitle = diaoyanQuestion.getQuestionContent();
-			this.limitTime = diaoyanQuestion.getLimitTime();
+			this.questionNo = question.getQuestionNum();
+			this.questionTitle = question.getQuestionContent();
+			this.limitTime = question.getLimitTime();
 
 		}
-		this.wjId = diaoyanQuestion.getQuestionnaireId();
+		this.wjId = question.getQuestionnaireId();
 
 		switch (cate) {
 		case 0:
@@ -129,6 +142,10 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 			questionSumInWj = questionSumInWj + cursor.getCount();
 			cursor.close();
 
+			break;
+		case 2:
+			questionSumInWj = DbManager.getDatabase()
+			.findAllByWhere(SelfQuestion.class, "questionnaireId=" + wjId).size();
 			break;
 		}
 
@@ -174,7 +191,7 @@ public class DoDataObject extends AsyncTask<Void, Void, Void> {
 	}
 
 	public Question2 getDiaoyanQuestion() {
-		return diaoyanQuestion;
+		return question;
 	}
 
 	public int getScore() {

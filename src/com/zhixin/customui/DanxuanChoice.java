@@ -47,11 +47,11 @@ public class DanxuanChoice extends RadioGroup {
 				for (UserQuestionAnswer anAnswer : userQuestionAnswer) {
 					if (anAnswer instanceof QuUserQuestionAnswer) {
 						if (aChoice.getChoiceNo()
-								.equals(anAnswer.getChoiceNo())) {
+								.equals(anAnswer.getOptionNum())) {
 							choiceItem.setChecked();
 						}
 					} else if (anAnswer instanceof DiaoyanUserQuestionAnswer) {
-						if (aChoice.getChoiceId() == anAnswer.getChoiceId()) {
+						if (aChoice.getChoiceId() == anAnswer.getOptionId()) {
 							choiceItem.setChecked();
 						}
 					}
@@ -104,9 +104,9 @@ public class DanxuanChoice extends RadioGroup {
 						.getTypeCode());
 				userQuestionAnswer.setQuestionId(danxuanItem.getQuChoice()
 						.getQuestionId());
-				userQuestionAnswer.setChoiceId(danxuanItem.getQuChoice()
+				userQuestionAnswer.setOptionId(danxuanItem.getQuChoice()
 						.getChoiceId());
-				userQuestionAnswer.setChoiceNo(danxuanItem.getQuChoice()
+				userQuestionAnswer.setOptionNum(danxuanItem.getQuChoice()
 						.getChoiceNo());
 				currentQuDatiQuestionAnswer.add(userQuestionAnswer);
 				break;

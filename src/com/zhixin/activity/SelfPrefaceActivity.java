@@ -98,8 +98,15 @@ public class SelfPrefaceActivity extends Activity implements
 
 	private void showText(SelfList selfList) {
 		txtTitle.setText(selfList.getTitle());
-		txtIntruduction.setText(selfList.getRemark());
-		txtGuide.setText(selfList.getGuidanceSentence());
+		
+		//替换换行符
+		String remark=selfList.getRemark();
+		remark=remark.replace("\\n", "\n");
+		txtIntruduction.setText(remark);
+
+		String guidance=selfList.getGuidanceSentence();
+		guidance=guidance.replace("\\n", "\n");
+		txtGuide.setText(guidance);
 	}
 
 	@Override
@@ -110,7 +117,8 @@ public class SelfPrefaceActivity extends Activity implements
 			break;
 		case R.id.btn_begin:
 			Intent intent = new Intent(this, SelfContentActivity.class);
-			intent.putExtra(INTENT_SELF_ID, selfId);
+			intent.putExtra(SelfContentActivity.INTENT_SELF_ID, selfId);
+			intent.putExtra(SelfContentActivity.INTENT_QUESTIONNAIRE_TITLE, txtTitle.getText());
 			startActivity(intent);
 			//Toast.makeText(this, "进入答题页面" + selfId, Toast.LENGTH_SHORT).show();
 

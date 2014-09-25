@@ -8,15 +8,18 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.zhixin.database.DbManager;
+import com.zhixin.domain.SelfUserQuestionAnswer;
 import com.zhixin.domain.SelfOption;
 import com.zhixin.domain.SelfQuestion;
+import com.zhixin.domain.UserQuestionAnswer;
+import com.zhixin.logic.DoLogicObject;
 
 public class SelfContentDao {
 	public void saveSelfContent(JSONObject jbo, int selfId)
 			throws JSONException {
 		JSONArray questionsArray = jbo.getJSONArray("questions");
 		if (questionsArray.length() > 0) {
-			delete(selfId);
+			deleteSelfOption(selfId);
 		}
 		
 		SelfQuestion selfQuestion;
@@ -121,7 +124,7 @@ public class SelfContentDao {
 
 	}
 
-	private void delete(int interestId) {
+	private void deleteSelfOption(int interestId) {
 		if (DbManager.getDatabase().tableExists(SelfQuestion.class)
 				&& DbManager.getDatabase().tableExists(SelfOption.class)) {
 			String sql = "delete from self_option where questionId "
@@ -134,7 +137,7 @@ public class SelfContentDao {
 	}
 	
 	
-	public boolean isInterestExists(int selfId) {
+	public boolean isSelfExists(int selfId) {
 		String sql = "questionnaireId=" + selfId;
 		List<SelfQuestion> list = DbManager.getDatabase().findAllByWhere(
 				SelfQuestion.class, sql);
@@ -142,6 +145,81 @@ public class SelfContentDao {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	
+	public void saveAnswer(List<? extends UserQuestionAnswer> currentAnswer,
+			DoLogicObject logic) {
+		deleteCurrentQuesitonAnswer(currentAnswer);
+		SelfUserQuestionAnswer ans;
+		switch (currentAnswer.get(0).getQuestionType()) {
+		case 1:
+			ans = new SelfUserQuestionAnswer();
+			ans.setQuestionId(currentAnswer.get(0).getQuestionId());
+			ans.setOptionNum(currentAnswer.get(0).getOptionNum());
+			ans.setOptionId(currentAnswer.get(0).getOptionId());
+			ans.setQuestionType(currentAnswer.get(0).getQuestionType());
+			ans.setSelfId(logic.getWjId());
+			DbManager.getDatabase().save(ans);
+			break;
+		case 2:
+
+			for (UserQuestionAnswer aAns : currentAnswer) {
+				ans = new SelfUserQuestionAnswer();
+				ans.setOptionId(aAns.getOptionId());
+				ans.setOptionNum(aAns.getOptionNum());
+				ans.setQuestionId(aAns.getQuestionId());
+				ans.setQuestionType(aAns.getQuestionType());
+				ans.setSelfId(logic.getWjId());
+				DbManager.getDatabase().save(ans);
+			}
+			break;
+		case 3:
+			for (UserQuestionAnswer aAns : currentAnswer) {
+				ans = new SelfUserQuestionAnswer();
+				ans.setOptionId(aAns.getOptionId());
+				ans.setContent(aAns.getContent());
+				ans.setQuestionId(aAns.getQuestionId());
+				ans.setQuestionType(aAns.getQuestionType());
+				ans.setOptionNum(aAns.getOptionNum());
+				ans.setSelfId(logic.getWjId());
+				DbManager.getDatabase().save(ans);
+			}
+			break;
+		case 4:
+			int shunOrder = 0;
+			for (UserQuestionAnswer aAns : currentAnswer) {
+				shunOrder++;
+				ans = new SelfUserQuestionAnswer();
+				ans.setOptionId(aAns.getOptionId());
+				ans.setQuestionId(aAns.getQuestionId());
+				ans.setQuestionType(aAns.getQuestionType());
+				ans.setSelfId(logic.getWjId());
+				ans.setTurn(shunOrder);
+				ans.setOptionNum(aAns.getOptionNum());
+				DbManager.getDatabase().save(ans);
+			}
+			break;
+		case 5:
+			break;
+		default:
+			break;
+		}
+
+	}
+	
+	
+	private void deleteCurrentQuesitonAnswer(
+			List<? extends UserQuestionAnswer> currentAnswer) {
+		if (DbManager.getDatabase().tableExists(SelfUserQuestionAnswer.class)) {
+
+			for (UserQuestionAnswer ans : currentAnswer) {
+
+				String sql = "delete from self_user_question_answer where questionId="
+						+ ans.getQuestionId();
+				DbManager.getDatabase().exeCustomerSql(sql);
+			}
 		}
 	}
 }

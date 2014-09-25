@@ -51,11 +51,11 @@ public class DuoxuanChoice extends RadioGroup {
 				for (UserQuestionAnswer anAnswer : userQuestionAnswer) {
 					if (anAnswer instanceof QuUserQuestionAnswer) {
 						if (aChoice.getChoiceNo()
-								.equals(anAnswer.getChoiceNo())) {
+								.equals(anAnswer.getOptionNum())) {
 							choiceItem.setChecked();
 						}
 					} else if (anAnswer instanceof DiaoyanUserQuestionAnswer) {
-						if (aChoice.getChoiceId() == anAnswer.getChoiceId()) {
+						if (aChoice.getChoiceId() == anAnswer.getOptionId()) {
 							choiceItem.setChecked();
 						}
 					}
@@ -82,9 +82,9 @@ public class DuoxuanChoice extends RadioGroup {
 						.getTypeCode());
 				userQuestionAnswer.setQuestionId(duoxuanItem.getQuChoice()
 						.getQuestionId());
-				userQuestionAnswer.setChoiceId(duoxuanItem.getQuChoice()
+				userQuestionAnswer.setOptionId(duoxuanItem.getQuChoice()
 						.getChoiceId());
-				userQuestionAnswer.setChoiceNo(duoxuanItem.getQuChoice()
+				userQuestionAnswer.setOptionNum(duoxuanItem.getQuChoice()
 						.getChoiceNo());
 				quDatiQuestionAnswer.add(userQuestionAnswer);
 

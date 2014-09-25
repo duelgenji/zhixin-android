@@ -14,7 +14,7 @@
     <RelativeLayout
         android:id="@+id/pickDialog"
         android:layout_width="100dp"
-        android:layout_height="180dp"
+        android:layout_height="116dp"
         android:background="@drawable/spinner_picker_background"
         android:paddingLeft="6dp"
         android:paddingRight="6dp"
@@ -44,34 +44,10 @@
             android:textSize="@dimen/text_size_normal" />
 
         <Button
-            android:id="@+id/quceshiOrderTuijian"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_below="@id/quceshiOrderRenqi"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:background="@null"
-            android:text="@string/quceshi_order_tuijian"
-            android:textColor="@color/text_white"
-            android:textSize="@dimen/text_size_normal" />
-
-        <Button
-            android:id="@+id/quceshiOrderJifen"
-            android:layout_width="match_parent"
-            android:layout_height="24dp"
-            android:layout_below="@id/quceshiOrderTuijian"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:background="@null"
-            android:text="@string/quceshi_order_jifen"
-            android:textColor="@color/text_white"
-            android:textSize="@dimen/text_size_normal" />
-
-        <Button
             android:id="@+id/quceshiOrderTime"
             android:layout_width="match_parent"
             android:layout_height="24dp"
-            android:layout_below="@id/quceshiOrderJifen"
+            android:layout_below="@id/quceshiOrderRenqi"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:background="@null"

@@ -43,19 +43,19 @@ public class DiaoyanUserQuestionAnswer extends UserQuestionAnswer {
 		this.questionId = questionId;
 	}
 
-	public int getChoiceId() {
+	public int getOptionId() {
 		return choiceId;
 	}
 
-	public void setChoiceId(int choiceId) {
+	public void setOptionId(int choiceId) {
 		this.choiceId = choiceId;
 	}
 
-	public String getChoiceNo() {
+	public String getOptionNum() {
 		return choiceNo;
 	}
 
-	public void setChoiceNo(String choiceNo) {
+	public void setOptionNum(String choiceNo) {
 		this.choiceNo = choiceNo;
 	}
 
@@ -67,11 +67,11 @@ public class DiaoyanUserQuestionAnswer extends UserQuestionAnswer {
 		this.score = score;
 	}
 
-	public int getShunxuorder() {
+	public int getTurn() {
 		return shunxuorder;
 	}
 
-	public void setShunxuorder(int shunxuorder) {
+	public void setTurn(int shunxuorder) {
 		this.shunxuorder = shunxuorder;
 	}
 
@@ -91,11 +91,11 @@ public class DiaoyanUserQuestionAnswer extends UserQuestionAnswer {
 		this.wjId = wjId;
 	}
 
-	public String getAnswer() {
+	public String getContent() {
 		return Answer;
 	}
 
-	public void setAnswer(String answer) {
+	public void setContent(String answer) {
 		Answer = answer;
 	}
 

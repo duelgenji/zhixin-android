@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.support.v4.widget.CursorAdapter;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -16,21 +17,29 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.zhixin.R;
 import com.zhixin.activity.InterestContentActivity;
 import com.zhixin.activity.QuceshiContentActivity;
+import com.zhixin.settings.SettingValues;
 
 public class InterestListAdapter extends CursorAdapter {
 
 	// type 0 for quceshi
 	// type 1 for qudiaoyan
-//	private int type;
+	// private int type;
 
 	private InterestListAdapter _this;
 
 	private Context context;
-	
-	
+
+	private ImageLoader imageLoader;
+
+	private DisplayImageOptions imageOptions;
+
 	private class QuListTouchListener implements View.OnTouchListener {
 		private int interestId;
 
@@ -46,12 +55,11 @@ public class InterestListAdapter extends CursorAdapter {
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
 				v.setBackgroundColor(context.getResources().getColor(
 						R.color.general_activity_background));
-					Intent intent;
-					intent = new Intent(context, InterestContentActivity.class);
-					intent.putExtra(
-							InterestContentActivity.INTENT_INTEREST_ID,
-							interestId);
-					context.startActivity(intent);
+				Intent intent;
+				intent = new Intent(context, InterestContentActivity.class);
+				intent.putExtra(InterestContentActivity.INTENT_INTEREST_ID,
+						interestId);
+				context.startActivity(intent);
 			} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
 				v.setBackgroundColor(context.getResources().getColor(
 						R.color.general_activity_background));
@@ -65,6 +73,9 @@ public class InterestListAdapter extends CursorAdapter {
 		super(context, c, FLAG_REGISTER_CONTENT_OBSERVER);
 		_this = this;
 		this.context = context;
+		imageLoader = ImageLoader.getInstance();
+		imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
+				.cacheOnDisc(true).build();
 	}
 
 	@Override
@@ -92,6 +103,8 @@ public class InterestListAdapter extends CursorAdapter {
 				.findViewById(R.id.answerNumberTextView);
 		TextView answerFriendNumber = (TextView) rowView
 				.findViewById(R.id.answerFriendNumber);
+		
+		final int interestId = cursor.getInt(cursor.getColumnIndex("interestId"));
 
 		// necessary injection
 		questionareTitle.setText(cursor.getString(cursor
@@ -113,11 +126,33 @@ public class InterestListAdapter extends CursorAdapter {
 		}
 
 		
-		if(StringUtils.isNotEmpty(cursor.getString(cursor
-				.getColumnIndex("picPath")))){
-			//img_quceshi_list.setVisibility(View.VISIBLE);
-		}else{
-			img_quceshi_list.setVisibility(View.GONE);
+		
+		//需要增加省流量模式判断
+		if (StringUtils.isNotEmpty(cursor.getString(cursor
+				.getColumnIndex("picPath")))) {
+			img_quceshi_list.setVisibility(View.VISIBLE);
+			String imageUri = cursor
+					.getString(cursor.getColumnIndex("picPath"));
+			if (StringUtils.isNotEmpty(imageUri)) {
+				imageUri = SettingValues.URL_PREFIX + imageUri;
+				imageLoader.displayImage(imageUri, img_quceshi_list,
+						imageOptions, new ImageLoading(img_quceshi_list), null);
+
+				img_quceshi_list.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						Intent intent;
+						intent = new Intent(context, InterestContentActivity.class);
+						intent.putExtra(InterestContentActivity.INTENT_INTEREST_ID,
+								interestId);
+						context.startActivity(intent);
+					}
+				});
+
+			} else {
+				img_quceshi_list
+						.setImageResource(R.drawable.interest_list_default_image);
+			}
 		}
 
 		// tag injection标签显示
@@ -145,7 +180,8 @@ public class InterestListAdapter extends CursorAdapter {
 		frameList.add(tagFragment4);
 		frameList.add(tagFragment5);
 
-		String tags = cursor.getString(cursor.getColumnIndex("questionnaireTagType"));
+		String tags = cursor.getString(cursor
+				.getColumnIndex("questionnaireTagType"));
 		if (StringUtils.isNotEmpty(tags)) {
 			String[] tagArray = tags.split(";");
 
@@ -168,7 +204,7 @@ public class InterestListAdapter extends CursorAdapter {
 					tagImage.setImageResource(R.drawable.qu_remeng_icon);
 					tagText.setText(context
 							.getString(R.string.quceshi_biaoqian_remeng));
-					break; 
+					break;
 				case 3:
 					tagImage.setImageResource(R.drawable.qu_zuixing_icon);
 					tagText.setText(context
@@ -202,11 +238,42 @@ public class InterestListAdapter extends CursorAdapter {
 			}
 
 		}
-		int interestId = cursor.getInt(cursor
-				.getColumnIndex("interestId"));
+		
 		rowView.setOnTouchListener(new QuListTouchListener(interestId));
 
 		return rowView;
+
+	}
+
+	private class ImageLoading implements ImageLoadingListener {
+
+		private ImageView imageView;
+
+		public ImageLoading(ImageView view) {
+			this.imageView = view;
+
+		}
+
+		@Override
+		public void onLoadingStarted(String imageUri, View view) {
+			imageView.setImageResource(R.drawable.interest_list_default_image);
+		}
+
+		@Override
+		public void onLoadingComplete(String imageUri, View view,
+				Bitmap loadedImage) {
+			imageView.setImageBitmap(loadedImage);
+		}
+
+		@Override
+		public void onLoadingCancelled(String arg0, View arg1) {
+
+		}
+
+		@Override
+		public void onLoadingFailed(String arg0, View arg1, FailReason arg2) {
+
+		}
 
 	}
 

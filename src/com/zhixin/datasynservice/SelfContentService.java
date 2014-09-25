@@ -22,7 +22,7 @@ public class SelfContentService {
 	}
 	
 	public String getSelfContent(int selfId) throws JSONException {
-		if (!selfContentDao.isInterestExists(selfId)) {
+		if (!selfContentDao.isSelfExists(selfId)) {
 			String requestUrl = SettingValues.URL_PREFIX
 					+ context.getString(R.string.URL_SELF_GET_QUESTION);
 

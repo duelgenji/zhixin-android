@@ -165,8 +165,8 @@ public class QuContentDao {
 		case 1:
 			ans = new QuUserQuestionAnswer();
 			ans.setQuestionId(currentAnswer.get(0).getQuestionId());
-			ans.setChoiceNo(currentAnswer.get(0).getChoiceNo());
-			ans.setChoiceId(currentAnswer.get(0).getChoiceId());
+			ans.setOptionNum(currentAnswer.get(0).getOptionNum());
+			ans.setOptionId(currentAnswer.get(0).getOptionId());
 			ans.setQuestionType(currentAnswer.get(0).getQuestionType());
 			ans.setWjId(logic.getWjId());
 			DbManager.getDatabase().save(ans);
@@ -175,8 +175,8 @@ public class QuContentDao {
 
 			for (UserQuestionAnswer aAns : currentAnswer) {
 				ans = new QuUserQuestionAnswer();
-				ans.setChoiceId(aAns.getChoiceId());
-				ans.setChoiceNo(aAns.getChoiceNo());
+				ans.setOptionId(aAns.getOptionId());
+				ans.setOptionNum(aAns.getOptionNum());
 				ans.setQuestionId(aAns.getQuestionId());
 				ans.setQuestionType(aAns.getQuestionType());
 				ans.setWjId(logic.getWjId());
@@ -186,7 +186,7 @@ public class QuContentDao {
 		case 3:
 			for (UserQuestionAnswer aAns : currentAnswer) {
 				ans = new QuUserQuestionAnswer();
-				ans.setAnswer(aAns.getAnswer());
+				ans.setContent(aAns.getContent());
 				ans.setQuestionId(aAns.getQuestionId());
 				ans.setQuestionType(aAns.getQuestionType());
 				ans.setWjId(logic.getWjId());
@@ -198,12 +198,12 @@ public class QuContentDao {
 			for (UserQuestionAnswer aAns : currentAnswer) {
 				shunOrder++;
 				ans = new QuUserQuestionAnswer();
-				ans.setChoiceId(aAns.getChoiceId());
+				ans.setOptionId(aAns.getOptionId());
 				ans.setQuestionId(aAns.getQuestionId());
 				ans.setQuestionType(aAns.getQuestionType());
 				ans.setWjId(logic.getWjId());
-				ans.setShunxuorder(shunOrder);
-				ans.setChoiceNo(aAns.getChoiceNo());
+				ans.setTurn(shunOrder);
+				ans.setOptionNum(aAns.getOptionNum());
 				DbManager.getDatabase().save(ans);
 			}
 			break;

@@ -209,7 +209,7 @@ public class DatiLogicObject {
 								}
 							}
 							if (anOrder.getChoiceNo().equals(
-									currentAnswer.get(0).getChoiceNo())) {
+									currentAnswer.get(0).getOptionNum())) {
 								if (anOrder.isNextOneEnd()) {
 									return null;
 								} else {
@@ -228,7 +228,7 @@ public class DatiLogicObject {
 
 							}
 							if (anOrder.getChoiceId() == currentAnswer.get(0)
-									.getChoiceId()) {
+									.getOptionId()) {
 								if (anOrder.isNextOneEnd()) {
 									return null;
 								} else {
@@ -289,7 +289,7 @@ public class DatiLogicObject {
 			List<? extends UserQuestionAnswer> questionAnswer = DatiAnswerCursor
 					.getAnswer(anOrder.getCurrentQuestionId(), cate);
 			if (questionAnswer.size() == 1) {
-				if (questionAnswer.get(0).getChoiceId() == anOrder
+				if (questionAnswer.get(0).getOptionId() == anOrder
 						.getChoiceId()) {
 					if (anOrder.isNextOneEnd()) {
 						return null;

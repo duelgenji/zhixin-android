@@ -62,28 +62,20 @@ public class SettingValues {
 
 		public static final String APP_FIRSTTIME_IN = "isFirstIn";
 
-		public static final String INSTRUCTION_QUSHOUYE1 = "instruction_qushouye1";
-
-		public static final String INSTRUCTION_QUSHOUYE2 = "instruction_qushouye2";
-
-		public static final String INSTRUCTION_QUSHEJIAO = "instruction_qushejiao";
-
-		public static final String INSTRUCTION_QUHUATI = "instruction_quhuati";
-
-		public static final String INSTRUCTION_DUIJIANG = "instruction_duijiang";
-
-		public static final String INSTRUCTION_BAOBAO_MARKET = "instruction_baobaomarket";
-
 		public static final String INSTRUCTION_FRIEND_ANSWER = "instruction_friend_answer";
 
 		public static final String INSTRUCTION_FRIEND_RECOMMEND = "instruction_friend_recommend";
-
-		public static final String INSTRUCTION_QU_FRIEND = "instruction_qu_friend";
-
+		
 		public static final String INSTRUCTION_QUCESHI_ANSWER = "instruction_quceshi_answer";
 
 		public static final String INSTRUCTION_QUCESHI_LIST1 = "instruction_quceshi_list1";
 
 		public static final String INSTRUCTION_QUCESHI_LIST2 = "instruction_quceshi_list2";
+		
+		public static final String INSTRUCTION_MAIN1 = "instruction_main1";
+
+		public static final String INSTRUCTION_MAIN2 = "instruction_main2";
+		
+		public static final String INSTRUCTION_SELF_LIST = "instruction_self_list";
 
 }

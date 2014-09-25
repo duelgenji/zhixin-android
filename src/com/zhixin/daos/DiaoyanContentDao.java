@@ -204,7 +204,7 @@ public class DiaoyanContentDao {
 		case 1:
 			ans = new DiaoyanUserQuestionAnswer();
 			ans.setQuestionId(currentAnswer.get(0).getQuestionId());
-			ans.setChoiceId(currentAnswer.get(0).getChoiceId());
+			ans.setOptionId(currentAnswer.get(0).getOptionId());
 			ans.setQuestionType(currentAnswer.get(0).getQuestionType());
 			ans.setWjId(logic.getWjId());
 			DbManager.getDatabase().save(ans);
@@ -212,7 +212,7 @@ public class DiaoyanContentDao {
 		case 2:
 			for (UserQuestionAnswer aAns : currentAnswer) {
 				ans = new DiaoyanUserQuestionAnswer();
-				ans.setChoiceId(aAns.getChoiceId());
+				ans.setOptionId(aAns.getOptionId());
 				ans.setQuestionId(aAns.getQuestionId());
 				ans.setQuestionType(aAns.getQuestionType());
 				ans.setWjId(logic.getWjId());
@@ -223,7 +223,7 @@ public class DiaoyanContentDao {
 
 			for (UserQuestionAnswer aAns : currentAnswer) {
 				ans = new DiaoyanUserQuestionAnswer();
-				ans.setAnswer(aAns.getAnswer());
+				ans.setContent(aAns.getContent());
 				ans.setQuestionId(aAns.getQuestionId());
 				ans.setQuestionType(aAns.getQuestionType());
 				ans.setWjId(logic.getWjId());
@@ -236,12 +236,12 @@ public class DiaoyanContentDao {
 			for (UserQuestionAnswer aAns : currentAnswer) {
 				shunOrder++;
 				ans = new DiaoyanUserQuestionAnswer();
-				ans.setChoiceId(aAns.getChoiceId());
+				ans.setOptionId(aAns.getOptionId());
 				ans.setQuestionId(aAns.getQuestionId());
 				ans.setQuestionType(aAns.getQuestionType());
 				ans.setWjId(logic.getWjId());
-				ans.setShunxuorder(shunOrder);
-				ans.setChoiceNo(aAns.getChoiceNo());
+				ans.setTurn(shunOrder);
+				ans.setOptionNum(aAns.getOptionNum());
 				DbManager.getDatabase().save(ans);
 			}
 

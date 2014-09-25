@@ -16,11 +16,9 @@ public class SelfListService {
 		public static String makeSql(String ids) {
 			StringBuffer sqlBuffer = new StringBuffer();
 			sqlBuffer.append("select * from self_list");
-			if (!ids.equals("")) {
-				sqlBuffer.append(" where selfId in ( ");
-				sqlBuffer.append(ids);
-				sqlBuffer.append(" ) ");
-			}
+			sqlBuffer.append(" where selfId in ( ");
+			sqlBuffer.append(ids);
+			sqlBuffer.append(" ) ");
 			return sqlBuffer.toString();
 
 		}

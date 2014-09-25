@@ -255,7 +255,7 @@ public class MainActivity extends FragmentActivity {
 						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 								Context.MODE_PRIVATE);
 				return sharedPref.getBoolean(
-						SettingValues.INSTRUCTION_QUSHOUYE1, true);
+						SettingValues.INSTRUCTION_MAIN1, true);
 			}
 
 			@Override
@@ -263,12 +263,12 @@ public class MainActivity extends FragmentActivity {
 				if (result) {
 					InstructionDialog qushouyeFirst = new InstructionDialog(
 							MainActivity.this,
-							SettingValues.INSTRUCTION_QUSHOUYE1);
+							SettingValues.INSTRUCTION_MAIN1);
 					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
 						@Override
 						public void onDismiss(DialogInterface dialog) {
 							new InstructionDialog(MainActivity.this,
-									SettingValues.INSTRUCTION_QUSHOUYE2).show();
+									SettingValues.INSTRUCTION_MAIN2).show();
 						}
 					});
 

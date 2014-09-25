@@ -13,8 +13,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ImageButton;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,37 +24,38 @@ import com.zhixin.R;
 import com.zhixin.cache.PreviousUserQuestionCache;
 import com.zhixin.customui.DafenChoice2;
 import com.zhixin.customui.DanxuanChoice2;
-import com.zhixin.customui.DuoxuanChoice;
+import com.zhixin.customui.DuoxuanChoice2;
 import com.zhixin.customui.ShunxuChoice;
 import com.zhixin.customui.ShunxuTitleItem;
 import com.zhixin.customui.ShunxuViewGroup;
 import com.zhixin.customui.Wenda;
-import com.zhixin.datasynservice.QuceshiAnswerService;
-import com.zhixin.datasynservice.InterestContentService;
+import com.zhixin.datasynservice.SelfAnswerService;
 import com.zhixin.datasynservice.SelfContentService;
 import com.zhixin.dialog.DafenFenshuOverlayer2;
 import com.zhixin.dialog.QubaopenProgressDialog;
+import com.zhixin.domain.SelfUserAnswer;
 import com.zhixin.domain.UserQuestionAnswer;
 import com.zhixin.enums.QuestionTypeEnums;
-import com.zhixin.logic.DatiDataObject;
 import com.zhixin.logic.DoDataObject;
 import com.zhixin.logic.DoLogicObject;
+import com.zhixin.logic.DoQuestionAnswer;
 import com.zhixin.utils.NetworkUtils;
 
 public class SelfContentActivity extends Activity implements
 		View.OnClickListener, DoDataObject.DiaoyanDatiLoadFinished {
 
 	public static final String INTENT_SELF_ID = "selfId";
+	public static final String INTENT_QUESTIONNAIRE_TITLE = "questionnaireTitle";
 	public static final String CURRENT_QUESTION = "currentQuestion";
 
 	private SelfContentService selfContentService;
-	private QuceshiAnswerService quceshiAnswerService;
+	private SelfAnswerService selfAnswerService;
 	private Integer selfId;
 
 	private RelativeLayout quceshiContentArea;
 
-	private DoDataObject quDatiDataObject;
-	private DoLogicObject quDatiLogicObject;
+	private DoDataObject doDataObject;
+	private DoLogicObject doLogicObject;
 
 	private View nextQuestionBtn;
 	private View prevQuestionBtn;
@@ -63,7 +64,7 @@ public class SelfContentActivity extends Activity implements
     private ImageButton iBtnPageBack;
 
 	private DanxuanChoice2 danxuanChoice;
-	private DuoxuanChoice duoxuanChoice;
+	private DuoxuanChoice2 duoxuanChoice;
 	private Wenda wenda;
 
 	private CountDownTimer countDownTimer;
@@ -88,12 +89,12 @@ public class SelfContentActivity extends Activity implements
 				if (theFirstTime) {
 					String message = selfContentService.getSelfContent(params[0]);
 					if (message == null) {
-						quDatiLogicObject = new DoLogicObject(selfId,0);
+						doLogicObject = new DoLogicObject(selfId,2);
 					}
 
 					return message;
 				} else {
-					quDatiLogicObject = new DoLogicObject(params[0], true, 0);
+					doLogicObject = new DoLogicObject(params[0], true, 2);
 				}
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -104,11 +105,11 @@ public class SelfContentActivity extends Activity implements
 		@Override
 		protected void onPostExecute(String params) {
 			if (params == null) {
-//				quDatiDataObject = new DoDataObject(quDatiLogicObject
-//						.getCurrentQuestion().getQuestionId(), 0);
-//				quDatiDataObject
-//						.setmQuDatiLoadFinished(SelfContentActivity.this);
-//				quDatiDataObject.execute();
+				doDataObject = new DoDataObject(doLogicObject
+						.getCurrentQuestion().getQuestionId(), 2);
+				doDataObject
+						.setmQuDatiLoadFinished(SelfContentActivity.this);
+				doDataObject.execute();
 			}
 		}
 	}
@@ -148,7 +149,11 @@ public class SelfContentActivity extends Activity implements
 		questionTitleViewGroup = (RelativeLayout) this
 				.findViewById(R.id.questionTitleViewGroup);
 		
-		selfContentService =new SelfContentService(this);
+		selfContentService = new SelfContentService(this);
+		selfAnswerService = new SelfAnswerService(this);
+		String title=intent.getStringExtra(INTENT_QUESTIONNAIRE_TITLE);
+		((TextView) this.findViewById(R.id.txt_title)).setText(title);
+		
 		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
 		int questionId = intent.getIntExtra(CURRENT_QUESTION, 0);
 		if (questionId == 0) {
@@ -168,7 +173,7 @@ public class SelfContentActivity extends Activity implements
 			break;
 		case R.id.nextQuestionBtn:
 			List<UserQuestionAnswer> ans;
-			switch (quDatiDataObject.getQuestionType()) {
+			switch (doDataObject.getQuestionType()) {
 			case 1:
 				ans = danxuanChoice.getCurrentQuDatiQuestionAnswer();
 				try {
@@ -225,8 +230,8 @@ public class SelfContentActivity extends Activity implements
 	private void nextQuestionLogic(List<UserQuestionAnswer> ans)
 			throws Exception {
 		if (ans != null) {
-			quDatiLogicObject.setAnswer(ans);
-			Integer nextQuestionId = quDatiLogicObject.getNextQuestionId();
+			doLogicObject.setAnswer(ans);
+			Integer nextQuestionId = doLogicObject.getNextQuestionId();
 			//Integer nextQuestionId=quDatiDataObject.getQuestionId()+1;
 			if (nextQuestionId != null) {
 				Intent intent = new Intent(this, SelfContentActivity.class);
@@ -249,7 +254,9 @@ public class SelfContentActivity extends Activity implements
 												int which) {
 
 											nextQuestionBtn.setEnabled(false);
-										
+											new SubmitDataTask()
+											.execute(doDataObject
+													.getWjId());
 										}
 									})
 							.setNegativeButton("取消",
@@ -276,7 +283,7 @@ public class SelfContentActivity extends Activity implements
 	}
 
 	private void prevQuestionLogic() {
-		Integer prevQuestionId = quDatiLogicObject.getHistoryAnswerCursor()
+		Integer prevQuestionId = doLogicObject.getHistoryAnswerCursor()
 				.previousQuestion();
 		if (prevQuestionId != null) {
 			Intent intent = new Intent(this, SelfContentActivity.class);
@@ -332,18 +339,18 @@ public class SelfContentActivity extends Activity implements
 		}
 
 		TextView textView = (TextView) this.findViewById(R.id.txtTitleQCSC);
-		textView.setText(quDatiDataObject.getQuestionTitle());
-		txtNoQCSC.setText(quDatiDataObject.getQuestionNo() + "/"
-				+ String.valueOf(quDatiDataObject.getQuestionSumInWj()));
+		textView.setText(doDataObject.getQuestionTitle());
+		txtNoQCSC.setText(doDataObject.getQuestionNo() + "/"
+				+ String.valueOf(doDataObject.getQuestionSumInWj()));
 		if (shunxuViewGroup != null) {
 			questionTitleViewGroup.removeView(shunxuViewGroup);
 		}
 
-		if (quDatiDataObject.getQuestionType() == QuestionTypeEnums.SHUNXU
+		if (doDataObject.getQuestionType() == QuestionTypeEnums.SHUNXU
 				.getTypeCode()) {
 			shunxuViewGroup = new ShunxuViewGroup(this, R.id.txtTitleQCSC);
 			questionTitleViewGroup.addView(shunxuViewGroup);
-			int count = quDatiDataObject.getDiaoyanQuestion().getOptionCount();
+			int count = doDataObject.getDiaoyanQuestion().getOptionCount();
 			while (count > 0) {
 				final ShunxuTitleItem item = new ShunxuTitleItem(this,
 						shunxuViewGroup);
@@ -353,24 +360,24 @@ public class SelfContentActivity extends Activity implements
 
 		}
 
-		switch (quDatiDataObject.getQuestionType()) {
+		switch (doDataObject.getQuestionType()) {
 		case 1:
 			danxuanChoice = new DanxuanChoice2(this,
-					quDatiDataObject.getChoices(),
+					doDataObject.getChoices(),
 					PreviousUserQuestionCache.getInstance());
 			quceshiContentArea.addView(danxuanChoice);
 
 			break;
 		case 2:
-//			duoxuanChoice = new DuoxuanChoice(this,
-//					quDatiDataObject.getChoices(),
-//					PreviousUserQuestionCache.getInstance());
-//			duoxuanChoice.setLayoutParams(new LayoutParams(
-//					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-//			quceshiContentArea.addView(duoxuanChoice);
+			duoxuanChoice = new DuoxuanChoice2(this,
+					doDataObject.getChoices(),
+					PreviousUserQuestionCache.getInstance());
+			duoxuanChoice.setLayoutParams(new LayoutParams(
+					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+			quceshiContentArea.addView(duoxuanChoice);
 			break;
 		case 3:
-			wenda = new Wenda(this, quDatiDataObject.getChoices(),
+			wenda = new Wenda(this, doDataObject.getChoices(),
 					PreviousUserQuestionCache.getInstance());
 			wenda.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
 					LayoutParams.WRAP_CONTENT));
@@ -378,7 +385,7 @@ public class SelfContentActivity extends Activity implements
 			break;
 		case 4:
 			ShunxuChoice aShunxuChoice = new ShunxuChoice(this,
-					quDatiDataObject.getChoices(), shunxuViewGroup,
+					doDataObject.getChoices(), shunxuViewGroup,
 					PreviousUserQuestionCache.getInstance());
 			aShunxuChoice.setLayoutParams(new LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
@@ -389,9 +396,9 @@ public class SelfContentActivity extends Activity implements
 			if (dafenFenshuOverlayer == null) {
 				dafenFenshuOverlayer = new DafenFenshuOverlayer2(this);
 			}
-			dafenFenshuOverlayer.initScore(quDatiDataObject.getScore());
+			dafenFenshuOverlayer.initScore(doDataObject.getScore());
 			dafenChoice = new DafenChoice2(this,
-					quDatiDataObject.getDiaoyanQuestionMatrixList(),
+					doDataObject.getDiaoyanQuestionMatrixList(),
 					dafenFenshuOverlayer,
 					PreviousUserQuestionCache.getInstance());
 			dafenChoice.setLayoutParams(new LayoutParams(
@@ -414,7 +421,7 @@ public class SelfContentActivity extends Activity implements
 
 		int limitTime = 0;
 		if (hasCountDownTimer) {
-			limitTime = quDatiDataObject.getLimitTime();
+			limitTime = doDataObject.getLimitTime();
 		}
 
 		if (limitTime == 0) {
@@ -447,6 +454,36 @@ public class SelfContentActivity extends Activity implements
 			progressDialog.dismiss();
 		}
 		
+	}
+	
+	
+	
+	
+	private class SubmitDataTask extends AsyncTask<Integer, Void, Object> {
+
+		@Override
+		protected Object doInBackground(Integer... params) {
+			try {
+				JSONObject jbo = DoQuestionAnswer.loadSelfAnswers(params[0]);
+				return selfAnswerService.getAnswer(jbo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Object params) {
+			if (params != null) {
+				Intent intent = new Intent(SelfContentActivity.this,
+						SelfAnswerActivity.class);
+				intent.putExtra(SelfAnswerActivity.INTENT_SELF_TITLE,getIntent().getStringExtra(INTENT_QUESTIONNAIRE_TITLE));
+				intent.putExtra(SelfAnswerActivity.INTENT_SELF_ANSWER,((SelfUserAnswer)params).getContent());
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				SelfContentActivity.this.finish();
+			}
+		}
 	}
 
 }

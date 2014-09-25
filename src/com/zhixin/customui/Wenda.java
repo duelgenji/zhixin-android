@@ -49,7 +49,7 @@ public class Wenda extends RadioGroup {
 			choiceItem.setLayoutParams(new LinearLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 			if (userQuestionAnswer != null) {
-				choiceItem.setAnswer(userQuestionAnswer.get(i).getAnswer());
+				choiceItem.setAnswer(userQuestionAnswer.get(i).getContent());
 
 			}
 
@@ -85,10 +85,10 @@ public class Wenda extends RadioGroup {
 			userQuestionAnswer.setQuestionType(QuestionTypeEnums.WENDA
 					.getTypeCode());
 			userQuestionAnswer.setQuestionId(questionId);
-			userQuestionAnswer.setAnswer(anItem.getAnswer());
-			userQuestionAnswer.setChoiceId(anItem.getQuChoice()
+			userQuestionAnswer.setContent(anItem.getAnswer());
+			userQuestionAnswer.setOptionId(anItem.getQuChoice()
 					.getOptionId());
-			userQuestionAnswer.setChoiceNo(anItem.getQuChoice()
+			userQuestionAnswer.setOptionNum(anItem.getQuChoice()
 					.getOptionNum());
 			ans.add(userQuestionAnswer);
 		}

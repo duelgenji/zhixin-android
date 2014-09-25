@@ -46,7 +46,7 @@ public class RegistService {
 //			jsonParams.put("uuid", SettingValues.JPUSH_ALIAS_PREFIX
 //					+ CurrentUserHelper.getCurrentUserId());
 //		}
-		JSONObject result = HttpClient.requestSync(requestUrl, jsonParams,HttpClient.TYPE_PUT_JSON);
+		JSONObject result = HttpClient.requestSync(requestUrl, jsonParams,HttpClient.TYPE_POST_FORM);
 
 		if (result != null && result.getInt("success") == 1) {
 			userInfoDao.saveUserForFirsttime(result, password);

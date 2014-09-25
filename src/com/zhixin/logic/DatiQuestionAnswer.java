@@ -154,7 +154,7 @@ public class DatiQuestionAnswer {
 					for (DiaoyanUserQuestionAnswer aChoice : choiceList) {
 						if (questionType != 5) {
 
-							choiceArray.put(aChoice.getChoiceId());
+							choiceArray.put(aChoice.getOptionId());
 
 						} else {
 							choiceArray.put(aChoice.getScore());
@@ -165,7 +165,7 @@ public class DatiQuestionAnswer {
 					break;
 				case 3:
 					for (DiaoyanUserQuestionAnswer aChoice : choiceList) {
-						choiceArray.put(aChoice.getAnswer());
+						choiceArray.put(aChoice.getContent());
 					}
 					questionObj.put("aAnswers", choiceArray);
 					break;
@@ -225,13 +225,13 @@ public class DatiQuestionAnswer {
 				case 2:
 				case 4:
 					for (QuUserQuestionAnswer aChoice : choiceList) {
-						choiceArray.put(aChoice.getChoiceId());
+						choiceArray.put(aChoice.getOptionId());
 					}
 					questionObj.put("choiceId", choiceArray);
 					break;
 				case 3:
 					for (QuUserQuestionAnswer aChoice : choiceList) {
-						choiceArray.put(aChoice.getAnswer());
+						choiceArray.put(aChoice.getContent());
 					}
 					questionObj.put("content", choiceArray);
 					break;

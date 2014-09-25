@@ -62,6 +62,9 @@ public class SelfListActivity extends FragmentActivity implements
 		@Override
 		protected void onPostExecute(String params) {
 			Bundle bundle=new Bundle();
+			if(params==null){
+				params="";
+			}
 			bundle.putString("ids", params);
 			getSupportLoaderManager().restartLoader(0, bundle, _this);
 			if (selfListParent.isRefreshing()){

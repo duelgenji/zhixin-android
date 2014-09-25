@@ -9,12 +9,14 @@ import android.util.Log;
 
 import com.zhixin.daos.DiaoyanContentDao;
 import com.zhixin.daos.InterestContentDao;
+import com.zhixin.daos.SelfContentDao;
 import com.zhixin.database.DbManager;
 import com.zhixin.domain.DiaoyanQuestionOrder;
 import com.zhixin.domain.InterestQuestion;
 import com.zhixin.domain.QuQuestionOrder;
 import com.zhixin.domain.Question2;
 import com.zhixin.domain.QuestionOrder;
+import com.zhixin.domain.SelfQuestion;
 import com.zhixin.domain.UserQuestionAnswer;
 
 public class DoLogicObject {
@@ -30,11 +32,16 @@ public class DoLogicObject {
 	private DiaoyanContentDao diaoyancontentDao;
 
 	private InterestContentDao interestContentDao;
+	
+	private SelfContentDao selfContentDao;
 
 	private DatiAnswerCursor historyAnswerCursor;
 
-	// cate 0 for quceshi
-	// cate 1 for qudiaoyan
+	/**
+	 * cate 0 for interest  兴趣测试
+	 * cate 1 for survey    调研测试
+	 * cate 2 for self      自测  
+	 * */
 	private int cate;
 
 	public DoLogicObject(int currentQuestionNo, boolean isQuestion, int cate) {
@@ -44,6 +51,9 @@ public class DoLogicObject {
 			break;
 		case 1:
 			diaoyancontentDao = new DiaoyanContentDao();
+			break;
+		case 2:
+			selfContentDao= new SelfContentDao();
 			break;
 
 		}
@@ -62,8 +72,12 @@ public class DoLogicObject {
 		case 1:
 			diaoyancontentDao = new DiaoyanContentDao();
 			break;
-
+		case 2:
+			selfContentDao= new SelfContentDao();
+			break;
+			
 		}
+	
 		this.cate = cate;
 		shouldBeFirstQuesion = true;
 		init(wjId);
@@ -87,12 +101,19 @@ public class DoLogicObject {
 										.intValue());
 				break;
 			case 1:
-//				currentQuestion = DbManager.getDatabase().findUniqueBySql(
-//						DiaoyanQuestion.class,
-//						"select * from diaoyan_question where questionId="
-//								+ historyAnswerCursor.getCurrentTopQuestion()
-//										.intValue());
-//				break;
+				// currentQuestion = DbManager.getDatabase().findUniqueBySql(
+				// DiaoyanQuestion.class,
+				// "select * from diaoyan_question where questionId="
+				// + historyAnswerCursor.getCurrentTopQuestion()
+				// .intValue());
+				 break;
+			case 2:
+				currentQuestion = DbManager.getDatabase().findUniqueBySql(
+						SelfQuestion.class,
+						"select * from self_question where questionId="
+								+ historyAnswerCursor.getCurrentTopQuestion()
+										.intValue());
+				break;
 			}
 
 		} else {
@@ -102,14 +123,20 @@ public class DoLogicObject {
 			case 0:
 				currentQuestion = DbManager.getDatabase().findUniqueBySql(
 						InterestQuestion.class,
-						"select * from interest_question where questionnaireId=" + wjId
-								+ " order by questionId asc limit 1");
+						"select * from interest_question where questionnaireId="
+								+ wjId + " order by questionId asc limit 1");
 				break;
 			case 1:
-//				currentQuestion = DbManager.getDatabase().findUniqueBySql(
-//						DiaoyanQuestion.class,
-//						"select * from diaoyan_question where wjId=" + wjId
-//								+ " order by questionId asc limit 1");
+				// currentQuestion = DbManager.getDatabase().findUniqueBySql(
+				// DiaoyanQuestion.class,
+				// "select * from diaoyan_question where wjId=" + wjId
+				// + " order by questionId asc limit 1");
+				break;
+			case 2:
+				currentQuestion = DbManager.getDatabase().findUniqueBySql(
+						SelfQuestion.class,
+						"select * from self_question where questionnaireId="
+								+ wjId + " order by questionId asc limit 1");
 				break;
 			}
 
@@ -125,10 +152,17 @@ public class DoLogicObject {
 									+ nextQuestionId());
 					break;
 				case 1:
-//					currentQuestion = DbManager.getDatabase().findUniqueBySql(
-//							DiaoyanQuestion.class,
-//							"select * from diaoyan_question where questionId="
-//									+ nextQuestionId());
+					// currentQuestion =
+					// DbManager.getDatabase().findUniqueBySql(
+					// DiaoyanQuestion.class,
+					// "select * from diaoyan_question where questionId="
+					// + nextQuestionId());
+					break;
+				case 2:
+					currentQuestion = DbManager.getDatabase().findUniqueBySql(
+							SelfQuestion.class,
+							"select * from self_question where questionId="
+									+ nextQuestionId());
 					break;
 				}
 				initQuestions(wjId);
@@ -150,17 +184,23 @@ public class DoLogicObject {
 
 			break;
 		case 1:
-//			currentQuestion = DbManager.getDatabase().findUniqueBySql(
-//					DiaoyanQuestion.class,
-//					"select * from diaoyan_question where questionId="
-//							+ currentQuestionNo + " limit 1");
+			// currentQuestion = DbManager.getDatabase().findUniqueBySql(
+			// DiaoyanQuestion.class,
+			// "select * from diaoyan_question where questionId="
+			// + currentQuestionNo + " limit 1");
+			break;
+		case 2:
+			currentQuestion = DbManager.getDatabase().findUniqueBySql(
+					SelfQuestion.class,
+					"select * from self_question where questionId="
+							+ currentQuestionNo + " limit 1");
 			break;
 		}
 
 		initQuestions(currentQuestion.getQuestionnaireId());
 
-		historyAnswerCursor = new DatiAnswerCursor(currentQuestion.getQuestionnaireId(),
-				cate, currentQuestionNo);
+		historyAnswerCursor = new DatiAnswerCursor(
+				currentQuestion.getQuestionnaireId(), cate, currentQuestionNo);
 
 	}
 
@@ -188,197 +228,196 @@ public class DoLogicObject {
 		this.currentAnswer = datiAnswer;
 
 	}
-	
-	
-	//获取下一题 题目id
-	public Integer getNextQuestionId(){
-		//存答案
+
+	// 获取下一题 题目id
+	public Integer getNextQuestionId() {
+		// 存答案
 		saveAnswer();
-		String questionOrder=currentQuestion.getQuestionOrder();
-		if(!questionOrder.isEmpty()){
+		String questionOrder = currentQuestion.getQuestionOrder();
+		if (!questionOrder.isEmpty()) {
 			StringTokenizer st = new StringTokenizer(questionOrder, "|");
-			if(currentAnswer.size()==1){
-				//单选题跳转
+			if (currentAnswer.size() == 1) {
+				// 单选题跳转
 				while (st.hasMoreTokens()) {
 					String anOrder = st.nextToken();
 					StringTokenizer innerSt = new StringTokenizer(anOrder, ":");
-					if(innerSt.hasMoreTokens()){
+					if (innerSt.hasMoreTokens()) {
 						innerSt.nextToken();
-						String midStr=innerSt.nextToken();
+						String midStr = innerSt.nextToken();
 
-						if(midStr.equals("0") || midStr.equals(""+currentAnswer.get(0).getChoiceId())){
-							String lastStr=innerSt.nextToken();
-							Log.i("login1","单选题型跳转  逻辑跳转"+lastStr);	
-							if(lastStr.equals("0")){
+						if (midStr.equals("0")
+								|| midStr.equals(""
+										+ currentAnswer.get(0).getOptionId())) {
+							String lastStr = innerSt.nextToken();
+							Log.i("login1", "单选题型跳转  逻辑跳转" + lastStr);
+							if (lastStr.equals("0")) {
 								return null;
 							}
 							return Integer.parseInt(lastStr);
 						}
 					}
 				}
-			}else{
-				//其他题跳转
+			} else {
+				// 其他题跳转
 				while (st.hasMoreTokens()) {
 					String anOrder = st.nextToken();
 					StringTokenizer innerSt = new StringTokenizer(anOrder, ":");
-					if(innerSt.hasMoreTokens()){
+					if (innerSt.hasMoreTokens()) {
 						innerSt.nextToken();
-						String midStr=innerSt.nextToken();
-						if(midStr.equals("0")){
-							String lastStr=innerSt.nextToken();
-							Log.i("login1","其他题型跳转  逻辑跳转"+lastStr);	
+						String midStr = innerSt.nextToken();
+						if (midStr.equals("0")) {
+							String lastStr = innerSt.nextToken();
+							Log.i("login1", "其他题型跳转  逻辑跳转" + lastStr);
 							return Integer.parseInt(lastStr);
 						}
 					}
 				}
 			}
-		
 
-			Log.i("login1","莫名跳转");	
+			Log.i("login1", "莫名跳转");
 			return getNextQuesiton();
-		}else{
-			Log.i("login1","无order跳转");	
+		} else {
+			Log.i("login1", "无order跳转");
 			return getNextQuesiton();
 		}
-		
-//		switch (currentQuestion.getQuestionType()) {	
-//		
-//		case 1:
-//			break;
-//		case 2:
-//			break;
-//		case 3:
-//			break;
-//		case 4:
-//			break;
-//		case 5:
-//			break;
-//		default:
-//			break;
-//			}
+
+		// switch (currentQuestion.getQuestionType()) {
+		//
+		// case 1:
+		// break;
+		// case 2:
+		// break;
+		// case 3:
+		// break;
+		// case 4:
+		// break;
+		// case 5:
+		// break;
+		// default:
+		// break;
+		// }
 	}
-	
 
 	private Integer noSpecialQuestionNextLogic() throws Exception {
-//		if (!currentQuestion.isMatrix()) {
-//			saveAnswer();
-//			switch (currentQuestion.getQuestionType()) {
-//			case 1:
-//				for (QuestionOrder anOrder : orderList) {
-//
-//					if (anOrder.getCurrentQuestionId() == currentAnswer.get(0)
-//							.getQuestionId()) {// useless code exactly
-//
-//						switch (cate) {
-//						case 0:
-//							if (anOrder.getChoiceNo() == null
-//									|| StringUtils.isEmpty(anOrder
-//											.getChoiceNo())) {
-//								if (anOrder.isNextOneEnd()) {
-//									return null;
-//								} else {
-//									return anOrder.getNextQuestionId();
-//								}
-//							}
-//							if (anOrder.getChoiceNo().equals(
-//									currentAnswer.get(0).getChoiceNo())) {
-//								if (anOrder.isNextOneEnd()) {
-//									return null;
-//								} else {
-//									return anOrder.getNextQuestionId();
-//								}
-//							}
-//
-//							break;
-//						case 1:
-//							if (anOrder.getChoiceId() == 0) {
-//								if (anOrder.isNextOneEnd()) {
-//									return null;
-//								} else {
-//									return anOrder.getNextQuestionId();
-//								}
-//
-//							}
-//							if (anOrder.getChoiceId() == currentAnswer.get(0)
-//									.getChoiceId()) {
-//								if (anOrder.isNextOneEnd()) {
-//									return null;
-//								} else {
-//									return anOrder.getNextQuestionId();
-//								}
-//							}
-//
-//							break;
-//						}
-//
-//					}
-//				}
-//				break;
-//			case 2:
-//			case 3:
-//			case 4:
-//				if (orderList.size() != 0) {
-//					if (orderList.get(orderList.size()-1).isNextOneEnd()) {
-//						return null;
-//					} else {
-//						return orderList.get(orderList.size()-1).getNextQuestionId();
-//					}
-//				}
-//				break;
-//			case 5:
-//				if (orderList.size() != 0) {
-//					if (orderList.get(0).isNextOneEnd()) {
-//						return null;
-//					} else {
-//						return orderList.get(0).getNextQuestionId();
-//					}
-//				}
-//				break;
-//			default:
-//				break;
-//			}
-//		} else {
-//			saveMatrixAnswer();
-//			// Program exploit: when the matrix question's order list is
-//			// empty,the next question will not be found correctly.
-//			// In this case,the next question inside the matrix question group
-//			// will be found.
-//			if (orderList.size() != 0) {
-//				if (orderList.get(0).isNextOneEnd()) {
-//					return null;
-//				} else {
-//					return orderList.get(0).getNextQuestionId();
-//				}
-//			}
-//		}
+		// if (!currentQuestion.isMatrix()) {
+		// saveAnswer();
+		// switch (currentQuestion.getQuestionType()) {
+		// case 1:
+		// for (QuestionOrder anOrder : orderList) {
+		//
+		// if (anOrder.getCurrentQuestionId() == currentAnswer.get(0)
+		// .getQuestionId()) {// useless code exactly
+		//
+		// switch (cate) {
+		// case 0:
+		// if (anOrder.getChoiceNo() == null
+		// || StringUtils.isEmpty(anOrder
+		// .getChoiceNo())) {
+		// if (anOrder.isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return anOrder.getNextQuestionId();
+		// }
+		// }
+		// if (anOrder.getChoiceNo().equals(
+		// currentAnswer.get(0).getChoiceNo())) {
+		// if (anOrder.isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return anOrder.getNextQuestionId();
+		// }
+		// }
+		//
+		// break;
+		// case 1:
+		// if (anOrder.getChoiceId() == 0) {
+		// if (anOrder.isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return anOrder.getNextQuestionId();
+		// }
+		//
+		// }
+		// if (anOrder.getChoiceId() == currentAnswer.get(0)
+		// .getChoiceId()) {
+		// if (anOrder.isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return anOrder.getNextQuestionId();
+		// }
+		// }
+		//
+		// break;
+		// }
+		//
+		// }
+		// }
+		// break;
+		// case 2:
+		// case 3:
+		// case 4:
+		// if (orderList.size() != 0) {
+		// if (orderList.get(orderList.size()-1).isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return orderList.get(orderList.size()-1).getNextQuestionId();
+		// }
+		// }
+		// break;
+		// case 5:
+		// if (orderList.size() != 0) {
+		// if (orderList.get(0).isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return orderList.get(0).getNextQuestionId();
+		// }
+		// }
+		// break;
+		// default:
+		// break;
+		// }
+		// } else {
+		// saveMatrixAnswer();
+		// // Program exploit: when the matrix question's order list is
+		// // empty,the next question will not be found correctly.
+		// // In this case,the next question inside the matrix question group
+		// // will be found.
+		// if (orderList.size() != 0) {
+		// if (orderList.get(0).isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return orderList.get(0).getNextQuestionId();
+		// }
+		// }
+		// }
 		throw new Exception();
 	}
 
 	private Integer specialQuestionNextLogic() throws Exception {
-		//saveAnswer();
-//		for (QuestionOrder anOrder : orderList) {
-//			// the code below will be executed more times than actually needed.
-//			List<? extends UserQuestionAnswer> questionAnswer = DatiAnswerCursor
-//					.getAnswer(anOrder.getCurrentQuestionId(), cate);
-//			if (questionAnswer.size() == 1) {
-//				if (questionAnswer.get(0).getChoiceId() == anOrder
-//						.getChoiceId()) {
-//					if (anOrder.isNextOneEnd()) {
-//						return null;
-//					} else {
-//						return anOrder.getNextQuestionId();
-//					}
-//				}
-//			} else if (questionAnswer.size() > 1) {
-//				if (anOrder.getChoiceId() == 0) {
-//					if (anOrder.isNextOneEnd()) {
-//						return null;
-//					} else {
-//						return anOrder.getNextQuestionId();
-//					}
-//				}
-//			}
-//		}
+		// saveAnswer();
+		// for (QuestionOrder anOrder : orderList) {
+		// // the code below will be executed more times than actually needed.
+		// List<? extends UserQuestionAnswer> questionAnswer = DatiAnswerCursor
+		// .getAnswer(anOrder.getCurrentQuestionId(), cate);
+		// if (questionAnswer.size() == 1) {
+		// if (questionAnswer.get(0).getChoiceId() == anOrder
+		// .getChoiceId()) {
+		// if (anOrder.isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return anOrder.getNextQuestionId();
+		// }
+		// }
+		// } else if (questionAnswer.size() > 1) {
+		// if (anOrder.getChoiceId() == 0) {
+		// if (anOrder.isNextOneEnd()) {
+		// return null;
+		// } else {
+		// return anOrder.getNextQuestionId();
+		// }
+		// }
+		// }
+		// }
 		throw new Exception();
 	}
 
@@ -388,7 +427,10 @@ public class DoLogicObject {
 			interestContentDao.saveAnswer(currentAnswer, this);
 			break;
 		case 1:
-			//diaoyancontentDao.saveAnswer(currentAnswer, this);
+			// diaoyancontentDao.saveAnswer(currentAnswer, this);
+			break;
+		case 2:
+			selfContentDao.saveAnswer(currentAnswer, this);
 			break;
 		}
 
@@ -399,7 +441,7 @@ public class DoLogicObject {
 	}
 
 	private void saveMatrixAnswer() {
-		//diaoyancontentDao.saveMatrixAnswer(currentAnswer, this);
+		// diaoyancontentDao.saveMatrixAnswer(currentAnswer, this);
 
 	}
 
@@ -407,39 +449,40 @@ public class DoLogicObject {
 		return historyAnswerCursor;
 	}
 
-	
-	//加载问卷所有题目
-	private void initQuestions(int wjId){
-		switch(cate){
-			case 0:
+	// 加载问卷所有题目
+	private void initQuestions(int wjId) {
+		switch (cate) {
+		case 0:
 			questionList = DbManager.getDatabase().findAllByWhere(
-					InterestQuestion.class,
-					"questionnaireId=" + wjId );
-
+					InterestQuestion.class, "questionnaireId=" + wjId);
 			break;
-			case 1:	
-//				questionList = DbManager.getDatabase().findAllByWhere(
-//				InterestQuestion.class,
-//				"interestId=" + wjId );
+		case 1:
+			// questionList = DbManager.getDatabase().findAllByWhere(
+			// InterestQuestion.class,
+			// "interestId=" + wjId );
+			break;
+		case 2:
+			questionList = DbManager.getDatabase().findAllByWhere(
+					SelfQuestion.class, "questionnaireId=" + wjId);
 			break;
 		}
 	}
-	
+
 	/**
-	 * 单纯获取题目编号的下一题   不判断逻辑  如果没有下一题 返回null
+	 * 单纯获取题目编号的下一题 不判断逻辑 如果没有下一题 返回null
 	 * */
-	private Integer getNextQuesiton(){
-		
-		Integer currentNoAddOne=Integer.parseInt(currentQuestion.getQuestionNum())+1;
+	private Integer getNextQuesiton() {
+
+		Integer currentNoAddOne = Integer.parseInt(currentQuestion
+				.getQuestionNum()) + 1;
 		Integer listNo;
-		for(int i=0;i<questionList.size();i++){
-			listNo=Integer.parseInt(questionList.get(i).getQuestionNum());
-			if(currentNoAddOne==listNo){
+		for (int i = 0; i < questionList.size(); i++) {
+			listNo = Integer.parseInt(questionList.get(i).getQuestionNum());
+			if (currentNoAddOne == listNo) {
 				return listNo;
 			}
 		}
 		return null;
 	}
-	
 
 }

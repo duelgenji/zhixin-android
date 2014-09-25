@@ -118,7 +118,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_USER_LOGON);
         
-        new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
+        new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_POST_FORM);
 		return result;
 	}
 	

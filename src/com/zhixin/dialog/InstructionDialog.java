@@ -37,30 +37,22 @@ public class InstructionDialog extends Dialog{
 		this.instructionCate = instructionCate;
 		
 		
-		if (instructionCate.equals(SettingValues.INSTRUCTION_BAOBAO_MARKET)){
-			drawableResource = R.drawable.instruction_page_baobao_market;
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_DUIJIANG)){
-			drawableResource = R.drawable.instruction_page_duijiang;
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_FRIEND_ANSWER)){
+		if (instructionCate.equals(SettingValues.INSTRUCTION_FRIEND_ANSWER)){
 			drawableResource = R.drawable.instruction_page_friend_answer;
 		}else if (instructionCate.equals(SettingValues.INSTRUCTION_FRIEND_RECOMMEND)){			
 			drawableResource = R.drawable.instruction_page_friend_recommend;
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QU_FRIEND)){
-			drawableResource = R.drawable.instruction_page_qu_friend;
 		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUCESHI_ANSWER)){
 			drawableResource = R.drawable.instruction_page_quceshi_answer;
 		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUCESHI_LIST1)){
 			drawableResource = R.drawable.instruction_page_quceshi_list;	
 		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUCESHI_LIST2)){
 			drawableResource = R.drawable.instruction_page_quceshi_list1;
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUHUATI)){
-			drawableResource = R.drawable.instruction_page_quhuati;
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUSHEJIAO)){
-			drawableResource = R.drawable.instruction_page_qushejiao;			
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUSHOUYE1)){
-			drawableResource = R.drawable.instruction_page_qushouye_firstin;
-		}else if (instructionCate.equals(SettingValues.INSTRUCTION_QUSHOUYE2)){
-			drawableResource = R.drawable.instruction_page_qushouye;
+		}else if (instructionCate.equals(SettingValues.INSTRUCTION_MAIN1)){
+			drawableResource = R.drawable.instruction_page_main1;	
+		}else if (instructionCate.equals(SettingValues.INSTRUCTION_MAIN2)){
+			drawableResource = R.drawable.instruction_page_main2;
+		}else if (instructionCate.equals(SettingValues.INSTRUCTION_SELF_LIST)){
+			drawableResource = R.drawable.instruction_page_self_list;
 		}
 		
 		instructionDialogMainImage.setImageResource(drawableResource);

@@ -59,7 +59,7 @@ public class ShunxuViewGroup extends LinearLayout {
 			UserQuestionAnswer userQuestionAnswer;
 			for (ShunxuTitleItem anItem : items) {
 				userQuestionAnswer = new UserQuestionAnswer();
-				userQuestionAnswer.setChoiceId(anItem.getCurrentChoices()
+				userQuestionAnswer.setOptionId(anItem.getCurrentChoices()
 						.getOptionId());
 				
 				userQuestionAnswer.setQuestionId(anItem.getCurrentChoices()
@@ -67,7 +67,7 @@ public class ShunxuViewGroup extends LinearLayout {
 				userQuestionAnswer.setQuestionType(QuestionTypeEnums.SHUNXU
 						.getTypeCode());
 				
-				userQuestionAnswer.setChoiceNo(anItem.getChoiceText());
+				userQuestionAnswer.setOptionNum(anItem.getChoiceText());
 				ans.add(userQuestionAnswer);
 			}
 		}

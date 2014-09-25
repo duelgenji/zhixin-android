@@ -45,7 +45,7 @@ public class InterestListService {
 				//sqlBuffer.append(order);
 				//.append(" and controlFlag=0");
 //			}
-			//sqlBuffer.append(" order by _id asc");
+			sqlBuffer.append(" order by _id asc");
 			return sqlBuffer.toString();
 
 		}
@@ -60,24 +60,28 @@ public class InterestListService {
 
 	
 	
-	public JSONObject getInterestList(Integer type, Integer order,Integer page)
+	public JSONObject getInterestList(Integer order, Integer type,Integer page)
 			throws JSONException, ParseException {
 		String url = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_INTEREST_GET_LIST);
-		AjaxParams requestParams  = new AjaxParams();
-		if (type!=null) {
-			requestParams.put("interestTypeId",type.toString());
+		JSONObject requestParams  = new JSONObject();
+
+		if (order!=null && order!=0) {
+			requestParams.put("sortTypeId",order);
 		}
-		if (order!=null) {
-			requestParams.put("sortTypeId",order.toString());
+		if (type!=null && type!=0) {
+			requestParams.put("interestTypeId",type);
 		}
 		if (page!=null) {
-			requestParams.put("page",page.toString());
+			requestParams.put("page",page);
 		}
-		JSONObject result = HttpClient.requestSync(url, requestParams,HttpClient.TYPE_POST_NORMAL);
+		
+
+		requestParams.put("size",10);
+		JSONObject result = HttpClient.requestSync(url, requestParams,HttpClient.TYPE_POST_FORM);
 		if (result != null && result.getString("success").equals("1")) {
 
-			requestParams.put("page","1");
+			result.put("page",page);
 			interestListDao.saveInterestList(result);
 
 		}

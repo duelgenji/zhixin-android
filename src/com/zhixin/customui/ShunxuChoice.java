@@ -64,7 +64,7 @@ public class ShunxuChoice extends RadioGroup {
 	private void setHistoryAnswerChecked(){
 		for (UserQuestionAnswer userQuestionAnswer:answerList){
 			for (Options aChoice : choiceList){
-				if (aChoice.getOptionId() == userQuestionAnswer.getChoiceId()){
+				if (aChoice.getOptionId() == userQuestionAnswer.getOptionId()){
 					shunxuItemList.get(aChoice.getOptionId()).performClick();
 					break;
 				}

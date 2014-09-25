@@ -21,10 +21,8 @@ public class QuceshiOrderPickerDialog extends Dialog implements
 	private float endYOfD;
 
 	private Button orderDefaultBtn;
-	private Button orderJifenBtn;
 	private Button orderRenqiBtn;
 	private Button orderTimeBtn;
-	private Button orderTuijianBtn;
 	
 	private String orderStr;
 	private int order;
@@ -40,10 +38,7 @@ public class QuceshiOrderPickerDialog extends Dialog implements
 		orderDefaultBtn.setOnClickListener(this);
 		orderDefaultBtn.setOnTouchListener(this);
 
-		orderJifenBtn = (Button) this.findViewById(R.id.quceshiOrderJifen);
-		orderJifenBtn.setOnTouchListener(this);
-		orderJifenBtn.setOnClickListener(this);
-
+	
 		orderRenqiBtn = (Button) this.findViewById(R.id.quceshiOrderRenqi);
 		orderRenqiBtn.setOnTouchListener(this);
 		orderRenqiBtn.setOnClickListener(this);
@@ -52,12 +47,7 @@ public class QuceshiOrderPickerDialog extends Dialog implements
 		orderTimeBtn.setOnTouchListener(this);
 		orderTimeBtn.setOnClickListener(this);
 
-		orderTuijianBtn = (Button) this.findViewById(R.id.quceshiOrderTuijian);
-		orderTuijianBtn.setOnClickListener(this);
-		orderTuijianBtn.setOnTouchListener(this);
-
-		
-
+	
 		pickDialog = (RelativeLayout) this.findViewById(R.id.pickDialog);
 		pickOrderOrNot = false;
 	}
@@ -106,10 +96,6 @@ public class QuceshiOrderPickerDialog extends Dialog implements
 			order = 0;
 			orderStr = context.getString(R.string.quceshi_order_default);
 			break;
-		case R.id.quceshiOrderJifen:
-			order = 3;
-			orderStr = context.getString(R.string.quceshi_order_jifen);
-			break;
 		case R.id.quceshiOrderRenqi:
 			order = 1;
 			orderStr = context.getString(R.string.quceshi_order_renqi);
@@ -117,10 +103,6 @@ public class QuceshiOrderPickerDialog extends Dialog implements
 		case R.id.quceshiOrderTime:
 			order = 2;
 			orderStr = context.getString(R.string.quceshi_order_time);
-			break;
-		case R.id.quceshiOrderTuijian:
-			order = 0;
-			orderStr = context.getString(R.string.quceshi_order_tuijian);
 			break;
 		default:
 			break;

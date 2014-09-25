@@ -4,19 +4,19 @@ public class UserQuestionAnswer {
 
 	protected int questionId;
 
-	protected int choiceId;
+	protected int optionId;
 
-	protected String choiceNo;
+	protected String optionNum;
 
 	protected int score;
 
-	protected int shunxuorder;
+	protected int turn;
 
 	protected int questionType;
 
 	protected int wjId;
 
-	protected String Answer;
+	protected String content;
 	
 	protected String mainNo;
 
@@ -28,20 +28,20 @@ public class UserQuestionAnswer {
 		this.questionId = questionId;
 	}
 
-	public int getChoiceId() {
-		return choiceId;
+	public int getOptionId() {
+		return optionId;
 	}
 
-	public void setChoiceId(int choiceId) {
-		this.choiceId = choiceId;
+	public void setOptionId(int optionId) {
+		this.optionId = optionId;
 	}
 
-	public String getChoiceNo() {
-		return choiceNo;
+	public String getOptionNum() {
+		return optionNum;
 	}
 
-	public void setChoiceNo(String choiceNo) {
-		this.choiceNo = choiceNo;
+	public void setOptionNum(String optionNum) {
+		this.optionNum = optionNum;
 	}
 
 	public int getScore() {
@@ -52,12 +52,12 @@ public class UserQuestionAnswer {
 		this.score = score;
 	}
 
-	public int getShunxuorder() {
-		return shunxuorder;
+	public int getTurn() {
+		return turn;
 	}
 
-	public void setShunxuorder(int shunxuorder) {
-		this.shunxuorder = shunxuorder;
+	public void setTurn(int turn) {
+		this.turn = turn;
 	}
 
 	public int getQuestionType() {
@@ -76,12 +76,12 @@ public class UserQuestionAnswer {
 		this.wjId = wjId;
 	}
 
-	public String getAnswer() {
-		return Answer;
+	public String getContent() {
+		return content;
 	}
 
-	public void setAnswer(String answer) {
-		Answer = answer;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 	public String getMainNo() {
