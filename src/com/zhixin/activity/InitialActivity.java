@@ -7,6 +7,7 @@ import com.zhixin.R;
 import com.zhixin.datasynservice.RegistService;
 import com.zhixin.service.GetAddressIntentService;
 import com.zhixin.settings.CurrentUserHelper;
+import com.zhixin.settings.PhoneHelper;
 import com.zhixin.settings.SettingValues;
 
 import android.content.Context;
@@ -53,6 +54,11 @@ public class InitialActivity extends InstrumentedActivity {
 		float density = getResources().getDisplayMetrics().density;
 		float dpHeight = outMetrics.heightPixels / density;
 		float dpWidth = outMetrics.widthPixels / density;
+		
+		PhoneHelper.savePhoneDensity(density);
+		PhoneHelper.savePhoneHeight(outMetrics.heightPixels);
+		PhoneHelper.savePhoneWidth(outMetrics.widthPixels);
+		
 		Log.i("phone","density" + String.valueOf(density));
 		Log.i("phone","height" + String.valueOf(dpHeight));
 		Log.i("phone","width" + String.valueOf(dpWidth));
@@ -92,6 +98,7 @@ public class InitialActivity extends InstrumentedActivity {
 										Context.MODE_PRIVATE);
 						isFirstIn = sharedPref.getBoolean(
 								SettingValues.APP_FIRSTTIME_IN, true);
+//						isFirstIn=true;
 						currentPhone = CurrentUserHelper.getCurrentPhone();
 						return null;
 					}

@@ -70,6 +70,7 @@
 
         <com.zhixin.customui.TabBarLayout
             android:id="@+id/zhibiBtn"
+            android:visibility="gone"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:layout_weight="1" >
@@ -97,6 +98,7 @@
         <com.zhixin.customui.TabBarLayout
             android:id="@+id/messageBtn"
             android:layout_width="1dp"
+            android:visibility="gone"
             android:layout_height="match_parent"
             android:layout_weight="1" >
 

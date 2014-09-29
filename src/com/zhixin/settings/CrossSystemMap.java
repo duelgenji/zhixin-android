@@ -2,6 +2,8 @@ package com.zhixin.settings;
 
 import java.util.HashMap;
 
+import android.R.integer;
+
 import com.zhixin.R;
 
 public class CrossSystemMap {
@@ -20,6 +22,7 @@ public class CrossSystemMap {
 		crossSystemMap.put("r6", R.drawable.coordinate_system_06_r);
 		crossSystemMap.put("r7", R.drawable.coordinate_system_07_r);
 		crossSystemMap.put("r8", R.drawable.coordinate_system_08_r);
+		
 		crossSystemMap.put("r9", R.drawable.coordinate_system_09_r);
 		crossSystemMap.put("r10", R.drawable.coordinate_system_10_r);
 		crossSystemMap.put("r11", R.drawable.coordinate_system_11_r);
@@ -28,6 +31,7 @@ public class CrossSystemMap {
 		crossSystemMap.put("r14", R.drawable.coordinate_system_14_r);
 		crossSystemMap.put("r15", R.drawable.coordinate_system_15_r);
 		crossSystemMap.put("r16", R.drawable.coordinate_system_16_r);
+		
 		crossSystemMap.put("r17", R.drawable.coordinate_system_17_r);
 		crossSystemMap.put("r18", R.drawable.coordinate_system_18_r);
 		crossSystemMap.put("r19", R.drawable.coordinate_system_19_r);
@@ -36,6 +40,7 @@ public class CrossSystemMap {
 		crossSystemMap.put("r22", R.drawable.coordinate_system_22_r);
 		crossSystemMap.put("r23", R.drawable.coordinate_system_23_r);
 		crossSystemMap.put("r24", R.drawable.coordinate_system_24_r);
+		
 		crossSystemMap.put("r25", R.drawable.coordinate_system_25_r);
 		crossSystemMap.put("r26", R.drawable.coordinate_system_26_r);
 		crossSystemMap.put("r27", R.drawable.coordinate_system_27_r);
@@ -55,6 +60,7 @@ public class CrossSystemMap {
 		crossSystemMap.put("y6", R.drawable.coordinate_system_06_y);
 		crossSystemMap.put("y7", R.drawable.coordinate_system_07_y);
 		crossSystemMap.put("y8", R.drawable.coordinate_system_08_y);
+		
 		crossSystemMap.put("y9", R.drawable.coordinate_system_09_y);
 		crossSystemMap.put("y10", R.drawable.coordinate_system_10_y);
 		crossSystemMap.put("y11", R.drawable.coordinate_system_11_y);
@@ -63,6 +69,7 @@ public class CrossSystemMap {
 		crossSystemMap.put("y14", R.drawable.coordinate_system_14_y);
 		crossSystemMap.put("y15", R.drawable.coordinate_system_15_y);
 		crossSystemMap.put("y16", R.drawable.coordinate_system_16_y);
+		
 		crossSystemMap.put("y17", R.drawable.coordinate_system_17_y);
 		crossSystemMap.put("y18", R.drawable.coordinate_system_18_y);
 		crossSystemMap.put("y19", R.drawable.coordinate_system_19_y);
@@ -71,6 +78,7 @@ public class CrossSystemMap {
 		crossSystemMap.put("y22", R.drawable.coordinate_system_22_y);
 		crossSystemMap.put("y23", R.drawable.coordinate_system_23_y);
 		crossSystemMap.put("y24", R.drawable.coordinate_system_24_y);
+		
 		crossSystemMap.put("y25", R.drawable.coordinate_system_25_y);
 		crossSystemMap.put("y26", R.drawable.coordinate_system_26_y);
 		crossSystemMap.put("y27", R.drawable.coordinate_system_27_y);
@@ -84,7 +92,21 @@ public class CrossSystemMap {
 	}
 
 	
-	public static Integer getErrMessage(String errcode){
+	public static Integer getErrMessage(String color,int num){
+		String errcode = null;
+		int p = 0;
+		if (num == 0) {
+			p = 32;
+		}else if (num == -1) {
+			p = 31;
+		}else if (num == 33) {
+			p = 1;
+		}else if (num == 34) {
+			p = 2;
+		}else {
+			p = num;
+		}
+		errcode = color + p;
 		return crossSystemMap.get(errcode);
 		
 	}

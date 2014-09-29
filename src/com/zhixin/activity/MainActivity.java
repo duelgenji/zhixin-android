@@ -27,6 +27,7 @@ import com.zhixin.service.SettingJpushAliasService;
 import com.zhixin.service.UploadUserJpushAliasService;
 import com.zhixin.settings.MyApplication;
 import com.zhixin.settings.SettingValues;
+import com.zhixin.utils.LoadAddressUtil;
 import com.zhixin.utils.UpdateManager;
 
 public class MainActivity extends FragmentActivity {
@@ -88,6 +89,7 @@ public class MainActivity extends FragmentActivity {
 							fm.popBackStack();
 						} else {
 
+							
 							XinLiMapFragment xinliMapFragment = new XinLiMapFragment();
 
 							transaction = fm.beginTransaction();
@@ -251,6 +253,7 @@ public class MainActivity extends FragmentActivity {
 		new AsyncTask<Void, Void, Boolean>() {
 			@Override
 			protected Boolean doInBackground(Void... params) {
+				LoadAddressUtil.loadAddress();
 				SharedPreferences sharedPref = MainActivity.this
 						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 								Context.MODE_PRIVATE);

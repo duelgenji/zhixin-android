@@ -1,5 +1,3 @@
-package com.zhixin.wxapi;
-
 /*
  * 官网地站:http://www.ShareSDK.cn
  * 技术支持QQ: 4006852216
@@ -8,7 +6,7 @@ package com.zhixin.wxapi;
  * Copyright (c) 2013年 ShareSDK.cn. All rights reserved.
  */
 
-
+package com.zhixin.wxapi;
 
 import android.content.Intent;
 import android.widget.Toast;

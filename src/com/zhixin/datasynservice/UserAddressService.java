@@ -23,18 +23,18 @@ public class UserAddressService {
     public static class UserAddressSqlMaker {
 
         public static String makeSql() {
-            String sql = "select _id,memberId,dzId,name,sfId,csId,dqId," +
+            String sql = "select _id,userId,dzId,name,sfId,csId,dqId," +
                     "address,postCode,isDefault,phone,sfmc,csmc,dqmc" +
                     " from user_address " +
-                    "where memberId="
+                    "where userId="
                     + CurrentUserHelper.getCurrentUserId();
             return sql;
         }
 
         public static String makeDefaultAddressSql() {
-            String sql = "select _id,memberId,dzId,name," +
+            String sql = "select _id,userId,dzId,name," +
                     "address,isDefault,phone from user_address " +
-                    "where isDefault='1' and memberId="
+                    "where isDefault='1' and userId="
                     + CurrentUserHelper.getCurrentUserId();
             return sql;
         }

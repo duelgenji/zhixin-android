@@ -51,6 +51,7 @@ import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
 import com.zhixin.utils.RecToCircleTask;
+import com.zhixin.utils.ShareUtil;
 
 import eu.janmuller.android.simplecropimage.CropImage;
 
@@ -85,6 +86,8 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 	private String signature;
 	private String localSignature;
 	
+	private View rootView;
+	
 	static final int PICK_PIC_FROM_CAMERA_ACTION = 10;
 	static final int PICK_PIC_FORM_GALLERY_ACTION = 20;
 	static final int CROP_IMAGE_ACTION = 30;
@@ -94,32 +97,27 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		super.onAttach(activity);
 		this.mainActivity = activity;
 	}
-	//修改昵称的部分
-/**	Handler handler = new Handler(){
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case 0:
-				nickNameTextView.setText(nickName);
-				break;
-			default:
-				break;
-			}
-		};
-	};
-	*/
 	
 	//初始化	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.me_main, container,
-				false);
-		initView(view);
+		if (rootView == null) {
+			rootView = inflater.inflate(R.layout.me_main, container,
+					false);
+			initView(rootView);
+			
+			 String requestUrl = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_ADD);
+			new LoadDataTask1().execute(1,requestUrl,null,HttpClient.TYPE_GET);
+		}else {
+			ViewGroup parent = (ViewGroup) rootView.getParent();
+			if (parent != null) {
+				parent.removeView(rootView);
+			}
+		}
 		
-		 String requestUrl = SettingValues.URL_PREFIX
-					+ getString(R.string.URL_USER_INFO_ADD);
-		new LoadDataTask1().execute(1,requestUrl,null,HttpClient.TYPE_GET);
-		return view;
+		return rootView;
 		
 	}
 	
@@ -128,8 +126,6 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		txtPageTitle.setText(this.getString(R.string.title_me));
 		
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
-//		nickName = CurrentUserHelper.getCurrentNickName();
-//		nickNameTextView.setText(nickName);
 		UserInfo userInfo = new UserInfo();
 		UserInfoDao userInfoDao = new UserInfoDao();
 		userInfo = userInfoDao.getUserByphone(CurrentUserHelper.getCurrentPhone());
@@ -301,8 +297,8 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 			v.setEnabled(true);
 			break;
 		case R.id.layoutShareAppComp:
-			intent = new Intent(mainActivity, ShareActivity.class);
-			startActivity(intent);
+			ShareUtil.showShare(getString(R.string.share_title_sharesoft),
+					getString(R.string.share_content_sharesoft));
 			v.setEnabled(true);
 			break;
 		default:
@@ -428,7 +424,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		@Override
 		protected void onPostExecute(JSONObject result) {
 			try {
-				Integer syncType=result.getInt("syncType");
+				Integer syncType = result.getInt("syncType");
 				switch(syncType){
 				case 1:
 					if (result != null && result.getString("success").equals("1")) {

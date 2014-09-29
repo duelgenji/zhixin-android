@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
@@ -62,6 +63,8 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 	
 	private RelativeLayout layoutMoodFace1,layoutMoodFace2,layoutMoodFace3,layoutMoodFace4,layoutMoodFace5,layoutMoodFace6;
 	
+	Toast toast;
+	
 	private boolean isMoodOpen=false;
 	private boolean isMoodFirst=true;
 	
@@ -72,6 +75,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		View view = inflater.inflate(R.layout.main_activity, container,
 				false);
 		_this=this;
+		toast=new Toast(mainActivity);
 		imageLoader = ImageLoader.getInstance();
 		imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
 				.cacheOnDisc(true).build();
@@ -79,6 +83,8 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		ll_XLZC = (LinearLayout) view.findViewById(R.id.ll_XLZC);
 		ll_XLZC.setOnClickListener(this);
 		img1 = (ImageView) view.findViewById(R.id.menu_heart_beat);
+		((AnimationDrawable) img1.getDrawable()).stop();
+		((AnimationDrawable) img1.getDrawable()).selectDrawable(0);
 		//心情回收站的动画
 		ll_XQHSZ = (LinearLayout) view.findViewById(R.id.ll_XQHSZ);
 		ll_XQHSZ.setOnClickListener(this);
@@ -178,11 +184,18 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 			v.setEnabled(true);
 			break;
 		case R.id.ll_XLZC:
-			AnimationDrawable hbDrawable = (AnimationDrawable) img1.getDrawable();
-			hbDrawable.start();
-			//intent = new Intent(mainActivity,XinliziceListActivity.class);
-			intent = new Intent(mainActivity,SelfListActivity.class);
-			startActivity(intent);
+			final AnimationDrawable hbDrawable = (AnimationDrawable) img1.getDrawable();
+			hbDrawable.run();
+			 Handler handler = new Handler();  
+		        handler.postDelayed(new Runnable() {  
+		            public void run() {  
+		               //此处调用第二个动画播放方法     
+		            	Intent intent = new Intent(mainActivity,SelfListActivity.class);
+		    			startActivity(intent);
+		            	hbDrawable.selectDrawable(0);
+		            }  
+		        }, 500);  
+		
 			v.setEnabled(true);
 			break;
 			
@@ -194,8 +207,8 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		case R.id.ll_QWCS:
 			InitialAnimation();
 			img3.startAnimation(animation4);
-			intent = new Intent(mainActivity,InterestListActivity.class);
-			startActivity(intent);
+//			intent = new Intent(mainActivity,InterestListActivity.class);
+//			startActivity(intent);
 			v.setEnabled(true);
 			break;
 		case R.id.ll_XLQZ:
@@ -219,7 +232,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 			else{
 				isMoodOpen=false;
 				imgMoodArrow.setBackgroundResource(R.drawable.today_mood_arrow_up);
-				AnimationUtils.startImgBackGround(imgMoodArrow);
+				//AnimationUtils.startImgBackGround(imgMoodArrow);
 				AnimationUtils.performAnimateMarginTop(layoutPickMood, 810,1500, 500);
 				imgMoodPanel.setEnabled(true);
 			} 
@@ -227,7 +240,7 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		case R.id.img_mood_close:
 			isMoodOpen=false;
 			imgMoodArrow.setBackgroundResource(R.drawable.today_mood_arrow_up);
-			AnimationUtils.startImgBackGround(imgMoodArrow);
+			//AnimationUtils.startImgBackGround(imgMoodArrow);
 			AnimationUtils.performAnimateMarginTop(layoutPickMood, 810,1500, 500);
 			v.setEnabled(true);
 			imgMoodPanel.setEnabled(true);
@@ -236,27 +249,27 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_1:
-			Toast.makeText(mainActivity, "face1", 3).show();
+			showToast("face1");
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_2:
-			Toast.makeText(mainActivity, "face2", 3).show();
+			showToast("face2");
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_3:
-			Toast.makeText(mainActivity, "face3", 3).show();
+			showToast("face3");
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_4:
-			Toast.makeText(mainActivity, "face4", 3).show();
+			showToast("face4");
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_5:
-			Toast.makeText(mainActivity, "face5", 3).show();
+			showToast("face5");
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_6:
-			Toast.makeText(mainActivity, "face6", 3).show();
+			showToast("face6");
 			v.setEnabled(true);
 			break;
 		default:
@@ -268,7 +281,35 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 	private void InitialAnimation() {
 		animation3 = new RotateAnimation(0.0f, -20.0f,30,43);
 		//旋转起始角度；终止角度；圆心的X坐标；圆心的Y坐标
-		animation4 = new RotateAnimation(0.0f, -90.0f, 0, 0);
+		//animation4 = new RotateAnimation(0.0f, -90.0f, 0, 0);
+		animation4 = new RotateAnimation(0, 180,Animation.RELATIVE_TO_SELF, 
+				0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+		LinearInterpolator lin = new LinearInterpolator();  
+		animation4.setInterpolator(lin); 
+		animation4.setDuration(300);
+		animation4.setAnimationListener(new AnimationListener() {  
+		      
+		    @Override  
+		    public void onAnimationStart(Animation animation) {  
+		        // TODO Auto-generated method stub  
+		          
+		    }  
+		      
+		    @Override  
+		    public void onAnimationRepeat(Animation animation) {  
+		        // TODO Auto-generated method stub  
+		          
+		    }  
+		      
+		    @Override  
+		    public void onAnimationEnd(Animation animation) {  
+		        // TODO Auto-generated method stub  
+		    	Intent intent = new Intent(mainActivity,InterestListActivity.class);
+				startActivity(intent); 
+		    }  
+		});  
+		
+		
 		 animation5 = new ScaleAnimation(1f, 1.2f, 1f, 1.2f,
 		 Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF,
 		 0.8f);
@@ -334,4 +375,11 @@ LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener{
 		
 	}
 	
+	
+    private void showToast(String content) {
+    	toast.cancel();
+    	toast=Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT);
+		toast.show();
+    }
+
 }

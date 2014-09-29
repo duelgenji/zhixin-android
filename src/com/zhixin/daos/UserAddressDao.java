@@ -109,7 +109,7 @@ public class UserAddressDao {
 
     private void deleteAllAddress() {
         if (DbManager.getDatabase().tableExists(UserAddress.class)) {
-            String sql = "delete from user_address where memberId="
+            String sql = "delete from user_address where userId="
                     + CurrentUserHelper.getCurrentUserId();
             DbManager.getDatabase().exeCustomerSql(sql);
         }
@@ -117,7 +117,7 @@ public class UserAddressDao {
 
     private void setNoDefault() {
         if (DbManager.getDatabase().tableExists(UserAddress.class)) {
-            String sql = "update user_address set isDefault='0' where memberId="
+            String sql = "update user_address set isDefault='0' where userId="
                     + CurrentUserHelper.getCurrentUserId();
             DbManager.getDatabase().exeCustomerSql(sql);
         }

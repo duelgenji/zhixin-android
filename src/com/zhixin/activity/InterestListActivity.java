@@ -320,32 +320,33 @@ public class InterestListActivity extends FragmentActivity implements
 				.setOnDismissListener(new OrderPickerDialogDismissListener());
 		quceshiOrderPickerDialog.setOwnerActivity(this);
 
-		new AsyncTask<Void, Void, Boolean>() {
-			@Override
-			protected Boolean doInBackground(Void... params) {
-				SharedPreferences sharedPref = _this.getSharedPreferences(
-						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-				return sharedPref.getBoolean(
-						SettingValues.INSTRUCTION_QUCESHI_LIST1, true);
-			}
-
-			@Override
-			protected void onPostExecute(Boolean result) {
-				if (result) {
-					InstructionDialog qushouyeFirst = new InstructionDialog(
-							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
-					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
-						@Override
-						public void onDismiss(DialogInterface dialog) {
-							new InstructionDialog(_this,
-									SettingValues.INSTRUCTION_QUCESHI_LIST2)
-									.show();
-						}
-					});
-					qushouyeFirst.show();
-				}
-			}
-		}.execute();
+		//第一次进入 列表 加载引导图
+//		new AsyncTask<Void, Void, Boolean>() {
+//			@Override
+//			protected Boolean doInBackground(Void... params) {
+//				SharedPreferences sharedPref = _this.getSharedPreferences(
+//						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
+//				return sharedPref.getBoolean(
+//						SettingValues.INSTRUCTION_QUCESHI_LIST1, true);
+//			}
+//
+//			@Override
+//			protected void onPostExecute(Boolean result) {
+//				if (result) {
+//					InstructionDialog qushouyeFirst = new InstructionDialog(
+//							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
+//					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
+//						@Override
+//						public void onDismiss(DialogInterface dialog) {
+//							new InstructionDialog(_this,
+//									SettingValues.INSTRUCTION_QUCESHI_LIST2)
+//									.show();
+//						}
+//					});
+//					qushouyeFirst.show();
+//				}
+//			}
+//		}.execute();
 	}
 
 	@Override

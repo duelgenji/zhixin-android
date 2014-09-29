@@ -21,6 +21,8 @@ public class FristInIntroduceActivity extends FragmentActivity {
 	/**页面数*/
 	private static final int NUM_PAGES = 4;
 
+	public static final String IS_EASTER_EGG = "is_easter_egg";
+
 	private ViewPager mPager;
 
 	private PagerAdapter mPagerAdapter;
@@ -65,6 +67,10 @@ public class FristInIntroduceActivity extends FragmentActivity {
 
 		@Override
 		public Fragment getItem(int position) {
+			if(position==3){
+				boolean isEasterEgg=getIntent().getBooleanExtra(IS_EASTER_EGG, false);
+				return new IntroduceFragment(position,isEasterEgg);
+			}
 			return new IntroduceFragment(position);
 
 		}

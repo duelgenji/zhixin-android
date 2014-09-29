@@ -105,6 +105,10 @@
     <string name="URL_SELF_SUBMIT_QUESTION">selfs/calculateSelfResult</string>
     
     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
+    <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string> 
+    <string name="URL_USER_ADD_ADDRESS">userReceiveAddresses/addAddress</string>
+    
+    
     
     
 

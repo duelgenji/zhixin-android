@@ -176,12 +176,12 @@ public class FragmentStatePagerSupport extends Fragment implements
 				view = inflater.inflate(R.layout.fragment_xinlimap_character, container,
 						false);
 
-
-				btnSwitchChart = (ImageButton) view
-						.findViewById(R.id.btn_switch_chart);
+//
+//				btnSwitchChart = (ImageButton) view
+//						.findViewById(R.id.btn_switch_chart);
 				btnSwitchChart.setOnClickListener(_this);
 
-				webView = (WebView) view.findViewById(R.id.webView);
+//				webView = (WebView) view.findViewById(R.id.webView);
 				WebSettings settings = webView.getSettings();
 				// settings.setUseWideViewPort(true);
 				// settings.setDefaultZoom(WebSettings.ZoomDensity.FAR);
@@ -360,9 +360,9 @@ public class FragmentStatePagerSupport extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btn_switch_chart:
-			switchChart();
-			break;
+//		case R.id.btn_switch_chart:
+//			switchChart();
+//			break;
 		case R.id.btn_switch_animal:
 			this.swtichAnimal();
 			Toast.makeText(mainActivity, "switch", 3).show();

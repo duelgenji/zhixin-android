@@ -8,7 +8,7 @@ public class PhoneHelper {
 
 	private static int PHONE_HEIGHT=0;
 	private static int PHONE_WIDTH=0;
-	private static int PHONE_DENSITY=0;
+	private static float PHONE_DENSITY=0;
 	
 	public static void savePhoneHeight(int height){
 		SharedPreferences sharedPref = MyApplication.getAppContext()
@@ -54,18 +54,18 @@ public class PhoneHelper {
 		return PHONE_WIDTH;
 	}
 
-	public static void savePhoneDensity(int density){
+	public static void savePhoneDensity(float density){
 		SharedPreferences sharedPref = MyApplication.getAppContext()
 				.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 						Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
-		editor.putInt(SettingValues.KEY_PHONE_DENSITY, density);
+		editor.putFloat(SettingValues.KEY_PHONE_DENSITY, density);
 		editor.commit();
 		PHONE_DENSITY = density;
 
 	}
 
-	public static int getPhoneDensity() {
+	public static float getPhoneDensity() {
 		if (PHONE_DENSITY == 0) {
 			SharedPreferences sharedPref = MyApplication.getAppContext()
 					.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,

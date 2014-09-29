@@ -8,7 +8,7 @@ public final class DbManager {
 
 	private static final int DB_VERSION_CODE = 3;
 
-	private static final String PUBLIC_DATABASE_NAME = "qubaopen";
+	private static final String PUBLIC_DATABASE_NAME = "qubaopen.db";
 
 	private static FinalDb publicDatabase = null;
 
