@@ -109,7 +109,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 	static final int CROP_IMAGE_ACTION = 30;
 	public static final String TEMP_PHOTO_FILE_PATH = Environment
 			.getExternalStorageDirectory()
-			+ SettingValues.PATH_USER_TX_PREFIX
+			+ SettingValues.PATH_USER_PREFIX
 			+ "temp.jpg";
 	private class RecToCircleTaskInQushejiao extends
 	AsyncTask<String, Void, Bitmap> {
@@ -385,7 +385,7 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		@Override
 		public void onClick(View v) {
 			File file = new File(Environment.getExternalStorageDirectory()
-					+ SettingValues.PATH_USER_TX_PREFIX);
+					+ SettingValues.PATH_USER_PREFIX);
 			if (!file.exists()) {
 				file.mkdirs();
 			}
@@ -476,14 +476,14 @@ public class RegistPhoneActivity extends Activity implements View.OnClickListene
 		cursor.moveToFirst();
 	
 		File fileFolder = new File(Environment.getExternalStorageDirectory()
-				+ SettingValues.PATH_USER_TX_PREFIX);
+				+ SettingValues.PATH_USER_PREFIX);
 		if (!fileFolder.exists()) {
 			fileFolder.mkdirs();
 		}
 
 		// Program exploit:if there is no external storage,program will crash
 		final String target = Environment.getExternalStorageDirectory()
-				+ SettingValues.PATH_USER_TX_PREFIX
+				+ SettingValues.PATH_USER_PREFIX
 				+ FilenameUtils.getName(cursor.getString(cursor
 						.getColumnIndex("picUrl")));
 		File file = new File(target);

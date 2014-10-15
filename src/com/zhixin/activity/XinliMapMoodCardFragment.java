@@ -35,6 +35,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zhixin.R;
 import com.zhixin.customui.CardView;
+import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.MapData;
 import com.zhixin.logic.MapDataObject;
 import com.zhixin.settings.PhoneHelper;
@@ -47,11 +48,15 @@ public class XinliMapMoodCardFragment extends Fragment implements
 
 	private Activity mainActivity;
 
+	/** loading */
+	private QubaopenProgressDialog progressDialog;
+
 	private ImageView moodImageView;
 	private WebView moodWebView;
 	private TextView moodTips, moodName, moodScore, moodContent;
 	private ScrollView moodCardScrollView;
 	private CardView moodCardView;
+	private ImageView moodImaBg;
 
 	private DisplayImageOptions options;
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
@@ -74,9 +79,14 @@ public class XinliMapMoodCardFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (rootView == null) {
-			rootView = inflater.inflate(R.layout.fragment_xinlimap_mood,
+			rootView = inflater.inflate(R.layout.fragment_xinlimap_card_mood,
 					container, false);
+
 			initView();
+
+			if (!progressDialog.isShowing()) {
+				progressDialog.show();
+			}
 			String requestUrl = SettingValues.URL_PREFIX
 					+ getActivity().getString(R.string.URL_GET_MAP)
 					+ "?typeId=2";
@@ -95,7 +105,10 @@ public class XinliMapMoodCardFragment extends Fragment implements
 	}
 
 	private void initView() {
-
+		progressDialog = new QubaopenProgressDialog(mainActivity);
+		moodImaBg = (ImageView) rootView
+				.findViewById(R.id.img_xinlimap_mood_no_content_bg);
+		moodImaBg.setVisibility(View.GONE);
 		moodImageView = (ImageView) rootView.findViewById(R.id.mood_img);
 		moodWebView = (WebView) rootView.findViewById(R.id.mood_webView);
 		moodTips = (TextView) rootView.findViewById(R.id.mood_lock_tips);
@@ -109,9 +122,10 @@ public class XinliMapMoodCardFragment extends Fragment implements
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.interest_list_default_image)
 				.showImageForEmptyUri(R.drawable.interest_list_default_image)
-				.showImageOnFail(R.drawable.interest_list_default_image).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
+				.showImageOnFail(R.drawable.interest_list_default_image)
+				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
 				.displayer(new RoundedBitmapDisplayer(20)).build();
+
 		LinearLayout.LayoutParams imgLp = (LinearLayout.LayoutParams) moodImageView
 				.getLayoutParams();
 		imgLp.height = imgHeight;
@@ -156,39 +170,46 @@ public class XinliMapMoodCardFragment extends Fragment implements
 			return result;
 		}
 
-		@SuppressWarnings("unused")
 		@Override
 		protected void onPostExecute(JSONObject result) {
 			try {
 				Integer syncType = result.getInt("syncType");
 				switch (syncType) {
 				case 1:
-					if (result != null) {
-						if (result.getString("success").equals("1")) {
-							List<MapData> data = new ArrayList<MapData>();
-							List<MapData> dataList = new ArrayList<MapData>();
-							data = MapDataObject.manageDataFromJson(result);
-							Log.i("排序后的数据", data + "");
-							for (int i = 0; i < data.size(); i++) {
-								if (data.get(i).isMapDataIsSpecial()) {
-									hsMapData = data.get(i);
-									Log.i("top", "mood===" + hsMapData + "");
-								} else {
-									dataList.add(data.get(i));
+					if (result.getString("success").equals("1")) {
+						if (result.has("data")) {
+							if (result.getJSONArray("data").length() == 0) {
+								moodImaBg.setVisibility(View.VISIBLE);
+							} else {
+								moodImaBg.setVisibility(View.GONE);
+								List<MapData> data = new ArrayList<MapData>();
+								List<MapData> dataList = new ArrayList<MapData>();
+								data = MapDataObject.manageDataFromJson(result);
+								Log.i("排序后的数据", data + "");
+								for (int i = 0; i < data.size(); i++) {
+									if (data.get(i).isMapDataIsSpecial()) {
+										hsMapData = data.get(i);
+										Log.i("top", "mood===" + hsMapData + "");
+									} else {
+										dataList.add(data.get(i));
+									}
 								}
+								moodCardView.setMapList(dataList);
+								setMoodView();
+								Log.i("top", "mood---" + hsMapData + "");
 							}
-							moodCardView.setMapList(dataList);
-							setMoodView();
-							Log.i("top", "mood---" + hsMapData + "");
 
 						} else {
-							rootView.setBackgroundResource(R.drawable.xinlimap_no_map_bg);
+							moodImaBg.setVisibility(View.VISIBLE);
 						}
-
+						if (progressDialog.isShowing()) {
+							progressDialog.dismiss();
+						}
 					} else {
 						Toast.makeText(mainActivity, "获取地图失败",
 								Toast.LENGTH_SHORT).show();
 					}
+
 					break;
 				default:
 					break;

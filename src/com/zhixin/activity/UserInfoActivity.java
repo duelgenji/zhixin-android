@@ -48,99 +48,99 @@ public class UserInfoActivity extends FragmentActivity implements
 	private ImageButton iBtnPageBack;
 	private UserInfoActivity _this;
 	private Boolean pickerExist;
-//	private Dialog currentDialog;
-	/** 性别*/
+	/** 性别 */
 	private LinearLayout layoutSexPersonalProfile;
-	/** 血型*/
+	/** 血型 */
 	private LinearLayout layoutBloodTypePersonalProfile;
-	/** 身份认证*/
+	/** 身份认证 */
 	private LinearLayout layoutAuthenticationPersonalProfile;
-	/** 收货地址*/
+	/** 收货地址 */
 	private LinearLayout layoutAddressPersonalProfile;
-	/** 出生日期*/
+	/** 出生日期 */
 	private LinearLayout layoutBirthdayPersonalProfile;
-	/** 电子邮箱*/
+	/** 电子邮箱 */
 	private LinearLayout layoutEmailPersonalProfile;
-	/** 性别显示框*/
+	/** 性别显示框 */
 	private TextView txtSexPersonalProfile;
-	/** 出生日期显示框*/
+	/** 出生日期显示框 */
 	private TextView txtBirthPersonalProfile;
-	/** 血型显示框*/
+	/** 血型显示框 */
 	private TextView txtBloodTypePersonalProfile;
-	/** 地址显示框*/
+	/** 地址显示框 */
 	private TextView txtAddressPersonalProfile;
-	/** 邮箱显示框*/
+	/** 邮箱显示框 */
 	private TextView txtEmailPersonalProfile;
-	/** 身份认证显示框*/
+	/** 身份认证显示框 */
 	private TextView txtAuthenticationPersonalProfile;
-	/** 邮箱*/
+	/** 邮箱 */
 	private long userId;
 	private int mYear, mMonth, mDay;
-//	private QubaopenProgressDialog progressDialog;
-	private Integer sex,bloodType;
-	private Integer localSex,localBloodType;
-//	private String birthDay,defaultAddress,IdCard,email;
-	private String currentSex,currentBirthDay,currentIdCard,currentBloodType,currentDefaultAddress,currentEmail;
-	private String localSexStr,localBloodTypeStr,localBirthDay,localIdCard,localDefaultAddress,localEmail;
-	
-//	private UserInfo user;
+	// private QubaopenProgressDialog progressDialog;
+	private Integer sex, bloodType;
+	private Integer localSex, localBloodType;
+	// private String birthDay,defaultAddress,IdCard,email;
+	private String currentSex, currentBirthDay, currentIdCard,
+			currentBloodType, currentDefaultAddress, currentEmail;
+	private String localSexStr, localBloodTypeStr, localBirthDay, localIdCard,
+			localDefaultAddress, localEmail;
+
+	// private UserInfo user;
 	private UserInfoDao userInfoDao;
-	
-	Handler handler = new Handler(){
+
+	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			
+
 			case 0:
 				if (currentSex != null) {
-					
-					if(currentSex.equals("MALE")){
+
+					if (currentSex.equals("MALE")) {
 						txtSexPersonalProfile.setText("男");
-					}else if(currentSex.equals("FEMALE")){
+					} else if (currentSex.equals("FEMALE")) {
 						txtSexPersonalProfile.setText("女");
-					}else {
+					} else {
 						txtSexPersonalProfile.setText("无");
 					}
-				}else {
+				} else {
 					txtSexPersonalProfile.setText(localSexStr);
 				}
 				if (currentBloodType != null) {
 					if (currentBloodType.equals("A")) {
 						txtBloodTypePersonalProfile.setText("A");
-					}else if(currentBloodType.equals("B")) {
+					} else if (currentBloodType.equals("B")) {
 						txtBloodTypePersonalProfile.setText("B");
-					}else if(currentBloodType.equals("O")) {
+					} else if (currentBloodType.equals("O")) {
 						txtBloodTypePersonalProfile.setText("O");
-					}else if(currentBloodType.equals("AB")) {
+					} else if (currentBloodType.equals("AB")) {
 						txtBloodTypePersonalProfile.setText("AB");
-					}else {
+					} else {
 						txtBloodTypePersonalProfile.setText("其他");
 					}
-				}else {
+				} else {
 					txtBloodTypePersonalProfile.setText(localBloodTypeStr);
 				}
-				
-				
+
 				if (currentBirthDay != null) {
 					txtBirthPersonalProfile.setText(currentBirthDay);
-				}else {
+				} else {
 					txtBirthPersonalProfile.setText(localBirthDay);
 				}
-				
+
 				if (currentIdCard != null) {
 					txtAuthenticationPersonalProfile.setText(currentIdCard);
-				}else {
+				} else {
 					txtAuthenticationPersonalProfile.setText(localIdCard);
 				}
-				
+
 				if (currentEmail != null) {
 					txtEmailPersonalProfile.setText(currentEmail);
-				}else {
+				} else {
 					txtEmailPersonalProfile.setText(localEmail);
 				}
-				
+
 				if (currentDefaultAddress != null) {
 					txtAddressPersonalProfile.setText(currentDefaultAddress);
-				}else {
+				} else {
 					txtAddressPersonalProfile.setText(localDefaultAddress);
 				}
 				break;
@@ -149,7 +149,6 @@ public class UserInfoActivity extends FragmentActivity implements
 			}
 		};
 	};
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,11 +159,10 @@ public class UserInfoActivity extends FragmentActivity implements
 		initView();
 		userInfoDao = new UserInfoDao();
 		userId = CurrentUserHelper.getCurrentUserId();
-		
+
 	}
-	
-	
-	private void initView(){
+
+	private void initView() {
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this
 				.getString(R.string.title_user_personal_profile));
@@ -173,157 +171,161 @@ public class UserInfoActivity extends FragmentActivity implements
 
 		txtSexPersonalProfile = (TextView) this
 				.findViewById(R.id.txtSexPersonalProfile);
-		
+
 		txtBirthPersonalProfile = (TextView) this
 				.findViewById(R.id.txtBirthPersonalProfile);
-		
+
 		txtBloodTypePersonalProfile = (TextView) this
 				.findViewById(R.id.txtBloodTypePersonalProfile);
-		
+
 		txtAddressPersonalProfile = (TextView) this
 				.findViewById(R.id.txtAddressPersonalProfile);
-		
+
 		txtEmailPersonalProfile = (TextView) this
 				.findViewById(R.id.txtEmailPersonalProfile);
-		
+
 		txtAuthenticationPersonalProfile = (TextView) this
 				.findViewById(R.id.txtAuthenticationPersonalProfile);
 
 		layoutSexPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutSexPersonalProfile);
 		layoutSexPersonalProfile.setOnClickListener(this);
-		
+
 		layoutBloodTypePersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutBloodTypePersonalProfile);
 		layoutBloodTypePersonalProfile.setOnClickListener(this);
-		
+
 		layoutBirthdayPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutBirthdayPersonalProfile);
 		layoutBirthdayPersonalProfile.setOnClickListener(this);
-		
+
 		layoutAuthenticationPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutAuthenticationPersonalProfile);
 		layoutAuthenticationPersonalProfile.setOnClickListener(this);
-		
+
 		layoutAddressPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutAddressPersonalProfile);
 		layoutAddressPersonalProfile.setOnClickListener(this);
-		
+
 		layoutEmailPersonalProfile = (LinearLayout) this
 				.findViewById(R.id.layoutEmailPersonalProfile);
 		layoutEmailPersonalProfile.setOnClickListener(this);
-		
-//		progressDialog = new QubaopenProgressDialog(this);
+
+		// progressDialog = new QubaopenProgressDialog(this);
 		pickerExist = false;
-		
+
 	}
+
 	@Override
 	protected void onStart() {
 		super.onStart();
 		getSupportLoaderManager().restartLoader(0, null, _this);
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		StatService.onResume(this);
 	}
 
-	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject>{
+	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
 
-			@Override
-			protected JSONObject doInBackground(Object... params) {
-				JSONObject result=null;
-				Integer syncType=(Integer)params[0];
-				try {
-					switch(syncType){
-					case 0:
-						result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
-						result.put("syncType", syncType);
-						break;
-					case 1:
-						result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
-						result.put("syncType", syncType);
-						break;
-					case 2:
-						result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
-						result.put("syncType", syncType);
-						break;
-					default :
-						break;
-					}
-					Log.i("請求結果", result+"");
-				} catch (JSONException e) {
-					e.printStackTrace();
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result = null;
+			Integer syncType = (Integer) params[0];
+			try {
+				switch (syncType) {
+				case 0:
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
+				case 2:
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
+				default:
+					break;
 				}
-				return result;
+				Log.i("請求結果", result + "");
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
+			return result;
+		}
 
-			@Override
-			protected void onPostExecute(JSONObject result) {
-				try {
-					Integer syncType=result.getInt("syncType");
-					switch(syncType){
-					case 0:
-						if (result != null && result.getInt("success") == 1) {
-							userInfoDao.saveUserInfoSexById(userId, sex);
-							
-							//。。。。。。。。。
-							int code = result.getInt("success");
-							if(code == 1){
-								Message msg = Message.obtain();
-								msg.what = 0;
-								handler.sendMessage(msg);
-							}
-							showToast("修改性别成功！");
-						}else {
-							showToast("修改性别失败！");
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType = result.getInt("syncType");
+				switch (syncType) {
+				case 0:
+					if (result != null && result.getInt("success") == 1) {
+						userInfoDao.saveUserInfoSexById(userId, sex);
+
+						// 。。。。。。。。。
+						int code = result.getInt("success");
+						if (code == 1) {
+							Message msg = Message.obtain();
+							msg.what = 0;
+							handler.sendMessage(msg);
 						}
-						break;
-					case 1:
-						if (result != null && result.getInt("success") == 1) {
-							userInfoDao.saveUserInfoBirthDayById(userId, currentBirthDay);
-							
-							//。。。。。。。。。
-							int code = result.getInt("success");
-							if(code == 1){
-								Message msg = Message.obtain();
-								msg.what = 0;
-								handler.sendMessage(msg);
-							}
-							showToast("修改生日成功！");
-						}else {
-							showToast("修改生日失败！");
-						}
-						break;
-					case 2:
-						if (result != null && result.getInt("success") == 1) {
-							userInfoDao.saveUserInfoBloodTypeById(userId, bloodType);
-							
-							//。。。。。。。。。
-							int code = result.getInt("success");
-							if(code == 1){
-								Message msg = Message.obtain();
-								msg.what = 0;
-								handler.sendMessage(msg);
-							}
-							showToast("修改血型成功！");
-						}else {
-							showToast("修改血型失败！");
-						}
-						break;
-					default:
-						break;
+						showToast("修改性别成功！");
+					} else {
+						showToast("修改性别失败！");
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
+					break;
+				case 1:
+					if (result != null && result.getInt("success") == 1) {
+						userInfoDao.saveUserInfoBirthDayById(userId,
+								currentBirthDay);
+
+						// 。。。。。。。。。
+						int code = result.getInt("success");
+						if (code == 1) {
+							Message msg = Message.obtain();
+							msg.what = 0;
+							handler.sendMessage(msg);
+						}
+						showToast("修改生日成功！");
+					} else {
+						showToast("修改生日失败！");
+					}
+					break;
+				case 2:
+					if (result != null && result.getInt("success") == 1) {
+						userInfoDao
+								.saveUserInfoBloodTypeById(userId, bloodType);
+
+						// 。。。。。。。。。
+						int code = result.getInt("success");
+						if (code == 1) {
+							Message msg = Message.obtain();
+							msg.what = 0;
+							handler.sendMessage(msg);
+						}
+						showToast("修改血型成功！");
+					} else {
+						showToast("修改血型失败！");
+					}
+					break;
+				default:
+					break;
 				}
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-			
-			
-	    	
-	    }
-		
+		}
+
+	}
+
 	@Override
 	public void onClick(View v) {
 		Intent intent;
@@ -355,15 +357,16 @@ public class UserInfoActivity extends FragmentActivity implements
 			if (!pickerExist) {
 				intent = new Intent(_this, UserInfoEmailActivity.class);
 				if (currentEmail != null) {
-					if (!currentEmail.equals("")) {
-						intent.putExtra(UserInfoEmailActivity.INTENT_EMAIL, currentEmail);
-					}else {
-						intent.putExtra(UserInfoEmailActivity.INTENT_EMAIL, localEmail);
-					}
+					intent.putExtra(UserInfoEmailActivity.INTENT_EMAIL,
+							currentEmail);
+				} else {
+					intent.putExtra(UserInfoEmailActivity.INTENT_EMAIL,
+							localEmail);
 				}
-				
+
 				startActivity(intent);
 				v.setEnabled(false);
+				finish();
 			}
 			break;
 		case R.id.layoutAuthenticationPersonalProfile:
@@ -379,11 +382,6 @@ public class UserInfoActivity extends FragmentActivity implements
 						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
 				Boolean isAddressSaved = sharedPref.getBoolean(
 						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
-//				if (!isAddressSaved) {
-//					showToast("正在加载数据中");
-//					v.setEnabled(true);
-//					return;
-//				}
 				intent = new Intent(_this, UserInfoAddressActivity.class);
 				startActivity(intent);
 				v.setEnabled(false);
@@ -416,7 +414,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				.findViewById(R.id.btnFemaleSexPicker);
 		Button btnCancel = (Button) dialog
 				.findViewById(R.id.btnCancelSexPicker);
-//		currentDialog = dialog;
+		// currentDialog = dialog;
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -430,44 +428,46 @@ public class UserInfoActivity extends FragmentActivity implements
 				sex = 0;
 				txtSexPersonalProfile.setText("男");
 				JSONObject obj = new JSONObject();
-					if (sex != localSex) {
-						try {
-							
-							obj.put("sex", sex);
-							obj.put("id", userId);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-						String requestUrl = SettingValues.URL_PREFIX
-								+ getString(R.string.URL_USER_INFO_UPDATE);
-						new LoadDataTask().execute(0,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-						
+				if (sex != localSex) {
+					try {
+
+						obj.put("sex", sex);
+						obj.put("id", userId);
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
+					String requestUrl = SettingValues.URL_PREFIX
+							+ getString(R.string.URL_USER_INFO_UPDATE);
+					new LoadDataTask().execute(0, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
+				}
 				dialog.dismiss();
 			}
 		});
 		btnFemale.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+
 				currentSex = "FEMALE";
 				sex = 1;
 				txtSexPersonalProfile.setText("女");
 				JSONObject obj = new JSONObject();
-					if (sex != localSex) {
-						try {
-							
-							obj.put("sex", sex);
-							obj.put("id", userId);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-						String requestUrl = SettingValues.URL_PREFIX
-								+ getString(R.string.URL_USER_INFO_UPDATE);
-						new LoadDataTask().execute(0,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-						
+				if (sex != localSex) {
+					try {
+
+						obj.put("sex", sex);
+						obj.put("id", userId);
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
-					
+					String requestUrl = SettingValues.URL_PREFIX
+							+ getString(R.string.URL_USER_INFO_UPDATE);
+					new LoadDataTask().execute(0, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
+				}
+
 				dialog.dismiss();
 			}
 		});
@@ -475,7 +475,7 @@ public class UserInfoActivity extends FragmentActivity implements
 			currentSex = localSexStr;
 			sex = localSex;
 		}
-		
+
 		dialog.show();
 	}
 
@@ -526,8 +526,9 @@ public class UserInfoActivity extends FragmentActivity implements
 					}
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-					
+					new LoadDataTask().execute(2, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
 				}
 				dialog.dismiss();
 			}
@@ -549,8 +550,9 @@ public class UserInfoActivity extends FragmentActivity implements
 					}
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-					
+					new LoadDataTask().execute(2, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
 				}
 				dialog.dismiss();
 			}
@@ -571,8 +573,9 @@ public class UserInfoActivity extends FragmentActivity implements
 					}
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-					
+					new LoadDataTask().execute(2, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
 				}
 				dialog.dismiss();
 			}
@@ -594,8 +597,9 @@ public class UserInfoActivity extends FragmentActivity implements
 					}
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-					
+					new LoadDataTask().execute(2, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
 				}
 				dialog.dismiss();
 			}
@@ -616,23 +620,23 @@ public class UserInfoActivity extends FragmentActivity implements
 					}
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(2,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
-					
+					new LoadDataTask().execute(2, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+
 				}
 				dialog.dismiss();
 			}
 		});
-		
+
 		if (currentBloodType != null && !currentBloodType.equals("")) {
 			txtBloodTypePersonalProfile.setText(currentBloodType);
-		}else {
+		} else {
 			bloodType = localBloodType;
 		}
-		
-		
+
 		dialog.show();
 	}
-	
+
 	public void DatePicker() {
 		Calendar c = Calendar.getInstance();
 		mYear = c.get(Calendar.YEAR);
@@ -650,11 +654,12 @@ public class UserInfoActivity extends FragmentActivity implements
 				month = Integer.parseInt(sBirth.substring(5, 7)) - 1;
 				day = Integer.parseInt(sBirth.substring(8, 10));
 			}
-		};
+		}
+		;
 		datepicker.init(year, month, day, null);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(_this);
-		builder.setOnCancelListener(new DialogInterface.OnCancelListener(){
+		builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {
 				pickerExist = false;
@@ -668,7 +673,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				mYear = datepicker.getYear();
 				mMonth = datepicker.getMonth() + 1;
 				mDay = datepicker.getDayOfMonth();
-				
+
 				currentBirthDay = mYear + "-" + mMonth + "-" + mDay;
 				if (currentBirthDay != localBirthDay) {
 					JSONObject obj = new JSONObject();
@@ -680,7 +685,8 @@ public class UserInfoActivity extends FragmentActivity implements
 					}
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(1,requestUrl,obj,HttpClient.TYPE_PUT_JSON);
+					new LoadDataTask().execute(1, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
 				}
 				pickerExist = false;
 			}
@@ -695,21 +701,21 @@ public class UserInfoActivity extends FragmentActivity implements
 				});
 		if (currentBirthDay != null && !currentBirthDay.equals("")) {
 			txtBirthPersonalProfile.setText(currentBirthDay);
-			
-		}else {
+
+		} else {
 			currentBirthDay = localBirthDay;
 		}
-		
+
 		builder.show();
-	}		
-	
-	
+	}
+
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		return new SqlCursorLoader(this,
 				"select * from user_info where userId='" + userId
 						+ "' limit 1;", UserInfo.class);
 	}
+
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 		if (data.getCount() == 1) {
@@ -718,12 +724,14 @@ public class UserInfoActivity extends FragmentActivity implements
 			localBirthDay = data.getString(data.getColumnIndex("birthDay"));
 			localIdCard = data.getString(data.getColumnIndex("identityNumber"));
 			localBloodType = data.getInt(data.getColumnIndex("bloodType"));
-			localDefaultAddress = data.getString(data.getColumnIndex("address"));
+			localDefaultAddress = data
+					.getString(data.getColumnIndex("address"));
 			localEmail = data.getString(data.getColumnIndex("email"));
 			// set sex value
 			if (localSex == 1) {
 				localSexStr = "男";
-				txtSexPersonalProfile.setText(_this.getString(R.string.dialog_pick_sex_female));
+				txtSexPersonalProfile.setText(_this
+						.getString(R.string.dialog_pick_sex_female));
 			} else if (localSex == 0) {
 				localSexStr = "女";
 				txtSexPersonalProfile.setText(_this
@@ -742,13 +750,13 @@ public class UserInfoActivity extends FragmentActivity implements
 					localBirthDay = localBirthDay.substring(0, 10);
 			}
 			txtBirthPersonalProfile.setText(localBirthDay);
-			
-			//set idCard value
+
+			// set idCard value
 			if (localIdCard == null || localIdCard.equals("")) {
 				localIdCard = "";
 			}
 			txtAuthenticationPersonalProfile.setText(localIdCard);
-			
+
 			// set blood type value
 			if (localBloodType == 0) {
 				localBloodTypeStr = "A";
@@ -756,10 +764,12 @@ public class UserInfoActivity extends FragmentActivity implements
 						.getString(R.string.dialog_pick_blood_type_A));
 			} else if (localBloodType == 1) {
 				localBloodTypeStr = "B";
-				txtBloodTypePersonalProfile.setText(_this.getString(R.string.dialog_pick_blood_type_B));
+				txtBloodTypePersonalProfile.setText(_this
+						.getString(R.string.dialog_pick_blood_type_B));
 			} else if (localBloodType == 2) {
 				localBloodTypeStr = "O";
-				txtBloodTypePersonalProfile.setText(_this.getString(R.string.dialog_pick_blood_type_O));
+				txtBloodTypePersonalProfile.setText(_this
+						.getString(R.string.dialog_pick_blood_type_O));
 			} else if (localBloodType == 3) {
 				localBloodTypeStr = "AB";
 				txtBloodTypePersonalProfile.setText(_this
@@ -768,12 +778,12 @@ public class UserInfoActivity extends FragmentActivity implements
 				localBloodTypeStr = "其他";
 				txtBloodTypePersonalProfile.setText(_this
 						.getString(R.string.dialog_pick_blood_type_Other));
-			} 
+			}
 
 			// set email value
 			if (localEmail == null || localEmail.equals("")) {
 				localEmail = "";
-			} 
+			}
 			txtEmailPersonalProfile.setText(localEmail);
 
 			if (localDefaultAddress == null || localDefaultAddress.equals("")) {
@@ -787,6 +797,7 @@ public class UserInfoActivity extends FragmentActivity implements
 	public void onLoaderReset(Loader<Cursor> loader) {
 
 	}
+
 	private void showToast(String content) {
 		Toast.makeText(this, content, Toast.LENGTH_SHORT).show();
 	}

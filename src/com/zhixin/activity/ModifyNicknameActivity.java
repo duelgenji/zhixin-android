@@ -1,11 +1,9 @@
 package com.zhixin.activity;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -29,12 +27,11 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	private TextView titleOfThePage;
 	private EditText nicknameTextView;
 
-	private Context context;
+	// private Context context;
 	private ModifyNicknameActivity _this;
 	private TextView submit;
 	private ImageButton clearTextviewBtn;
 	private ImageButton iBtnPageBack;
-	private Toast nicknameTextViewEmptyToast;
 	private String nickName;
 	private String localNickName;
 	private long userId;
@@ -47,7 +44,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 		_this = this;
 		setContentView(R.layout.activity_modify_nickname);
 
-		context = this.getApplicationContext();
+		// context = this.getApplicationContext();
 		initView();
 	}
 
@@ -68,7 +65,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 		localNickName = getIntent().getStringExtra(INTENT_NICKNAME);
 		if (localNickName != null && !localNickName.equals("")) {
 			nicknameTextView.setText(localNickName);
-			nicknameTextView.setSelection(localNickName.length());
+			 nicknameTextView.setSelection(localNickName.length());
 		}
 	}
 
@@ -81,8 +78,6 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 			try {
 				switch (syncType) {
 				case 1:
-					// null。。。。传参方式是get
-					// (Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
@@ -113,7 +108,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 						Toast.makeText(_this, "修改昵称成功！", Toast.LENGTH_SHORT)
 								.show();
 					} else {
-						Toast.makeText(_this, "修改失败！", Toast.LENGTH_SHORT)
+						Toast.makeText(_this, "修改昵称失败！", Toast.LENGTH_SHORT)
 								.show();
 					}
 					break;
@@ -148,49 +143,39 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 			v.setEnabled(true);
 			break;
 		case R.id.submit:
-			nickName = nicknameTextView.getText().toString();
-			if (nickName.equals(localNickName)) {
-				onBackPressed();
-				v.setEnabled(true);
-			}
-			if (!StringUtils.isBlank(nickName)) {
-				if (!(nickName == null && nickName.equals(""))) {
-					if (nickName.getBytes().length <= 21) {
-						// do the things
-						// submit.setEnabled(false);
-						// 得到后台接口
-						String requestUrl = SettingValues.URL_PREFIX
-								+ ModifyNicknameActivity.this
-										.getString(R.string.URL_USER_INFO_UPDATE);
-						JSONObject jsonParams = new JSONObject();
-						userId = CurrentUserHelper.getCurrentUserId();
-						try {
-							jsonParams.put("nickName", nickName);
-							jsonParams.put("id", userId);
+			if (nicknameTextView.getText() != null) {
+				nickName = nicknameTextView.getText().toString();
+				if (!nickName.equals("")) {
+					if (nickName.getBytes().length <= 14) {
+						if (!nickName.equals(localNickName)) {
+							String requestUrl = SettingValues.URL_PREFIX
+									+ ModifyNicknameActivity.this
+											.getString(R.string.URL_USER_INFO_UPDATE);
+							JSONObject jsonParams = new JSONObject();
+							userId = CurrentUserHelper.getCurrentUserId();
+							try {
+								jsonParams.put("nickName", nickName);
+								jsonParams.put("id", userId);
 
-						} catch (JSONException e) {
-							e.printStackTrace();
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							new LoadDataTask().execute(1, requestUrl,
+									jsonParams, HttpClient.TYPE_PUT_JSON);
+						} else {
+							showToast("请填写新昵称！");
 						}
-						new LoadDataTask().execute(1, requestUrl, jsonParams,
-								HttpClient.TYPE_PUT_JSON);
 
-						submit.setEnabled(true);
 					} else {
 						showToast(_this
 								.getString(R.string.toast_nickname_length_too_long));
 					}
 				} else {
-					showToast(_this
-							.getString(R.string.toast_validate_code_not_empty));
+					showToast(_this.getString(R.string.nickname_empty));
 				}
+
 			} else {
-				if (nicknameTextViewEmptyToast == null) {
-					nicknameTextViewEmptyToast = Toast.makeText(
-							ModifyNicknameActivity.this,
-							ModifyNicknameActivity.this
-									.getString(R.string.nickname_empty), 3);
-				}
-				nicknameTextViewEmptyToast.show();
+				showToast(_this.getString(R.string.nickname_empty));
 			}
 
 			submit.setEnabled(true);
@@ -217,7 +202,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	}
 
 	private void showToast(String content) {
-		Toast.makeText(_this, content, 3).show();
+		Toast.makeText(_this, content, Toast.LENGTH_SHORT).show();
 	}
 
 }

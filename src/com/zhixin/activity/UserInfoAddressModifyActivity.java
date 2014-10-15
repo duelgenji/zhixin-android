@@ -5,7 +5,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -13,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -26,7 +26,6 @@ import com.zhixin.R;
 import com.zhixin.daos.UserAddressDao;
 import com.zhixin.dialog.AddressDialog;
 import com.zhixin.domain.UserAddress;
-import com.zhixin.settings.ErrHashMap;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
 import com.zhixin.utils.SqlCursorLoader;
@@ -54,8 +53,11 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 	private Button btnAddressModifyDelete;
 	private Button btnAddressModifyDefault;
 
-	private Dialog currentDialog;
 	private UserInfoAddressModifyActivity _this;
+	private UserAddressDao userAddressDao;
+	private JSONObject modifyParams;
+	private JSONObject defaultParams;
+
 	private int dzId;
 	private String sfdm;
 	private String csdm;
@@ -69,13 +71,12 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_user_info_address_modify);
 
 		_this = this;
-
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
 		txtPageTitle
 				.setText(this.getString(R.string.title_user_modify_address));
-		btnSubmit = (Button) this.findViewById(R.id.addressSubmit); 
+		btnSubmit = (Button) this.findViewById(R.id.addressSubmit);
 		btnSubmit.setOnClickListener(this);
 
 		txtAddressModifyName = (EditText) this
@@ -106,46 +107,65 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 	@Override
 	public void onClick(View v) {
 		v.setEnabled(false);
+		modifyParams = sendRequest();
 		switch (v.getId()) {
 		case R.id.backup_btn:
 			this.onBackPressed();
 			v.setEnabled(true);
 			break;
 		case R.id.addressSubmit:
-            sendRequest("0");
+			String modifyUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_MODIFY_USER_ADDRESS);
+			modifyUrl += "?id=" + dzId;
+			new LoadDataTask().execute(1, modifyUrl, modifyParams,
+					HttpClient.TYPE_POST_FORM);
 			v.setEnabled(true);
 			break;
 		case R.id.btnAddressModifyDelete:
-            //sendRequest("2");
+			final AlertDialog dlg = new AlertDialog.Builder(_this).create();
+			dlg.show();
+			Window window = dlg.getWindow();
+			window.setContentView(R.layout.dialog_alert_dialog);
+			// 为确认按钮添加事件,执行退出应用操作
+			TextView txtAlertContent = (TextView) window
+					.findViewById(R.id.txtAlertContent);
+			txtAlertContent.setText("确认删除地址？");
+			Button ok = (Button) window.findViewById(R.id.btnConfirm);
+			ok.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
 
-            final AlertDialog dlg = new AlertDialog.Builder(_this).create();
-            dlg.show();
-            Window window = dlg.getWindow();
-            window.setContentView(R.layout.dialog_alert_dialog);
-            // 为确认按钮添加事件,执行退出应用操作
-            TextView txtAlertContent=(TextView) window.findViewById(R.id.txtAlertContent);
-            txtAlertContent.setText("确认删除地址？");
-            Button ok = (Button) window.findViewById(R.id.btnConfirm);
-            ok.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    sendRequest("2");
-                    dlg.cancel();
-                }
-            });
-            // 关闭alert对话框架
-            Button cancel = (Button) window.findViewById(R.id.btnCancel);
-            cancel.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    dlg.cancel();//对话框关闭。
-                }
-            });
+					String deleteUrl = SettingValues.URL_PREFIX
+							+ getString(R.string.URL_DELETE_USER_ADDRESS);
+					deleteUrl += "?id=" + dzId;
+					new LoadDataTask().execute(3, deleteUrl, dzId,
+							HttpClient.TYPE_DELETE);
 
-
-
+					dlg.cancel();
+					_this.onBackPressed();
+				}
+			});
+			// 关闭alert对话框架
+			Button cancel = (Button) window.findViewById(R.id.btnCancel);
+			cancel.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					dlg.cancel();// 对话框关闭。
+				}
+			});
 			v.setEnabled(true);
 			break;
 		case R.id.btnAddressModifyDefault:
-            sendRequest("1");
+			String defaultUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_MODIFY_USER_ADDRESS);
+			defaultUrl += "?id=" + dzId;
+			try {
+				defaultParams = new JSONObject();
+				defaultParams.put("id", dzId);
+				defaultParams.put("defaultAddress", true);
+				new LoadDataTask().execute(2, defaultUrl, defaultParams,
+						HttpClient.TYPE_POST_FORM);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 			v.setEnabled(true);
 			break;
 		case R.id.txtAddressModifyArea:
@@ -155,14 +175,104 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 			break;
 		default:
 			break;
-
 		}
+	}
+
+	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result = null;
+			Integer syncType = (Integer) params[0];
+			try {
+				switch (syncType) {
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(),
+							params[2], (Integer) params[3]);
+					Log.i("modify", result + "");
+					result.put("syncType", syncType);
+					break;
+				case 2:
+					result = HttpClient.requestSync(params[1].toString(),
+							params[2], (Integer) params[3]);
+					Log.i("modify", result + "");
+					result.put("syncType", syncType);
+					break;
+				case 3:
+					result = HttpClient.requestSync(params[1].toString(), null,
+							(Integer) params[3]);
+					Log.i("delete", result + "");
+					result.put("syncType", syncType);
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType = result.getInt("syncType");
+				userAddressDao = new UserAddressDao();
+				switch (syncType) {
+				case 1:
+					if (result != null
+							&& result.getString("success").equals("1")) {
+
+						Toast.makeText(_this, "修改地址成功！", Toast.LENGTH_SHORT)
+								.show();
+						userAddressDao.updateSingleUserAddress(modifyParams);
+						UserInfoAddressActivity.userInfoAddressActivity.reSetAddress();
+						_this.onBackPressed();
+					} else {
+						Toast.makeText(_this, "修改地址失败！", Toast.LENGTH_SHORT)
+								.show();
+					}
+					break;
+				case 2:
+					if (result != null
+							&& result.getString("success").equals("1")) {
+
+						Toast.makeText(_this, "设置默认成功！", Toast.LENGTH_SHORT)
+								.show();
+						userAddressDao.updateSingleUserAddress(defaultParams);
+						UserInfoAddressActivity.userInfoAddressActivity.reSetAddress();
+					} else {
+						Toast.makeText(_this, "设置默认失败！", Toast.LENGTH_SHORT)
+								.show();
+					}
+					break;
+				case 3:
+					if (result != null
+							&& result.getString("success").equals("1")) {
+
+						Toast.makeText(_this, "删除地址成功！", Toast.LENGTH_SHORT)
+								.show();
+						userAddressDao.deleteAddressById(dzId);
+						UserInfoAddressActivity.userInfoAddressActivity.reSetAddress();
+					} else {
+						Toast.makeText(_this, "删除地址失败！", Toast.LENGTH_SHORT)
+								.show();
+					}
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-        StatService.onResume(this);
+		StatService.onResume(this);
 		if (dzId != 0) {
 			Bundle bundle = new Bundle();
 			bundle.putInt("dzId", dzId);
@@ -170,75 +280,19 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 		}
 	}
 
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        StatService.onPause(this);
-    }
-
-	private class LoadDataTask extends AsyncTask<JSONObject, Void, JSONObject> {
-
-		@Override
-		protected JSONObject doInBackground(JSONObject... jbo) {
-			JSONObject result = new JSONObject();
-
-			try {
-                String requestUrl = SettingValues.URL_PREFIX
-                        + getString(R.string.URL_USER_ADDRESS_MODIFY);
-				JSONObject jsonParams = jbo[0];
-                if(jsonParams.getString("requestType").equals("2")){
-                    requestUrl=SettingValues.URL_PREFIX
-                            + getString(R.string.URL_USER_ADDRESS_DELETE);
-                }
-				result = HttpClient.requestSync(requestUrl, jsonParams);
-                if (result != null && result.has("success")
-                        && result.getString("success").equals("1")) {
-                    new UserAddressDao().saveUserAddressOne(jsonParams);
-                }
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject jbo) {
-			if (jbo != null) {
-				try {
-					if (jbo.has("success")
-							&& jbo.getString("success").equals("1")) {
-						showToast(_this
-                                .getString(R.string.toast_action_success));
-						_this.onBackPressed();
-
-					} else if (jbo.getString("success").equals("0")) {
-						String context = ErrHashMap.getErrMessage(jbo
-								.getString("message"));
-						context = context == null ? _this
-								.getString(R.string.toast_unknown) : context;
-						Toast.makeText(_this, context, 5).show();
-					}
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
-			}
-
-			btnSubmit.setEnabled(true);
-		}
-
+	@Override
+	protected void onPause() {
+		super.onPause();
+		StatService.onPause(this);
 	}
 
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle args) {
 		if (id == 1) {
-			String sql = "select _id,memberId,dzId,name,a.sfId,a.csId,a.dqId,"
+			String sql = "select _id,userId,dzId,name,a.sfId,a.csId,a.dqId,"
 					+ "address,postCode,isDefault,phone,sfmc,csmc,dqmc"
-					+ " from user_address as a "
-					+ "where dzId='" + args.getInt("dzId") + "' limit 1;";
+					+ " from user_address as a " + "where dzId='"
+					+ args.getInt("dzId") + "' limit 1;";
 			return new SqlCursorLoader(this, sql, UserAddress.class);
 		}
 		return null;
@@ -261,9 +315,14 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 				csdm = data.getString(data.getColumnIndex("csId"));
 				dqdm = data.getString(data.getColumnIndex("dqId"));
 
-				Integer isDefault = data.getInt(data
-						.getColumnIndex("isDefault"));
-
+//				Integer isDefault = data.getInt(data
+//						.getColumnIndex("isDefault"));
+//
+//				if (isDefault == 1) {
+//					defaultAddress = true;
+//				} else {
+//					defaultAddress = false;
+//				}
 				String detail = "";
 
 				if (sfmc != null && !sfmc.equals("")) {
@@ -311,63 +370,62 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 			ad = new AddressDialog(this);
 
 			ad.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                @Override
-                public void onDismiss(DialogInterface dialog) {
-                    if (ad.isValueGet()) {
-                        ad.getCsObj();
-                        ad.getDqObj();
-                        String areaText = "";
-                        if (ad.getSfObj() != null) {
-                            UserInfoAddressModifyActivity.this.sfdm = ad
-                                    .getSfObj().getSfdm();
-                            areaText = ad.getSfObj().getMc();
-                            if (ad.getCsObj() != null) {
-                                UserInfoAddressModifyActivity.this.csdm = ad
-                                        .getCsObj().getCsdm();
-                                areaText = areaText + " "
-                                        + ad.getCsObj().getMc();
-                                if (ad.getDqObj() != null) {
-                                    UserInfoAddressModifyActivity.this.dqdm = ad
-                                            .getDqObj().getDqdm();
-                                    areaText = areaText + " "
-                                            + ad.getDqObj().getMc();
+				@Override
+				public void onDismiss(DialogInterface dialog) {
+					if (ad.isValueGet()) {
+						ad.getCsObj();
+						ad.getDqObj();
+						String areaText = "";
+						if (ad.getSfObj() != null) {
+							UserInfoAddressModifyActivity.this.sfdm = ad
+									.getSfObj().getSfdm();
+							areaText = ad.getSfObj().getMc();
+							if (ad.getCsObj() != null) {
+								UserInfoAddressModifyActivity.this.csdm = ad
+										.getCsObj().getCsdm();
+								areaText = areaText + " "
+										+ ad.getCsObj().getMc();
+								if (ad.getDqObj() != null) {
+									UserInfoAddressModifyActivity.this.dqdm = ad
+											.getDqObj().getDqdm();
+									areaText = areaText + " "
+											+ ad.getDqObj().getMc();
 
-                                } else {
-                                    UserInfoAddressModifyActivity.this.dqdm = null;
-                                }
-                            } else {
-                                UserInfoAddressModifyActivity.this.csdm = null;
-                            }
+								} else {
+									UserInfoAddressModifyActivity.this.dqdm = null;
+								}
+							} else {
+								UserInfoAddressModifyActivity.this.csdm = null;
+							}
 
-                        } else {
-                            UserInfoAddressModifyActivity.this.sfdm = null;
-                        }
+						} else {
+							UserInfoAddressModifyActivity.this.sfdm = null;
+						}
 
-                        UserInfoAddressModifyActivity.this.txtAddressModifyArea
-                                .setText(areaText);
+						UserInfoAddressModifyActivity.this.txtAddressModifyArea
+								.setText(areaText);
 
-                    }
+					}
 
-                }
+				}
 
-            });
+			});
 
-			
-		} 
+		}
 		ad.setmSfSelectedListener(new AddressDialog.OnSfSelectedListener() {
-            @Override
-            public void onAddressSelected() {
-                ad.setDefaultSf(sf);
-            }
-        });
+			@Override
+			public void onAddressSelected() {
+				ad.setDefaultSf(sf);
+			}
+		});
 		ad.setmCsSelectedListener(new AddressDialog.OnCsSelectedListener() {
 
-            @Override
-            public void onAddressSelected() {
-                ad.setDefaultCs(cs);
+			@Override
+			public void onAddressSelected() {
+				ad.setDefaultCs(cs);
 
-            }
-        });
+			}
+		});
 		ad.setmOnDqSelectedListener(new AddressDialog.OnDqSelectedListener() {
 			@Override
 			public void onAddressSelected() {
@@ -383,87 +441,81 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 
 	}
 
-	private void sendRequest(String requestType) {
-        //0修改 1设置默认并修改 //2删除
+	private JSONObject sendRequest() {
 
-        try {
-            JSONObject jsonParams = new JSONObject();
-            jsonParams.put("iDzId",dzId);
-            jsonParams.put("requestType",requestType);
-            if(!requestType.equals("2")){
-                String name ="";
-                String phone="";
-                String code="";
-                String address="";
-                String iSfId="";
-                String iCsId="";
-                String iDqId="";
+		try {
+			JSONObject jsonParams = new JSONObject();
+			jsonParams.put("id", dzId);
+			String name = "";
+			String phone = "";
+			String postCode = "";
+			String address = "";
+			String iSfId = "";
+			String iCsId = "";
+			String iDqId = "";
+			String areaCode = "";
 
-                name=txtAddressModifyName.getText().toString();
-                phone=txtAddressModifyPhone.getText().toString();
-                code=txtAddressModifyCode.getText().toString();
-                address=txtAddressModifyAddress.getText().toString();
-                if(StringUtils.isBlank(name)){
-                    showToast("收货人不能为空");
-                    return;
-                }
-                if(StringUtils.isBlank(phone)){
-                    showToast("手机号码不能为空");
-                    return;
-                }
-                if(StringUtils.isBlank(address)){
-                    showToast("详细地址不能为空");
-                    return;
-                }
-                if(this.sfdm!=null && !this.sfdm.equals("") && !this.sfdm.equals("0")){
-                    iSfId=this.sfdm;
-                    if(this.csdm!=null && !this.csdm.equals("") && !this.csdm.equals("0")){
-                        iCsId=this.csdm;
-                        if(this.dqdm!=null && !this.dqdm.equals("") && !this.dqdm.equals("0")){
-                            iDqId=this.dqdm;
-                        }
-                    }
-                }
+			name = txtAddressModifyName.getText().toString();
+			phone = txtAddressModifyPhone.getText().toString();
+			postCode = txtAddressModifyCode.getText().toString();
+			address = txtAddressModifyAddress.getText().toString();
+			if (StringUtils.isBlank(name)) {
+				showToast("收货人不能为空");
+			}
+			if (StringUtils.isBlank(phone)) {
+				showToast("手机号码不能为空");
+			}
+			if (StringUtils.isBlank(address)) {
+				showToast("详细地址不能为空");
+			}
+			if (this.sfdm != null && !this.sfdm.equals("")
+					&& !this.sfdm.equals("0")) {
+				iSfId = this.sfdm;
+				areaCode = iSfId;
+				if (this.csdm != null && !this.csdm.equals("")
+						&& !this.csdm.equals("0")) {
+					iCsId = this.csdm;
+					areaCode = iCsId;
+					if (this.dqdm != null && !this.dqdm.equals("")
+							&& !this.dqdm.equals("0")) {
+						iDqId = this.dqdm;
+						areaCode = iDqId;
+					}
+				}
+			}
 
-                //showToast(name+phone+code+address+iSfId+iCsId+iDqId+requestType);
+			if (ad != null) {
+				if (ad.getSfObj() != null) {
+					String sSfmc = ad.getSfObj().getMc();
+					jsonParams.put("sSfmc", sSfmc);
+				}
+				if (ad.getCsObj() != null) {
+					String sCsmc = ad.getCsObj().getMc();
+					jsonParams.put("sCsmc", sCsmc);
+				}
+				if (ad.getDqObj() != null) {
+					String sDqmc = ad.getDqObj().getMc();
+					jsonParams.put("sDqmc", sDqmc);
+				}
+			}
 
-                if(ad!=null){
-                    if(ad.getSfObj()!=null){
-                        String sSfmc=ad.getSfObj().getMc();
-                        jsonParams.put("sSfmc",sSfmc);
-                    }
-                    if(ad.getCsObj()!=null){
-                        String sCsmc=ad.getCsObj().getMc();
-                        jsonParams.put("sCsmc",sCsmc);
-                    }
-                    if(ad.getDqObj()!=null){
-                        String sDqmc=ad.getDqObj().getMc();
-                        jsonParams.put("sDqmc",sDqmc);
-                    }
-                }
+			jsonParams.put("consignee", name);
+			jsonParams.put("phone", phone);
+			jsonParams.put("detialAddress", address);
+			jsonParams.put("areaCode", areaCode);
+			jsonParams.put("postCode", postCode);
+//			jsonParams.put("defaultAddress", defaultAddress);
 
-                jsonParams.put("sName",name);
-                jsonParams.put("iSfId",iSfId);
-                jsonParams.put("iCsId",iCsId);
-                jsonParams.put("iDqId",iDqId);
-                jsonParams.put("sAddress",address);
-                jsonParams.put("sPhone",phone);
-                jsonParams.put("sPostCode",code);
-                if(requestType.equals("1")){
-                    jsonParams.put("isDefault","1");
-                }
-            }
-
-            new LoadDataTask().execute(jsonParams);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
+			return jsonParams;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
 
 	}
 
 	private void showToast(String content) {
-		Toast.makeText(_this, content, 3).show();
+		Toast.makeText(_this, content, Toast.LENGTH_SHORT).show();
 	}
 
 }

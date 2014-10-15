@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -377,7 +378,7 @@ public class FinalHttp {
 		try {
 		     for (Iterator iter = jsonObject.keys(); iter.hasNext(); ) { //先遍历整个 people 对象
 	                String key = (String) iter.next();
-					meEntity.addPart(key, new StringBody(jsonObject.getString(key)));
+					meEntity.addPart(key, new StringBody(jsonObject.getString(key),Charset.forName("UTF-8")));
 
 	            }
 			HttpEntityEnclosingRequestBase request = addEntityToRequestBase(

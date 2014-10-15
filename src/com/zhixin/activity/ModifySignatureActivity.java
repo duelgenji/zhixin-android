@@ -1,11 +1,9 @@
 package com.zhixin.activity;
 
-import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -30,12 +28,11 @@ public class ModifySignatureActivity extends Activity implements
 	private TextView titleOfThePage;
 	private EditText signatureTextView;
 
-	private Context context;
+	// private Context context;
 	private ModifySignatureActivity _this;
 	private TextView submit;
 	private ImageButton clearTextviewBtn;
 	private ImageButton iBtnPageBack;
-	private Toast signatureTextViewEmptyToast;
 	private String localSignature;
 	private String signature;
 	private long userId;
@@ -48,7 +45,7 @@ public class ModifySignatureActivity extends Activity implements
 		_this = this;
 		setContentView(R.layout.activity_modify_signature);
 
-		context = this.getApplicationContext();
+		// context = this.getApplicationContext();
 		initView();
 
 	}
@@ -84,8 +81,6 @@ public class ModifySignatureActivity extends Activity implements
 			try {
 				switch (syncType) {
 				case 1:
-					// null。。。。传参方式是get
-					// (Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
@@ -152,56 +147,43 @@ public class ModifySignatureActivity extends Activity implements
 			v.setEnabled(true);
 			break;
 		case R.id.submit:
-			signature = signatureTextView.getText().toString();
-			if (signature.equals(localSignature)) {
-				onBackPressed();
-				v.setEnabled(true);
-			}
-			if (!StringUtils.isBlank(signature)) {
-				if (!(signature == null && signature.equals(""))) {
-					if (signature.getBytes().length <= 21) {
-						// do the things
-						// submit.setEnabled(false);
-						// 得到后台接口
-						String requestUrl = SettingValues.URL_PREFIX
-								+ ModifySignatureActivity.this
-										.getString(R.string.URL_USER_INFO_UPDATE);
-						JSONObject jsonParams = new JSONObject();
-						userId = CurrentUserHelper.getCurrentUserId();
-						try {
-							jsonParams.put("signature", signature);
-							jsonParams.put("id", userId);
-						} catch (JSONException e) {
-							e.printStackTrace();
+			if (signatureTextView.getText() != null) {
+				signature = signatureTextView.getText().toString();
+				if (!signature.equals("")) {
+					if (signature.getBytes().length <= 40) {
+						if (!signature.equals(localSignature)) {
+							String requestUrl = SettingValues.URL_PREFIX
+									+ ModifySignatureActivity.this
+											.getString(R.string.URL_USER_INFO_UPDATE);
+							JSONObject jsonParams = new JSONObject();
+							userId = CurrentUserHelper.getCurrentUserId();
+							try {
+								jsonParams.put("signature", signature);
+								jsonParams.put("id", userId);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							new LoadDataTask().execute(1, requestUrl,
+									jsonParams, HttpClient.TYPE_PUT_JSON);
+						} else {
+							showToast("请修改签名！");
 						}
-						new LoadDataTask().execute(1, requestUrl, jsonParams,
-								HttpClient.TYPE_PUT_JSON);
 
-						submit.setEnabled(true);
 					} else {
 						showToast(_this
 								.getString(R.string.toast_signature_length_too_long));
 					}
 				} else {
-					showToast(_this
-							.getString(R.string.toast_validate_code_not_empty));
+					showToast(_this.getString(R.string.signature_empty));
 				}
 			} else {
-				if (signatureTextViewEmptyToast == null) {
-					signatureTextViewEmptyToast = Toast.makeText(
-							ModifySignatureActivity.this,
-							ModifySignatureActivity.this
-									.getString(R.string.signature_empty), 3);
-				}
-				signatureTextViewEmptyToast.show();
+				showToast(_this.getString(R.string.signature_empty));
 			}
 
 			submit.setEnabled(true);
-
 			break;
 		default:
 			break;
-
 		}
 		v.setEnabled(true);
 	}
@@ -220,7 +202,7 @@ public class ModifySignatureActivity extends Activity implements
 	}
 
 	private void showToast(String content) {
-		Toast.makeText(_this, content, 3).show();
+		Toast.makeText(_this, content, Toast.LENGTH_SHORT).show();
 	}
 
 }

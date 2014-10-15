@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,8 +18,6 @@ import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,149 +40,166 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zhixin.R;
 import com.zhixin.daos.UserInfoDao;
-import com.zhixin.database.DbManager;
-import com.zhixin.datasynservice.MainMenuService;
 import com.zhixin.domain.UserInfo;
-import com.zhixin.domain.UserSettings;
 import com.zhixin.provider.InternalStorageContentProvider;
 import com.zhixin.service.CropImageIntentService;
 import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
-import com.zhixin.utils.RecToCircleTask;
 import com.zhixin.utils.ShareUtil;
 
 import eu.janmuller.android.simplecropimage.CropImage;
 
-public class MeFragment extends Fragment implements View.OnClickListener{
+public class MeFragment extends Fragment implements View.OnClickListener {
 	private Activity mainActivity;
-	/***/
-//	private ImageLoader imageLoader;
-	/***/
-//	private DisplayImageOptions imageOptions;
-	private ImageView shezhi;
-	/** 标题*/
-	private TextView txtPageTitle;
-	
+	private UserInfo userInfo;
+	private UserInfoDao userInfoDao;
+	/** 头像 */
+	private DisplayImageOptions options;
+	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	private ImageView headImageViewPlaceHolder;
-	
+	/** 设置 */
+	private ImageView settings;
+	/** 标题 */
+	private TextView txtPageTitle;
+
 	private Handler closePicImageDialogHander;
-	
-	private MainMenuService service;
-	
-	private LinearLayout layoutMyprofile,layoutDuijiang,layoutSuggestion,layoutAbout,layoutShareAppComp;
-	
+
+	// private MainMenuService service;
+
+	private LinearLayout layoutMyprofile, layoutDuijiang, layoutSuggestion,
+			layoutAbout, layoutShareAppComp;
+
 	private View scoreTheApp;
-	
+
 	private Intent intent;
-	
+
 	private TextView nickNameTextView;
 	private String nickName;
 	private String localNickName;
 	private ImageButton editNickNameBtn;
-	
+
 	private TextView signatureTextView;
 	private String signature;
 	private String localSignature;
-	
+
 	private View rootView;
-	
+
 	static final int PICK_PIC_FROM_CAMERA_ACTION = 10;
 	static final int PICK_PIC_FORM_GALLERY_ACTION = 20;
 	static final int CROP_IMAGE_ACTION = 30;
-	
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.mainActivity = activity;
+		userInfo = new UserInfo();
+		userInfoDao = new UserInfoDao();
+		userInfo = userInfoDao.getUserByphone(CurrentUserHelper
+				.getCurrentPhone());
+		options = new DisplayImageOptions.Builder()
+				.showImageOnLoading(R.drawable.head_img)
+				.showImageForEmptyUri(R.drawable.head_img)
+				.showImageOnFail(R.drawable.head_img).cacheInMemory(true)
+				.cacheOnDisk(true).considerExifParams(true)
+				.displayer(new RoundedBitmapDisplayer(20)).build();
 	}
-	
-	//初始化	
+
+	// 初始化
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (rootView == null) {
-			rootView = inflater.inflate(R.layout.me_main, container,
-					false);
+			rootView = inflater.inflate(R.layout.me_main, container, false);
 			initView(rootView);
-			
-			 String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_USER_INFO_ADD);
-			new LoadDataTask1().execute(1,requestUrl,null,HttpClient.TYPE_GET);
-		}else {
+
+			String requestUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_USER_INFO_ADD);
+			new LoadDataTask1().execute(1, requestUrl, null,
+					HttpClient.TYPE_GET);
+		} else {
 			ViewGroup parent = (ViewGroup) rootView.getParent();
 			if (parent != null) {
 				parent.removeView(rootView);
 			}
 		}
-		
+
 		return rootView;
-		
+
 	}
-	
-	private void initView(View view){
+
+	private void initView(View view) {
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this.getString(R.string.title_me));
-		
+
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
-		UserInfo userInfo = new UserInfo();
-		UserInfoDao userInfoDao = new UserInfoDao();
-		userInfo = userInfoDao.getUserByphone(CurrentUserHelper.getCurrentPhone());
+
 		if (userInfo.getNickName() != null) {
 			localNickName = userInfo.getNickName();
-		}else {
-			localNickName = "";
-			
+			nickNameTextView.setText(localNickName);
 		}
-		nickNameTextView.setText(localNickName);
+
 		nickNameTextView.setOnClickListener(this);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
 		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
-		
+
+		signatureTextView = (TextView) view.findViewById(R.id.signature);
 		if (userInfo.getSignature() != null) {
 			localSignature = userInfo.getSignature();
-		}else {
-			localSignature = "";
+			signatureTextView.setText(localSignature);
 		}
-		signatureTextView = (TextView) view.findViewById(R.id.signature);
-		signatureTextView.setText(localSignature);
+
 		signatureTextView.setOnClickListener(new SignatureClickListener());
-		
-		layoutMyprofile = (LinearLayout) view.findViewById(R.id.layoutMyprofile);
+
+		layoutMyprofile = (LinearLayout) view
+				.findViewById(R.id.layoutMyprofile);
 		layoutMyprofile.setOnClickListener(this);
-		
+
 		layoutDuijiang = (LinearLayout) view.findViewById(R.id.layoutDuijiang);
 		layoutDuijiang.setOnClickListener(this);
-		
-		layoutShareAppComp = (LinearLayout) view.findViewById(R.id.layoutShareAppComp);
+
+		layoutShareAppComp = (LinearLayout) view
+				.findViewById(R.id.layoutShareAppComp);
 		layoutShareAppComp.setOnClickListener(this);
-		
-		layoutSuggestion = (LinearLayout) view.findViewById(R.id.layoutSuggestion);
+
+		layoutSuggestion = (LinearLayout) view
+				.findViewById(R.id.layoutSuggestion);
 		layoutSuggestion.setOnClickListener(this);
-		
+
 		layoutAbout = (LinearLayout) view.findViewById(R.id.layoutAbout);
 		layoutAbout.setOnClickListener(this);
-		
-		shezhi = (ImageView) view.findViewById(R.id.shezhi);
-		shezhi.setOnClickListener(this);
-		
+
+		settings = (ImageView) view.findViewById(R.id.shezhi);
+		settings.setOnClickListener(this);
+
 		scoreTheApp = view.findViewById(R.id.scoreTheApp);
 		scoreTheApp.setOnClickListener(this);
-		
-		headImageViewPlaceHolder = (ImageView) view
-				.findViewById(R.id.headIconPHQSJ);
+
+		headImageViewPlaceHolder = (ImageView) view.findViewById(R.id.headIcon);
+		if (userInfo.getPicUrl() != null) {
+			String headIcnUrl = SettingValues.URL_PREFIX + userInfo.getPicUrl();
+			Log.i("headIcon", headIcnUrl);
+			imageLoader.displayImage(headIcnUrl, headImageViewPlaceHolder,
+					options, animateFirstListener);
+		}
 		headImageViewPlaceHolder
 				.setOnClickListener(new ClickImageToChangeHeadIcon());
 	}
-	
+
 	private class NicknameIconClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
 			editNickNameBtn.setEnabled(false);
-			intent = new Intent(mainActivity,
-					ModifyNicknameActivity.class);
+			intent = new Intent(mainActivity, ModifyNicknameActivity.class);
 			localNickName = nickNameTextView.getText().toString();
 			if (localNickName != null && !localNickName.equals("")) {
 				intent.putExtra(ModifyNicknameActivity.INTENT_NICKNAME,
@@ -192,12 +210,12 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		}
 
 	}
+
 	private class SignatureClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
 			signatureTextView.setEnabled(false);
-			intent = new Intent(mainActivity,
-					ModifySignatureActivity.class);
+			intent = new Intent(mainActivity, ModifySignatureActivity.class);
 			localSignature = signatureTextView.getText().toString();
 			if (localSignature != null && !localSignature.equals("")) {
 				intent.putExtra(ModifySignatureActivity.INTENT_SIGNATURE,
@@ -208,62 +226,21 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		}
 
 	}
-	
-	//设置的连接后台
-	private class LoadDataTask extends AsyncTask<String, Void, String> {
-		@Override
-		protected String doInBackground(String... params) {
-			if (params[0] != null && params[0].equals("userSetting")) {
-				String requestUrl = SettingValues.URL_PREFIX
-						+ getString(R.string.URL_GET_OPTION);
-				// JSONObject jsonParams = new JSONObject();
-				try {
-					JSONObject result = HttpClient
-							.requestSync(requestUrl, null);
-					if (result != null
-							&& result.getString("success").equals("1")) {
 
-						UserSettings us = DbManager.getDatabase().findById(1,
-								UserSettings.class);
-
-						us.setPublicAnswersToFriend(result.getBoolean("publicAnswersToFriend"));
-						DbManager.getDatabase().update(us);
-					}
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-
-			} 
-			else if (params[0] != null && params[0].equals("newVersion")) {
-				service = new MainMenuService(mainActivity);
-				try {
-					return service.newVersion();
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				} catch (java.text.ParseException e) {
-					e.printStackTrace();
-				}
-			}
-
-			return params[0];
-		}
-	}
 	@Override
 	public void onClick(View v) {
 		v.setEnabled(false);
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.shezhi:
-			intent = new Intent(mainActivity,MoreSetting.class);
+			intent = new Intent(mainActivity, MoreSetting.class);
 			startActivity(intent);
-			shezhi.setEnabled(true);
+			settings.setEnabled(true);
 			break;
 		case R.id.layoutMyprofile:
 			intent = new Intent(mainActivity, UserInfoActivity.class);
 			startActivity(intent);
+
 			v.setEnabled(true);
 			break;
 		case R.id.layoutDuijiang:
@@ -276,7 +253,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
-//			打分，这里的Uri还是以前的，需要改
+		// 打分，这里的Uri还是以前的，需要改
 		case R.id.scoreTheApp:
 
 			intent = new Intent(Intent.ACTION_VIEW);
@@ -306,31 +283,75 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
 		}
 	}
-	
+
+	// // 设置的连接后台
+	// private class LoadDataTask extends AsyncTask<String, Void, String> {
+	// @Override
+	// protected String doInBackground(String... params) {
+	// if (params[0] != null && params[0].equals("userSetting")) {
+	// String requestUrl = SettingValues.URL_PREFIX
+	// + getString(R.string.URL_GET_OPTION);
+	// // JSONObject jsonParams = new JSONObject();
+	// try {
+	// JSONObject result = HttpClient
+	// .requestSync(requestUrl, null);
+	// if (result != null
+	// && result.getString("success").equals("1")) {
+	//
+	// UserSettings us = DbManager.getDatabase().findById(1,
+	// UserSettings.class);
+	//
+	// us.setPublicAnswersToFriend(result
+	// .getBoolean("publicAnswersToFriend"));
+	// DbManager.getDatabase().update(us);
+	// }
+	//
+	// } catch (JSONException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// } else if (params[0] != null && params[0].equals("newVersion")) {
+	// service = new MainMenuService(mainActivity);
+	// try {
+	// return service.newVersion();
+	// } catch (JSONException e) {
+	// e.printStackTrace();
+	// } catch (ParseException e) {
+	// e.printStackTrace();
+	// } catch (java.text.ParseException e) {
+	// e.printStackTrace();
+	// }
+	// }
+	//
+	// return params[0];
+	// }
+	// }
+
 	public static final String TEMP_PHOTO_FILE_PATH = Environment
 			.getExternalStorageDirectory()
-			+ SettingValues.PATH_USER_TX_PREFIX
-			+ "temp.jpg";
+			+ SettingValues.PATH_USER_PREFIX
+			+ SettingValues.TEMP_PHOTO_FILE_NAME;
 
-	private class RecToCircleTaskInQushejiao extends AsyncTask<String, Void, Bitmap> {
-		protected Bitmap doInBackground(String... urls) {
-			Bitmap bitmap = BitmapFactory.decodeFile(urls[0]);
-			return RecToCircleTask.transferToCircle(bitmap);
-		}
+	// private class RecToCircleTaskInQushejiao extends
+	// AsyncTask<String, Void, Bitmap> {
+	// protected Bitmap doInBackground(String... urls) {
+	// Bitmap bitmap = BitmapFactory.decodeFile(urls[0]);
+	// return RecToCircleTask.transferToCircle(bitmap);
+	// }
+	//
+	// protected void onPostExecute(Bitmap result) {
+	// if (isAdded()) {
+	// CurrentUserHelper.saveBitmap(result);
+	// headImageViewPlaceHolder
+	// .setImageResource(R.drawable.head_white_ring_background);
+	// headImageViewPlaceHolder.setImageBitmap(result);
+	//
+	// }
+	//
+	// }
+	//
+	// }
 
-		protected void onPostExecute(Bitmap result) {
-			if (isAdded()) {
-				CurrentUserHelper.saveBitmap(result);
-				headImageViewPlaceHolder
-						.setImageResource(R.drawable.head_white_ring_background);
-				headImageViewPlaceHolder.setImageBitmap(result);
-
-			}
-
-		}
-
-	}
-	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode,
 			final Intent data) {
@@ -342,9 +363,6 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 			break;
 		case PICK_PIC_FORM_GALLERY_ACTION:
 			if (resultCode == Activity.RESULT_OK) {
-//				if (!progressDialog.isShowing()) {
-//					progressDialog.show();
-//				}
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -365,9 +383,6 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 						mainActivity.runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
-//								if (progressDialog.isShowing()) {
-//									progressDialog.dismiss();
-//								}
 								startCropImage();
 							}
 						});
@@ -391,28 +406,29 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 			break;
 		}
 	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
 		StatService.onResume(this);
 	}
-	private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject>{
+
+	private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject> {
 
 		@Override
 		protected JSONObject doInBackground(Object... params) {
 			JSONObject result = null;
-			Integer syncType=(Integer)params[0];
+			Integer syncType = (Integer) params[0];
 			try {
-				switch(syncType){
+				switch (syncType) {
 				case 1:
-					//null。。。。传参方式是get
-					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
-					result = HttpClient.requestSync(params[1].toString(), null,(Integer)params[3]);
-					Log.i("用户信息请求结果", result+"");
+					result = HttpClient.requestSync(params[1].toString(), null,
+							(Integer) params[3]);
+					Log.i("用户信息请求结果", result + "");
 					result.put("syncType", syncType);
 					break;
-				
-				default :
+
+				default:
 					break;
 				}
 			} catch (JSONException e) {
@@ -425,23 +441,28 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		protected void onPostExecute(JSONObject result) {
 			try {
 				Integer syncType = result.getInt("syncType");
-				switch(syncType){
+				switch (syncType) {
 				case 1:
-					if (result != null && result.getString("success").equals("1")) {
-		                //。。。。。。。。。
-						Toast.makeText(mainActivity, "获取个人资料成功！", Toast.LENGTH_SHORT).show();
-						try {
-							nickName = result.getString("nickName");
-							signature = result.getString("signature");
-							Log.i("个人签名", signature);
-							
-							nickNameTextView.setText(nickName);
-							signatureTextView.setText(signature);
-						} catch (JSONException e) {
-							e.printStackTrace();
-						}
-					}else {
-						Toast.makeText(mainActivity, "获取数据失败！", Toast.LENGTH_SHORT).show();
+					if (result != null
+							&& result.getString("success").equals("1")) {
+						// 。。。。。。。。。
+						Toast.makeText(mainActivity, "获取个人资料成功！",
+								Toast.LENGTH_SHORT).show();
+						nickName = result.getString("nickName");
+						signature = result.getString("signature");
+						Log.i("个人签名", signature);
+						String headIconUrl = SettingValues.PATH_USER_PREFIX
+								+ result.getString("avatarPath");
+						Log.i("个人签名", headIconUrl);
+
+						nickNameTextView.setText(nickName);
+						signatureTextView.setText(signature);
+						imageLoader.displayImage(headIconUrl,
+								headImageViewPlaceHolder, options,
+								animateFirstListener);
+					} else {
+						Toast.makeText(mainActivity, "获取数据失败！",
+								Toast.LENGTH_SHORT).show();
 					}
 					break;
 				default:
@@ -451,10 +472,9 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 				e.printStackTrace();
 			}
 		}
-		
-		
-    	
-    }
+
+	}
+
 	private void copyStream(InputStream input, OutputStream output)
 			throws IOException {
 		byte[] buffer = new byte[1024];
@@ -463,7 +483,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 			output.write(buffer, 0, bytesRead);
 		}
 	}
-	
+
 	private void startCropImage() {
 		Intent intent = new Intent(mainActivity, CropImage.class);
 		intent.putExtra(CropImage.IMAGE_PATH, TEMP_PHOTO_FILE_PATH);
@@ -472,17 +492,17 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 		intent.putExtra(CropImage.ASPECT_Y, 1);
 		startActivityForResult(intent, CROP_IMAGE_ACTION);
 	}
-	
+
 	public Handler getClosePicImageDialogHander() {
 		return closePicImageDialogHander;
 	}
-	
+
 	private class ClickImageToChangeHeadIcon implements View.OnClickListener {
 
 		@Override
 		public void onClick(View v) {
 			File file = new File(Environment.getExternalStorageDirectory()
-					+ SettingValues.PATH_USER_TX_PREFIX);
+					+ SettingValues.PATH_USER_PREFIX);
 			if (!file.exists()) {
 				file.mkdirs();
 			}
@@ -510,7 +530,10 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 					dialog.dismiss();
 				}
 			};
-//取消按钮
+			final String headIconUrl = SettingValues.URL_PREFIX
+					+ mainActivity
+							.getString(R.string.URL_USER_INFO_UPLOAD_HEAD_ICON);
+			// 取消按钮
 			cancelBtn.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -518,7 +541,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
 				}
 			});
-//相机按钮			
+			// 相机按钮
 			cameraBtn.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -535,12 +558,16 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 						} else {
 							mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
 						}
+
 						intent.putExtra(
 								android.provider.MediaStore.EXTRA_OUTPUT,
 								mImageCaptureUri);
 
 						startActivityForResult(intent,
 								PICK_PIC_FROM_CAMERA_ACTION);
+						
+//						new LoadHeadIconTask().execute(1, headIconUrl, null,
+//								HttpClient.TYPE_POST_FORM);
 					} catch (ActivityNotFoundException e) {
 
 						e.printStackTrace();
@@ -548,7 +575,7 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
 				}
 			});
-//相册按钮
+			// 相册按钮
 			galleryBtn.setOnClickListener(new View.OnClickListener() {
 
 				@Override
@@ -559,14 +586,84 @@ public class MeFragment extends Fragment implements View.OnClickListener{
 
 					startActivityForResult(photoPickerIntent,
 							PICK_PIC_FORM_GALLERY_ACTION);
-
+					
+//					new LoadHeadIconTask().execute(1, headIconUrl, null,
+//							HttpClient.TYPE_POST_FORM);
 				}
 			});
 
 			dialog.show();
 
 		}
+	}
+
+	private class LoadHeadIconTask extends AsyncTask<Object, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result = null;
+			Integer syncType = (Integer) params[0];
+			try {
+				switch (syncType) {
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(), null,
+							(Integer) params[3]);
+					Log.i("上传图片返回结果", result + "");
+					result.put("syncType", syncType);
+					break;
+
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType = result.getInt("syncType");
+				switch (syncType) {
+				case 1:
+					if (result != null
+							&& result.getString("success").equals("1")) {
+						// 。。。。。。。。。
+						Toast.makeText(mainActivity, "上传图片成功！",
+								Toast.LENGTH_SHORT).show();
+					} else {
+						Toast.makeText(mainActivity, "上传图片失败！",
+								Toast.LENGTH_SHORT).show();
+					}
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
 
 	}
-	
+
+	private static class AnimateFirstDisplayListener extends
+			SimpleImageLoadingListener {
+
+		static final List<String> displayedImages = Collections
+				.synchronizedList(new LinkedList<String>());
+
+		@Override
+		public void onLoadingComplete(String imageUri, View view,
+				Bitmap loadedImage) {
+			if (loadedImage != null) {
+				ImageView imageView = (ImageView) view;
+				boolean firstDisplay = !displayedImages.contains(imageUri);
+				if (firstDisplay) {
+					FadeInBitmapDisplayer.animate(imageView, 500);
+					displayedImages.add(imageUri);
+				}
+			}
+		}
+	}
 }

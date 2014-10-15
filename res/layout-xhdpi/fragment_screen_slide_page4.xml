@@ -27,6 +27,8 @@
             android:layout_height="0dp"
             android:layout_weight="12"
             android:orientation="horizontal"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:weightSum="100" >
 
             <View
@@ -40,9 +42,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="30"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:src="@drawable/introduce_know_heart_left_arrow" />
+                android:background="@drawable/introduce_know_heart_left_arrow" />
 
             <ImageView
                 android:id="@+id/imgHeart"
@@ -50,7 +50,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="20"
-                android:padding="14dp"
+                android:paddingBottom="6dp"
+                android:paddingLeft="14dp"
+                android:paddingRight="14dp"
+                android:paddingTop="6dp"
                 android:src="@drawable/introduce_know_heart_big_heart" />
         </LinearLayout>
     </LinearLayout>

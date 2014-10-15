@@ -114,7 +114,7 @@ public class ZhibiFragment extends Fragment implements
 
 	public static final String TEMP_PHOTO_FILE_PATH = Environment
 			.getExternalStorageDirectory()
-			+ SettingValues.PATH_USER_TX_PREFIX
+			+ SettingValues.PATH_USER_PREFIX
 			+ "temp.jpg";
 
 	private class RecToCircleTaskInQushejiao extends
@@ -184,7 +184,7 @@ public class ZhibiFragment extends Fragment implements
 		@Override
 		public void onClick(View v) {
 			File file = new File(Environment.getExternalStorageDirectory()
-					+ SettingValues.PATH_USER_TX_PREFIX);
+					+ SettingValues.PATH_USER_PREFIX);
 			if (!file.exists()) {
 				file.mkdirs();
 			}
@@ -469,14 +469,14 @@ public class ZhibiFragment extends Fragment implements
 				.getColumnIndex("credit")));
 		
 		File fileFolder = new File(Environment.getExternalStorageDirectory()
-				+ SettingValues.PATH_USER_TX_PREFIX);
+				+ SettingValues.PATH_USER_PREFIX);
 		if (!fileFolder.exists()) {
 			fileFolder.mkdirs();
 		}
 
 		// Program exploit:if there is no external storage,program will crash
 		final String target = Environment.getExternalStorageDirectory()
-				+ SettingValues.PATH_USER_TX_PREFIX
+				+ SettingValues.PATH_USER_PREFIX
 				+ FilenameUtils.getName(cursor.getString(cursor
 						.getColumnIndex("picUrl")));
 		File file = new File(target);

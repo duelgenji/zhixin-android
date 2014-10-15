@@ -103,10 +103,17 @@
     <string name="URL_SELF_GET_LIST_INFO">selfs/retrieveSelfScript</string>
     <string name="URL_SELF_GET_QUESTION">selfQuestions/findBySelf</string>
     <string name="URL_SELF_SUBMIT_QUESTION">selfs/calculateSelfResult</string>
+    <string name="URL_USER_SUBMIT_AGE_SEX">userInfos/submitAgeAndSex</string>
+    <string name="URL_USER_SET_MOOD">userMood/setMood</string>
+    <string name="URL_USER_GET_MOOD">userMood/getMood</string>
     
     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
     <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string> 
     <string name="URL_USER_ADD_ADDRESS">userReceiveAddresses/addAddress</string>
+     <string name="URL_USER_GET_ADDRESS_LIST">userReceiveAddresses/getAddressList</string>
+    <string name="URL_MODIFY_USER_ADDRESS">userReceiveAddresses/modifyAddress</string>
+    <string name="URL_DELETE_USER_ADDRESS">userReceiveAddresses/deleteAddress</string>
+    <string name="URL_USER_INFO_UPLOAD_HEAD_ICON">userInfos/uploadAvatar</string>
     
     
     

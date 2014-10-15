@@ -1,7 +1,6 @@
 package com.zhixin.domain;
 
 import net.tsz.afinal.annotation.sqlite.Id;
-import net.tsz.afinal.annotation.sqlite.Property;
 import net.tsz.afinal.annotation.sqlite.Table;
 
 /**
@@ -33,9 +32,11 @@ public class UserAddress {
 
 	private String address;
 
+	private String areaCode;
+	
 	private String postCode;
 
-	private int isDefault;
+	private Integer isDefault;
 
 	private String phone;
 
@@ -95,14 +96,6 @@ public class UserAddress {
 		this.dqId = dqId;
 	}
 
-	public int getIsDefault() {
-		return isDefault;
-	}
-
-	public void setIsDefault(int isDefault) {
-		this.isDefault = isDefault;
-	}
-
 	public String getAddress() {
 		return address;
 	}
@@ -111,12 +104,28 @@ public class UserAddress {
 		this.address = address;
 	}
 
+	public String getAreaCode() {
+		return areaCode;
+	}
+
+	public void setAreaCode(String areaCode) {
+		this.areaCode = areaCode;
+	}
+
 	public String getPostCode() {
 		return postCode;
 	}
 
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
+	}
+
+	public Integer getIsDefault() {
+		return isDefault;
+	}
+
+	public void setIsDefault(Integer isDefault) {
+		this.isDefault = isDefault;
 	}
 
 	public String getPhone() {

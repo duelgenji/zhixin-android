@@ -1,0 +1,16 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false" >
+
+    <ImageView
+        android:id="@+id/img_xinlimap_general_no_content_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/xinlimap_no_map_bg" />
+
+    <include layout="@layout/fragment_xinlimap_card" />
+
+</LinearLayout>

@@ -3,6 +3,7 @@ package com.zhixin.activity;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.zhixin.R;
 import com.zhixin.settings.PhoneHelper;
+import com.zhixin.utils.AnimationUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,19 +37,19 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 
 	private ImageView mainImage;
 
-	private boolean isEasterEgg=false;
+	private boolean isEasterEgg = false;
 	
+
 	public IntroduceFragment(int pos) {
 		super();
 		this.pos = pos;
 	}
-	
-	public IntroduceFragment(int pos,boolean isEasterEgg) {
+
+	public IntroduceFragment(int pos, boolean isEasterEgg) {
 		super();
 		this.pos = pos;
 		this.isEasterEgg = isEasterEgg;
 	}
-
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -177,7 +178,7 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 		// 第一图
 		AnimationSet animSet = new AnimationSet(true);
 		Animation animation = new TranslateAnimation(0, (float) (w * 0.3), 0,
-				210);
+				(float) (0.16 * h));
 		animation.setDuration(500);
 		animation.setInterpolator(new DecelerateInterpolator());
 		AlphaAnimation alphaAnimation = new AlphaAnimation(1, 0);
@@ -189,8 +190,8 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 		icon1.setAnimation(animSet);
 
 		// 第二图
-		Animation animation2 = new TranslateAnimation(0, -(float) (w * 0.3), 0,
-				210);
+		Animation animation2 = new TranslateAnimation(0, -(float) (w * 0.28),
+				0, (float) (0.16 * h));
 		animation2.setDuration(500);
 		animation2.setFillAfter(true);
 		animation2.setInterpolator(new DecelerateInterpolator());
@@ -227,6 +228,18 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 	private void touchHeart(final ViewGroup rootView) {
 		ImageView littleHeart = (ImageView) rootView
 				.findViewById(R.id.imgHeart);
+
+		final ImageView imgArrow = (ImageView) rootView
+				.findViewById(R.id.imgArrow);
+
+		imgArrow.post(new Runnable() {
+			@Override
+			public void run() {
+				// imgArrow.setBackgroundDrawable(getResources().getDrawable((R.drawable.introduce_know_heart_left_arrow)));
+				AnimationUtils.startImgBackGround(imgArrow);
+			}
+		});
+
 		littleHeart.setClickable(true);
 
 		littleHeart.setOnTouchListener(new View.OnTouchListener() {
@@ -280,10 +293,15 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 
 	private void autoMoveHeart(final View v) {
 		int left = v.getLeft();
-		if (270 <= left && left <= 400) {
+
+		int min = (int) (PhoneHelper.getPhoneWIDTH() * 0.25); // 1080的 270
+		int max = (int) (PhoneHelper.getPhoneWIDTH() * 0.37); // 1080的 400
+		int mid = (int) (PhoneHelper.getPhoneWIDTH() * 0.31); // 1080的 334
+
+		if (min <= left && left <= max) {
 			// Log.i("phone", "upX:" + v.getLeft());
 			Log.i("phone", "自动距离");
-			Animation animation = new TranslateAnimation(0, 334 - left, 0, 0);
+			Animation animation = new TranslateAnimation(0, mid - left, 0, 0);
 			animation.setDuration(500);
 			animation.setFillAfter(true);
 			animation.setFillEnabled(true);
@@ -306,7 +324,7 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 				@Override
 				public void onAnimationEnd(Animation animation) {
 					// TODO Auto-generated method stub
-					if(isEasterEgg){
+					if (isEasterEgg) {
 						mainActivity.onBackPressed();
 						return;
 					}

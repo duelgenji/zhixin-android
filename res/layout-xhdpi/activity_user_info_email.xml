@@ -21,7 +21,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:layout_weight="8.6"
         android:paddingLeft="7.56dp"
         android:paddingRight="7.56dp" >
@@ -33,26 +33,32 @@
             android:orientation="horizontal" >
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3.9" />
 
             <EditText
                 android:id="@+id/txtInputEmailPersonalProfile"
-                android:layout_width="1dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="88.3"
+                android:layout_weight="81.3"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:maxLength="30"
                 android:inputType="textEmailAddress"
                 android:hint="@string/more_user_info_email_hint"
                 android:textSize="18sp" />
-
+			 <ImageButton
+                android:id="@+id/clearEmailBtn"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="7"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:src="@drawable/modify_nickname_button" />
 
 
             <View
-                android:layout_width="1dp"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3.4" />
         </LinearLayout>

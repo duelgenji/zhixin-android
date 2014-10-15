@@ -1,5 +1,12 @@
 package com.zhixin.activity;
 
+import org.apache.commons.lang3.StringUtils;
+
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.DialogInterface.OnDismissListener;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,9 +23,13 @@ import android.widget.TextView;
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
 import com.zhixin.adapter.SelfListAdapter;
+import com.zhixin.daos.UserInfoDao;
 import com.zhixin.datasynservice.SelfListService;
+import com.zhixin.dialog.InstructionDialog;
 import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.SelfList;
+import com.zhixin.domain.UserInfo;
+import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.SqlCursorLoader;
 
 public class SelfListActivity extends FragmentActivity implements
@@ -158,32 +169,37 @@ public class SelfListActivity extends FragmentActivity implements
 		refreshDataTask.execute();
 
 		//app第一次到此页面     有教学图片
-//		new AsyncTask<Void, Void, Boolean>() {
-//			@Override
-//			protected Boolean doInBackground(Void... params) {
-//				SharedPreferences sharedPref = _this.getSharedPreferences(
-//						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-//				return sharedPref.getBoolean(
-//						SettingValues.INSTRUCTION_QUCESHI_LIST1, true);
-//			}
-//
-//			@Override
-//			protected void onPostExecute(Boolean result) {
-//				if (result) {
-//					InstructionDialog qushouyeFirst = new InstructionDialog(
-//							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
-//					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
-//						@Override
-//						public void onDismiss(DialogInterface dialog) {
-//							new InstructionDialog(_this,
-//									SettingValues.INSTRUCTION_QUCESHI_LIST2)
-//									.show();
-//						}
-//					});
-//					qushouyeFirst.show();
-//				}
-//			}
-//		}.execute();
+		new AsyncTask<Void, Void, Integer>() {
+			@Override
+			protected Integer doInBackground(Void... params) {
+				SharedPreferences sharedPref = _this.getSharedPreferences(
+						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
+				UserInfo userInfo =new UserInfoDao().getCurrentUser();
+				
+				
+				if(userInfo!=null && (userInfo.getSex()==2 || StringUtils.isEmpty(userInfo.getBirthDay()))){
+					return 2;
+				}else if(userInfo==null){
+					return 2;
+				}else if(sharedPref.getBoolean(
+						SettingValues.INSTRUCTION_SELF_LIST, true)){
+					return 1;
+				}
+				return 0;
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				if (result==1) {
+					InstructionDialog instructionDialog = new InstructionDialog(
+							_this, SettingValues.INSTRUCTION_SELF_LIST);
+					instructionDialog.show();
+				}else if (result==2){
+					Intent intent = new Intent(SelfListActivity.this, SelectAgeSexActivity.class);
+					startActivity(intent);
+				}
+			}
+		}.execute();
 	}
 
 	@Override

@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.ViewGroup;
 
 /**
  * @author Administrator
@@ -37,7 +38,10 @@ public class FristInIntroduceActivity extends FragmentActivity {
 
 		// Instantiate a ViewPager and a PagerAdapter.
 		mPager = (ViewPager) findViewById(R.id.pager);
+		//设置预加载个数为0， 为了防止 第三张图 预加载就开始进行动画
+		mPager.setOffscreenPageLimit(0);
 		mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+		
 		mPager.setAdapter(mPagerAdapter);
 
 //		new Thread(runnalbe).start();
@@ -79,6 +83,8 @@ public class FristInIntroduceActivity extends FragmentActivity {
 		public int getCount() {
 			return NUM_PAGES;
 		}
+
+		
 	}
 
 //	private Runnable runnalbe = new Runnable() {

@@ -1,5 +1,10 @@
 package com.zhixin.utils;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 
 public class MatcherUtil {
@@ -29,15 +34,15 @@ public class MatcherUtil {
 		}
 	}
 
-    public static boolean validateMobile86(String mobile) {
-        String aa = "^\\+861[0-9][0-9]{9}$";
+	public static boolean validateMobile86(String mobile) {
+		String aa = "^\\+861[0-9][0-9]{9}$";
 
-        if (StringUtils.isEmpty(mobile)) {
-            return false;
-        } else {
-            return mobile.matches(aa);
-        }
-    }
+		if (StringUtils.isEmpty(mobile)) {
+			return false;
+		} else {
+			return mobile.matches(aa);
+		}
+	}
 
 	/**
 	 * 判断是否符合标准密码
@@ -47,10 +52,11 @@ public class MatcherUtil {
 		if (StringUtils.isEmpty(password)) {
 			return false;
 		} else {
-			//	^(\d+\w+[*/+]*){6,12}$
+			// ^(\d+\w+[*/+]*){6,12}$
 			return password.matches("^[a-zA-Z0-9][a-zA-Z0-9_]{7,30}$");
-			//^[a-zA-Z0-9][a-zA-Z0-9_]{4,15}$
-		//	return password.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=\\S+$).{8,30}$");
+			// ^[a-zA-Z0-9][a-zA-Z0-9_]{4,15}$
+			// return
+			// password.matches("^(?=.*[A-Za-z])(?=.*[0-9])(?=\\S+$).{8,30}$");
 		}
 	}
 
@@ -149,7 +155,7 @@ public class MatcherUtil {
 		int number = sigma % 11;
 		String check_number = w[number];
 		// return check_number;
-		
+
 		if (!arrIdCard.substring(17).equalsIgnoreCase(check_number)) {
 			return false;
 		} else {
@@ -157,21 +163,41 @@ public class MatcherUtil {
 		}
 	}
 
+	public static boolean validateNormalString(String string) {
+		if (StringUtils.isEmpty(string)) {
+			return false;
+		} else {
+			return string.matches("^[\\u4E00-\\u9FA5\\uF900-\\uFA2D\\w]+$");
+		}
+	}
 
-    public static boolean validateNormalString(String string) {
-        if (StringUtils.isEmpty(string)) {
-            return false;
-        } else {
-            return string.matches("^[\\u4E00-\\u9FA5\\uF900-\\uFA2D\\w]+$");
-        }
-    }
+	public static boolean validatePwd(String pwd) {
+		return pwd.matches("^[a-zA-Z0-9_]{8,30}$");
+	}
 
-    public static boolean validatePwd(String pwd) {
-        return pwd.matches("^[a-zA-Z0-9_]{8,30}$");
-    }
+	public static boolean validateNumber(String number) {
+		return number.matches("^\\d+$");
+	}
 
-    public static boolean validateNumber(String number) {
-        return number.matches("^\\d+$");
-    }
+	// 判断是否是今天
+	public static boolean isToday(String sDate) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date d1 = null;
+		try {
+			d1 = sdf.parse(sDate);
+		} catch (ParseException e) {
+			// TODO rAuto-generated catch block
+			e.printStackTrace();
+		}
+		Date d2 = new Date();
+		Calendar c1 = Calendar.getInstance();
+		Calendar c2 = Calendar.getInstance();
+		c1.setTime(d1);
+		c2.setTime(d2);
+		return (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR))
+				&& (c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH))
+				&& (c1.get(Calendar.DAY_OF_MONTH) == c2
+						.get(Calendar.DAY_OF_MONTH));
+	}
 
 }

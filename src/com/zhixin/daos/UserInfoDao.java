@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.zhixin.database.DbManager;
 import com.zhixin.domain.UserInfo;
+import com.zhixin.settings.CurrentUserHelper;
 
 public class UserInfoDao {
 //保存用户第一次登陆的信息
@@ -31,8 +32,8 @@ public class UserInfoDao {
 			user = new UserInfo();
 			user.setUsername(username);
 			user.setPassword(password);
-			user.setUserId(jbo.getLong("userId"));
-		   //user = saveUserForFirsttime_particial(jbo, user);
+			user = saveUserForFirsttime_particial(jbo, user);
+			Log.i("userinfo", user + "");
 			db.save(user);
 		} else {
 			user = saveUserForFirsttime_particial(jbo, user);
@@ -42,20 +43,23 @@ public class UserInfoDao {
 
 	}
 	
-	public void saveUserInfo(JSONObject jbo, String phone)throws JSONException, ParseException{
-		Log.i("获取个人资料", jbo+"");
-		String username = phone;
-		
-		UserInfo user = new UserInfo();
-		final FinalDb db = DbManager.getDatabase();
-//		检查用户信息是否存在
-		if (db.tableExists(UserInfo.class)) {			
-			user = db.findUniqueByWhere(UserInfo.class, "username='"+username+"'");
-			Log.i("已存在数据", user.getPassword().toString());
-		}
+	public void saveUserInfo(JSONObject jbo, UserInfo user)throws JSONException, ParseException{
+//		Log.i("获取个人资料", jbo+"");
+//		String username = phone;
+//		
+//		UserInfo user = new UserInfo();
+//		final FinalDb db = DbManager.getDatabase();
+////		检查用户信息是否存在
+//		if (db.tableExists(UserInfo.class)) {			
+//			user = db.findUniqueByWhere(UserInfo.class, "username='"+username+"'");
+//			Log.i("已存在数据", username);
+//		}
 		if (user != null) {
-			if (StringUtils.isNotEmpty(jbo.getString("userId"))) {
-				user.setUserId(jbo.getLong("userId"));
+				
+			user.setUserId(jbo.getLong("userId"));
+				
+			if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
+				user.setPicUrl(jbo.getString("avatarPath"));
 			}
 			
 			if (StringUtils.isNotEmpty(jbo.getString("name"))) {
@@ -69,34 +73,38 @@ public class UserInfoDao {
 			}else {
 				user.setSex(2);
 			}
+			
 			if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 				user.setNickName(jbo.getString("nickName"));
 			}else {
 				user.setNickName("");
 			}
+			
 			if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
 				user.setSignature(jbo.getString("signature"));
 			}else {
 				user.setSignature("");
 			}
+			
 			if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
-//				DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//				Date date = formatter.parse(jbo.getString("birthday"));
 				user.setBirthDay(jbo.getString("birthday"));
 			}else {
 				user.setBirthDay("");
 			}
+			
 			if (StringUtils.isNotEmpty(jbo.getString("IdCard"))) {
 				user.setIdentityNumber(jbo.getString("IdCard"));
 			}else {
 				user.setIdentityNumber("");
 			}
+			
 			// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
 			if (StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
 				user.setBloodType(jbo.getInt("bloodType"));
 			}else {
 				user.setBloodType(4);
 			}
+			
 			if (StringUtils.isNotEmpty(jbo.getString("district"))) {
 				user.setDistrict(jbo.getString("district"));
 			}else {
@@ -108,14 +116,15 @@ public class UserInfoDao {
 			}else {
 				user.setAddress("");
 			}
+			
 			if (StringUtils.isNotEmpty(jbo.getString("email"))) {
 				user.setEmail(jbo.getString("email"));
 			}else {
 				user.setEmail("");
 			}
 			
-			Log.i("更新本地數據庫", user+"");
-		db.update(user);
+			Log.i("更新本地数据库", user+"");
+//		db.update(user);
 		}
 	}
 		
@@ -126,6 +135,11 @@ public class UserInfoDao {
 		if (StringUtils.isNotEmpty(jbo.getString("userId"))) {
 			user.setUserId(jbo.getLong("userId"));
 		}
+		
+		if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
+			user.setPicUrl(jbo.getString("avatarPath"));
+		}
+		
 		if (StringUtils.isNotEmpty(jbo.getString("name"))) {
 			user.setName(jbo.getString("name"));
 		}else {
@@ -137,22 +151,22 @@ public class UserInfoDao {
 		}else {
 			user.setSex(2);
 		}
+		
 		if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 			user.setNickName(jbo.getString("nickName"));
 		}else {
 			user.setNickName("");
 		}
+		
 		if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
 			user.setSignature(jbo.getString("signature"));
 		}else {
 			user.setSignature("");
 		}
+		
 		if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
-//			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-//			Date date = formatter.parse(jbo.getString("birthday"));
 			user.setBirthDay(jbo.getString("birthday"));
 		}else {
-//			user.setBirthDay(new Date());
 			user.setBirthDay("");
 		}
 		
@@ -162,6 +176,7 @@ public class UserInfoDao {
 		}else {
 			user.setBloodType(4);
 		}
+		
 		if (StringUtils.isNotEmpty(jbo.getString("district"))) {
 			user.setDistrict(jbo.getString("district"));
 		}else {
@@ -173,6 +188,7 @@ public class UserInfoDao {
 		}else {
 			user.setAddress("");
 		}
+		
 		if (StringUtils.isNotEmpty(jbo.getString("email"))) {
 			user.setEmail(jbo.getString("email"));
 		}else {
@@ -184,6 +200,7 @@ public class UserInfoDao {
 		}else {
 			user.setIdentityNumber("");
 		}
+		
 		return user;
 	
 
@@ -424,4 +441,10 @@ public class UserInfoDao {
 		return user;
 	}
 
+	public UserInfo getCurrentUser() {
+		String sql = "select * from user_info where userId='" + CurrentUserHelper.getCurrentUserId() + "'";
+		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
+				sql);
+		return user;
+	}
 }

@@ -15,10 +15,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.zhixin.R;
 import com.zhixin.customui.CardView;
+import com.zhixin.dialog.QubaopenProgressDialog;
 import com.zhixin.domain.MapData;
 import com.zhixin.logic.MapDataObject;
 import com.zhixin.settings.SettingValues;
@@ -32,6 +34,10 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 	private Context context;
 
 	private View rootView;
+	/** loading */
+	private QubaopenProgressDialog progressDialog;
+
+	private ImageView persenalImgBg;
 	private CardView personCardView;
 
 	@Override
@@ -44,12 +50,19 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (rootView == null) {
-			rootView = inflater.inflate(R.layout.fragment_xinlimap_card,
-					container, false);
-			personCardView = (CardView) rootView.findViewById(R.id.cardview);
+			rootView = inflater.inflate(
+					R.layout.fragment_xinlimap_card_general, container, false);
 
 			context = getActivity().getApplicationContext();
+			progressDialog = new QubaopenProgressDialog(mainActivity);
+			persenalImgBg = (ImageView) rootView
+					.findViewById(R.id.img_xinlimap_general_no_content_bg);
+			persenalImgBg.setVisibility(View.GONE);
+			personCardView = (CardView) rootView.findViewById(R.id.cardview);
 
+			if (!progressDialog.isShowing()) {
+				progressDialog.show();
+			}
 			String requestUrl = SettingValues.URL_PREFIX
 					+ context.getString(R.string.URL_GET_MAP) + "?typeId=3";
 
@@ -93,21 +106,32 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 			return result;
 		}
 
-		@SuppressWarnings("unused")
 		@Override
 		protected void onPostExecute(JSONObject result) {
 			try {
 				Integer syncType = result.getInt("syncType");
 				switch (syncType) {
 				case 1:
-					if (result != null) {
-						if (result.getString("success").equals("1")) {
-							List<MapData> data = new ArrayList<MapData>();
-							data = MapDataObject.manageDataFromJson(result);
-							Log.i("top", "cross排序后的数据" + data + "");
-							personCardView.setMapList(data);
+					if (result.getString("success").equals("1")) {
+						if (result.has("data")) {
+							if (result.getJSONArray("data").length() == 0) {
+								persenalImgBg.setVisibility(View.VISIBLE);
+							} else {
+								persenalImgBg.setVisibility(View.GONE);
+								List<MapData> data = new ArrayList<MapData>();
+								data = MapDataObject.manageDataFromJson(result);
+								Log.i("top", "cross排序后的数据" + data + "");
+								personCardView.setMapList(data);
+							}
+
 						} else {
-							rootView.setBackgroundResource(R.drawable.xinlimap_no_map_bg);
+							persenalImgBg.setVisibility(View.VISIBLE);
+						}
+						if (progressDialog.isShowing()) {
+							progressDialog.dismiss();
+						}
+						if (progressDialog.isShowing()) {
+							progressDialog.dismiss();
 						}
 					} else {
 						Toast.makeText(mainActivity, "获取地图失败",

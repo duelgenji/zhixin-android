@@ -40,7 +40,6 @@
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="@string/modify_nickname"
-                android:maxLength="14"
                 android:textSize="18sp" />
 
             <ImageButton

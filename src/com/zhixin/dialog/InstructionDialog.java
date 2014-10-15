@@ -53,6 +53,8 @@ public class InstructionDialog extends Dialog{
 			drawableResource = R.drawable.instruction_page_main2;
 		}else if (instructionCate.equals(SettingValues.INSTRUCTION_SELF_LIST)){
 			drawableResource = R.drawable.instruction_page_self_list;
+		}else if (instructionCate.equals(SettingValues.INSTRUCTION_SELF_AGE_SEX)){
+			drawableResource = R.drawable.instruction_page_self_list;
 		}
 		
 		instructionDialogMainImage.setImageResource(drawableResource);

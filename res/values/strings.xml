@@ -33,6 +33,7 @@
     <string name="more_user_info_email_hint">请输入电子邮箱</string>
     <string name="more_user_info_name_hint">请输入真实姓名</string>
     <string name="more_user_info_identity_hint">请输入身份证号</string>
+    <string name="more_user_info_age_hint">请输入年龄</string>
     <string name="user_info_address_add_name_hint">请填写收货人姓名</string>
     <string name="user_info_address_add_phone_hint">请填写收货人手机号码</string>
     <string name="user_info_address_add_code_hint">请填写所在地区邮编</string>

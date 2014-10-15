@@ -46,7 +46,7 @@ public class SettingValues {
 		public static final String FRAGMENT_QUSHEJIAO_FRAGMENT = "qushejiaoFragment";
 
 		// save path
-		public static final String PATH_USER_TX_PREFIX = "/qubaopen/tx/";
+		public static final String PATH_USER_PREFIX = "/qubaopen/headerIcon/";
 
 		// ranklist cate
 		public static final int RANK_ALL = 0;
@@ -76,7 +76,9 @@ public class SettingValues {
 		public static final String INSTRUCTION_MAIN1 = "instruction_main1";
 
 		public static final String INSTRUCTION_MAIN2 = "instruction_main2";
-		
+
 		public static final String INSTRUCTION_SELF_LIST = "instruction_self_list";
+		
+		public static final String INSTRUCTION_SELF_AGE_SEX = "instruction_self_age_sex";
 
 }

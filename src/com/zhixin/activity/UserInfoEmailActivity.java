@@ -4,7 +4,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -34,10 +33,10 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 	private TextView txtPageTitle;
 	private ImageButton iBtnPageBack;
 	private Button submitBtn;
+	private ImageButton clearEmail;
 
 	private Activity _this;
 
-	// private String sNewEmail;
 	private String currentEmail;
 	private EditText txtInputEmailPersonalProfile;
 	private long userId;
@@ -58,6 +57,8 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 		txtPageTitle.setText(this.getString(R.string.title_user_email));
 		submitBtn = (Button) this.findViewById(R.id.addressSubmit);
 		submitBtn.setOnClickListener(this);
+		clearEmail = (ImageButton) this.findViewById(R.id.clearEmailBtn);
+		clearEmail.setOnClickListener(this);
 
 		txtInputEmailPersonalProfile = (EditText) this
 				.findViewById(R.id.txtInputEmailPersonalProfile);
@@ -72,7 +73,6 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 
 	@Override
 	public void onClick(View v) {
-		// v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.backup_btn:
 			this.onBackPressed();
@@ -80,42 +80,45 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 			break;
 		case R.id.addressSubmit:
 			// sendRequest();
-			if (txtInputEmailPersonalProfile.getText() == null) {
-				showToast(_this.getString(R.string.toast_input_cant_be_null));
-				submitBtn.setEnabled(true);
-				return;
-			}
-			sEmail = txtInputEmailPersonalProfile.getText().toString().trim();
+			if (txtInputEmailPersonalProfile.getText() != null) {
+				sEmail = txtInputEmailPersonalProfile.getText().toString();
+				if (!sEmail.equals("")) {
+					if (MatcherUtil.validateEmail(sEmail)) {
+						if (sEmail != currentEmail) {
+							String requestUrl = SettingValues.URL_PREFIX
+									+ UserInfoEmailActivity.this
+											.getString(R.string.URL_USER_UPDATE);
+							JSONObject jsonParams = new JSONObject();
+							userId = CurrentUserHelper.getCurrentUserId();
+							try {
+								jsonParams.put("email", sEmail);
+								jsonParams.put("id", userId);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							new LoadDataTask1().execute(1, requestUrl,
+									jsonParams, HttpClient.TYPE_PUT_JSON);
+						} else {
+							showToast("请填写新邮箱！");
+						}
 
-			if (sEmail.equals("")) {
-				showToast(_this.getString(R.string.toast_input_cant_be_null));
-				submitBtn.setEnabled(true);
-				return;
-			}
-
-			if (MatcherUtil.validateEmail(sEmail)) {
-				if (sEmail != currentEmail) {
-					String requestUrl = SettingValues.URL_PREFIX
-							+ UserInfoEmailActivity.this
-									.getString(R.string.URL_USER_UPDATE);
-					JSONObject jsonParams = new JSONObject();
-					userId = CurrentUserHelper.getCurrentUserId();
-					try {
-						jsonParams.put("email", sEmail);
-						jsonParams.put("id", userId);
-					} catch (JSONException e) {
-						e.printStackTrace();
+					} else {
+						showToast(_this
+								.getString(R.string.toast_user_info_wrong_email));
 					}
-					new LoadDataTask1().execute(1, requestUrl, jsonParams,
-							HttpClient.TYPE_PUT_JSON);
+				} else {
+					showToast(_this
+							.getString(R.string.toast_input_cant_be_null));
 				}
-
 			} else {
-				showToast(_this.getString(R.string.toast_user_info_wrong_email));
-				submitBtn.setEnabled(true);
-				return;
+				showToast(_this.getString(R.string.toast_input_cant_be_null));
 			}
-			submitBtn.setEnabled(true);
+
+			v.setEnabled(true);
+			break;
+		case R.id.clearEmailBtn:
+			txtInputEmailPersonalProfile.setText("");
+			v.setEnabled(true);
 			break;
 		default:
 			break;
@@ -131,8 +134,6 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 			try {
 				switch (syncType) {
 				case 1:
-					// null。。。。传参方式是get
-					// (Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
@@ -157,13 +158,11 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 						txtInputEmailPersonalProfile.setText("");
 						userInfoDao = new UserInfoDao();
 						userInfoDao.saveUserInfoEmailById(userId, sEmail);
-						Intent intent = new Intent(_this,
-								UserInfoActivity.class);
-						startActivity(intent);
 						Toast.makeText(_this, "修改邮箱成功！", Toast.LENGTH_SHORT)
 								.show();
+						_this.onBackPressed();
 					} else {
-						Toast.makeText(_this, "修改失败！", Toast.LENGTH_SHORT)
+						Toast.makeText(_this, "修改邮箱失败！", Toast.LENGTH_SHORT)
 								.show();
 					}
 					break;
@@ -176,82 +175,6 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 		}
 	}
 
-	// private class LoadDataTask extends AsyncTask<JSONObject, Void,
-	// JSONObject> {
-	//
-	// @Override
-	// protected JSONObject doInBackground(JSONObject... jbo) {
-	// JSONObject result=new JSONObject();
-	// String requestUrl = SettingValues.URL_PREFIX
-	// + getString(R.string.URL_USER_INFO_EMAIL);
-	//
-	// try {
-	// JSONObject jsonParams = jbo[0];
-	// result = HttpClient.requestSync(
-	// requestUrl, jsonParams);
-	// if(result!=null && result.has("success") &&
-	// result.getString("success").equals("1")){
-	// new UserInfoDao().saveUserInfoEmail(CurrentUserHelper.getCurrentPhone(),
-	// sNewEmail);
-	// }
-	// } catch (JSONException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// return result;
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(JSONObject jbo) {
-	// if(jbo!=null){
-	// try {
-	// if(jbo.has("success") && jbo.getString("success").equals("1")){
-	// showToast(_this.getString(R.string.toast_modify_success));
-	// _this.onBackPressed();
-	// }else if(jbo.getString("success").equals("0")){
-	// String context= ErrHashMap.getErrMessage(jbo.getString("message"));
-	// context= context==null? _this.getString(R.string.toast_unknown):context;
-	// Toast.makeText(_this, context, 5).show();
-	// }
-	//
-	// } catch (JSONException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// }
-	//
-	// submitBtn.setEnabled(true);
-	// }
-	//
-	// }
-
-	// private void sendRequest(){
-	// if(txtInputEmailPersonalProfile.getText()==null){
-	// showToast(_this.getString(R.string.toast_input_cant_be_null));
-	// submitBtn.setEnabled(true);
-	// return;
-	// }
-	// String sEmail=txtInputEmailPersonalProfile.getText().toString().trim();
-	//
-	// if(sEmail.equals("")){
-	// showToast(_this.getString(R.string.toast_input_cant_be_null));
-	// submitBtn.setEnabled(true);
-	// return;
-	// }
-	// if(!MatcherUtil.validateEmail(sEmail)){
-	// showToast(_this.getString(R.string.toast_user_info_wrong_email));
-	// submitBtn.setEnabled(true);
-	// return;
-	// }
-	// try {
-	// JSONObject jsonParams = new JSONObject();
-	// jsonParams.put("email",sEmail);
-	// sNewEmail=sEmail;
-	// new LoadDataTask().execute(jsonParams);
-	// } catch (JSONException e) {
-	// e.printStackTrace();
-	// }
-	// }
 	private void showToast(String content) {
 		Toast.makeText(_this, content, Toast.LENGTH_SHORT).show();
 	}

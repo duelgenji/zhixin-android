@@ -51,11 +51,11 @@ public class CropImageIntentService extends IntentService {
 
 					if (fileToSend.renameTo(new File(Environment
 							.getExternalStorageDirectory()
-							+ SettingValues.PATH_USER_TX_PREFIX + filename))) {
+							+ SettingValues.PATH_USER_PREFIX + filename))) {
 
 						Bitmap bitmap = BitmapFactory.decodeFile(Environment
 								.getExternalStorageDirectory()
-								+ SettingValues.PATH_USER_TX_PREFIX + filename);
+								+ SettingValues.PATH_USER_PREFIX + filename);
 
 						CurrentUserHelper.saveBitmap(RecToCircleTask
 								.transferToCircle(bitmap));
