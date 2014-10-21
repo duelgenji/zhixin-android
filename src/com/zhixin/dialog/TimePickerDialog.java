@@ -7,6 +7,7 @@ import android.content.Context;
 import android.widget.Button;
 import android.widget.TimePicker;
 import android.widget.Toast;
+import android.util.Log;
 import android.view.View;
 
 public class TimePickerDialog extends Dialog implements View.OnClickListener {
@@ -27,23 +28,26 @@ public class TimePickerDialog extends Dialog implements View.OnClickListener {
 
 	private boolean leaveWithConfirm;
 
-	public TimePickerDialog(Context context, int theme,String startTime,String endTime) {
+	public TimePickerDialog(Context context, int theme, String startTime,
+			String endTime) {
 		super(context, theme);
 		setContentView(R.layout.dialog_receive_time);
 		this.context = context;
 
 		timePickerStart = (TimePicker) this.findViewById(R.id.timePickerStart);
 		timePickerEnd = (TimePicker) this.findViewById(R.id.timePickerEnd);
-		
-		timePickerStart.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-		timePickerEnd.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
-		
+
+		timePickerStart
+				.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+		timePickerEnd
+				.setDescendantFocusability(TimePicker.FOCUS_BLOCK_DESCENDANTS);
+
 		timePickerStart.setIs24HourView(true);
 		timePickerEnd.setIs24HourView(true);
 
 		String[] startTimeArray = startTime.split(":");
 		String[] endTimeArray = endTime.split(":");
-		
+
 		startHour = Integer.parseInt(startTimeArray[0]);
 		startMinute = Integer.parseInt(startTimeArray[1]);
 
@@ -111,16 +115,21 @@ public class TimePickerDialog extends Dialog implements View.OnClickListener {
 	}
 
 	private boolean checkTimeValid() {
-
-		if (timePickerStart.getCurrentHour() > timePickerEnd.getCurrentHour()) {
-			return false;
-		} else if (timePickerStart.getCurrentHour() == timePickerEnd
-				.getCurrentHour()) {
-
-			if (timePickerStart.getCurrentMinute() >= timePickerEnd
-					.getCurrentMinute()) {
+		Log.i("timepicker", "endTime" + timePickerEnd.getCurrentHour() + ""
+				+ timePickerEnd.getCurrentMinute());
+		if (timePickerEnd.getCurrentHour() != 0
+				&& timePickerEnd.getCurrentMinute() != 0) {
+			if (timePickerStart.getCurrentHour() > timePickerEnd
+					.getCurrentHour()) {
 				return false;
+			} else if (timePickerStart.getCurrentHour() == timePickerEnd
+					.getCurrentHour()) {
 
+				if (timePickerStart.getCurrentMinute() >= timePickerEnd
+						.getCurrentMinute()) {
+					return false;
+
+				}
 			}
 		}
 

@@ -6,18 +6,30 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.ParseException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.tsz.afinal.FinalHttp;
+import net.tsz.afinal.http.AjaxCallBack;
+
+import org.apache.commons.io.FilenameUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +66,7 @@ import com.zhixin.service.CropImageIntentService;
 import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.settings.SettingValues;
 import com.zhixin.utils.HttpClient;
+import com.zhixin.utils.RecToCircleTask;
 import com.zhixin.utils.ShareUtil;
 
 import eu.janmuller.android.simplecropimage.CropImage;
@@ -93,6 +106,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	private String localSignature;
 
 	private View rootView;
+
+	private BroadcastReceiver mReceiver;
 
 	static final int PICK_PIC_FROM_CAMERA_ACTION = 10;
 	static final int PICK_PIC_FORM_GALLERY_ACTION = 20;
@@ -185,16 +200,65 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		scoreTheApp.setOnClickListener(this);
 
 		headImageViewPlaceHolder = (ImageView) view.findViewById(R.id.headIcon);
-		if (userInfo.getPicUrl() != null) {
-			String headIcnUrl = SettingValues.URL_PREFIX + userInfo.getPicUrl();
-			Log.i("headIcon", headIcnUrl);
-			imageLoader.displayImage(headIcnUrl, headImageViewPlaceHolder,
-					options, animateFirstListener);
-		}
+	
+		updateHeadIcon();
+
+			// imageLoader.displayImage(headIcnUrl, headImageViewPlaceHolder,
+			// options, animateFirstListener);
+	
 		headImageViewPlaceHolder
 				.setOnClickListener(new ClickImageToChangeHeadIcon());
 	}
 
+	private void updateHeadIcon() {
+		if (userInfo.getPicUrl() != null) {
+			String headIcnUrl = "http://115.28.176.74:8080/know-heart"
+					+ userInfo.getPicUrl();
+			Log.i("headIcon", headIcnUrl);
+
+			File fileFolder = new File(
+					Environment.getExternalStorageDirectory()
+							+ SettingValues.PATH_USER_PREFIX);
+			if (!fileFolder.exists()) {
+				fileFolder.mkdirs();
+			}
+
+			// Program exploit:if there is no external storage,program will
+			// crash
+			final String target = Environment.getExternalStorageDirectory()
+					+ SettingValues.PATH_USER_PREFIX
+					+ FilenameUtils.getName(userInfo.getPicUrl());
+			File file = new File(target);
+			if (!file.exists()) {
+				FinalHttp fh = new FinalHttp();
+				fh.download(headIcnUrl, null, target + ".temp", false,
+						new AjaxCallBack<File>() {
+							@Override
+							public void onSuccess(File t) {
+								if (isAdded()) {
+									if (t.renameTo(new File(target))) {
+
+										new RecToCircleTaskInQushejiao()
+												.execute(target);
+									}
+								}
+							}
+
+						});
+			} else {
+				if (CurrentUserHelper.getBitmap() == null) {
+					new RecToCircleTaskInQushejiao().execute(target);
+				} else {
+					headImageViewPlaceHolder.setImageBitmap(CurrentUserHelper
+							.getBitmap());
+				}
+
+			}
+		}
+	}
+
+	
+	
 	private class NicknameIconClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -332,25 +396,26 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 			+ SettingValues.PATH_USER_PREFIX
 			+ SettingValues.TEMP_PHOTO_FILE_NAME;
 
-	// private class RecToCircleTaskInQushejiao extends
-	// AsyncTask<String, Void, Bitmap> {
-	// protected Bitmap doInBackground(String... urls) {
-	// Bitmap bitmap = BitmapFactory.decodeFile(urls[0]);
-	// return RecToCircleTask.transferToCircle(bitmap);
-	// }
-	//
-	// protected void onPostExecute(Bitmap result) {
-	// if (isAdded()) {
-	// CurrentUserHelper.saveBitmap(result);
-	// headImageViewPlaceHolder
-	// .setImageResource(R.drawable.head_white_ring_background);
-	// headImageViewPlaceHolder.setImageBitmap(result);
-	//
-	// }
-	//
-	// }
-	//
-	// }
+	// 头像转圆
+	private class RecToCircleTaskInQushejiao extends
+			AsyncTask<String, Void, Bitmap> {
+		protected Bitmap doInBackground(String... urls) {
+			Bitmap bitmap = BitmapFactory.decodeFile(urls[0]);
+			return RecToCircleTask.transferToCircle(bitmap);
+		}
+
+		protected void onPostExecute(Bitmap result) {
+			if (isAdded()) {
+				CurrentUserHelper.saveBitmap(result);
+				headImageViewPlaceHolder
+						.setImageResource(R.drawable.head_white_ring_background);
+				headImageViewPlaceHolder.setImageBitmap(result);
+
+			}
+
+		}
+
+	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode,
@@ -408,8 +473,36 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	}
 
 	@Override
+	public void onPause() {
+		super.onPause();
+		mainActivity.unregisterReceiver(mReceiver);
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
+		IntentFilter intentFilter = new IntentFilter(
+				CropImageIntentService.IMAGE_UPLOAD_DONE_RECEIVER);
+		mReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				Log.i("headIcon","接受");
+				String success = intent.getStringExtra("success");
+				if (success.equals("1")) {
+					String requestUrl = SettingValues.URL_PREFIX
+							+ getString(R.string.URL_USER_INFO_ADD);
+					new LoadDataTask1().execute(1, requestUrl, null,
+							HttpClient.TYPE_GET);
+
+				} else {
+					Toast.makeText(context,
+							getString(R.string.toast_upload_photo_fail_tips),
+							Toast.LENGTH_SHORT).show();
+				}
+			}
+		};
+		mainActivity.registerReceiver(mReceiver, intentFilter);
+
 		StatService.onResume(this);
 	}
 
@@ -445,21 +538,27 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				case 1:
 					if (result != null
 							&& result.getString("success").equals("1")) {
-						// 。。。。。。。。。
+						UserInfoDao userInfoDao = new UserInfoDao();
+						userInfoDao.saveUserInfo(result,
+								userInfoDao.getCurrentUser());
+						userInfo = userInfoDao.getCurrentUser();
+						updateHeadIcon();
+
 						Toast.makeText(mainActivity, "获取个人资料成功！",
 								Toast.LENGTH_SHORT).show();
 						nickName = result.getString("nickName");
 						signature = result.getString("signature");
 						Log.i("个人签名", signature);
-						String headIconUrl = SettingValues.PATH_USER_PREFIX
+						String headIconUrl = SettingValues.URL_PREFIX
 								+ result.getString("avatarPath");
 						Log.i("个人签名", headIconUrl);
 
 						nickNameTextView.setText(nickName);
 						signatureTextView.setText(signature);
-						imageLoader.displayImage(headIconUrl,
-								headImageViewPlaceHolder, options,
-								animateFirstListener);
+						// imageLoader.displayImage(headIconUrl,
+						// headImageViewPlaceHolder, options,
+						// animateFirstListener);
+
 					} else {
 						Toast.makeText(mainActivity, "获取数据失败！",
 								Toast.LENGTH_SHORT).show();
@@ -469,6 +568,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 					break;
 				}
 			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
 				e.printStackTrace();
 			}
 		}
@@ -565,9 +666,9 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 						startActivityForResult(intent,
 								PICK_PIC_FROM_CAMERA_ACTION);
-						
-//						new LoadHeadIconTask().execute(1, headIconUrl, null,
-//								HttpClient.TYPE_POST_FORM);
+
+						// new LoadHeadIconTask().execute(1, headIconUrl, null,
+						// HttpClient.TYPE_POST_FORM);
 					} catch (ActivityNotFoundException e) {
 
 						e.printStackTrace();
@@ -586,9 +687,9 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 					startActivityForResult(photoPickerIntent,
 							PICK_PIC_FORM_GALLERY_ACTION);
-					
-//					new LoadHeadIconTask().execute(1, headIconUrl, null,
-//							HttpClient.TYPE_POST_FORM);
+
+					// new LoadHeadIconTask().execute(1, headIconUrl, null,
+					// HttpClient.TYPE_POST_FORM);
 				}
 			});
 

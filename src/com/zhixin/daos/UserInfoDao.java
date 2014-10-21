@@ -123,8 +123,7 @@ public class UserInfoDao {
 				user.setEmail("");
 			}
 			
-			Log.i("更新本地数据库", user+"");
-//		db.update(user);
+			DbManager.getDatabase().update(user);
 		}
 	}
 		

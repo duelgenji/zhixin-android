@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"  
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0E0E0"
@@ -12,8 +13,8 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="81.1"
-        android:weightSum="80.1" 
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:weightSum="80.1" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -31,17 +32,19 @@
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
-                android:layout_weight="14"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="14"
                 android:orientation="horizontal" >
 
-                <ImageView
+                <com.zhixin.customui.CircleImageView
                     android:id="@+id/headIcon"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
-                    android:src="@drawable/head_img" />
+                    android:src="@drawable/head_img"
+                    app:border_color="@color/text_grey"
+                    app:border_width="2dp" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -160,9 +163,9 @@
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:layout_weight="60.1"
+            android:orientation="vertical"
             android:padding="5dp"
-            android:weightSum="60.1"
-            android:orientation="vertical" >
+            android:weightSum="60.1" >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -430,11 +433,13 @@
                         android:layout_weight="3.4" />
                 </LinearLayout>
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="8.5"
-                android:orientation="vertical" ></LinearLayout>
+                android:orientation="vertical" >
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 

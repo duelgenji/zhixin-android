@@ -2,6 +2,7 @@ package com.zhixin.activity;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -293,23 +294,28 @@ public class XinliMapMoodCardFragment extends Fragment implements
 				return true;
 			}
 		});
-		moodWebView.loadUrl("http://10.0.0.88/hs_android.html");
-
+		moodWebView.loadUrl("http://115.28.176.74/hs.html"
+				+ "?timestamp=" + new Date().getTime());
+		// moodWebView.loadUrl("http://10.0.0.88/hs.html"+
+		// "?height=300&timestamp=" + new Date().getTime());
 		moodWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
 				JSONObject mapParamsJson = new JSONObject();
 				try {
+
 					mapParamsJson.put("title", hsMapData.getMapDataTitle());
 					mapParamsJson.put("mapMax", hsMapData.getMapDataMax());
 					mapParamsJson.put("chartType",
 							hsMapData.getMapDataGraphicsType());
+					Log.i("moodchart", ">>>>>>" + hsMapData.getMapDataChat());
 					mapParamsJson.put("chart", hsMapData.getMapDataChat());
 
 					String mapParams = mapParamsJson.toString();
-					moodWebView.loadUrl("javascript:switchChart(" + mapParams
-							+ ")");
+					Log.i("moodchart", ">>>>>>" + mapParams);
+					moodWebView.loadUrl("javascript:switchChart('" + mapParams
+							+ "')");
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

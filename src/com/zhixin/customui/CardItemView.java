@@ -65,14 +65,13 @@ public class CardItemView extends LinearLayout {
 	private TextView cardItemScore;
 	private TextView cardItemContent;
 	private Button cardItemShare;
-	private int endHeight;
-
+	
 	private String contentStr;
+	private int endHeight;
 
 	private boolean isExpand = false;
 	private MapData mapData;
 	private OnCardChangeListener onCardChangeListener;
-	// private boolean isRunning;
 	private AnimatorListener animatorListener;
 
 	private List<Integer> epqList;
@@ -166,7 +165,6 @@ public class CardItemView extends LinearLayout {
 		cardItemLeft.setBackgroundColor(color);
 		cardItemRight.setBackgroundColor(color);
 		cardItemRight.setImageResource(R.drawable.card_arrow_origin);
-
 		if (mapData.getMapDataTitle() != null) {
 			cardItemTitle.setText(mapData.getMapDataTitle());
 			Log.i("mapdata", "carditemview...tilte" + mapData.getMapDataTitle());
@@ -188,6 +186,7 @@ public class CardItemView extends LinearLayout {
 			cardItemTips.setVisibility(View.GONE);
 			nsLayout.setVisibility(View.VISIBLE);
 			cardItemContent.setVisibility(View.VISIBLE);
+			
 			if (mapData.getMapDataPicPath() != null) {
 				cardItemImg.setVisibility(View.VISIBLE);
 				Log.i("mapdata",
@@ -236,7 +235,6 @@ public class CardItemView extends LinearLayout {
 				cardItemScore.setText("暂无得分");
 			}
 			if (mapData.getMapDataContent() != null) {
-				// contentStr = mapData.getMapDataContent();
 				Log.i("mapdata",
 						"carditemview...content改前"
 								+ mapData.getMapDataContent());
@@ -279,11 +277,6 @@ public class CardItemView extends LinearLayout {
 				});
 
 		requestLayout();
-		// ViewGroup.LayoutParams lp = new
-		// ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 180);
-		// lp.height=180;
-		// setLayoutParams(lp);
-
 	}
 
 	public void setIntialHeight() {
@@ -292,15 +285,6 @@ public class CardItemView extends LinearLayout {
 				+ getPaddingTop();
 		setLayoutParams(lp);
 	}
-
-	//
-	// private void setEndHeight(int h) {
-	// this.endHeight = h;
-	// }
-	//
-	// private int getEndHeight() {
-	// return endHeight;
-	// }
 
 	@Override
 	protected void onFinishInflate() {
@@ -351,7 +335,6 @@ public class CardItemView extends LinearLayout {
 		if (isExpand) {
 			isExpand = false;
 			rotateArrow(cardItemRight, true, 50);
-			// int height = getHeight();
 			Log.i("close", "before_close..." + endHeight);
 			if (isAnimate) {
 				int afterHeight = titleLayout.getHeight() + getPaddingBottom()
@@ -373,9 +356,7 @@ public class CardItemView extends LinearLayout {
 		isExpand = true;
 		// 改变箭头
 		rotateArrow(cardItemRight, false, 50);
-
 		int height = getHeight();
-
 		Log.i("open", "height:" + height + ";endHeight:" + endHeight);
 		performAnimate(this, height, endHeight, 50);
 
@@ -383,9 +364,7 @@ public class CardItemView extends LinearLayout {
 
 	// 旋转箭头
 	private void rotateArrow(ImageView imageView, boolean isOpen, int duration) {
-
 		RotateAnimation operatingAnim;
-
 		if (!isOpen) {
 			operatingAnim = new RotateAnimation(0, 179,
 					Animation.RELATIVE_TO_SELF, 0.5f,
@@ -411,10 +390,7 @@ public class CardItemView extends LinearLayout {
 	// view 改变height动画
 	private void performAnimate(final View target, final int start,
 			final int end, Integer duration) {
-
-		// isRunning = true;
 		ValueAnimator valueAnimator = ValueAnimator.ofInt(start, end);
-
 		valueAnimator.addListener(new AnimatorListener() {
 
 			@Override
@@ -447,7 +423,6 @@ public class CardItemView extends LinearLayout {
 		});
 
 		valueAnimator.addUpdateListener(new AnimatorUpdateListener() {
-
 			// 持有一个IntEvaluator对象，方便下面估值的时候使用
 			private IntEvaluator mEvaluator = new IntEvaluator();
 
@@ -528,7 +503,6 @@ public class CardItemView extends LinearLayout {
 			x = point.getDouble("E") - 50;
 			y = point.getDouble("N") - 50;
 			rad = Math.atan2(y, x);
-			// epqPosition = (y / x);
 			Log.i("epq", rad + "");
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -700,21 +674,19 @@ public class CardItemView extends LinearLayout {
 
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
-
 				view.loadUrl(url); // 在当前的webview中跳转到新的url
-
 				return true;
 			}
 		});
-		// cardWebView.loadUrl("http://10.0.0.88/hs_android.html");
-		cardItemWebView.loadUrl("http://10.0.0.88/hc.html"
-				+ "?height=300&timestamp=" + new Date().getTime());
-
+		cardItemWebView.loadUrl("http://115.28.176.74/hc.html"
+				+ "?timestamp=" + new Date().getTime());
+//		cardItemWebView.loadUrl("http://10.0.0.88/hc.html"
+//				+ "?height=300&timestamp=" + new Date().getTime());
+		
 		cardItemWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onPageFinished(WebView view, String url) {
 				super.onPageFinished(view, url);
-
 				try {
 					JSONObject mapParamsJson = new JSONObject();
 
@@ -723,9 +695,9 @@ public class CardItemView extends LinearLayout {
 					mapParamsJson.put("chartType",
 							mapData.getMapDataGraphicsType());
 					mapParamsJson.put("chart", mapData.getMapDataChat());
-
+				
 					String mapParams = mapParamsJson.toString();
-
+					Log.i("chart",">>>>>>>" + mapParams);
 					cardItemWebView.loadUrl("javascript:switchChart('"
 							+ mapParams + "')");
 				} catch (JSONException e) {

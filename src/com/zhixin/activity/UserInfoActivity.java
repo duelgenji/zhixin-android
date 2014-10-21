@@ -277,6 +277,7 @@ public class UserInfoActivity extends FragmentActivity implements
 							msg.what = 0;
 							handler.sendMessage(msg);
 						}
+						getSupportLoaderManager().restartLoader(0, null, _this);
 						showToast("修改性别成功！");
 					} else {
 						showToast("修改性别失败！");
@@ -294,6 +295,7 @@ public class UserInfoActivity extends FragmentActivity implements
 							msg.what = 0;
 							handler.sendMessage(msg);
 						}
+						getSupportLoaderManager().restartLoader(0, null, _this);
 						showToast("修改生日成功！");
 					} else {
 						showToast("修改生日失败！");
@@ -311,6 +313,7 @@ public class UserInfoActivity extends FragmentActivity implements
 							msg.what = 0;
 							handler.sendMessage(msg);
 						}
+						getSupportLoaderManager().restartLoader(0, null, _this);
 						showToast("修改血型成功！");
 					} else {
 						showToast("修改血型失败！");
@@ -366,7 +369,6 @@ public class UserInfoActivity extends FragmentActivity implements
 
 				startActivity(intent);
 				v.setEnabled(false);
-				finish();
 			}
 			break;
 		case R.id.layoutAuthenticationPersonalProfile:

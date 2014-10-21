@@ -61,8 +61,6 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		btnAdd.setOnClickListener(this);
 		userAddressList = (ListView) this.findViewById(R.id.userAddressList);
 		new LoadAddressDataTask().execute();
-//		userAddressService.saveUserAddress();
-		Log.i("address", "======保存到本地完成======" );
 	}
 
 	@Override
@@ -155,10 +153,6 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 	}
 	public void reSetAddress(){
 		new LoadAddressDataTask().execute();
-//		userAddressService.saveUserAddress();
-//		Log.i("address", "======保存到本地完成======" );
-//		getSupportLoaderManager().restartLoader(0, null,
-//				UserInfoAddressActivity.this);
 	}
 	
 

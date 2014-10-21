@@ -164,25 +164,20 @@ public class MoreSetting extends FragmentActivity implements
 
 		if (us != null) {
 
-			localPush = us.isPublicAnswersToFriend();
+			localPush = us.isPush();
 			localStartTime = us.getStatTime();
 			localEndTime = us.getEndTime();
 			localSaveFlow = us.isSaveFlow();
 			localPublicAnswersToFriend = us.isPublicAnswersToFriend();
-		} else {
-
-			localPush = true;
-			localStartTime = "09:00";
-			localEndTime = "22:00";
-			localSaveFlow = true;
-			localPublicAnswersToFriend = false;
+			
+			tBtnNewMessage_MoreOption.setChecked(localPush);
+			tBtnEconomize_MoreOption.setChecked(localSaveFlow);
+			tBtnOpenToFriendAnswer_MoreOption
+					.setChecked(localPublicAnswersToFriend);
+			receiveTime = localStartTime + "-" + localEndTime;
+			txtReceiveTime_MoreOption.setText(receiveTime);
 		}
-		tBtnNewMessage_MoreOption.setChecked(localPush);
-		tBtnEconomize_MoreOption.setChecked(localSaveFlow);
-		tBtnOpenToFriendAnswer_MoreOption
-				.setChecked(localPublicAnswersToFriend);
-		receiveTime = localStartTime + "-" + localEndTime;
-		txtReceiveTime_MoreOption.setText(receiveTime);
+		
 
 	}
 
@@ -196,94 +191,82 @@ public class MoreSetting extends FragmentActivity implements
 		v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			String requestUrl1 = SettingValues.URL_PREFIX
-					+ getString(R.string.URL_MORE_SETTINGS);
-			if (push != null && startTime != null && endTime != null) {
-				if (push != localPush || !startTime.equals(localStartTime)
-						|| !endTime.equals(localEndTime)) {
+			try {
+				String requestUrl1 = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_MORE_SETTINGS);
+				JSONObject params1 = new JSONObject();
 
-					requestUrl1 += "?isPush=" + push.toString();
-
-					if (startTime.equals("")) {
-						requestUrl1 += "&startTime=" + localStartTime;
-					} else {
-						requestUrl1 += "&startTime=" + startTime;
+				if (push != null && push != localPush) {
+					if (!push.toString().equals("")) {
+						requestUrl1 += "?isPush=" + push + "";
+						params1.put("push", push);
 					}
-					if (endTime.equals("")) {
-						requestUrl1 += "&endTime=" + localEndTime;
-					} else {
-						requestUrl1 += "&endTime=" + endTime;
-					}
-
-				} else {
-					requestUrl1 += "?isPush=" + localPush.toString();
-					requestUrl1 += "&startTime=" + localStartTime;
-					requestUrl1 += "&endTime=" + localEndTime;
 				}
-				new LoadDataTask().execute(2, requestUrl1, null,
-						HttpClient.TYPE_PUT_FORM);
-				try {
-					JSONObject params1 = new JSONObject();
-					if (push == null) {
-						params1.put("isPush", localPush.toString());
-					} else {
-						params1.put("isPush", push.toString());
-					}
-					if (startTime == null || startTime.equals("")) {
-						params1.put("startTime", localStartTime);
-					} else {
+
+				if (startTime != null && !startTime.equals(localStartTime)) {
+					if (!startTime.equals("")) {
+						if (push == null || push == localPush) {
+							requestUrl1 += "?startTime=" + startTime;
+						} else {
+							requestUrl1 += "&startTime=" + startTime;
+						}
 						params1.put("startTime", startTime);
 					}
-					if (endTime == null || endTime.equals("")) {
-						params1.put("endTime", localEndTime);
-					} else {
+				}
+				if (endTime != null && !endTime.equals(localEndTime)) {
+					if (!endTime.equals("")) {
+						if ((push == null || push == localPush)
+								&& (startTime == null || startTime == localStartTime)) {
+							requestUrl1 += "?endTime=" + endTime;
+						} else {
+							requestUrl1 += "&endTime=" + endTime;
+						}
 						params1.put("endTime", endTime);
 					}
-
-					userSettingsDao = new UserSettingsDao();
-
-					userSettingsDao.saveUserSettingsFront(params1, userId);
-					;
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
 				}
 
+//				Log.i("mosetting", "前二params:" + params1);
+				if (params1.has("push") || params1.has("startTime")
+						|| params1.has("endTime")) {
+					new LoadDataTask().execute(2, requestUrl1, null,
+							HttpClient.TYPE_PUT_FORM);
+					userSettingsDao = new UserSettingsDao();
+					userSettingsDao.saveUserSettingsFront(params1, userId);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
-			if (publicAnswersToFriend != localPublicAnswersToFriend
-					|| saveFlow != localSaveFlow) {
 
-				try {
-					JSONObject params2 = new JSONObject();
+			try {
+				JSONObject params2 = new JSONObject();
 
-					params2.put("id", userId);
-					if (publicAnswersToFriend == null) {
-						params2.put("publicAnswersToFriend",
-								localPublicAnswersToFriend);
-					} else {
-						params2.put("publicAnswersToFriend",
-								publicAnswersToFriend);
-					}
-					if (saveFlow == null) {
-						params2.put("saveFlow", localSaveFlow);
-					} else {
-						params2.put("saveFlow", saveFlow);
-					}
+				params2.put("id", userId);
+				if (publicAnswersToFriend != null
+						&& publicAnswersToFriend != localPublicAnswersToFriend) {
+					params2.put("publicAnswersToFriend", publicAnswersToFriend);
+				}
+				if (saveFlow != null && saveFlow != localSaveFlow) {
+					params2.put("saveFlow", saveFlow);
+				}
+				String requestUrl2 = SettingValues.URL_PREFIX
+						+ getString(R.string.URL_USER_INFO_STATE);
 
-					String requestUrl2 = SettingValues.URL_PREFIX
-							+ getString(R.string.URL_USER_INFO_STATE);
+//				Log.i("mosetting", "后二params:" + params2);
+				if (params2.has("publicAnswersToFriend")
+						|| params2.has("saveFlow")) {
 					new LoadDataTask().execute(3, requestUrl2, params2,
 							HttpClient.TYPE_POST_FORM);
 
 					userSettingsDao = new UserSettingsDao();
 					userSettingsDao.saveUserSettingsBehind(params2, userId);
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
 				}
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 
 			this.onBackPressed();
@@ -350,8 +333,6 @@ public class MoreSetting extends FragmentActivity implements
 			try {
 				switch (syncType) {
 				case 1:
-					// null。。。。传参方式是get
-					// (Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
 					result.put("syncType", syncType);
@@ -359,11 +340,13 @@ public class MoreSetting extends FragmentActivity implements
 				case 2:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
+					Log.i("moresetting", "前二" + result);
 					result.put("syncType", syncType);
 					break;
 				case 3:
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
+					Log.i("moresetting", "后二" + result);
 					result.put("syncType", syncType);
 					break;
 				default:

@@ -235,7 +235,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/more_logout"
             android:scaleType="fitCenter"
-            android:text="退出"
+            android:text="退出当前账号"
             android:textColor="@color/text_white"
             android:textSize="18sp" >
         </Button>

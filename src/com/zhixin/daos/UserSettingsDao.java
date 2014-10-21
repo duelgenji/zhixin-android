@@ -16,151 +16,104 @@ import com.zhixin.domain.UserSettings;
 
 public class UserSettingsDao {
 	private final FinalDb db = DbManager.getDatabase();
-	public void saveUserSettings(JSONObject jbo,long userId) throws JSONException, ParseException {
-		Log.i("获取到的设置", jbo+"");
+
+	public void saveUserSettings(JSONObject jbo, long userId)
+			throws JSONException, ParseException {
+		// Log.i("要存储的设置", jbo + "");
 		UserSettings us = null;
-
 		if (db.tableExists(UserInfo.class)) {
-
 			us = db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 					+ "'");
-			
 		}
 		if (us == null) {
 			us = new UserSettings();
 			setContent(jbo, us);
 			us.setUserId(userId);
 			db.save(us);
-		}else {
+		} else {
 			setContent(jbo, us);
 			db.update(us);
 		}
-		Log.i("更新本地设置", us + "");
-		
+		// Log.i("更新本地设置", us + "");
 	}
 
-	public void saveUserSettingsFront(JSONObject jbo,long userId) throws JSONException, ParseException {
-		Log.i("获取到的前二设置", jbo+"");
+	public void saveUserSettingsFront(JSONObject jbo, long userId)
+			throws JSONException, ParseException {
+		// Log.i("要存储的前二设置", jbo + "");
 		UserSettings us = null;
 
 		if (db.tableExists(UserInfo.class)) {
-
 			us = db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 					+ "'");
-			
 		}
 		if (us == null) {
 			us = new UserSettings();
-			setContentFront(jbo, us);
+			setContent(jbo, us);
 			us.setUserId(userId);
 			db.save(us);
-		}else {
-			setContentFront(jbo, us);
+		} else {
+			setContent(jbo, us);
 			db.update(us);
 		}
-		Log.i("更新本地设置前二", us + "");
-		
+		// Log.i("更新本地设置前二", us + "");
+
 	}
-	
-	public void saveUserSettingsBehind(JSONObject jbo,long userId) throws JSONException, ParseException {
-		Log.i("获取到的后二设置", jbo+"");
+
+	public void saveUserSettingsBehind(JSONObject jbo, long userId)
+			throws JSONException, ParseException {
+		// Log.i("要存储的后二设置", jbo + "");
 		UserSettings us = null;
 
 		if (db.tableExists(UserInfo.class)) {
-
 			us = db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 					+ "'");
-			
 		}
 		if (us == null) {
 			us = new UserSettings();
-			setContentBehind(jbo, us);
+			us.setUserId(userId);
+			setContent(jbo, us);
 			db.save(us);
-		}else {
-			setContentBehind(jbo, us);
+		} else {
+			setContent(jbo, us);
 			db.update(us);
 		}
-		Log.i("更新本地设置后二", us + "");
-		
+		// Log.i("更新本地设置后二", us + "");
+
 	}
-	private void setContent(JSONObject jbo,UserSettings us)throws JSONException, ParseException {
-		//是否推送
-		if (StringUtils.isNotEmpty(jbo.getString("push"))) {
+
+	private void setContent(JSONObject jbo, UserSettings us)
+			throws JSONException, ParseException {
+		// 是否推送
+		if (jbo.has("push") && StringUtils.isNotEmpty(jbo.getString("push"))) {
 			us.setPush(jbo.getBoolean("push"));
-		}else {
-			us.setPush(true);
 		}
-		
 		// 开始时间
-		if (StringUtils.isNotEmpty(jbo.getString("startTime"))){
+		if (jbo.has("startTime")
+				&& StringUtils.isNotEmpty(jbo.getString("startTime"))) {
 			us.setStatTime(jbo.getString("startTime"));
-		}else {
-			us.setStatTime("09:00");
 		}
 		// 结束时间
-		if (StringUtils.isNotEmpty(jbo.getString("endTime"))){
+		if (jbo.has("endTime")
+				&& StringUtils.isNotEmpty(jbo.getString("endTime"))) {
 			us.setEndTime(jbo.getString("endTime"));
-		}else {
-			us.setEndTime("22:00");
 		}
-		
 		// 是否向好友公开问卷
-		if (StringUtils.isNotEmpty(jbo.getString("publicAnswersToFriend"))) {
+		if (jbo.has("publicAnswersToFriend")
+				&& StringUtils.isNotEmpty(jbo
+						.getString("publicAnswersToFriend"))) {
 			us.setPublicAnswersToFriend(jbo.getBoolean("publicAnswersToFriend"));
-		}else {
-			us.setPush(false);
-		}
-				
-		// 是否开启省流量模式
-		if (StringUtils.isNotEmpty(jbo.getString("saveFlow"))) {
-			us.setSaveFlow(jbo.getBoolean("saveFlow"));
-		}else {
-			us.setSaveFlow(true);
-		}
-	}
-	private void setContentFront(JSONObject jbo,UserSettings us)throws JSONException, ParseException {
-		//是否推送
-		if (StringUtils.isNotEmpty(jbo.getString("isPush"))) {
-			us.setPush(jbo.getBoolean("isPush"));
-		}else {
-			us.setPush(true);
-		}
-		
-		// 开始时间
-		if (StringUtils.isNotEmpty(jbo.getString("startTime"))){
-			us.setStatTime(jbo.getString("startTime"));
-		}else {
-			us.setStatTime("09:00");
-		}
-		// 结束时间
-		if (StringUtils.isNotEmpty(jbo.getString("endTime"))){
-			us.setEndTime(jbo.getString("endTime"));
-		}else {
-			us.setEndTime("22:00");
-		}
-	}
-	private void setContentBehind(JSONObject jbo,UserSettings us)throws JSONException, ParseException {
-		
-		// 是否向好友公开问卷
-		if (StringUtils.isNotEmpty(jbo.getString("publicAnswersToFriend"))) {
-			us.setPublicAnswersToFriend(jbo.getBoolean("publicAnswersToFriend"));
-		}else {
-			us.setPush(false);
-		}
-		
-		// 是否开启省流量模式
-		if (StringUtils.isNotEmpty(jbo.getString("saveFlow"))) {
-			us.setSaveFlow(jbo.getBoolean("saveFlow"));
-		}else {
-			us.setSaveFlow(true);
-		}
-		
-	}
-	public UserSettings getUserSettings(long userId) {
+		} else
 
+		// 是否开启省流量模式
+		if (jbo.has("saveFlow")
+				&& StringUtils.isNotEmpty(jbo.getString("saveFlow"))) {
+			us.setSaveFlow(jbo.getBoolean("saveFlow"));
+		}
+	}
+
+	public UserSettings getUserSettings(long userId) {
 		return db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 				+ "'");
-
 	}
 
 }

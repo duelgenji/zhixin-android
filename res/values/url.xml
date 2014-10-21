@@ -21,7 +21,6 @@
     <string name="URL_CHOUJIANG_DRAW">lottery/draw.htm</string>
     <string name="URL_DUIJIANG_DRAW">duijiang/draw.htm</string>
     <string name="URL_QUSHEJIAO_SHOUYE">home/homeinfo.htm</string>
-    <string name="URL_UPLOAD_PHOTO">user/uploadphoto.htm</string>
     <string name="URL_LEVEL_INFO">yhhy/myLevel.htm</string>
     <string name="URL_RANK_ALL">home/rankinfo.htm</string>
     <string name="URL_RANK_MONTH">home/getMonthRank.htm</string>
@@ -106,6 +105,7 @@
     <string name="URL_USER_SUBMIT_AGE_SEX">userInfos/submitAgeAndSex</string>
     <string name="URL_USER_SET_MOOD">userMood/setMood</string>
     <string name="URL_USER_GET_MOOD">userMood/getMood</string>
+    <string name="URL_UPLOAD_AVATAR">userInfos/uploadAvatar</string>
     
     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
     <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string> 
