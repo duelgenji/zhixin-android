@@ -22,10 +22,8 @@ import android.view.Window;
 import cn.jpush.android.api.InstrumentedActivity;
 import cn.sharesdk.framework.ShareSDK;
 
-
 /**
- * @author Administrator
- *标志Logo
+ * @author Administrator 标志Logo
  */
 public class InitialActivity extends InstrumentedActivity {
 
@@ -54,29 +52,28 @@ public class InitialActivity extends InstrumentedActivity {
 		float density = getResources().getDisplayMetrics().density;
 		float dpHeight = outMetrics.heightPixels / density;
 		float dpWidth = outMetrics.widthPixels / density;
-		
+
 		PhoneHelper.savePhoneDensity(density);
 		PhoneHelper.savePhoneHeight(outMetrics.heightPixels);
 		PhoneHelper.savePhoneWidth(outMetrics.widthPixels);
-		
-		Log.i("phone","density" + String.valueOf(density));
-		Log.i("phone","height" + String.valueOf(dpHeight));
-		Log.i("phone","width" + String.valueOf(dpWidth));
+
+		Log.i("phone", "density" + String.valueOf(density));
+		Log.i("phone", "height" + String.valueOf(dpHeight));
+		Log.i("phone", "width" + String.valueOf(dpWidth));
 		Log.i("phone", "sdk version" + android.os.Build.VERSION.SDK_INT);
 
 		new AsyncTask<Void, Void, Boolean>() {
 
 			@Override
 			protected Boolean doInBackground(Void... params) {
-				
+
 				Boolean isAddressSaved = false;
-					SharedPreferences sharedPref = InitialActivity.this
-							.getSharedPreferences(
-									SettingValues.FILE_NAME_SETTINGS,
-									Context.MODE_PRIVATE);
-					isAddressSaved = sharedPref.getBoolean(
-							SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
-				
+				SharedPreferences sharedPref = InitialActivity.this
+						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
+								Context.MODE_PRIVATE);
+				isAddressSaved = sharedPref.getBoolean(
+						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
+
 				return isAddressSaved;
 			}
 
@@ -98,14 +95,28 @@ public class InitialActivity extends InstrumentedActivity {
 										Context.MODE_PRIVATE);
 						isFirstIn = sharedPref.getBoolean(
 								SettingValues.APP_FIRSTTIME_IN, true);
-//						isFirstIn=true;
+						// isFirstIn=true;
 						currentPhone = CurrentUserHelper.getCurrentPhone();
+					
 						return null;
 					}
 
 					@Override
 					protected void onPostExecute(Void params) {
-						judgeWhichToStart();
+						new Thread() {
+							public void run() {
+								try {
+									Thread.sleep(1000);
+
+									judgeWhichToStart();
+
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+
+						}.start();
 					}
 				}.execute();
 
@@ -133,7 +144,6 @@ public class InitialActivity extends InstrumentedActivity {
 
 	}
 
-
 	private void judgeWhichToStart() {
 
 		if (isFirstIn) {
@@ -150,6 +160,7 @@ public class InitialActivity extends InstrumentedActivity {
 			}
 		}
 	}
+
 	private void startLoginActivity() {
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);

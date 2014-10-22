@@ -12,12 +12,12 @@ import com.zhixin.R;
 import com.zhixin.settings.MyApplication;
 import com.zhixin.utils.ShareUtil;
 
-public class SelfAnswerActivity extends Activity implements
+public class InterestAnswerActivity extends Activity implements
 		View.OnClickListener {
 
-	public static final String INTENT_SELF_ID = "selfId";
-	public static final String INTENT_SELF_TITLE = "selfTitle";
-	public static final String INTENT_SELF_ANSWER = "selfAnswer";
+	public static final String INTENT_INTEREST_ID = "interestId";
+	public static final String INTENT_INTEREST_TITLE = "interestTitle";
+	public static final String INTENT_INTEREST_ANSWER = "interestAnswer";
 
 	private ImageButton iBtnPageBack;
 	private TextView txtPageTitle;
@@ -35,10 +35,11 @@ public class SelfAnswerActivity extends Activity implements
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_self_answer);
-		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
-		txtPageTitle.setText(R.string.title_questionnaire_answer);
+	
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
+		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
+		txtPageTitle.setText(R.string.title_questionnaire_answer);
 		btnShare=(ImageView) this.findViewById(R.id.btnShare);
 		btnShare.setOnClickListener(this);
 
@@ -58,8 +59,8 @@ public class SelfAnswerActivity extends Activity implements
 	}
 
 	private void showText() {
-		txtTitle.setText(getIntent().getStringExtra(INTENT_SELF_TITLE));
-		txtContent.setText(getIntent().getStringExtra(INTENT_SELF_ANSWER));
+		txtTitle.setText(getIntent().getStringExtra(INTENT_INTEREST_TITLE));
+		txtContent.setText(getIntent().getStringExtra(INTENT_INTEREST_ANSWER));
 	}
 
 	@Override
@@ -69,7 +70,7 @@ public class SelfAnswerActivity extends Activity implements
 			this.onBackPressed();
 			break;
 		case R.id.btn_back:
-			Intent intent = new Intent(this, SelfListActivity.class);
+			Intent intent = new Intent(this, InterestListActivity.class);
 			startActivity(intent);
 			break;
 		case R.id.btnShare:

@@ -56,4 +56,8 @@
     <string name="title_quhuati_publish">发布话题</string>
     <string name="title_quchoujiang_detail">活动详情</string>
     
+    <!-- 知心 -->
+    <string name="title_questionnaire_content">答题页面</string>
+    <string name="title_questionnaire_answer">测试结果</string>
+    
 </resources>

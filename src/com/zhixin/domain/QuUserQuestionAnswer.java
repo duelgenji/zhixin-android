@@ -10,9 +10,9 @@ public class QuUserQuestionAnswer extends UserQuestionAnswer{
 
 	private int questionId;
 
-	private int choiceId;
+	private int optionId;
 
-	private String choiceNo;
+	private String optionNum;
 
 	private int score;
 
@@ -41,19 +41,19 @@ public class QuUserQuestionAnswer extends UserQuestionAnswer{
 	}
 
 	public int getOptionId() {
-		return choiceId;
+		return optionId;
 	}
 
 	public void setOptionId(int choiceId) {
-		this.choiceId = choiceId;
+		this.optionId = choiceId;
 	}
 
 	public String getOptionNum() {
-		return choiceNo;
+		return optionNum;
 	}
 
 	public void setOptionNum(String choiceNo) {
-		this.choiceNo = choiceNo;
+		this.optionNum = choiceNo;
 	}
 
 	public int getScore() {

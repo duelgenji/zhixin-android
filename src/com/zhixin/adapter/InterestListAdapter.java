@@ -58,6 +58,8 @@ public class InterestListAdapter extends CursorAdapter {
 				intent = new Intent(context, InterestContentActivity.class);
 				intent.putExtra(InterestContentActivity.INTENT_INTEREST_ID,
 						interestId);
+				String title=((TextView) v.findViewById(R.id.questionareTitle)).getText().toString();
+				intent.putExtra(InterestContentActivity.INTENT_QUESTIONNAIRE_TITLE, title);
 				context.startActivity(intent);
 			} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
 				v.setBackgroundColor(context.getResources().getColor(
@@ -96,7 +98,7 @@ public class InterestListAdapter extends CursorAdapter {
 	private View updatingContentInView(final View rowView, Cursor cursor) {
 		ImageView img_quceshi_list = (ImageView) rowView
 				.findViewById(R.id.img_quceshi_list);
-		TextView questionareTitle = (TextView) rowView
+		final TextView questionareTitle = (TextView) rowView
 				.findViewById(R.id.questionareTitle);
 		TextView answerNumberTextView = (TextView) rowView
 				.findViewById(R.id.answerNumberTextView);
@@ -144,6 +146,8 @@ public class InterestListAdapter extends CursorAdapter {
 						intent = new Intent(context, InterestContentActivity.class);
 						intent.putExtra(InterestContentActivity.INTENT_INTEREST_ID,
 								interestId);
+						String title=questionareTitle.getText().toString();
+						intent.putExtra(InterestContentActivity.INTENT_QUESTIONNAIRE_TITLE, title);
 						context.startActivity(intent);
 					}
 				});

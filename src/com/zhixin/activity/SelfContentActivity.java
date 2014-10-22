@@ -62,6 +62,7 @@ public class SelfContentActivity extends Activity implements
 	private TextView txtNoQCSC;
 	private TextView remainingTime;
     private ImageButton iBtnPageBack;
+	private TextView txtPageTitle;
 
 	private DanxuanChoice2 danxuanChoice;
 	private DuoxuanChoice2 duoxuanChoice;
@@ -132,6 +133,8 @@ public class SelfContentActivity extends Activity implements
 	private void init(Intent intent) {
 		iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
+		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
+		txtPageTitle.setText(R.string.title_questionnaire_content);
 		progressDialog = new QubaopenProgressDialog(this);
 
 		quceshiContentArea = (RelativeLayout) this
@@ -458,7 +461,7 @@ public class SelfContentActivity extends Activity implements
 	
 	
 	
-	
+	//完成问卷提交答案
 	private class SubmitDataTask extends AsyncTask<Integer, Void, Object> {
 
 		@Override

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:weightSum="96.1" >
 
-    <include layout="@layout/header_with_backward" />
+    <include layout="@layout/header_with_share" />
 
     <RelativeLayout
         android:layout_width="match_parent"

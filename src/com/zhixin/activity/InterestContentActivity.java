@@ -29,24 +29,31 @@ import com.zhixin.customui.ShunxuChoice;
 import com.zhixin.customui.ShunxuTitleItem;
 import com.zhixin.customui.ShunxuViewGroup;
 import com.zhixin.customui.Wenda;
+import com.zhixin.datasynservice.InterestAnswerService;
 import com.zhixin.datasynservice.QuceshiAnswerService;
 import com.zhixin.datasynservice.InterestContentService;
+import com.zhixin.datasynservice.SelfAnswerService;
 import com.zhixin.dialog.DafenFenshuOverlayer2;
 import com.zhixin.dialog.QubaopenProgressDialog;
+import com.zhixin.domain.InterestUserAnswer;
+import com.zhixin.domain.SelfUserAnswer;
 import com.zhixin.domain.UserQuestionAnswer;
 import com.zhixin.enums.QuestionTypeEnums;
 import com.zhixin.logic.DatiDataObject;
 import com.zhixin.logic.DoDataObject;
 import com.zhixin.logic.DoLogicObject;
+import com.zhixin.logic.DoQuestionAnswer;
 import com.zhixin.utils.NetworkUtils;
 
 public class InterestContentActivity extends Activity implements
 		View.OnClickListener, DoDataObject.DiaoyanDatiLoadFinished {
 
 	public static final String INTENT_INTEREST_ID = "interestId";
+	public static final String INTENT_QUESTIONNAIRE_TITLE = "questionnaireTitle";
 	public static final String CURRENT_QUESTION = "currentQuestion";
 
 	private InterestContentService interestContentService;
+	private InterestAnswerService interestAnswerService;
 	private QuceshiAnswerService quceshiAnswerService;
 	private Integer interestId;
 
@@ -60,6 +67,7 @@ public class InterestContentActivity extends Activity implements
 	private TextView txtNoQCSC;
 	private TextView remainingTime;
     private ImageButton iBtnPageBack;
+	private TextView txtPageTitle;
 
 	private DanxuanChoice2 danxuanChoice;
 	private DuoxuanChoice duoxuanChoice;
@@ -130,6 +138,8 @@ public class InterestContentActivity extends Activity implements
 	private void init(Intent intent) {
 		iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
+		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
+		txtPageTitle.setText(R.string.title_questionnaire_content);
 		progressDialog = new QubaopenProgressDialog(this);
 
 		quceshiContentArea = (RelativeLayout) this
@@ -148,6 +158,10 @@ public class InterestContentActivity extends Activity implements
 				.findViewById(R.id.questionTitleViewGroup);
 		
 		interestContentService =new InterestContentService(this);
+		interestAnswerService = new InterestAnswerService(this);
+		String title=intent.getStringExtra(INTENT_QUESTIONNAIRE_TITLE);
+		((TextView) this.findViewById(R.id.txt_title)).setText(title);
+		
 		interestId = getIntent().getIntExtra(INTENT_INTEREST_ID, 0);
 		int questionId = intent.getIntExtra(CURRENT_QUESTION, 0);
 		if (questionId == 0) {
@@ -246,8 +260,11 @@ public class InterestContentActivity extends Activity implements
 										public void onClick(
 												DialogInterface dialog,
 												int which) {
-
+											
 											nextQuestionBtn.setEnabled(false);
+											new SubmitDataTask()
+											.execute(quDatiDataObject
+													.getWjId());
 										
 										}
 									})
@@ -446,6 +463,37 @@ public class InterestContentActivity extends Activity implements
 			progressDialog.dismiss();
 		}
 		
+	}
+	
+	
+	
+
+	//完成问卷提交答案
+	private class SubmitDataTask extends AsyncTask<Integer, Void, Object> {
+
+		@Override
+		protected Object doInBackground(Integer... params) {
+			try {
+				JSONObject jbo = DoQuestionAnswer.loadQuAnswers(params[0]);
+				return interestAnswerService.getAnswer(jbo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Object params) {
+			if (params != null) {
+				Intent intent = new Intent(InterestContentActivity.this,
+						InterestAnswerActivity.class);
+				intent.putExtra(InterestAnswerActivity.INTENT_INTEREST_TITLE,getIntent().getStringExtra(INTENT_QUESTIONNAIRE_TITLE));
+				intent.putExtra(InterestAnswerActivity.INTENT_INTEREST_ANSWER,((InterestUserAnswer)params).getContent());
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				InterestContentActivity.this.finish();
+			}
+		}
 	}
 
 }

@@ -388,6 +388,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar"
             android:windowSoftInputMode="adjustPan" />
+          <activity
+            android:name=".activity.InterestAnswerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
             android:name=".activity.SelfPrefaceActivity"
             android:screenOrientation="portrait"

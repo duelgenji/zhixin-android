@@ -19,4 +19,17 @@
         android:layout_weight="20" 
         android:src="@drawable/ic_launcher" />
 
+     <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="40" >
+    </View>
+    
+     <TextView   
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_weight="5"
+        android:text="@string/initial_producer"
+        android:gravity="center_horizontal"
+        android:textColor="@color/text_white"/>
 </LinearLayout>

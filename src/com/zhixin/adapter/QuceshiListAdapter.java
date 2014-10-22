@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zhixin.R;
+import com.zhixin.activity.InterestContentActivity;
 import com.zhixin.activity.QuceshiContentActivity;
 
 public class QuceshiListAdapter extends CursorAdapter {

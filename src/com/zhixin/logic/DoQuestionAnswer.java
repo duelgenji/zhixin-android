@@ -192,7 +192,7 @@ public class DoQuestionAnswer {
 	public static JSONObject loadQuAnswers(int wjId) {
 		JSONObject answer = new JSONObject();
 		try {
-			answer.put("questionnaireId", wjId);
+			answer.put("interestId", wjId);
 
 			String sql = "select questionId,Max(wjId),questionType "
 					+ "from qu_user_question_answer " + "where wjId=" + wjId
@@ -221,32 +221,27 @@ public class DoQuestionAnswer {
 				JSONArray choiceArray = new JSONArray();
 
 				choiceList = DbManager.getDatabase().findAllByWhere(
-						QuUserQuestionAnswer.class, "questionId=" + questionId);
-				switch (questionType) {
-				case 1:
-				case 2:
-				case 4:
-					for (QuUserQuestionAnswer aChoice : choiceList) {
-						choiceArray.put(aChoice.getOptionId());
-					}
-					questionObj.put("choiceId", choiceArray);
-					break;
-				case 3:
-					for (QuUserQuestionAnswer aChoice : choiceList) {
-						choiceArray.put(aChoice.getContent());
-					}
-					questionObj.put("content", choiceArray);
-					break;
-				default:
+						QuUserQuestionAnswer.class, "questionId=" + questionId, "_id asc");
+				for (QuUserQuestionAnswer aChoice : choiceList) {
+					JSONObject inner=new JSONObject();
+					inner.put("id", aChoice.getOptionId());
+					
+					if (questionType == 3) {
+						inner.put("cnt", aChoice.getContent());
 
-					break;
+					} else if(questionType == 4) {
+						inner.put("order", aChoice.getTurn());
 
+					}
+					choiceArray.put(inner);
 				}
+				questionObj.put("contents", choiceArray);
 
 				questionArray.put(questionObj);
 
+
 			} while (questionCursor.moveToNext());
-			answer.put("questions", questionArray);
+			answer.put("questionJson", questionArray);
 			questionCursor.close();
 		} catch (JSONException e) {
 			e.printStackTrace();
