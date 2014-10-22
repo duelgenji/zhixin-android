@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"  
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0E0E0"
@@ -43,8 +43,8 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:src="@drawable/head_img"
-                    app:border_color="@color/text_grey"
-                    app:border_width="2dp" />
+                    app:border_color="@color/text_white"
+                    app:border_width="0dp" />
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -193,51 +193,6 @@
                         android:background="@null"
                         android:gravity="center_vertical"
                         android:text="个人资料"
-                        android:textSize="18dp" />
-
-                    <ImageView
-                        android:layout_width="8dp"
-                        android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginRight="5dp"
-                        android:src="@drawable/right_arrow" />
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3.4" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="8.6"
-                android:paddingLeft="7.56dp"
-                android:paddingRight="7.56dp" >
-
-                <LinearLayout
-                    android:id="@+id/layoutDuijiang"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/input_background_middle_white_default"
-                    android:orientation="horizontal" >
-
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3.9" />
-
-                    <TextView
-                        android:id="@+id/password_first_line"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="88.3"
-                        android:background="@null"
-                        android:gravity="center_vertical"
-                        android:text="兑奖"
                         android:textSize="18dp" />
 
                     <ImageView

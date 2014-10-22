@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -22,16 +23,17 @@
             android:gravity="center" >
 
             <FrameLayout
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:gravity="center" >
 
-                <ImageView
+               <com.zhixin.customui.CircleImageView
                     android:id="@+id/head_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/head_img" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/head_img"
+                    app:border_color="@color/text_white"
+                    app:border_width="0dp" />
 
                 <ImageView
                     android:id="@+id/take_pic"
@@ -90,7 +92,7 @@
                             android:hint="@string/login_phone_edittext_hints"
                             android:inputType="phone"
                             android:maxLength="16"
-                            android:text="15000379565"
+                            android:text="13524053695"
                             android:textSize="16sp" />
 
                         <View
@@ -132,7 +134,7 @@
                             android:hint="@string/login_password_input_hints"
                             android:inputType="textPassword"
                             android:maxLength="30"
-                            android:text="123456"
+                            android:text="wahaha123"
                             android:textSize="16sp" />
 
                         <View

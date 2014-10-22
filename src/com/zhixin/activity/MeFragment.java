@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.ParseException;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
@@ -25,11 +22,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,13 +46,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.zhixin.R;
+import com.zhixin.customui.CircleImageView;
 import com.zhixin.daos.UserInfoDao;
 import com.zhixin.domain.UserInfo;
 import com.zhixin.provider.InternalStorageContentProvider;
@@ -76,10 +65,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	private UserInfo userInfo;
 	private UserInfoDao userInfoDao;
 	/** 头像 */
-	private DisplayImageOptions options;
-	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
-	protected ImageLoader imageLoader = ImageLoader.getInstance();
-	private ImageView headImageViewPlaceHolder;
+	private CircleImageView headImageView;
 	/** 设置 */
 	private ImageView settings;
 	/** 标题 */
@@ -89,8 +75,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 	// private MainMenuService service;
 
-	private LinearLayout layoutMyprofile, layoutDuijiang, layoutSuggestion,
-			layoutAbout, layoutShareAppComp;
+	private LinearLayout layoutMyprofile, layoutSuggestion, layoutAbout,
+			layoutShareAppComp;
 
 	private View scoreTheApp;
 
@@ -121,12 +107,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		userInfoDao = new UserInfoDao();
 		userInfo = userInfoDao.getUserByphone(CurrentUserHelper
 				.getCurrentPhone());
-		options = new DisplayImageOptions.Builder()
-				.showImageOnLoading(R.drawable.head_img)
-				.showImageForEmptyUri(R.drawable.head_img)
-				.showImageOnFail(R.drawable.head_img).cacheInMemory(true)
-				.cacheOnDisk(true).considerExifParams(true)
-				.displayer(new RoundedBitmapDisplayer(20)).build();
 	}
 
 	// 初始化
@@ -137,10 +117,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 			rootView = inflater.inflate(R.layout.me_main, container, false);
 			initView(rootView);
 
-			String requestUrl = SettingValues.URL_PREFIX
-					+ getString(R.string.URL_USER_INFO_ADD);
-			new LoadDataTask1().execute(1, requestUrl, null,
-					HttpClient.TYPE_GET);
 		} else {
 			ViewGroup parent = (ViewGroup) rootView.getParent();
 			if (parent != null) {
@@ -153,34 +129,23 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	}
 
 	private void initView(View view) {
+
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this.getString(R.string.title_me));
 
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
-
-		if (userInfo.getNickName() != null) {
-			localNickName = userInfo.getNickName();
-			nickNameTextView.setText(localNickName);
-		}
 
 		nickNameTextView.setOnClickListener(this);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
 		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
 
 		signatureTextView = (TextView) view.findViewById(R.id.signature);
-		if (userInfo.getSignature() != null) {
-			localSignature = userInfo.getSignature();
-			signatureTextView.setText(localSignature);
-		}
 
 		signatureTextView.setOnClickListener(new SignatureClickListener());
 
 		layoutMyprofile = (LinearLayout) view
 				.findViewById(R.id.layoutMyprofile);
 		layoutMyprofile.setOnClickListener(this);
-
-		layoutDuijiang = (LinearLayout) view.findViewById(R.id.layoutDuijiang);
-		layoutDuijiang.setOnClickListener(this);
 
 		layoutShareAppComp = (LinearLayout) view
 				.findViewById(R.id.layoutShareAppComp);
@@ -199,15 +164,27 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		scoreTheApp = view.findViewById(R.id.scoreTheApp);
 		scoreTheApp.setOnClickListener(this);
 
-		headImageViewPlaceHolder = (ImageView) view.findViewById(R.id.headIcon);
-	
-		updateHeadIcon();
+		headImageView = (CircleImageView) view.findViewById(R.id.headIcon);
 
-			// imageLoader.displayImage(headIcnUrl, headImageViewPlaceHolder,
-			// options, animateFirstListener);
-	
-		headImageViewPlaceHolder
-				.setOnClickListener(new ClickImageToChangeHeadIcon());
+		headImageView.setOnClickListener(new ClickImageToChangeHeadIcon());
+		if (userInfo != null) {
+			if (userInfo.getNickName() != null) {
+				localNickName = userInfo.getNickName();
+				nickNameTextView.setText(localNickName);
+			}
+			if (userInfo.getSignature() != null) {
+				localSignature = userInfo.getSignature();
+				signatureTextView.setText(localSignature);
+			}
+			updateHeadIcon();
+
+		} else {
+			String requestUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_USER_INFO_ADD);
+			new LoadDataTask1().execute(1, requestUrl, null,
+					HttpClient.TYPE_GET);
+		}
+
 	}
 
 	private void updateHeadIcon() {
@@ -249,16 +226,14 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				if (CurrentUserHelper.getBitmap() == null) {
 					new RecToCircleTaskInQushejiao().execute(target);
 				} else {
-					headImageViewPlaceHolder.setImageBitmap(CurrentUserHelper
-							.getBitmap());
+					headImageView.setImageBitmap(CurrentUserHelper.getBitmap());
+					headImageView.setBorderWidth(1);
 				}
 
 			}
 		}
 	}
 
-	
-	
 	private class NicknameIconClickListener implements View.OnClickListener {
 		@Override
 		public void onClick(View v) {
@@ -304,12 +279,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		case R.id.layoutMyprofile:
 			intent = new Intent(mainActivity, UserInfoActivity.class);
 			startActivity(intent);
-
-			v.setEnabled(true);
-			break;
-		case R.id.layoutDuijiang:
-			intent = new Intent(mainActivity, DuijiangActivity.class);
-			startActivity(intent);
 			v.setEnabled(true);
 			break;
 		case R.id.layoutAbout:
@@ -348,54 +317,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	// // 设置的连接后台
-	// private class LoadDataTask extends AsyncTask<String, Void, String> {
-	// @Override
-	// protected String doInBackground(String... params) {
-	// if (params[0] != null && params[0].equals("userSetting")) {
-	// String requestUrl = SettingValues.URL_PREFIX
-	// + getString(R.string.URL_GET_OPTION);
-	// // JSONObject jsonParams = new JSONObject();
-	// try {
-	// JSONObject result = HttpClient
-	// .requestSync(requestUrl, null);
-	// if (result != null
-	// && result.getString("success").equals("1")) {
-	//
-	// UserSettings us = DbManager.getDatabase().findById(1,
-	// UserSettings.class);
-	//
-	// us.setPublicAnswersToFriend(result
-	// .getBoolean("publicAnswersToFriend"));
-	// DbManager.getDatabase().update(us);
-	// }
-	//
-	// } catch (JSONException e) {
-	// e.printStackTrace();
-	// }
-	//
-	// } else if (params[0] != null && params[0].equals("newVersion")) {
-	// service = new MainMenuService(mainActivity);
-	// try {
-	// return service.newVersion();
-	// } catch (JSONException e) {
-	// e.printStackTrace();
-	// } catch (ParseException e) {
-	// e.printStackTrace();
-	// } catch (java.text.ParseException e) {
-	// e.printStackTrace();
-	// }
-	// }
-	//
-	// return params[0];
-	// }
-	// }
-
-	public static final String TEMP_PHOTO_FILE_PATH = Environment
-			.getExternalStorageDirectory()
-			+ SettingValues.PATH_USER_PREFIX
-			+ SettingValues.TEMP_PHOTO_FILE_NAME;
-
 	// 头像转圆
 	private class RecToCircleTaskInQushejiao extends
 			AsyncTask<String, Void, Bitmap> {
@@ -407,14 +328,12 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		protected void onPostExecute(Bitmap result) {
 			if (isAdded()) {
 				CurrentUserHelper.saveBitmap(result);
-				headImageViewPlaceHolder
+				headImageView
 						.setImageResource(R.drawable.head_white_ring_background);
-				headImageViewPlaceHolder.setImageBitmap(result);
-
+				headImageView.setImageBitmap(result);
+				headImageView.setBorderWidth(1);
 			}
-
 		}
-
 	}
 
 	@Override
@@ -436,7 +355,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 							inputStream = mainActivity.getContentResolver()
 									.openInputStream(data.getData());
 							FileOutputStream fileOutputStream = new FileOutputStream(
-									new File(TEMP_PHOTO_FILE_PATH));
+									new File(SettingValues.TEMP_PHOTO_FILE_PATH));
 							copyStream(inputStream, fileOutputStream);
 							fileOutputStream.close();
 							inputStream.close();
@@ -486,7 +405,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		mReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				Log.i("headIcon","接受");
+				Log.i("headIcon", "接受");
 				String success = intent.getStringExtra("success");
 				if (success.equals("1")) {
 					String requestUrl = SettingValues.URL_PREFIX
@@ -542,22 +461,16 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 						userInfoDao.saveUserInfo(result,
 								userInfoDao.getCurrentUser());
 						userInfo = userInfoDao.getCurrentUser();
-						updateHeadIcon();
 
 						Toast.makeText(mainActivity, "获取个人资料成功！",
 								Toast.LENGTH_SHORT).show();
 						nickName = result.getString("nickName");
 						signature = result.getString("signature");
 						Log.i("个人签名", signature);
-						String headIconUrl = SettingValues.URL_PREFIX
-								+ result.getString("avatarPath");
-						Log.i("个人签名", headIconUrl);
 
 						nickNameTextView.setText(nickName);
 						signatureTextView.setText(signature);
-						// imageLoader.displayImage(headIconUrl,
-						// headImageViewPlaceHolder, options,
-						// animateFirstListener);
+						updateHeadIcon();
 
 					} else {
 						Toast.makeText(mainActivity, "获取数据失败！",
@@ -587,7 +500,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 	private void startCropImage() {
 		Intent intent = new Intent(mainActivity, CropImage.class);
-		intent.putExtra(CropImage.IMAGE_PATH, TEMP_PHOTO_FILE_PATH);
+		intent.putExtra(CropImage.IMAGE_PATH,
+				SettingValues.TEMP_PHOTO_FILE_PATH);
 		intent.putExtra(CropImage.SCALE, true);
 		intent.putExtra(CropImage.ASPECT_X, 1);
 		intent.putExtra(CropImage.ASPECT_Y, 1);
@@ -631,9 +545,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 					dialog.dismiss();
 				}
 			};
-			final String headIconUrl = SettingValues.URL_PREFIX
-					+ mainActivity
-							.getString(R.string.URL_USER_INFO_UPLOAD_HEAD_ICON);
 			// 取消按钮
 			cancelBtn.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -655,7 +566,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 						if (Environment.MEDIA_MOUNTED.equals(state)) {
 							mImageCaptureUri = Uri.fromFile(new File(
-									TEMP_PHOTO_FILE_PATH));
+									SettingValues.TEMP_PHOTO_FILE_PATH));
 						} else {
 							mImageCaptureUri = InternalStorageContentProvider.CONTENT_URI;
 						}
@@ -666,9 +577,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 						startActivityForResult(intent,
 								PICK_PIC_FROM_CAMERA_ACTION);
-
-						// new LoadHeadIconTask().execute(1, headIconUrl, null,
-						// HttpClient.TYPE_POST_FORM);
 					} catch (ActivityNotFoundException e) {
 
 						e.printStackTrace();
@@ -687,9 +595,6 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 					startActivityForResult(photoPickerIntent,
 							PICK_PIC_FORM_GALLERY_ACTION);
-
-					// new LoadHeadIconTask().execute(1, headIconUrl, null,
-					// HttpClient.TYPE_POST_FORM);
 				}
 			});
 
@@ -698,73 +603,4 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
-	private class LoadHeadIconTask extends AsyncTask<Object, Void, JSONObject> {
-
-		@Override
-		protected JSONObject doInBackground(Object... params) {
-			JSONObject result = null;
-			Integer syncType = (Integer) params[0];
-			try {
-				switch (syncType) {
-				case 1:
-					result = HttpClient.requestSync(params[1].toString(), null,
-							(Integer) params[3]);
-					Log.i("上传图片返回结果", result + "");
-					result.put("syncType", syncType);
-					break;
-
-				default:
-					break;
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject result) {
-			try {
-				Integer syncType = result.getInt("syncType");
-				switch (syncType) {
-				case 1:
-					if (result != null
-							&& result.getString("success").equals("1")) {
-						// 。。。。。。。。。
-						Toast.makeText(mainActivity, "上传图片成功！",
-								Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(mainActivity, "上传图片失败！",
-								Toast.LENGTH_SHORT).show();
-					}
-					break;
-				default:
-					break;
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
-	private static class AnimateFirstDisplayListener extends
-			SimpleImageLoadingListener {
-
-		static final List<String> displayedImages = Collections
-				.synchronizedList(new LinkedList<String>());
-
-		@Override
-		public void onLoadingComplete(String imageUri, View view,
-				Bitmap loadedImage) {
-			if (loadedImage != null) {
-				ImageView imageView = (ImageView) view;
-				boolean firstDisplay = !displayedImages.contains(imageUri);
-				if (firstDisplay) {
-					FadeInBitmapDisplayer.animate(imageView, 500);
-					displayedImages.add(imageUri);
-				}
-			}
-		}
-	}
 }

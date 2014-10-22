@@ -172,11 +172,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 						Toast.makeText(_this, "登陆成功", Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(_this,MainActivity.class);
 						startActivity(intent);
-						
-						//这个是设置你的Intent来自那个页面(setType==login)
-						//intent.setType("login");
-						//Intent带值传递可以传很多类型
-						//intent.putExtra("userid", userId);
+						finish();
 					}else {
 						Toast.makeText(_this, "账号或密码有误！", 3).show();
 					}

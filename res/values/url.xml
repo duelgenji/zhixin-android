@@ -114,7 +114,6 @@
      <string name="URL_USER_GET_ADDRESS_LIST">userReceiveAddresses/getAddressList</string>
     <string name="URL_MODIFY_USER_ADDRESS">userReceiveAddresses/modifyAddress</string>
     <string name="URL_DELETE_USER_ADDRESS">userReceiveAddresses/deleteAddress</string>
-    <string name="URL_USER_INFO_UPLOAD_HEAD_ICON">userInfos/uploadAvatar</string>
     
     
     
