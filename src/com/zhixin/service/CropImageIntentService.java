@@ -8,20 +8,14 @@ import net.tsz.afinal.http.AjaxParams;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.zhixin.R;
-import com.zhixin.activity.MeFragment;
-import com.zhixin.activity.ZhibiFragment;
-import com.zhixin.settings.CurrentUserHelper;
-import com.zhixin.settings.SettingValues;
-import com.zhixin.utils.HttpClient;
-import com.zhixin.utils.RecToCircleTask;
-
 import android.app.IntentService;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
 import android.util.Log;
+
+import com.zhixin.R;
+import com.zhixin.settings.SettingValues;
+import com.zhixin.utils.HttpClient;
+
 import eu.janmuller.android.simplecropimage.CropImage;
 
 public class CropImageIntentService extends IntentService {
@@ -42,8 +36,9 @@ public class CropImageIntentService extends IntentService {
 				+ getString(R.string.URL_UPLOAD_AVATAR);
 		AjaxParams params = new AjaxParams();
 		try {
-			File fileToSend = new File(MeFragment.TEMP_PHOTO_FILE_PATH);
+			File fileToSend = new File(SettingValues.TEMP_PHOTO_FILE_PATH);
 			params.put("avatar", fileToSend);
+			Log.i("upload","上传头像：......" + fileToSend);
 			JSONObject result = HttpClient.requestSyncForUnchangedParams(
 					requestUrl, params);
 			if (result != null) {
