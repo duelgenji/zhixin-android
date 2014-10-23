@@ -17,7 +17,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
@@ -37,6 +39,8 @@ public class SelfListActivity extends FragmentActivity implements
 		OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	/**趣测试列表 */
 	private ListView selfList;
+	
+	private RelativeLayout layoutSelfListEmpty;
 	/**loading */
 	private QubaopenProgressDialog progressDialog;
 	
@@ -112,6 +116,13 @@ public class SelfListActivity extends FragmentActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		if(cursor.getCount()==0){
+			selfListParent.setVisibility(View.GONE);
+			layoutSelfListEmpty.setVisibility(View.VISIBLE);
+		}else{
+			selfListParent.setVisibility(View.VISIBLE);
+			layoutSelfListEmpty.setVisibility(View.GONE);
+		}
 		if (adapter == null) {
 			adapter = new SelfListAdapter(this, cursor);
 			selfList.setAdapter(adapter);
@@ -151,6 +162,7 @@ public class SelfListActivity extends FragmentActivity implements
 		progressDialog = new QubaopenProgressDialog(this);
 		selfListParent = (SwipeRefreshLayout) this
 				.findViewById(R.id.selfListParent);
+		layoutSelfListEmpty =(RelativeLayout) this.findViewById(R.id.layoutSelfListEmpty);
 		selfListParent.setColorScheme(R.color.know_heart_theme,
 				R.color.general_activity_background, R.color.know_heart_theme,
 				R.color.general_activity_background);
@@ -210,7 +222,6 @@ public class SelfListActivity extends FragmentActivity implements
 		this.currentVisibleItemCount = visibleItemCount;
 		this.currentTotalItemCount = totalItemCount;
 	}
-
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		this.currentScrollState = scrollState;

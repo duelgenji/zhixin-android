@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
@@ -49,6 +50,8 @@ public class InterestListActivity extends FragmentActivity implements
 
 	/** 趣测试列表 */
 	private ListView quList;
+
+	private RelativeLayout layoutInterestListEmpty;
 	/** loading */
 	private QubaopenProgressDialog progressDialog;
 	/** 趣测试adapter */
@@ -156,6 +159,13 @@ public class InterestListActivity extends FragmentActivity implements
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+		if(cursor.getCount()==0){
+			quListParent.setVisibility(View.GONE);
+			layoutInterestListEmpty.setVisibility(View.VISIBLE);
+		}else{
+			quListParent.setVisibility(View.VISIBLE);
+			layoutInterestListEmpty.setVisibility(View.GONE);
+		}
 		if (adapter == null) {
 			adapter = new InterestListAdapter(this, cursor);
 			quList.setAdapter(adapter);
@@ -286,6 +296,7 @@ public class InterestListActivity extends FragmentActivity implements
 		progressDialog = new QubaopenProgressDialog(this);
 		quListParent = (SwipeRefreshLayout) this
 				.findViewById(R.id.quListParent);
+		layoutInterestListEmpty =(RelativeLayout) this.findViewById(R.id.layoutInterestListEmpty);
 		quListParent.setColorScheme(R.color.know_heart_theme,
 				R.color.general_activity_background, R.color.know_heart_theme,
 				R.color.general_activity_background);

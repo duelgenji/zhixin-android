@@ -5,22 +5,42 @@
     android:background="@color/general_activity_background"
     android:orientation="vertical"
     android:weightSum="96.1" >
-   
+
     <include layout="@layout/header_with_backward" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/selfListParent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="89.1" >
+        android:layout_weight="89.1"
+        android:visibility="visible" >
 
         <ListView
             android:id="@+id/selfList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:listSelector="#00000000"
             android:divider="@null"
-            android:dividerHeight="0dp"/>
+            android:dividerHeight="0dp"
+            android:listSelector="#00000000" />
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutSelfListEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="89.1"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/imgSelfListEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/self_list_empty" />
+    </RelativeLayout>
 
 </LinearLayout>

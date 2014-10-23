@@ -86,5 +86,26 @@
             android:dividerHeight="0.1dp"
             android:headerDividersEnabled="false" />
     </android.support.v4.widget.SwipeRefreshLayout>
+    
+    
+    
+    <RelativeLayout
+        android:id="@+id/layoutInterestListEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="89.1"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/imgInterestListEmpty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/interest_list_empty" />
+    </RelativeLayout>
 
 </LinearLayout>
