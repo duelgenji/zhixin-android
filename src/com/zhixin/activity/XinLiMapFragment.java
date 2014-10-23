@@ -54,7 +54,9 @@ public class XinLiMapFragment extends Fragment {
 		fragmentsList.add(characterFragment);
 		fragmentsList.add(moodFragment);
 		fragmentsList.add(personalFragment);
-
+		//设置预加载个数为0， 为了防止 预加载
+		mPager.setOffscreenPageLimit(3);
+		
 		mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(),
 				fragmentsList));
 		mPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {

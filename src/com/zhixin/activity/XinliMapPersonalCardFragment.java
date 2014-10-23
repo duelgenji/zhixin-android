@@ -32,6 +32,8 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 
 	private Activity mainActivity;
 	private Context context;
+	private boolean isInit; // 是否可以开始加载数据 
+	private boolean mHasLoadedOnce = false; // 是否加载过数据
 
 	private View rootView;
 	/** loading */
@@ -45,10 +47,46 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 		super.onAttach(activity);
 		this.mainActivity = activity;
 	}
+	@Override
+	public void onResume() {
+		super.onResume();
+		// 判断当前fragment是否显示  
+        if (getUserVisibleHint()) {  
+            showData();  
+        }  
+	}
+	 @Override  
+	    public void setUserVisibleHint(boolean isVisibleToUser) {  
+	        super.setUserVisibleHint(isVisibleToUser);  
+	        // 每次切换fragment时调用的方法  
+	        if (isVisibleToUser && !mHasLoadedOnce) {  
+	            showData();  
+	        }  
+	    }  
+	 /** 
+	     * 初始化数据 
+	     * @author wzh
+	     * @date 2014-10-23
+	     */  
+	    private void showData() {  
+	        if (isInit) {  
+	            isInit = false;//加载数据完成
+	            // 加载各种数据  
+	            if (!progressDialog.isShowing()) {
+					progressDialog.show();
+				}
+				String requestUrl = SettingValues.URL_PREFIX
+						+ context.getString(R.string.URL_GET_MAP) + "?typeId=3";
 
+				new LoadDataTask()
+						.execute(1, requestUrl, null, HttpClient.TYPE_GET);
+	        }  
+	        mHasLoadedOnce = true;
+	    }  
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		isInit = true;
 		if (rootView == null) {
 			rootView = inflater.inflate(
 					R.layout.fragment_xinlimap_card_general, container, false);
@@ -60,14 +98,14 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 			persenalImgBg.setVisibility(View.GONE);
 			personCardView = (CardView) rootView.findViewById(R.id.cardview);
 
-			if (!progressDialog.isShowing()) {
-				progressDialog.show();
-			}
-			String requestUrl = SettingValues.URL_PREFIX
-					+ context.getString(R.string.URL_GET_MAP) + "?typeId=3";
-
-			new LoadDataTask()
-					.execute(1, requestUrl, null, HttpClient.TYPE_GET);
+//			if (!progressDialog.isShowing()) {
+//				progressDialog.show();
+//			}
+//			String requestUrl = SettingValues.URL_PREFIX
+//					+ context.getString(R.string.URL_GET_MAP) + "?typeId=3";
+//
+//			new LoadDataTask()
+//					.execute(1, requestUrl, null, HttpClient.TYPE_GET);
 		} else {
 			ViewGroup parent = (ViewGroup) rootView.getParent();
 			if (parent != null) {
