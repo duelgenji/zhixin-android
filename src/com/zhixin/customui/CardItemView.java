@@ -154,7 +154,7 @@ public class CardItemView extends LinearLayout {
 
 		LinearLayout.LayoutParams webLp = (LinearLayout.LayoutParams) cardItemWebView
 				.getLayoutParams();
-		webLp.height = imgHeight;
+		webLp.height = (int) (1.8*imgHeight);
 		cardItemWebView.setLayoutParams(webLp);
 
 		LinearLayout.LayoutParams epqLp = (LinearLayout.LayoutParams) cardItemEpq
@@ -227,12 +227,12 @@ public class CardItemView extends LinearLayout {
 			if (mapData.getMapDataName() != null) {
 				cardItemName.setText(mapData.getMapDataName());
 			} else {
-				cardItemName.setText("暂无名称");
+				cardItemName.setVisibility(View.GONE);
 			}
 			if (mapData.getMapDataResultScore() != null) {
 				cardItemScore.setText(mapData.getMapDataResultScore());
 			} else {
-				cardItemScore.setText("暂无得分");
+				cardItemScore.setVisibility(View.GONE);
 			}
 			if (mapData.getMapDataContent() != null) {
 				Log.i("mapdata",
@@ -243,7 +243,7 @@ public class CardItemView extends LinearLayout {
 				Log.i("mapdata", "carditemview...content改后" + contentStr);
 				cardItemContent.setText(contentStr);
 			} else {
-				cardItemContent.setText("暂无内容");
+				cardItemContent.setVisibility(View.GONE);
 			}
 		}
 
@@ -679,7 +679,7 @@ public class CardItemView extends LinearLayout {
 			}
 		});
 		cardItemWebView.loadUrl("http://115.28.176.74/hc.html"
-				+ "?timestamp=" + new Date().getTime());
+				+ "?height=300&timestamp=" + new Date().getTime());
 //		cardItemWebView.loadUrl("http://10.0.0.88/hc.html"
 //				+ "?height=300&timestamp=" + new Date().getTime());
 		

@@ -173,7 +173,7 @@ public class XinliMapMoodCardFragment extends Fragment implements
 
 		LinearLayout.LayoutParams webLp = (LinearLayout.LayoutParams) moodWebView
 				.getLayoutParams();
-		webLp.height = imgHeight;
+		webLp.height = (int) (1.6*imgHeight);
 		moodWebView.setLayoutParams(webLp);
 	}
 
@@ -298,17 +298,17 @@ public class XinliMapMoodCardFragment extends Fragment implements
 			if (hsMapData.getMapDataName() != null) {
 				moodName.setText(hsMapData.getMapDataName());
 			} else {
-				moodName.setText("暂无名称");
+				moodName.setVisibility(View.GONE);
 			}
 			if (hsMapData.getMapDataResultScore() != null) {
 				moodScore.setText(hsMapData.getMapDataResultScore());
 			} else {
-				moodScore.setText("暂无得分");
+				moodScore.setVisibility(View.GONE);
 			}
 			if (hsMapData.getMapDataContent() != null) {
 				moodContent.setText(hsMapData.getMapDataContent());
 			} else {
-				moodContent.setText("暂无内容");
+				moodContent.setVisibility(View.GONE);
 			}
 		}
 	}
@@ -334,7 +334,7 @@ public class XinliMapMoodCardFragment extends Fragment implements
 			}
 		});
 		moodWebView.loadUrl("http://115.28.176.74/hs.html"
-				+ "?timestamp=" + new Date().getTime());
+				+ "?height=300&color=1&timestamp=" + new Date().getTime());
 		// moodWebView.loadUrl("http://10.0.0.88/hs.html"+
 		// "?height=300&timestamp=" + new Date().getTime());
 		moodWebView.setWebViewClient(new WebViewClient() {
