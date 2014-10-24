@@ -179,10 +179,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 			updateHeadIcon();
 
 		} else {
-			String requestUrl = SettingValues.URL_PREFIX
-					+ getString(R.string.URL_USER_INFO_ADD);
-			new LoadDataTask1().execute(1, requestUrl, null,
-					HttpClient.TYPE_GET);
+			updateUserInfo();
 		}
 
 	}
@@ -400,6 +397,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
+		updateUserInfo();
 		IntentFilter intentFilter = new IntentFilter(
 				CropImageIntentService.IMAGE_UPLOAD_DONE_RECEIVER);
 		mReceiver = new BroadcastReceiver() {
@@ -487,6 +485,21 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 			}
 		}
 
+	}
+
+	public void updateUserInfo() {
+		userInfo = userInfoDao.getUserByphone(CurrentUserHelper
+				.getCurrentPhone());
+		if (userInfo != null) {
+			if (userInfo.getNickName() != null) {
+				localNickName = userInfo.getNickName();
+				nickNameTextView.setText(localNickName);
+			}
+			if (userInfo.getSignature() != null) {
+				localSignature = userInfo.getSignature();
+				signatureTextView.setText(localSignature);
+			}
+		}
 	}
 
 	private void copyStream(InputStream input, OutputStream output)

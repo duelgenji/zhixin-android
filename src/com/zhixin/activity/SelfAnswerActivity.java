@@ -64,13 +64,15 @@ public class SelfAnswerActivity extends Activity implements
 
 	@Override
 	public void onClick(View v) {
+		Intent intent = new Intent(this, SelfListActivity.class);
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			startActivity(intent);
+			finish();
 			break;
 		case R.id.btn_back:
-			Intent intent = new Intent(this, SelfListActivity.class);
 			startActivity(intent);
+			finish();
 			break;
 		case R.id.btnShare:
 			ShareUtil.showShare("标题","内容");

@@ -80,8 +80,10 @@ public class UserInfoAuthenticationActivity extends FragmentActivity implements 
                 result = HttpClient.requestSync(
                         requestUrl, jsonParams);
                 if(result!=null && result.has("success") && result.getString("success").equals("1")){
-               
-                }
+                	Toast.makeText(_this, "身份验证成功！", Toast.LENGTH_SHORT).show();
+                }else {
+                	Toast.makeText(_this, "身份验证失败！", Toast.LENGTH_SHORT).show();
+				}
             } catch (JSONException e) {
                 e.printStackTrace();
             }

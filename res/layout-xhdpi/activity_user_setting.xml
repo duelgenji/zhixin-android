@@ -180,7 +180,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/input_background_bottom_white"
+                android:background="@drawable/input_background_middle_white"
                 android:orientation="horizontal" >
 
                 <View
@@ -217,6 +217,35 @@
                         android:textOff=""
                         android:textOn="" />
                 </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:paddingLeft="7.56dp"
+            android:paddingRight="7.56dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/input_background_bottom_white"
+                android:orientation="horizontal" >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.9" />
+
+                <TextView
+                     android:id="@+id/txtReceivePwd_MoreOption"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="68.7"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:text="@string/more_option_modify_password"
+                    android:textSize="18sp" />
+
             </LinearLayout>
         </RelativeLayout>
         

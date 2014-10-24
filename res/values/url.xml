@@ -2,7 +2,7 @@
 <resources>
 
     <!-- save request context here -->
-   <string name="URL_USER_LOGON">users/login</string>
+    <string name="URL_USER_LOGON">users/login</string>
     <string name="URL_USER_UPDATE">users</string>
     <string name="URL_QUCESHI_LIST">interests</string>
     <string name="URL_XINLIZICE_LIST">selfs/retrieveSelf</string>
@@ -94,8 +94,6 @@
     <string name="URL_GET_USER_LORD">yhbb/getYhmz.htm</string>
     <string name="URL_DELETE_FRIEND">yhhy/deleteFriend.htm</string>
     <string name="URL_CONFIRM_DIAOYAN_HISTORY">dywj/historyListConfirm.htm</string>
-    
-    
     <string name="URL_INTEREST_GET_LIST">interests/retrieveInterest</string>
     <string name="URL_INTEREST_GET_QUESTION">interestQuestions/findByInterest</string>
     <string name="URL_INTEREST_SUBMIT_QUESTION">interests/calculateInterestResult</string>
@@ -107,16 +105,12 @@
     <string name="URL_USER_SET_MOOD">userMood/setMood</string>
     <string name="URL_USER_GET_MOOD">userMood/getMood</string>
     <string name="URL_UPLOAD_AVATAR">userInfos/uploadAvatar</string>
-    
     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
-    <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string> 
+    <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string>
     <string name="URL_USER_ADD_ADDRESS">userReceiveAddresses/addAddress</string>
-     <string name="URL_USER_GET_ADDRESS_LIST">userReceiveAddresses/getAddressList</string>
+    <string name="URL_USER_GET_ADDRESS_LIST">userReceiveAddresses/getAddressList</string>
     <string name="URL_MODIFY_USER_ADDRESS">userReceiveAddresses/modifyAddress</string>
     <string name="URL_DELETE_USER_ADDRESS">userReceiveAddresses/deleteAddress</string>
-    
-    
-    
-    
+    <string name="URL_MODIFY_PWD">users/modifyPassword</string>
 
 </resources>

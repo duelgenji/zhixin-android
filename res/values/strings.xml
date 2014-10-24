@@ -223,6 +223,7 @@
     <string name="more_option_receive_message_time">接收通知时间</string>
     <string name="more_option_economize_mode">省流量模式</string>
     <string name="more_option_answer_open_to_friend">公开趣味测试答案</string>
+    <string name="more_option_modify_password">修改密码</string>
     <string name="more_option_news_open_to_friend">向好友公开最新动态</string>
     <string name="more_option_answer_open_to_master">向萌主公开测试答案</string>
     <string name="more_reset_input_old_pwd">确认原密码:</string>

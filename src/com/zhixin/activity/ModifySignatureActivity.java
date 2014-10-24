@@ -111,6 +111,7 @@ public class ModifySignatureActivity extends Activity implements
 
 						Toast.makeText(_this, "修改签名成功！", Toast.LENGTH_SHORT)
 								.show();
+						_this.onBackPressed();
 					} else {
 						Toast.makeText(_this, "修改失败！", Toast.LENGTH_SHORT)
 								.show();

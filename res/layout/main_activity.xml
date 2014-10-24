@@ -4,29 +4,31 @@
     android:layout_height="match_parent"
     android:background="@color/general_activity_background"
     android:orientation="vertical"
-    android:weightSum="85.9" >
+    android:weightSum="88.1" >
+
+    <include layout="@layout/header_with_nothing" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="85.9" >
+        android:layout_weight="81.1" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="85.9" >
+            android:weightSum="81.1" >
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="20"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="60"
                 android:orientation="horizontal" >
 
                 <LinearLayout
                     android:id="@+id/ll_XLZC"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical" >
@@ -35,7 +37,6 @@
                         android:id="@+id/menu_heart_beat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:background="@null"
                         android:contentDescription="@null"
                         android:src="@drawable/heartbeat" />
@@ -51,23 +52,23 @@
 
                 <View
                     android:layout_width="0.1dp"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:background="#E0E0E0" />
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="vertical" >
 
                     <LinearLayout
                         android:id="@+id/ll_XQHSZ"
-                        android:visibility="gone"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        android:visibility="gone" >
 
                         <ImageView
                             android:id="@+id/img_huishouzhangaizi"
@@ -91,14 +92,14 @@
                     </LinearLayout>
 
                     <View
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="#E0E0E0" />
 
                     <LinearLayout
                         android:id="@+id/ll_QWCS"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical" >
@@ -125,28 +126,27 @@
             </LinearLayout>
 
             <View
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="0.1dp"
                 android:background="#E0E0E0" />
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_weight="44"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="20"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:visibility="gone"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="22"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal"
+                    android:visibility="gone" >
 
                     <LinearLayout
                         android:id="@+id/ll_XLQZ"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:orientation="vertical" >
 
@@ -183,12 +183,12 @@
 
                     <LinearLayout
                         android:id="@+id/ll_DYCS"
-                        android:visibility="gone"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical" >
+                        android:orientation="vertical"
+                        android:visibility="gone" >
 
                         <FrameLayout
                             android:id="@+id/fl_dycs"
@@ -219,13 +219,13 @@
                 </LinearLayout>
 
                 <View
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E0E0E0" />
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="23"
                     android:gravity="bottom"
                     android:orientation="vertical" >
@@ -233,8 +233,7 @@
             </LinearLayout>
         </LinearLayout>
 
-         <include layout="@layout/customui_today_mood" />
-        
+        <include layout="@layout/customui_today_mood" />
     </RelativeLayout>
 
 </LinearLayout>

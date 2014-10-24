@@ -1,8 +1,5 @@
 package com.zhixin.activity;
 
-import java.text.ParseException;
-import java.util.Calendar;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,6 +26,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,11 +34,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.zhixin.R;
 import com.zhixin.datasynservice.MainMenuService;
 import com.zhixin.datasynservice.UserService;
-import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.settings.MyApplication;
 import com.zhixin.settings.PhoneHelper;
 import com.zhixin.utils.AnimationUtils;
-import com.zhixin.utils.HttpClient;
 import com.zhixin.utils.MatcherUtil;
 
 public class MainmenuFragment extends Fragment implements
@@ -49,6 +45,7 @@ public class MainmenuFragment extends Fragment implements
 	/***/
 	/***/
 	// private FragmentManager fm;
+	private TextView txtPageTitle;
 	/** 心理自测按钮 */
 	private LinearLayout ll_XLZC;
 	/** 心情回收站按钮 */
@@ -91,6 +88,9 @@ public class MainmenuFragment extends Fragment implements
 
 		View view = inflater.inflate(R.layout.main_activity, container, false);
 		_this = this;
+		
+		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
+		txtPageTitle.setText("知心");
 		toast = new Toast(mainActivity);
 		imageLoader = ImageLoader.getInstance();
 		imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
@@ -464,9 +464,7 @@ public class MainmenuFragment extends Fragment implements
 		}
 	}
 
-	
-	
-	//用户心情 获取以及设置
+	// 用户心情 获取以及设置
 	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
 
 		@Override
@@ -477,12 +475,12 @@ public class MainmenuFragment extends Fragment implements
 			try {
 				switch (syncType) {
 				case 0:
-					// getMood  获取用户心情
+					// getMood 获取用户心情
 					result = userService.getMood();
 					result.put("syncType", syncType);
 					break;
 				case 1:
-					// setMood  设置用户
+					// setMood 设置用户
 					result = userService.setMood(type);
 					result.put("syncType", syncType);
 					break;

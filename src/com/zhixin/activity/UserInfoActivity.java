@@ -93,53 +93,67 @@ public class UserInfoActivity extends FragmentActivity implements
 
 			case 0:
 				if (currentSex != null) {
-
-					if (currentSex.equals("MALE")) {
-						txtSexPersonalProfile.setText("男");
-					} else if (currentSex.equals("FEMALE")) {
-						txtSexPersonalProfile.setText("女");
-					} else {
-						txtSexPersonalProfile.setText("无");
+					if (sex != localSex) {
+						if (currentSex.equals("MALE")) {
+							txtSexPersonalProfile.setText("男");
+						} else if (currentSex.equals("FEMALE")) {
+							txtSexPersonalProfile.setText("女");
+						} else {
+							txtSexPersonalProfile.setText("无");
+						}
 					}
 				} else {
 					txtSexPersonalProfile.setText(localSexStr);
 				}
 				if (currentBloodType != null) {
-					if (currentBloodType.equals("A")) {
-						txtBloodTypePersonalProfile.setText("A");
-					} else if (currentBloodType.equals("B")) {
-						txtBloodTypePersonalProfile.setText("B");
-					} else if (currentBloodType.equals("O")) {
-						txtBloodTypePersonalProfile.setText("O");
-					} else if (currentBloodType.equals("AB")) {
-						txtBloodTypePersonalProfile.setText("AB");
-					} else {
-						txtBloodTypePersonalProfile.setText("其他");
+					if (!bloodType.equals(localBloodType)) {
+						if (currentBloodType.equals("A")) {
+							txtBloodTypePersonalProfile.setText("A");
+						} else if (currentBloodType.equals("B")) {
+							txtBloodTypePersonalProfile.setText("B");
+						} else if (currentBloodType.equals("O")) {
+							txtBloodTypePersonalProfile.setText("O");
+						} else if (currentBloodType.equals("AB")) {
+							txtBloodTypePersonalProfile.setText("AB");
+						} else {
+							txtBloodTypePersonalProfile.setText("其他");
+						}
 					}
+
 				} else {
 					txtBloodTypePersonalProfile.setText(localBloodTypeStr);
 				}
 
 				if (currentBirthDay != null) {
-					txtBirthPersonalProfile.setText(currentBirthDay);
+					if (!currentBirthDay.equals(localBirthDay)) {
+						txtBirthPersonalProfile.setText(currentBirthDay);
+					}
 				} else {
 					txtBirthPersonalProfile.setText(localBirthDay);
 				}
 
 				if (currentIdCard != null) {
-					txtAuthenticationPersonalProfile.setText(currentIdCard);
+					if (!currentIdCard.equals(localIdCard)) {
+						txtAuthenticationPersonalProfile.setText(currentIdCard);
+					}
 				} else {
 					txtAuthenticationPersonalProfile.setText(localIdCard);
 				}
 
 				if (currentEmail != null) {
-					txtEmailPersonalProfile.setText(currentEmail);
+					if (!currentEmail.equals(localEmail)) {
+						txtEmailPersonalProfile.setText(currentEmail);
+					}
+
 				} else {
 					txtEmailPersonalProfile.setText(localEmail);
 				}
 
 				if (currentDefaultAddress != null) {
-					txtAddressPersonalProfile.setText(currentDefaultAddress);
+					if (!currentDefaultAddress.equals(localDefaultAddress)) {
+						txtAddressPersonalProfile
+								.setText(currentDefaultAddress);
+					}
 				} else {
 					txtAddressPersonalProfile.setText(localDefaultAddress);
 				}
@@ -228,114 +242,13 @@ public class UserInfoActivity extends FragmentActivity implements
 		StatService.onResume(this);
 	}
 
-	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
-
-		@Override
-		protected JSONObject doInBackground(Object... params) {
-			JSONObject result = null;
-			Integer syncType = (Integer) params[0];
-			try {
-				switch (syncType) {
-				case 0:
-					result = HttpClient.requestSync(params[1].toString(),
-							(JSONObject) params[2], (Integer) params[3]);
-					result.put("syncType", syncType);
-					break;
-				case 1:
-					result = HttpClient.requestSync(params[1].toString(),
-							(JSONObject) params[2], (Integer) params[3]);
-					result.put("syncType", syncType);
-					break;
-				case 2:
-					result = HttpClient.requestSync(params[1].toString(),
-							(JSONObject) params[2], (Integer) params[3]);
-					result.put("syncType", syncType);
-					break;
-				default:
-					break;
-				}
-				Log.i("請求結果", result + "");
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return result;
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject result) {
-			try {
-				Integer syncType = result.getInt("syncType");
-				switch (syncType) {
-				case 0:
-					if (result != null && result.getInt("success") == 1) {
-						userInfoDao.saveUserInfoSexById(userId, sex);
-
-						// 。。。。。。。。。
-						int code = result.getInt("success");
-						if (code == 1) {
-							Message msg = Message.obtain();
-							msg.what = 0;
-							handler.sendMessage(msg);
-						}
-						getSupportLoaderManager().restartLoader(0, null, _this);
-						showToast("修改性别成功！");
-					} else {
-						showToast("修改性别失败！");
-					}
-					break;
-				case 1:
-					if (result != null && result.getInt("success") == 1) {
-						userInfoDao.saveUserInfoBirthDayById(userId,
-								currentBirthDay);
-
-						// 。。。。。。。。。
-						int code = result.getInt("success");
-						if (code == 1) {
-							Message msg = Message.obtain();
-							msg.what = 0;
-							handler.sendMessage(msg);
-						}
-						getSupportLoaderManager().restartLoader(0, null, _this);
-						showToast("修改生日成功！");
-					} else {
-						showToast("修改生日失败！");
-					}
-					break;
-				case 2:
-					if (result != null && result.getInt("success") == 1) {
-						userInfoDao
-								.saveUserInfoBloodTypeById(userId, bloodType);
-
-						// 。。。。。。。。。
-						int code = result.getInt("success");
-						if (code == 1) {
-							Message msg = Message.obtain();
-							msg.what = 0;
-							handler.sendMessage(msg);
-						}
-						getSupportLoaderManager().restartLoader(0, null, _this);
-						showToast("修改血型成功！");
-					} else {
-						showToast("修改血型失败！");
-					}
-					break;
-				default:
-					break;
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-
-	}
-
 	@Override
 	public void onClick(View v) {
 		Intent intent;
 		v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.layoutSexPersonalProfile:
@@ -350,12 +263,29 @@ public class UserInfoActivity extends FragmentActivity implements
 				this.BloodTypePicker();
 			}
 			break;
+		case R.id.layoutAuthenticationPersonalProfile:
+			if (!pickerExist) {
+				intent = new Intent(_this, UserInfoAuthenticationActivity.class);
+				startActivity(intent);
+				v.setEnabled(false);
+			}
+			break;
 		case R.id.layoutBirthdayPersonalProfile:
 			if (!pickerExist) {
 				pickerExist = true;
 				this.DatePicker();
 			}
 			break;
+		case R.id.layoutAddressPersonalProfile:
+			if (!pickerExist) {
+				SharedPreferences sharedPref = this.getSharedPreferences(
+						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
+				Boolean isAddressSaved = sharedPref.getBoolean(
+						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
+				intent = new Intent(_this, UserInfoAddressActivity.class);
+				startActivity(intent);
+				v.setEnabled(false);
+			}
 		case R.id.layoutEmailPersonalProfile:
 			if (!pickerExist) {
 				intent = new Intent(_this, UserInfoEmailActivity.class);
@@ -371,23 +301,6 @@ public class UserInfoActivity extends FragmentActivity implements
 				v.setEnabled(false);
 			}
 			break;
-		case R.id.layoutAuthenticationPersonalProfile:
-			if (!pickerExist) {
-				intent = new Intent(_this, UserInfoAuthenticationActivity.class);
-				startActivity(intent);
-				v.setEnabled(false);
-			}
-			break;
-		case R.id.layoutAddressPersonalProfile:
-			if (!pickerExist) {
-				SharedPreferences sharedPref = this.getSharedPreferences(
-						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-				Boolean isAddressSaved = sharedPref.getBoolean(
-						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
-				intent = new Intent(_this, UserInfoAddressActivity.class);
-				startActivity(intent);
-				v.setEnabled(false);
-			}
 		default:
 			break;
 
@@ -479,6 +392,78 @@ public class UserInfoActivity extends FragmentActivity implements
 		}
 
 		dialog.show();
+	}
+
+	public void DatePicker() {
+		Calendar c = Calendar.getInstance();
+		mYear = c.get(Calendar.YEAR);
+		mMonth = c.get(Calendar.MONTH);
+		mDay = c.get(Calendar.DAY_OF_MONTH);
+		final DatePicker datepicker = new DatePicker(_this);
+		String sBirth = "";
+		Integer year = 1995;
+		Integer month = 0;
+		Integer day = 1;
+		if (txtBirthPersonalProfile.getText() != null) {
+			sBirth = txtBirthPersonalProfile.getText().toString().trim();
+			if (sBirth.length() >= 10) {
+				year = Integer.parseInt(sBirth.substring(0, 4));
+				month = Integer.parseInt(sBirth.substring(5, 7)) - 1;
+				day = Integer.parseInt(sBirth.substring(8, 10));
+			}
+		}
+		;
+		datepicker.init(year, month, day, null);
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(_this);
+		builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				pickerExist = false;
+			}
+		});
+		builder.setView(datepicker);
+		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				mYear = datepicker.getYear();
+				mMonth = datepicker.getMonth() + 1;
+				mDay = datepicker.getDayOfMonth();
+
+				currentBirthDay = mYear + "-" + mMonth + "-" + mDay;
+				if (currentBirthDay != localBirthDay) {
+					JSONObject obj = new JSONObject();
+					try {
+						obj.put("birthday", currentBirthDay);
+						obj.put("id", userId);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+					String requestUrl = SettingValues.URL_PREFIX
+							+ getString(R.string.URL_USER_INFO_UPDATE);
+					new LoadDataTask().execute(1, requestUrl, obj,
+							HttpClient.TYPE_PUT_JSON);
+				}
+				pickerExist = false;
+			}
+
+		});
+		builder.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						pickerExist = false;
+					}
+				});
+		if (currentBirthDay != null && !currentBirthDay.equals("")) {
+			txtBirthPersonalProfile.setText(currentBirthDay);
+
+		} else {
+			currentBirthDay = localBirthDay;
+		}
+
+		builder.show();
 	}
 
 	public void BloodTypePicker() {
@@ -639,76 +624,94 @@ public class UserInfoActivity extends FragmentActivity implements
 		dialog.show();
 	}
 
-	public void DatePicker() {
-		Calendar c = Calendar.getInstance();
-		mYear = c.get(Calendar.YEAR);
-		mMonth = c.get(Calendar.MONTH);
-		mDay = c.get(Calendar.DAY_OF_MONTH);
-		final DatePicker datepicker = new DatePicker(_this);
-		String sBirth = "";
-		Integer year = 1995;
-		Integer month = 0;
-		Integer day = 1;
-		if (txtBirthPersonalProfile.getText() != null) {
-			sBirth = txtBirthPersonalProfile.getText().toString().trim();
-			if (sBirth.length() >= 10) {
-				year = Integer.parseInt(sBirth.substring(0, 4));
-				month = Integer.parseInt(sBirth.substring(5, 7)) - 1;
-				day = Integer.parseInt(sBirth.substring(8, 10));
-			}
-		}
-		;
-		datepicker.init(year, month, day, null);
+	private class LoadDataTask extends AsyncTask<Object, Void, JSONObject> {
 
-		AlertDialog.Builder builder = new AlertDialog.Builder(_this);
-		builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-			@Override
-			public void onCancel(DialogInterface dialog) {
-				pickerExist = false;
-			}
-		});
-		builder.setView(datepicker);
-		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				mYear = datepicker.getYear();
-				mMonth = datepicker.getMonth() + 1;
-				mDay = datepicker.getDayOfMonth();
-
-				currentBirthDay = mYear + "-" + mMonth + "-" + mDay;
-				if (currentBirthDay != localBirthDay) {
-					JSONObject obj = new JSONObject();
-					try {
-						obj.put("birthday", currentBirthDay);
-						obj.put("id", userId);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-					String requestUrl = SettingValues.URL_PREFIX
-							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(1, requestUrl, obj,
-							HttpClient.TYPE_PUT_JSON);
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result = null;
+			Integer syncType = (Integer) params[0];
+			try {
+				switch (syncType) {
+				case 0:
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
+				case 2:
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
+				default:
+					break;
 				}
-				pickerExist = false;
+				Log.i("請求結果", result + "");
+			} catch (JSONException e) {
+				e.printStackTrace();
 			}
-
-		});
-		builder.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						pickerExist = false;
-					}
-				});
-		if (currentBirthDay != null && !currentBirthDay.equals("")) {
-			txtBirthPersonalProfile.setText(currentBirthDay);
-
-		} else {
-			currentBirthDay = localBirthDay;
+			return result;
 		}
 
-		builder.show();
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType = result.getInt("syncType");
+				switch (syncType) {
+				case 0:
+					if (result != null && result.getInt("success") == 1) {
+						userInfoDao.saveUserInfoSexById(userId, sex);
+						getSupportLoaderManager().restartLoader(0, null, _this);
+
+						Message msg = Message.obtain();
+						msg.what = 0;
+						handler.sendMessage(msg);
+
+						showToast("修改性别成功！");
+					} else {
+						showToast("修改性别失败！");
+					}
+					break;
+				case 1:
+					if (result != null && result.getInt("success") == 1) {
+						userInfoDao.saveUserInfoBirthDayById(userId,
+								currentBirthDay);
+						getSupportLoaderManager().restartLoader(0, null, _this);
+
+						Message msg = Message.obtain();
+						msg.what = 0;
+						handler.sendMessage(msg);
+						showToast("修改生日成功！");
+					} else {
+						showToast("修改生日失败！");
+					}
+					break;
+				case 2:
+					if (result != null && result.getInt("success") == 1) {
+						userInfoDao
+								.saveUserInfoBloodTypeById(userId, bloodType);
+						getSupportLoaderManager().restartLoader(0, null, _this);
+
+						Message msg = Message.obtain();
+						msg.what = 0;
+						handler.sendMessage(msg);
+						showToast("修改血型成功！");
+					} else {
+						showToast("修改血型失败！");
+					}
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
 
 	@Override

@@ -88,7 +88,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 		// v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.addressSubmit:
@@ -202,7 +202,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 						Toast.makeText(_this, "提交地址成功！", Toast.LENGTH_SHORT)
 								.show();
 						UserInfoAddressActivity.userInfoAddressActivity.reSetAddress();
-						_this.onBackPressed();
+						_this.finish();
 					} else {
 						Toast.makeText(_this, "提交地址失败！", Toast.LENGTH_SHORT)
 								.show();

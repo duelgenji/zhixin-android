@@ -43,6 +43,7 @@ public class MoreSetting extends FragmentActivity implements
 	private TextView txtReceiveTime_MoreOption;
 	private ToggleButton tBtnEconomize_MoreOption;
 	private ToggleButton tBtnOpenToFriendAnswer_MoreOption;
+	private TextView txtModifyPwd_MoreOption;
 
 	private Button logOutBtn;
 
@@ -111,9 +112,6 @@ public class MoreSetting extends FragmentActivity implements
 		iBtnPageBack.setOnClickListener(this);
 		txtPageTitle.setText(this.getString(R.string.title_more_option));
 
-		logOutBtn = (Button) this.findViewById(R.id.logOutBtn);
-		logOutBtn.setOnClickListener(this);
-
 		tBtnNewMessage_MoreOption = (ToggleButton) this
 				.findViewById(R.id.tBtnNewMessage_MoreOption);
 		tBtnNewMessage_MoreOption.setOnClickListener(this);
@@ -126,6 +124,13 @@ public class MoreSetting extends FragmentActivity implements
 		txtReceiveTime_MoreOption = (TextView) this
 				.findViewById(R.id.txtReceiveTime_MoreOption);
 		txtReceiveTime_MoreOption.setOnClickListener(this);
+		txtModifyPwd_MoreOption = (TextView) this
+				.findViewById(R.id.txtReceivePwd_MoreOption);
+		txtModifyPwd_MoreOption.setOnClickListener(this);
+
+		logOutBtn = (Button) this.findViewById(R.id.logOutBtn);
+		logOutBtn.setOnClickListener(this);
+
 		tBtnNewMessage_MoreOption
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
@@ -169,7 +174,7 @@ public class MoreSetting extends FragmentActivity implements
 			localEndTime = us.getEndTime();
 			localSaveFlow = us.isSaveFlow();
 			localPublicAnswersToFriend = us.isPublicAnswersToFriend();
-			
+
 			tBtnNewMessage_MoreOption.setChecked(localPush);
 			tBtnEconomize_MoreOption.setChecked(localSaveFlow);
 			tBtnOpenToFriendAnswer_MoreOption
@@ -177,7 +182,6 @@ public class MoreSetting extends FragmentActivity implements
 			receiveTime = localStartTime + "-" + localEndTime;
 			txtReceiveTime_MoreOption.setText(receiveTime);
 		}
-		
 
 	}
 
@@ -225,7 +229,7 @@ public class MoreSetting extends FragmentActivity implements
 					}
 				}
 
-//				Log.i("mosetting", "前二params:" + params1);
+				// Log.i("mosetting", "前二params:" + params1);
 				if (params1.has("push") || params1.has("startTime")
 						|| params1.has("endTime")) {
 					new LoadDataTask().execute(2, requestUrl1, null,
@@ -253,7 +257,7 @@ public class MoreSetting extends FragmentActivity implements
 				String requestUrl2 = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_INFO_STATE);
 
-//				Log.i("mosetting", "后二params:" + params2);
+				// Log.i("mosetting", "后二params:" + params2);
 				if (params2.has("publicAnswersToFriend")
 						|| params2.has("saveFlow")) {
 					new LoadDataTask().execute(3, requestUrl2, params2,
@@ -269,7 +273,7 @@ public class MoreSetting extends FragmentActivity implements
 				e.printStackTrace();
 			}
 
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 
@@ -290,6 +294,12 @@ public class MoreSetting extends FragmentActivity implements
 				timePickerDialog.show();
 			}
 			break;
+
+		case R.id.txtReceivePwd_MoreOption:
+			Intent intent = new Intent(_this, ModifyPasswordActivity.class);
+			_this.startActivity(intent);
+			break;
+
 		case R.id.logOutBtn:
 			logOut();
 			break;

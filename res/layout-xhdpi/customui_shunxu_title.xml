@@ -7,7 +7,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:src="@drawable/checkbox_default" />
+        android:src="@drawable/checkbox_default_square" />
 
     <TextView
         android:id="@+id/shunxuChoiceNo"

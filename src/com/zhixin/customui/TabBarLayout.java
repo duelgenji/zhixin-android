@@ -68,7 +68,8 @@ public class TabBarLayout extends RelativeLayout{
 					.setImageResource(R.drawable.me_pressed);
 			break;
 		}
-		titleTextView.setTextColor(Color.rgb(37, 155, 245));
+//		titleTextView.setTextColor(Color.rgb(37, 155, 245));
+		titleTextView.setTextColor(Color.rgb(243, 84, 45));
 	}
 	
 	private void checkedFalseOperation() {

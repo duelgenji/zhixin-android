@@ -34,8 +34,8 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	private ImageButton iBtnPageBack;
 	private String nickName;
 	private String localNickName;
+	
 	private long userId;
-
 	private UserInfoDao userInfoDao;
 
 	@Override
@@ -107,6 +107,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 
 						Toast.makeText(_this, "修改昵称成功！", Toast.LENGTH_SHORT)
 								.show();
+						_this.onBackPressed();
 					} else {
 						Toast.makeText(_this, "修改昵称失败！", Toast.LENGTH_SHORT)
 								.show();

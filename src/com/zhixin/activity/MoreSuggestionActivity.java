@@ -71,7 +71,7 @@ public class MoreSuggestionActivity  extends FragmentActivity implements View.On
         v.setEnabled(false);
         switch (v.getId()) {
             case R.id.backup_btn:
-                this.onBackPressed();
+               finish();
                 v.setEnabled(true);
                 break;
             case R.id.btnSubmitSuggestion:

@@ -208,7 +208,7 @@
                             android:textOn=""
                             android:textOff=""
                             android:button="@android:color/transparent"
-                            android:background="@drawable/checkbox"/>
+                            android:background="@drawable/checkbox_square"/>
 
                     </RelativeLayout>
 
@@ -258,7 +258,7 @@
                             android:textOn=""
                             android:textOff=""
                             android:button="@android:color/transparent"
-                            android:background="@drawable/checkbox"/>
+                            android:background="@drawable/checkbox_square"/>
 
                     </RelativeLayout>
 

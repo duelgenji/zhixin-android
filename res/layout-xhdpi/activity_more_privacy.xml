@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:weightSum="96.1" >
 
-    <include layout="@layout/header" />
+    <include layout="@layout/header_with_backward" />
 
     <ScrollView
         android:layout_width="match_parent"

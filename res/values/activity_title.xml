@@ -5,7 +5,7 @@
     <string name="head_title_activity_regist_phone">填写手机号码</string>
     <string name="head_title_activity_regist_invite">填写邀请码</string>
     <string name="title_register_validate_code">填写验证码</string>
-    <string name="title_set_pwd">设置密码</string>
+    <string name="title_set_pwd">注册</string>
     <string name="head_skip_hits">跳过</string>
     <string name="head_modify_nickname">修改昵称</string>
     <string name="head_modify_signature">修改签名</string>

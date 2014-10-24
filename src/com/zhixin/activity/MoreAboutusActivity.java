@@ -38,7 +38,7 @@ public class MoreAboutusActivity extends Activity implements View.OnClickListene
 			switch (v.getId()) {
 			case R.id.backup_btn:
 				v.setEnabled(false);
-				this.onBackPressed();
+				finish();
 				v.setEnabled(true);
 				break;
 			case R.id.imgLogo:

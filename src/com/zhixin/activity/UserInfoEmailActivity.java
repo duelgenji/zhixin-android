@@ -75,7 +75,7 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.addressSubmit:
@@ -160,7 +160,7 @@ public class UserInfoEmailActivity extends FragmentActivity implements
 						userInfoDao.saveUserInfoEmailById(userId, sEmail);
 						Toast.makeText(_this, "修改邮箱成功！", Toast.LENGTH_SHORT)
 								.show();
-						_this.onBackPressed();
+						_this.finish();
 					} else {
 						Toast.makeText(_this, "修改邮箱失败！", Toast.LENGTH_SHORT)
 								.show();

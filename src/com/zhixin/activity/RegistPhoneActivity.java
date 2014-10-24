@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.text.Html;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -58,6 +59,7 @@ public class RegistPhoneActivity extends Activity implements
 	// component in layout
 	private EditText txtPhone;
 	private ToggleButton checkAgreement;
+	private ToggleButton showPassword;
 	private TextView txtAgreeTips;
 	private TextView txtAgreePrivacyTips;
 	private ImageButton btnClearText;
@@ -115,13 +117,10 @@ public class RegistPhoneActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.zhuce);
-		// 倒计时
-		reg_code_time = (TextView) findViewById(R.id.reg_code_time);
+
 		txtPageTitle = (TextView) findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this
 				.getString(R.string.head_title_activity_regist_phone));
-		btnClearText = (ImageButton) findViewById(R.id.clearTextviewBtn);
-		btnClearText.setOnClickListener(this);
 		iBtnPageBack = (ImageButton) findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
 		_this = this;
@@ -132,6 +131,18 @@ public class RegistPhoneActivity extends Activity implements
 		head_img.setOnClickListener(new ClickImageToChangeHeadIcon());
 
 		txtPhone = (EditText) findViewById(R.id.txtPhone);
+		firstLinePassword = (EditText) findViewById(R.id.password_first_line);
+		// 显示密码
+		showPassword = (ToggleButton) findViewById(R.id.btn_show_password);
+		// 获取验证码
+		validateCodeEditText = (EditText) this.findViewById(R.id.validate_code);
+		btnClearText = (ImageButton) findViewById(R.id.clearTextviewBtn);
+		btnClearText.setOnClickListener(this);
+		ib_get_reg_code = (ImageButton) findViewById(R.id.ib_get_reg_code);
+		ib_get_reg_code.setOnClickListener(this);
+		// 倒计时
+		reg_code_time = (TextView) findViewById(R.id.reg_code_time);
+		// 同意条款
 		checkAgreement = (ToggleButton) findViewById(R.id.regist_i_agree);
 		txtAgreeTips = (TextView) findViewById(R.id.txtAgreeTips);
 		txtAgreePrivacyTips = (TextView) findViewById(R.id.txtAgreePrivacyTips);
@@ -141,10 +152,6 @@ public class RegistPhoneActivity extends Activity implements
 		txtAgreeTips.setText(Html.fromHtml(tips));
 		txtAgreePrivacyTips.setText(Html.fromHtml(tips2));
 		txtAgreePrivacyTips.setOnClickListener(this);
-		// 获取验证码
-		ib_get_reg_code = (ImageButton) findViewById(R.id.ib_get_reg_code);
-		ib_get_reg_code.setOnClickListener(this);
-		validateCodeEditText = (EditText) this.findViewById(R.id.validate_code);
 
 		// SharedPreferences sharedPref = this.getSharedPreferences(
 		// SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
@@ -157,14 +164,14 @@ public class RegistPhoneActivity extends Activity implements
 
 		registConfirmPassword = (TextView) findViewById(R.id.regist_submit);
 		registConfirmPassword.setOnClickListener(this);
-		firstLinePassword = (EditText) findViewById(R.id.password_first_line);
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		// v.setEnabled(false);
 		Intent intent;
-		
+
 		switch (v.getId()) {
 		// 返回
 		case R.id.backup_btn:
@@ -178,10 +185,16 @@ public class RegistPhoneActivity extends Activity implements
 			takePicFromCamera();
 			v.setEnabled(true);
 			break;
-		// 清除验证码
-		case R.id.btnClearText:
+		case R.id.btn_show_password:
 			v.setEnabled(false);
-			txtPhone.setText("");
+			if (showPassword.isChecked()) {
+				firstLinePassword.setInputType(InputType.TYPE_NULL);
+			}
+			v.setEnabled(true);
+			// 清除验证码
+		case R.id.clearTextviewBtn:
+			v.setEnabled(false);
+			validateCodeEditText.setText("");
 			v.setEnabled(true);
 			break;
 		// 同意条款
@@ -190,6 +203,7 @@ public class RegistPhoneActivity extends Activity implements
 			intent = new Intent(RegistPhoneActivity.this,
 					MorePrivacyActivity.class);
 			startActivity(intent);
+			v.setEnabled(true);
 			break;
 		// 获取验证码
 		case R.id.ib_get_reg_code:
@@ -261,18 +275,18 @@ public class RegistPhoneActivity extends Activity implements
 			String captcha) throws ParseException {
 		JSONObject result = new JSONObject();
 		AjaxParams params = new AjaxParams();
-			params.put("phone", phone);
-			params.put("password", password);
-			params.put("captcha", captcha);
-			if (fileToSend != null) {
-				Log.i("regist", "avatar....." + fileToSend.toString());
-				try {
-					params.put("avatar", fileToSend);
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				}
+		params.put("phone", phone);
+		params.put("password", password);
+		params.put("captcha", captcha);
+		if (fileToSend != null) {
+			Log.i("regist", "avatar....." + fileToSend.toString());
+			try {
+				params.put("avatar", fileToSend);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
 			}
-			
+		}
+
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_SETUP_PASSWORD);
 		Log.i("regist", "注册信息" + params);
@@ -346,15 +360,16 @@ public class RegistPhoneActivity extends Activity implements
 						Toast.makeText(_this, "注册成功，登录首页！", Toast.LENGTH_SHORT)
 								.show();
 						String requestUrl = SettingValues.URL_PREFIX
-									+ context.getString(R.string.URL_USER_LOGON);
-						 JSONObject obj = new JSONObject();
-					        try {
-					        	obj.put("phone", phone);
-					        	obj.put("password", password);
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-						new LoadLoginTask().execute(1,requestUrl,obj,HttpClient.TYPE_POST_FORM);
+								+ context.getString(R.string.URL_USER_LOGON);
+						JSONObject obj = new JSONObject();
+						try {
+							obj.put("phone", phone);
+							obj.put("password", password);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+						new LoadLoginTask().execute(1, requestUrl, obj,
+								HttpClient.TYPE_POST_FORM);
 						finish();
 					} else {
 						Toast.makeText(_this, "验证码输入有误！", Toast.LENGTH_SHORT)
@@ -371,21 +386,23 @@ public class RegistPhoneActivity extends Activity implements
 		}
 
 	}
-	private class LoadLoginTask extends AsyncTask<Object, Void, JSONObject>{
+
+	private class LoadLoginTask extends AsyncTask<Object, Void, JSONObject> {
 
 		@Override
 		protected JSONObject doInBackground(Object... params) {
-			JSONObject result=new JSONObject();
-			Integer syncType=(Integer)params[0];
+			JSONObject result = new JSONObject();
+			Integer syncType = (Integer) params[0];
 			try {
-				switch(syncType){
+				switch (syncType) {
 				case 1:
-					//null。。。。传参方式是get
-					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
-					result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
+					// null。。。。传参方式是get
+					// (Integer)params[3]对应上面的HttpClient.TYPE_POST
+					result = HttpClient.requestSync(params[1].toString(),
+							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
 					break;
-				default :
+				default:
 					break;
 				}
 			} catch (JSONException e) {
@@ -397,44 +414,43 @@ public class RegistPhoneActivity extends Activity implements
 		@Override
 		protected void onPostExecute(JSONObject result) {
 			try {
-				Integer syncType=result.getInt("syncType");
-				switch(syncType){
+				Integer syncType = result.getInt("syncType");
+				switch (syncType) {
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
-		                //。。。。。。。。。
+						// 。。。。。。。。。
 						long userId = result.getLong("userId");
 						CurrentUserHelper.saveCurrentUserId(userId);
-						
+
 						CurrentUserHelper.saveCurrentPhone(phone);
 						CurrentUserHelper.saveCurrentUserId(userId);
 						try {
 							UserInfoDao userInfoDao = new UserInfoDao();
-							userInfoDao.saveUserForFirsttime(result,
-									password);
+							userInfoDao.saveUserForFirsttime(result, password);
 						} catch (JSONException e) {
 							e.printStackTrace();
 						} catch (ParseException e) {
 							e.printStackTrace();
 						}
-						Toast.makeText(_this, "登陆成功", Toast.LENGTH_SHORT).show();
-						Intent intent = new Intent(_this,MainActivity.class);
+						Toast.makeText(_this, "登陆成功", Toast.LENGTH_SHORT)
+								.show();
+						Intent intent = new Intent(_this, MainActivity.class);
 						startActivity(intent);
-					}else {
+					} else {
 						Toast.makeText(_this, "账号或密码有误！", 3).show();
 					}
 					break;
 				default:
 					break;
 				}
-			
+
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-		
-		
-    	
-    }
+
+	}
+
 	private class ClickImageToChangeHeadIcon implements View.OnClickListener {
 
 		@Override

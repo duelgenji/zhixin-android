@@ -149,7 +149,7 @@ public class SelfListActivity extends FragmentActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			break;
 		default:
 			break;

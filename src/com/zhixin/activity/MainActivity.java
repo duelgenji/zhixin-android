@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 import cn.sharesdk.framework.ShareSDK;
 
 import com.baidu.mobstat.StatService;
@@ -36,10 +37,11 @@ public class MainActivity extends FragmentActivity {
 	private TabBarLayout zhibiTabBar;
 	private TabBarLayout messageTabBar;
 	private TabBarLayout meTabBar;
-//	private TabBarLayout homeTabBar;
-//	private TabBarLayout quduijiangBar;
-//	private TabBarLayout qushejiaoBar;
-//	private TabBarLayout moreBar;
+	// private TabBarLayout homeTabBar;
+	// private TabBarLayout quduijiangBar;
+	// private TabBarLayout qushejiaoBar;
+	// private TabBarLayout moreBar;
+
 	private MainMenuService service;
 
 	private UpdateManager updateManager;
@@ -89,7 +91,6 @@ public class MainActivity extends FragmentActivity {
 							fm.popBackStack();
 						} else {
 
-							
 							XinLiMapFragment xinliMapFragment = new XinLiMapFragment();
 
 							transaction = fm.beginTransaction();
@@ -236,7 +237,7 @@ public class MainActivity extends FragmentActivity {
 		service = new MainMenuService(MyApplication.getAppContext());
 		new LoadDataTask().execute();
 
-		//new loginAsyncTask().execute();
+		// new loginAsyncTask().execute();
 		startLogOnService();
 
 		_this = this;
@@ -257,16 +258,15 @@ public class MainActivity extends FragmentActivity {
 				SharedPreferences sharedPref = MainActivity.this
 						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 								Context.MODE_PRIVATE);
-				return sharedPref.getBoolean(
-						SettingValues.INSTRUCTION_MAIN1, true);
+				return sharedPref.getBoolean(SettingValues.INSTRUCTION_MAIN1,
+						true);
 			}
 
 			@Override
 			protected void onPostExecute(Boolean result) {
 				if (result) {
 					InstructionDialog qushouyeFirst = new InstructionDialog(
-							MainActivity.this,
-							SettingValues.INSTRUCTION_MAIN1);
+							MainActivity.this, SettingValues.INSTRUCTION_MAIN1);
 					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
 						@Override
 						public void onDismiss(DialogInterface dialog) {
@@ -292,7 +292,7 @@ public class MainActivity extends FragmentActivity {
 				return service.newVersion();
 			} catch (Exception e) {
 				e.printStackTrace();
-			} 
+			}
 			return null;
 		}
 
@@ -347,20 +347,20 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	private void setPushAliasSettings() {
-		//Intent intent = new Intent(this, SettingJpushAliasService.class);
-		//startService(intent);
+		// Intent intent = new Intent(this, SettingJpushAliasService.class);
+		// startService(intent);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-		//StatService.onResume(this);
+		// StatService.onResume(this);
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		//StatService.onPause(this);
+		// StatService.onPause(this);
 	}
 
 	private FragmentManager.OnBackStackChangedListener initalFinishListener = new OnBackStackChangedListener() {
@@ -383,7 +383,7 @@ public class MainActivity extends FragmentActivity {
 
 			messageTabBar = (TabBarLayout) _this.findViewById(R.id.messageBtn);
 			messageTabBar.setOnClickListener(footerAction);
-			
+
 			meTabBar = (TabBarLayout) _this.findViewById(R.id.meBtn);
 			meTabBar.setOnClickListener(footerAction);
 
@@ -407,7 +407,7 @@ public class MainActivity extends FragmentActivity {
 				messageTabBar.setChecked(false);
 				zhibiTabBar.setChecked(false);
 				meTabBar.setChecked(false);
-				
+
 				setAllFooterBtnEnableTrue();
 				break;
 			case R.id.xinliMapBtn:
@@ -481,7 +481,7 @@ public class MainActivity extends FragmentActivity {
 				messageTabBar.setChecked(false);
 				zhibiTabBar.setChecked(true);
 				meTabBar.setChecked(false);
-				
+
 				break;
 
 			case R.id.meBtn:

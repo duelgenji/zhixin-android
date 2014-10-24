@@ -39,7 +39,7 @@ public class MorePrivacyActivity extends FragmentActivity implements View.OnClic
         v.setEnabled(false);
         switch (v.getId()) {
             case R.id.backup_btn:
-                this.onBackPressed();
+                finish();
                 v.setEnabled(true);
                 break;
             default:

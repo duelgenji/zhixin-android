@@ -98,7 +98,7 @@ public class ErrHashMap {
 		// errhashMap.put("err705", "兑换奖品超出限制");
 		// errhashMap.put("err706", "没有找到记录");
 		// errhashMap.put("err707", "没有奖品信息");
-		// errhashMap.put("errFFF", "没有可用的网络连接");
+		errhashMap.put("errFFF", "没有可用的网络连接");
 		errhashMap.put("err800", "心情参数不正确");
 
 	}
