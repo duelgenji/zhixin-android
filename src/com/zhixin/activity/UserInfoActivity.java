@@ -7,10 +7,8 @@ import org.json.JSONObject;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -278,14 +276,15 @@ public class UserInfoActivity extends FragmentActivity implements
 			break;
 		case R.id.layoutAddressPersonalProfile:
 			if (!pickerExist) {
-				SharedPreferences sharedPref = this.getSharedPreferences(
-						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-				Boolean isAddressSaved = sharedPref.getBoolean(
-						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
+//				SharedPreferences sharedPref = this.getSharedPreferences(
+//						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
+//				Boolean isAddressSaved = sharedPref.getBoolean(
+//						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
 				intent = new Intent(_this, UserInfoAddressActivity.class);
 				startActivity(intent);
 				v.setEnabled(false);
 			}
+			break;
 		case R.id.layoutEmailPersonalProfile:
 			if (!pickerExist) {
 				intent = new Intent(_this, UserInfoEmailActivity.class);
@@ -734,11 +733,11 @@ public class UserInfoActivity extends FragmentActivity implements
 			localEmail = data.getString(data.getColumnIndex("email"));
 			// set sex value
 			if (localSex == 1) {
-				localSexStr = "男";
+				localSexStr = "女";
 				txtSexPersonalProfile.setText(_this
 						.getString(R.string.dialog_pick_sex_female));
 			} else if (localSex == 0) {
-				localSexStr = "女";
+				localSexStr = "男";
 				txtSexPersonalProfile.setText(_this
 						.getString(R.string.dialog_pick_sex_male));
 			} else {

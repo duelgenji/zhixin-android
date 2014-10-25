@@ -90,13 +90,25 @@ public class UserAddressDao {
 
 	}
 
-	public void updateSingleUserAddress(JSONObject jbo) throws JSONException {
+	public void saveSingleUserAddress(JSONObject jbo) throws JSONException {
 
-		int iDzId = jbo.getInt("id");
+		UserAddress userAddress = new UserAddress();
 
-		UserAddress userAddress = DbManager.getDatabase().findUniqueBySql(
-				UserAddress.class,
-				"select * from user_address where dzId='" + iDzId + "';");
+		if (jbo.has("id")) {
+			userAddress.setDzId(jbo.getInt("id"));
+		}
+
+		if (jbo.has("userId")) {
+			userAddress.setUserId(jbo.getLong("userId"));
+		}
+
+		setSameContent(jbo, userAddress);
+
+		DbManager.getDatabase().save(userAddress);
+
+	}
+
+	private void setSameContent(JSONObject jbo, UserAddress userAddress) {
 
 		String iSfId = null;
 		String iCsId = null;
@@ -106,69 +118,95 @@ public class UserAddressDao {
 		String sDqmc = null;
 		String areaCode = null;
 
-		if (jbo.has("consignee")) {
-			userAddress.setName(jbo.getString("consignee"));
-		}
-		
-		if (jbo.has("phone")) {
-			userAddress.setPhone(jbo.getString("phone"));
-		}
-
-		if (jbo.has("firstCode")) {
-			iSfId = jbo.getString("firstCode");
-			userAddress.setSfId(iSfId);
-		}
-
-		if (jbo.has("secondCode")) {
-			iCsId = jbo.getString("secondCode");
-			userAddress.setCsId(iCsId);
-		}
-		if (jbo.has("thirdCode")) {
-			iDqId = jbo.getString("thirdCode");
-			userAddress.setDqId(iDqId);
-		}
-
-		if (jbo.has("areaCode")) {
-			areaCode = jbo.getString("areaCode");
-			userAddress.setAreaCode(areaCode);
-		} else if (jbo.has("firstCode")) {
-			areaCode = jbo.getString("firstCode");
-			if (jbo.has("secondCode")) {
-				areaCode = jbo.getString("secondCode");
-				if (jbo.has("thirdCode")) {
-					areaCode = jbo.getString("thirdCode");
-				}
+		try {
+			if (jbo.has("consignee")) {
+				userAddress.setName(jbo.getString("consignee"));
 			}
-			userAddress.setAreaCode(areaCode);
-		}
 
-		AddressDao addressDao = new AddressDao();
+			if (jbo.has("phone")) {
+				userAddress.setPhone(jbo.getString("phone"));
+			}
 
-		if (addressDao.getSfmc(iSfId) != null) {
-			sSfmc = addressDao.getSfmc(iSfId).getMc();
-			userAddress.setSfmc(sSfmc);
-		}
-		if (addressDao.getCsmc(iCsId) != null) {
-			sCsmc = addressDao.getCsmc(iCsId).getMc();
-			userAddress.setCsmc(sCsmc);
-		}
-		if (addressDao.getDqmc(iDqId) != null) {
-			sDqmc = addressDao.getDqmc(iDqId).getMc();
-			userAddress.setDqmc(sDqmc);
-		}
+			if (jbo.has("firstCode")) {
+				iSfId = jbo.getString("firstCode");
+				userAddress.setSfId(iSfId);
+			}
 
-		if (jbo.has("detialAddress")) {
-			userAddress.setAddress(jbo.getString("detialAddress"));
-		}
+			if (jbo.has("secondCode")) {
+				iCsId = jbo.getString("secondCode");
+				userAddress.setCsId(iCsId);
+			}
+			if (jbo.has("thirdCode")) {
+				iDqId = jbo.getString("thirdCode");
+				userAddress.setDqId(iDqId);
+			}
 
-		if (jbo.has("postCode")) {
-			userAddress.setPostCode(jbo.getString("postCode"));
-		}
+			if (jbo.has("areaCode")) {
+				areaCode = jbo.getString("areaCode");
+				userAddress.setAreaCode(areaCode);
+			} else if (jbo.has("firstCode")) {
+				areaCode = jbo.getString("firstCode");
+				if (jbo.has("secondCode")) {
+					areaCode = jbo.getString("secondCode");
+					if (jbo.has("thirdCode")) {
+						areaCode = jbo.getString("thirdCode");
+					}
+				}
+				userAddress.setAreaCode(areaCode);
+			}
 
+			AddressDao addressDao = new AddressDao();
+
+			if (addressDao.getSfmc(iSfId) != null) {
+				sSfmc = addressDao.getSfmc(iSfId).getMc();
+				userAddress.setSfmc(sSfmc);
+			}
+			if (addressDao.getCsmc(iCsId) != null) {
+				sCsmc = addressDao.getCsmc(iCsId).getMc();
+				userAddress.setCsmc(sCsmc);
+			}
+			if (addressDao.getDqmc(iDqId) != null) {
+				sDqmc = addressDao.getDqmc(iDqId).getMc();
+				userAddress.setDqmc(sDqmc);
+			}
+
+			if (jbo.has("detialAddress")) {
+				userAddress.setAddress(jbo.getString("detialAddress"));
+			}
+
+			if (jbo.has("postCode")) {
+				userAddress.setPostCode(jbo.getString("postCode"));
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateSingleUserAddress(JSONObject jbo) throws JSONException {
+
+		int iDzId = jbo.getInt("id");
+
+		UserAddress userAddress = DbManager.getDatabase().findUniqueBySql(
+				UserAddress.class,
+				"select * from user_address where dzId='" + iDzId + "';");
+
+		setSameContent(jbo, userAddress);
+		
 		if (jbo.has("defaultAddress")) {
-			setNoDefault();
+
 			if (jbo.getBoolean("defaultAddress")) {
+				setNoDefault();
 				userAddress.setIsDefault(1);
+				long userId = userAddress.getUserId();
+				String defaultAddress = null;
+				if (jbo.has("detialAddress")) {
+					defaultAddress = jbo.getString("detialAddress");
+				} else {
+					defaultAddress = userAddress.getAddress();
+				}
+				UserInfoDao userInfoDao = new UserInfoDao();
+				userInfoDao.saveUserInfoDefaultAddressById(userId,
+						defaultAddress);
 			} else {
 				userAddress.setIsDefault(0);
 			}
