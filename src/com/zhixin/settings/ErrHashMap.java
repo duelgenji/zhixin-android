@@ -10,7 +10,7 @@ public class ErrHashMap {
 	}
 
 	private static void insertErrCode() {
-		errhashMap.put("err000", "用户未登录");
+//		errhashMap.put("err000", "用户未登录");
 		errhashMap.put("err001", "用户不存在");
 		errhashMap.put("err002", "密码错误");
 		errhashMap.put("err003", "手机号码为空或格式不正确");

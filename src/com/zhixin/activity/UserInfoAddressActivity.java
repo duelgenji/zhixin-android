@@ -1,5 +1,9 @@
 package com.zhixin.activity;
 
+import org.apache.commons.lang3.StringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,13 +17,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
 import com.zhixin.adapter.UserAddressAdapter;
+import com.zhixin.daos.UserAddressDao;
 import com.zhixin.datasynservice.UserAddressService;
 import com.zhixin.domain.UserAddress;
+import com.zhixin.settings.SettingValues;
+import com.zhixin.utils.HttpClient;
 import com.zhixin.utils.SqlCursorLoader;
 
 /**
@@ -31,8 +40,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 	private TextView txtPageTitle;
 	private ImageButton iBtnPageBack;
 	private ImageView btnAdd;
-
-//	private AddressService addressService;
+	private RelativeLayout imgNoAddress;
 
 	private ListView userAddressList;
 
@@ -40,10 +48,11 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		return userAddressList;
 	}
 
-	private UserAddressService userAddressService;
+	private UserAddressDao userAddressDao;
 	private UserAddressAdapter adapter;
 	private Activity _this;
 	public static UserInfoAddressActivity userInfoAddressActivity;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,7 +60,9 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 
 		_this = this;
 		userInfoAddressActivity = this;
-		userAddressService = new UserAddressService(this);
+		userAddressDao = new UserAddressDao();
+		imgNoAddress = (RelativeLayout) this
+				.findViewById(R.id.layout_no_address);
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
@@ -60,14 +71,18 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		btnAdd = (ImageView) this.findViewById(R.id.add_address);
 		btnAdd.setOnClickListener(this);
 		userAddressList = (ListView) this.findViewById(R.id.userAddressList);
-		new LoadAddressDataTask().execute();
+		String requestUrl = SettingValues.URL_PREFIX
+				+ this.getString(R.string.URL_USER_GET_ADDRESS_LIST);
+		Log.i("address", requestUrl);
+		new LoadAddressDataTask().execute(1, requestUrl, null,
+				HttpClient.TYPE_GET);
 	}
 
 	@Override
 	protected void onStart() {
 		super.onStart();
 		getSupportLoaderManager().restartLoader(0, null, this);
-		
+
 	}
 
 	@Override
@@ -120,8 +135,14 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (cursor.getCount() != 0) {
 			if (adapter == null) {
-				adapter = new UserAddressAdapter(_this, cursor);
-				userAddressList.setAdapter(adapter);
+				if (cursor.getCount() != 0) {
+					imgNoAddress.setVisibility(View.GONE);
+					adapter = new UserAddressAdapter(_this, cursor);
+					userAddressList.setAdapter(adapter);
+				} else {
+					imgNoAddress.setVisibility(View.VISIBLE);
+				}
+
 			} else {
 				adapter.changeCursor(cursor);
 			}
@@ -135,25 +156,64 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		}
 	}
 
-	private class LoadAddressDataTask extends AsyncTask<Void, Void, Void> {
+	private class LoadAddressDataTask extends
+			AsyncTask<Object, Void, JSONObject> {
 
 		@Override
-		protected Void doInBackground(Void... params) {
-				userAddressService.saveUserAddress();
-				Log.i("address", "======保存到本地完成======" );
-			return null;
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result = null;
+			Integer syncType = (Integer) params[0];
+			try {
+				switch (syncType) {
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(), null,
+							(Integer) params[3]);
+					result.put("syncType", syncType);
+					Log.i("address", "获取到的地址：......" + result);
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
 		}
 
 		@Override
-		protected void onPostExecute(Void params) {
-			getSupportLoaderManager().restartLoader(0, null,
-					UserInfoAddressActivity.this);
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType = result.getInt("syncType");
+				switch (syncType) {
+				case 1:
+					if (result != null
+							&& result.getString("success").equals("1")) {
+						if (result.getJSONArray("content").length() != 0) {
+							Log.i("address", "地址信息长度" + result.getJSONArray("content").length());
+							Toast.makeText(_this, "获取地址成功！", Toast.LENGTH_SHORT)
+									.show();
+						}
+						// 保存到本地数据库
+						userAddressDao.saveUserAddress(result);
+					} else {
+						Toast.makeText(_this, "获取地址失败！", Toast.LENGTH_SHORT)
+								.show();
+					}
+					break;
+
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
 		}
-		
+
 	}
-	public void reSetAddress(){
-		new LoadAddressDataTask().execute();
+
+	public void reSetAddress() {
+		getSupportLoaderManager().restartLoader(0, null,
+				UserInfoAddressActivity.this);
 	}
-	
 
 }

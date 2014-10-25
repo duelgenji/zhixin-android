@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.baidu.mobstat.StatService;
 import com.zhixin.R;
+import com.zhixin.daos.UserAddressDao;
 import com.zhixin.dialog.AddressDialog;
 import com.zhixin.settings.CurrentUserHelper;
 import com.zhixin.settings.SettingValues;
@@ -41,8 +42,10 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 	private EditText txtAddressAddCode;
 	private EditText txtAddressAddAddress;
 
+	private JSONObject jsonParams;
+	private UserAddressDao userAddressDao;
+	
 	private AddressDialog areaDialog;
-
 	private UserInfoAddressAddActivity _this;
 
 	private String sfdm;
@@ -57,6 +60,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_user_info_address_add);
 
 		_this = this;
+		userAddressDao = new UserAddressDao(); 
 
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
@@ -94,7 +98,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 		case R.id.addressSubmit:
 
 			try {
-				JSONObject jsonParams = new JSONObject();
+				jsonParams = new JSONObject();
 				String name = "";
 				String phone = "";
 				String areaCode = "";
@@ -135,7 +139,6 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 						}
 					}
 				}
-
 				jsonParams.put("consignee", name);
 				jsonParams.put("areaCode", areaCode);
 				jsonParams.put("detialAddress", address);
@@ -201,6 +204,8 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 						// 。。。。。。。。。
 						Toast.makeText(_this, "提交地址成功！", Toast.LENGTH_SHORT)
 								.show();
+						jsonParams.put("userId", CurrentUserHelper.getCurrentUserId());
+						userAddressDao.saveSingleUserAddress(jsonParams);
 						UserInfoAddressActivity.userInfoAddressActivity.reSetAddress();
 						_this.finish();
 					} else {

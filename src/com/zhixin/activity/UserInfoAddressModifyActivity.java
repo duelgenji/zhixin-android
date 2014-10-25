@@ -110,7 +110,7 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 		modifyParams = sendRequest();
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.addressSubmit:
@@ -141,7 +141,7 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 							HttpClient.TYPE_DELETE);
 
 					dlg.cancel();
-					_this.onBackPressed();
+					_this.finish();
 				}
 			});
 			// 关闭alert对话框架

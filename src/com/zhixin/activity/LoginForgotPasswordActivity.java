@@ -70,7 +70,7 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_login_forgot_password);
 		_this = this;
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
-		txtPageTitle.setText(this.getString(R.string.title_set_pwd));
+		txtPageTitle.setText(this.getString(R.string.title_forget_pwd));
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
 		regist_confirm_password = (TextView) findViewById(R.id.regist_submit);

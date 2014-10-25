@@ -264,19 +264,17 @@ public class UserAddressAdapter extends CursorAdapter {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					Log.i("delete", "传入参数" + params[2]);
-					userAddressDao.deleteAddressById((Integer) params[2]);
 					Log.i("delete", result + "");
 					result.put("syncType", syncType);
+					result.put("dzId", params[2]);
 					break;
 				case 2:
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
-					Log.i("modify", "传入参数" + params[2]);
-					userAddressDao
-							.updateSingleUserAddress((JSONObject) params[2]);
+					
 					Log.i("modify", result + "");
 					result.put("syncType", syncType);
+					result.put("params", params[2]);
 					break;
 				default:
 					break;
@@ -297,6 +295,7 @@ public class UserAddressAdapter extends CursorAdapter {
 							&& result.getString("success").equals("1")) {
 						Toast.makeText(context, "删除地址成功！", Toast.LENGTH_SHORT)
 								.show();
+						userAddressDao.deleteAddressById((Integer) result.get("dzId"));
 						UserInfoAddressActivity.userInfoAddressActivity
 								.reSetAddress();
 					} else {
@@ -310,6 +309,8 @@ public class UserAddressAdapter extends CursorAdapter {
 							&& result.getString("success").equals("1")) {
 						Toast.makeText(context, "修改地址成功！", Toast.LENGTH_SHORT)
 								.show();
+						userAddressDao
+								.updateSingleUserAddress((JSONObject) result.getJSONObject("params"));
 						UserInfoAddressActivity.userInfoAddressActivity
 								.reSetAddress();
 					} else {

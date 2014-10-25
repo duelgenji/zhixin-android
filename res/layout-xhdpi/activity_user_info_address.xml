@@ -13,7 +13,29 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:layout_weight="88"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:id="@+id/layout_no_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/img_no_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/address_no_content" />
+
+            <TextView
+                android:id="@+id/tv_no_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/img_no_address"
+                android:layout_below="@id/img_no_address"
+                android:text="还没有收货地址"
+                android:textSize="18sp" />
+        </RelativeLayout>
 
         <ListView
             android:id="@+id/userAddressList"

@@ -6,6 +6,7 @@
     <string name="head_title_activity_regist_invite">填写邀请码</string>
     <string name="title_register_validate_code">填写验证码</string>
     <string name="title_set_pwd">注册</string>
+    <string name="title_forget_pwd">忘记密码</string>
     <string name="head_skip_hits">跳过</string>
     <string name="head_modify_nickname">修改昵称</string>
     <string name="head_modify_signature">修改签名</string>
@@ -21,7 +22,7 @@
     <string name="title_more_company">我是企业</string>
     <string name="title_more_reset_pwd">修改密码</string>
     <string name="title_more_option">通用设置</string>
-    <string name="title_more_aboutus">关于我们</string>
+    <string name="title_more_aboutus">关于知心</string>
     <string name="title_user_personal_profile">个人资料</string>
     <string name="title_user_authentication">身份认证</string>
     <string name="title_user_delivery_address">收货地址</string>
