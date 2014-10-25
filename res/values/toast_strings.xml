@@ -59,5 +59,6 @@
 	<string name="toast_nickname_length_too_long">超出长度,最长7个汉字</string>
 	<string name="toast_signature_length_too_long">超出长度,最长20个汉字</string>
 	<string name="toast_forget_password_and_modify_it_successfully">修改密码成功!</string>
+	<string name="toast_set_mood_success">设置心情成功!</string>
 	
 </resources>

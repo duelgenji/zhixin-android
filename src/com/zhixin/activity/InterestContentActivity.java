@@ -244,6 +244,7 @@ public class InterestContentActivity extends Activity implements
 			if (nextQuestionId != null) {
 				Intent intent = new Intent(this, InterestContentActivity.class);
 				intent.putExtra(CURRENT_QUESTION, nextQuestionId.intValue());
+				intent.putExtra(INTENT_QUESTIONNAIRE_TITLE,getIntent().getStringExtra(INTENT_QUESTIONNAIRE_TITLE));
 				startActivity(intent);
 			} else {
 
@@ -296,6 +297,7 @@ public class InterestContentActivity extends Activity implements
 				.previousQuestion();
 		if (prevQuestionId != null) {
 			Intent intent = new Intent(this, InterestContentActivity.class);
+			intent.putExtra(INTENT_QUESTIONNAIRE_TITLE,getIntent().getStringExtra(INTENT_QUESTIONNAIRE_TITLE));
 			intent.putExtra(CURRENT_QUESTION, prevQuestionId.intValue());
 			startActivity(intent);
 		}
@@ -348,7 +350,11 @@ public class InterestContentActivity extends Activity implements
 		}
 
 		TextView textView = (TextView) this.findViewById(R.id.txtTitleQCSC);
-		textView.setText(quDatiDataObject.getQuestionTitle());
+		
+		String content=quDatiDataObject.getQuestionTitle();
+		content=content.replace("\\n", "\n");
+		textView.setText(content);
+		
 		txtNoQCSC.setText(quDatiDataObject.getQuestionNo() + "/"
 				+ String.valueOf(quDatiDataObject.getQuestionSumInWj()));
 		if (shunxuViewGroup != null) {
@@ -440,7 +446,8 @@ public class InterestContentActivity extends Activity implements
 					.setBackgroundResource(R.drawable.question_next_disable);
 			remainingTime.setVisibility(View.VISIBLE);
 			remainingTime.setText(String.valueOf(limitTime));
-			countDownTimer = new CountDownTimer(limitTime * 1000, 1000) {
+			countDownTimer = new CountDownTimer(limitTime * 1000, 100) {
+				
 
 				public void onTick(long millisUntilFinished) {
 					remainingTime.setText(String

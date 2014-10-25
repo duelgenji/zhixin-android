@@ -422,20 +422,22 @@ public class MainmenuFragment extends Fragment implements
 	private void calcDistance() {
 
 		int h = PhoneHelper.getPhoneHeight();
+		
+		int topLabel=(int) (PhoneHelper.getPhoneHeight() * 0.08);
 		switch (h) {
 		case 800:
-			moveDistance = 270;
+			moveDistance = 270-topLabel;
 			break;
 
 		case 1280:
-			moveDistance = 460;
+			moveDistance = 460-topLabel;
 			break;
 
 		case 1920:
-			moveDistance = 810;
+			moveDistance = 810-topLabel;
 			break;
 		default:
-			moveDistance = (int) (PhoneHelper.getPhoneHeight() * 0.4);
+			moveDistance = (int) (PhoneHelper.getPhoneHeight() * 0.3);
 			break;
 		}
 	}
@@ -513,6 +515,7 @@ public class MainmenuFragment extends Fragment implements
 						}
 						break;
 					case 1:
+						showToast(mainActivity.getString(R.string.toast_set_mood_success));
 						panelClose();
 						break;
 					default:
