@@ -34,6 +34,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -61,7 +63,6 @@ public class RegistPhoneActivity extends Activity implements
 	private ToggleButton checkAgreement;
 	private ToggleButton showPassword;
 	private TextView txtAgreeTips;
-	private TextView txtAgreePrivacyTips;
 	private ImageButton btnClearText;
 	private RegistPhoneActivity _this;
 	// 获取验证码
@@ -134,6 +135,19 @@ public class RegistPhoneActivity extends Activity implements
 		firstLinePassword = (EditText) findViewById(R.id.password_first_line);
 		// 显示密码
 		showPassword = (ToggleButton) findViewById(R.id.btn_show_password);
+		showPassword.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) {
+					firstLinePassword.setInputType(InputType.TYPE_NULL);
+				} else {
+					firstLinePassword.setInputType(InputType.TYPE_CLASS_TEXT
+							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
+				}
+			}
+		});
 		// 获取验证码
 		validateCodeEditText = (EditText) this.findViewById(R.id.validate_code);
 		btnClearText = (ImageButton) findViewById(R.id.clearTextviewBtn);
@@ -145,18 +159,12 @@ public class RegistPhoneActivity extends Activity implements
 		// 同意条款
 		checkAgreement = (ToggleButton) findViewById(R.id.regist_i_agree);
 		txtAgreeTips = (TextView) findViewById(R.id.txtAgreeTips);
-		txtAgreePrivacyTips = (TextView) findViewById(R.id.txtAgreePrivacyTips);
-		String tips = "<font color=#8d8d8d>已经阅读并同意</font>　　　　　　　　　";
-		// +"<font color=#000000>并了解没有您的许可,我们绝不擅自联系您,或者泄露您的资料!</font>";
-		String tips2 = "<font color=#269BF6>　　　　　　<u>《知心使用条款和隐私政策》</u></font>";
-		txtAgreeTips.setText(Html.fromHtml(tips));
-		txtAgreePrivacyTips.setText(Html.fromHtml(tips2));
-		txtAgreePrivacyTips.setOnClickListener(this);
+		String tips = "<font color=#F3542D>已经阅读并同意</font>";
+		String tips2 = "<font color=#F3542D>" + "《" + "<u>知心使用条款和隐私政策</u>"
+				+ "》" + "</font>";
+		txtAgreeTips.setText(Html.fromHtml(tips + tips2));
+		txtAgreeTips.setOnClickListener(this);
 
-		// SharedPreferences sharedPref = this.getSharedPreferences(
-		// SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-		// phone = sharedPref.getString(
-		// SettingValues.KEY_TEMP_USER_PHONE_FOR_REGIST_USE, null);
 		context = this.getApplicationContext();
 
 		txtPageTitle = (TextView) findViewById(R.id.title_of_the_page);
@@ -176,7 +184,7 @@ public class RegistPhoneActivity extends Activity implements
 		// 返回
 		case R.id.backup_btn:
 			v.setEnabled(false);
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		// 相机
@@ -185,19 +193,13 @@ public class RegistPhoneActivity extends Activity implements
 			takePicFromCamera();
 			v.setEnabled(true);
 			break;
-		case R.id.btn_show_password:
-			v.setEnabled(false);
-			if (showPassword.isChecked()) {
-				firstLinePassword.setInputType(InputType.TYPE_NULL);
-			}
-			v.setEnabled(true);
-			// 清除验证码
+		// 清除验证码
 		case R.id.clearTextviewBtn:
 			v.setEnabled(false);
 			validateCodeEditText.setText("");
 			v.setEnabled(true);
 			break;
-		// 同意条款
+		// 查看条款
 		case R.id.txtAgreePrivacyTips:
 			v.setEnabled(false);
 			intent = new Intent(RegistPhoneActivity.this,
