@@ -107,7 +107,7 @@ public class HttpClient {
 			JSONObject result = new JSONObject(resultObj.toString());
 			if (result.has("success")
 					&& result.getString("success").equals("0")
-					&& result.getString("message").equals("err001")) {
+					&& result.getString("message").equals("err000")) {
 				try {
 					if (new RegistService(MyApplication.getAppContext())
 							.logOnAction()) {
@@ -134,7 +134,7 @@ public class HttpClient {
 				return new JSONObject(resultObj.toString());
 			} else if (result.has("success")
 					&& result.getString("success").equals("0")
-					&& !result.getString("message").equals("err001")) {
+					&& !result.getString("message").equals("err000")) {
 				Handler handler = new Handler(Looper.getMainLooper());
 				final JSONObject _result = result;
 				handler.post(new Runnable() {
@@ -269,7 +269,7 @@ public class HttpClient {
 			JSONObject result = new JSONObject(resultObj.toString());
 			if (result.has("success")
 					&& result.getString("success").equals("0")
-					&& result.getString("message").equals("err001")) {
+					&& result.getString("message").equals("err000")) {
 				try {
 					if (new RegistService(MyApplication.getAppContext())
 							.logOnAction()) {
@@ -317,7 +317,7 @@ public class HttpClient {
 				return new JSONObject(resultObj.toString());
 			} else if (result.has("success")
 					&& result.getString("success").equals("0")
-					&& !result.getString("message").equals("err001")) {
+					&& !result.getString("message").equals("err000")) {
 				Handler handler = new Handler(Looper.getMainLooper());
 				final JSONObject _result = result;
 				handler.post(new Runnable() {
@@ -381,7 +381,7 @@ public class HttpClient {
 		if (resultObj != null) {
 			JSONObject result = new JSONObject(resultObj.toString());
 			if (result.getString("success").equals("0")
-					&& result.getString("message").equals("err001")) {
+					&& result.getString("message").equals("err000")) {
 				try {
 					new RegistService(MyApplication.getAppContext())
 							.logOnAction();

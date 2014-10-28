@@ -124,15 +124,6 @@ public class XinliMapMoodCardFragment extends Fragment implements
 
 			initView();
 
-//			if (!progressDialog.isShowing()) {
-//				progressDialog.show();
-//			}
-//			String requestUrl = SettingValues.URL_PREFIX
-//					+ getActivity().getString(R.string.URL_GET_MAP)
-//					+ "?typeId=2";
-//
-//			new LoadDataTask()
-//					.execute(1, requestUrl, null, HttpClient.TYPE_GET);
 
 		} else {
 			ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -235,16 +226,20 @@ public class XinliMapMoodCardFragment extends Fragment implements
 									}
 								}
 								moodCardView.setMapList(dataList);
+								if (progressDialog.isShowing()) {
+									progressDialog.dismiss();
+								}
 								setMoodView();
 								Log.i("top", "mood---" + hsMapData + "");
 							}
 
 						} else {
+							if (progressDialog.isShowing()) {
+								progressDialog.dismiss();
+							}
 							moodImaBg.setVisibility(View.VISIBLE);
 						}
-						if (progressDialog.isShowing()) {
-							progressDialog.dismiss();
-						}
+						
 					} else {
 						Toast.makeText(mainActivity, "获取地图失败",
 								Toast.LENGTH_SHORT).show();

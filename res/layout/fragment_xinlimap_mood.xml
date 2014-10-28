@@ -41,7 +41,6 @@
                     android:id="@+id/mood_lock_tips"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="lock-----------------------"
                     android:textSize="18sp" />
 
                 <LinearLayout
@@ -58,7 +57,6 @@
                         android:layout_weight="1"
                         android:gravity="right|center"
                         android:singleLine="true"
-                        android:text="name"
                         android:textSize="18sp" />
 
                     <TextView
@@ -68,7 +66,6 @@
                         android:layout_weight="1"
                         android:gravity="left|center"
                         android:singleLine="true"
-                        android:text="score"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -78,7 +75,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
-                    android:text="fffffffffffffffffffffff"
                     android:textSize="18sp" />
             </LinearLayout>
 

@@ -47,9 +47,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 	/**用户信息Dao*/
 	private UserInfoDao userInfoDao;
 	/***/
-	private ImageView imgRegisterTips;
-	
-	private ImageView imgLogo;
 
 	private LoginActivity _this;
 	
@@ -73,10 +70,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		btnRegister = (ImageButton) this.findViewById(R.id.btnRegister);
 		btnRegister.setOnClickListener(this);
 
-		imgLogo = (ImageView) this.findViewById(R.id.login_logo);
-		imgLogo.setOnClickListener(this);
-//		imgRegisterTips = (ImageView) this.findViewById(R.id.imgRegisterTips);
-//		imgRegisterTips.setOnClickListener(this);
 
 		txtForgot = (TextView) this.findViewById(R.id.txtForgot);
 		txtForgot.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -107,7 +100,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 	public JSONObject loginAction(String phone,String password) throws ParseException {
         JSONObject result=new JSONObject();
         JSONObject obj = new JSONObject();
-        //String sobj="";
         try {
         	obj.put("phone", phone);
         	obj.put("password", password);
@@ -132,8 +124,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 			try {
 				switch(syncType){
 				case 1:
-					//null。。。。传参方式是get
-					//(Integer)params[3]对应上面的HttpClient.TYPE_POST
 					result = HttpClient.requestSync(params[1].toString(), (JSONObject)params[2],(Integer)params[3]);
 					result.put("syncType", syncType);
 					break;
@@ -194,7 +184,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		Intent intent;
 		switch (v.getId()) {
 		case R.id.btnRegister:
-//		case R.id.imgRegisterTips:
 			v.setEnabled(false);
 			intent = new Intent(this, RegistPhoneActivity.class);
 			
@@ -204,12 +193,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 		case R.id.txtForgot:
 			v.setEnabled(false);
 			intent = new Intent(this, LoginForgotPasswordActivity.class);
-			startActivity(intent);
-			v.setEnabled(true);
-			break;
-		case R.id.login_logo:
-			v.setEnabled(false);
-			intent = new Intent(this, MainActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
