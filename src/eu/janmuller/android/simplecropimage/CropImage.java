@@ -24,8 +24,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.concurrent.CountDownLatch;
 
-import com.zhixin.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -50,6 +48,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
+
+import com.qubaopen.R;
 
 
 /**

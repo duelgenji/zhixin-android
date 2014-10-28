@@ -13,7 +13,7 @@
         android:layout_height="1dp"
         android:layout_weight="89.1" >
 
-        <com.zhixin.customui.ObservableScrollView
+        <com.qubaopen.customui.ObservableScrollView
             android:id="@+id/chatScrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
             </LinearLayout>
-        </com.zhixin.customui.ObservableScrollView>
+        </com.qubaopen.customui.ObservableScrollView>
 
         <LinearLayout
             android:id="@+id/chatInputViewGroup"

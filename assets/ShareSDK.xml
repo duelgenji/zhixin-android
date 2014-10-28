@@ -97,7 +97,6 @@
         Id="4"
         SortId="4"
         AppId="wxecbf7097fe08a838"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
         BypassApproval="false"
         Enable="true" />
     
@@ -105,7 +104,6 @@
         Id="5"
         SortId="5"
        	AppId="wxecbf7097fe08a838"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
         BypassApproval="true"
         Enable="true" />
         

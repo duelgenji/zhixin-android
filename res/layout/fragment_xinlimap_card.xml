@@ -13,11 +13,11 @@
         android:fillViewport="true"
         android:splitMotionEvents="false" >
 
-        <com.zhixin.customui.CardView
+        <com.qubaopen.customui.CardView
             android:id="@+id/cardview"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </com.zhixin.customui.CardView>
+        </com.qubaopen.customui.CardView>
     </ScrollView>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-<com.zhixin.customui.CardItemView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qubaopen.customui.CardItemView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_card_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -105,4 +105,4 @@
                 android:layout_gravity="right"
                 android:background="@drawable/btn_share"/>
         </LinearLayout>
-</com.zhixin.customui.CardItemView>
+</com.qubaopen.customui.CardItemView>

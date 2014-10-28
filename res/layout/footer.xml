@@ -16,7 +16,7 @@
         android:layout_weight="12"
         android:orientation="horizontal" >
 
-        <com.zhixin.customui.TabBarLayout
+        <com.qubaopen.customui.TabBarLayout
             android:id="@+id/zhijiBtn"
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -40,9 +40,9 @@
                 android:text="@string/footer_zhiji"
                 android:textColor="#8D8D8D"
                 android:textSize="10sp" />
-        </com.zhixin.customui.TabBarLayout>
+        </com.qubaopen.customui.TabBarLayout>
 
-        <com.zhixin.customui.TabBarLayout
+        <com.qubaopen.customui.TabBarLayout
             android:id="@+id/xinliMapBtn"
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -66,9 +66,9 @@
                 android:text="@string/footer_xinliditu"
                 android:textColor="#8D8D8D"
                 android:textSize="10sp" />
-        </com.zhixin.customui.TabBarLayout>
+        </com.qubaopen.customui.TabBarLayout>
 
-        <com.zhixin.customui.TabBarLayout
+        <com.qubaopen.customui.TabBarLayout
             android:id="@+id/zhibiBtn"
             android:visibility="gone"
             android:layout_width="1dp"
@@ -93,9 +93,9 @@
                 android:text="@string/footer_zhibi"
                 android:textColor="#8D8D8D"
                 android:textSize="10sp" />
-        </com.zhixin.customui.TabBarLayout>
+        </com.qubaopen.customui.TabBarLayout>
 
-        <com.zhixin.customui.TabBarLayout
+        <com.qubaopen.customui.TabBarLayout
             android:id="@+id/messageBtn"
             android:layout_width="1dp"
             android:visibility="gone"
@@ -120,8 +120,8 @@
                 android:text="@string/footer_message"
                 android:textColor="#8D8D8D"
                 android:textSize="10sp" />
-        </com.zhixin.customui.TabBarLayout>
-        <com.zhixin.customui.TabBarLayout
+        </com.qubaopen.customui.TabBarLayout>
+        <com.qubaopen.customui.TabBarLayout
             android:id="@+id/meBtn"
             android:layout_width="1dp"
             android:layout_height="match_parent"
@@ -145,7 +145,7 @@
                 android:text="@string/footer_me"
                 android:textColor="#8D8D8D"
                 android:textSize="10sp" />
-        </com.zhixin.customui.TabBarLayout>
+        </com.qubaopen.customui.TabBarLayout>
     </LinearLayout>
 	 <View
         android:layout_width="match_parent"

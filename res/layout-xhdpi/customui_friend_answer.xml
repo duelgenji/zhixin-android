@@ -41,7 +41,7 @@
 	    android:layout_height="0.1dp"
 	    android:background="@drawable/dati_xxfgx"
 	    />
-    <com.zhixin.customui.HorizontalListView
+    <com.qubaopen.customui.HorizontalListView
         android:id="@+id/friendAnswerList"
         android:layout_width="wrap_content"
         android:layout_marginLeft="4dp"
