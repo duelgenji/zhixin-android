@@ -103,7 +103,7 @@ public class XinliMapAnimalFragment extends Fragment implements
 							&& point_y < bitmap_left.getHeight()
 							&& bitmap_left.getPixel(point_x, point_y) != 0) {
 						activeView = leftInside;
-						Log.i("login", "left");
+//						Log.i("login", "left");
 						// leftBorder.getDrawable().setColorFilter(new
 						// LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
 						tempColor = bitmap_left.getPixel((int) (event.getX()),
@@ -115,7 +115,7 @@ public class XinliMapAnimalFragment extends Fragment implements
 					} else if (point_x < bitmap_right.getWidth()
 							&& point_y < bitmap_right.getHeight()
 							&& bitmap_right.getPixel(point_x, point_y) != 0) {
-						Log.i("login", "right");
+//						Log.i("login", "right");
 						activeView = rightInside;
 						tempColor = bitmap_right.getPixel((int) (event.getX()),
 								((int) event.getY()));
@@ -126,7 +126,7 @@ public class XinliMapAnimalFragment extends Fragment implements
 					} else if (point_x < bitmap_body.getWidth()
 							&& point_y < bitmap_body.getHeight()
 							&& bitmap_body.getPixel(point_x, point_y) != 0) {
-						Log.i("login", "body");
+//						Log.i("login", "body");
 						activeView = bodyInside;
 						tempColor = bitmap_right.getPixel((int) (event.getX()),
 								((int) event.getY()));
@@ -137,7 +137,7 @@ public class XinliMapAnimalFragment extends Fragment implements
 					} else if (point_x < bitmap_head.getWidth()
 							&& point_y < bitmap_head.getHeight()
 							&& bitmap_head.getPixel(point_x, point_y) != 0) {
-						Log.i("login", "head");
+//						Log.i("login", "head");
 						activeView = headInside;
 						tempColor = bitmap_right.getPixel((int) (event.getX()),
 								((int) event.getY()));
@@ -146,7 +146,7 @@ public class XinliMapAnimalFragment extends Fragment implements
 						// Toast.makeText(mainActivity, "点到r", 3).show();
 						return true;
 					} else {
-						Log.i("login", "mei");
+//						Log.i("login", "mei");
 						// Toast.makeText(mainActivity, "nothing", 3).show();
 					}
 				} else if (event.getAction() == MotionEvent.ACTION_UP) {

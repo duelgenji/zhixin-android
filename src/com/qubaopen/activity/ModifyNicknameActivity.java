@@ -34,7 +34,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 	private ImageButton iBtnPageBack;
 	private String nickName;
 	private String localNickName;
-	
+
 	private long userId;
 	private UserInfoDao userInfoDao;
 
@@ -65,7 +65,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 		localNickName = getIntent().getStringExtra(INTENT_NICKNAME);
 		if (localNickName != null && !localNickName.equals("")) {
 			nicknameTextView.setText(localNickName);
-			 nicknameTextView.setSelection(localNickName.length());
+			nicknameTextView.setSelection(localNickName.length());
 		}
 	}
 
@@ -105,12 +105,10 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 						userInfoDao = new UserInfoDao();
 						userInfoDao.saveUserInfoNickNameById(userId, nickName);
 
-						Toast.makeText(_this, "修改昵称成功！", Toast.LENGTH_SHORT)
-								.show();
-						_this.onBackPressed();
+						showToast(getString(R.string.toast_modify_nickname_success));
+						finish();
 					} else {
-						Toast.makeText(_this, "修改昵称失败！", Toast.LENGTH_SHORT)
-								.show();
+						showToast(getString(R.string.toast_modify_nickname_failed));
 					}
 					break;
 				default:
@@ -136,7 +134,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.clearTextviewBtn:
@@ -164,7 +162,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 							new LoadDataTask().execute(1, requestUrl,
 									jsonParams, HttpClient.TYPE_PUT_JSON);
 						} else {
-							showToast("请填写新昵称！");
+							showToast(getString(R.string.toast_input_new_nickname));
 						}
 
 					} else {

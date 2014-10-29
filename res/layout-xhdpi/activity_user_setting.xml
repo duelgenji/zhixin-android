@@ -171,7 +171,7 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <RelativeLayout
+        <!-- <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:paddingLeft="7.56dp"
@@ -218,7 +218,7 @@
                         android:textOn="" />
                 </RelativeLayout>
             </LinearLayout>
-        </RelativeLayout>
+        </RelativeLayout> -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"

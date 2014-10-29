@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Display;
 import android.view.Window;
 import cn.jpush.android.api.InstrumentedActivity;
@@ -57,10 +56,10 @@ public class InitialActivity extends InstrumentedActivity {
 		PhoneHelper.savePhoneHeight(outMetrics.heightPixels);
 		PhoneHelper.savePhoneWidth(outMetrics.widthPixels);
 
-		Log.i("phone", "density" + String.valueOf(density));
-		Log.i("phone", "height" + String.valueOf(dpHeight));
-		Log.i("phone", "width" + String.valueOf(dpWidth));
-		Log.i("phone", "sdk version" + android.os.Build.VERSION.SDK_INT);
+//		Log.i("phone", "density" + String.valueOf(density));
+//		Log.i("phone", "height" + String.valueOf(dpHeight));
+//		Log.i("phone", "width" + String.valueOf(dpWidth));
+//		Log.i("phone", "sdk version" + android.os.Build.VERSION.SDK_INT);
 
 		new AsyncTask<Void, Void, Boolean>() {
 
@@ -109,7 +108,7 @@ public class InitialActivity extends InstrumentedActivity {
 									Thread.sleep(1000);
 
 									judgeWhichToStart();
-
+									finish();
 								} catch (InterruptedException e) {
 									e.printStackTrace();
 								}

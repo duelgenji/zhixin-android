@@ -73,8 +73,8 @@ public class MoreSetting extends FragmentActivity implements
 			case 0:
 				tBtnNewMessage_MoreOption.setChecked(push);
 				tBtnEconomize_MoreOption.setChecked(saveFlow);
-				tBtnOpenToFriendAnswer_MoreOption
-						.setChecked(publicAnswersToFriend);
+//				tBtnOpenToFriendAnswer_MoreOption
+//						.setChecked(publicAnswersToFriend);
 				if (startTime == null || startTime.equals("")) {
 					startTime = localStartTime;
 				}
@@ -118,9 +118,9 @@ public class MoreSetting extends FragmentActivity implements
 		tBtnEconomize_MoreOption = (ToggleButton) this
 				.findViewById(R.id.tBtnEconomize_MoreOption);
 		tBtnEconomize_MoreOption.setOnClickListener(this);
-		tBtnOpenToFriendAnswer_MoreOption = (ToggleButton) this
-				.findViewById(R.id.tBtnOpenToFriendAnswer_MoreOption);
-		tBtnOpenToFriendAnswer_MoreOption.setOnClickListener(this);
+//		tBtnOpenToFriendAnswer_MoreOption = (ToggleButton) this
+//				.findViewById(R.id.tBtnOpenToFriendAnswer_MoreOption);
+//		tBtnOpenToFriendAnswer_MoreOption.setOnClickListener(this);
 		txtReceiveTime_MoreOption = (TextView) this
 				.findViewById(R.id.txtReceiveTime_MoreOption);
 		txtReceiveTime_MoreOption.setOnClickListener(this);
@@ -151,16 +151,16 @@ public class MoreSetting extends FragmentActivity implements
 						saveFlow = isChecked;
 					}
 				});
-		tBtnOpenToFriendAnswer_MoreOption
-				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView,
-							boolean isChecked) {
-						tBtnOpenToFriendAnswer_MoreOption.setChecked(isChecked);
-						publicAnswersToFriend = isChecked;
-					}
-				});
+//		tBtnOpenToFriendAnswer_MoreOption
+//				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+//
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView,
+//							boolean isChecked) {
+//						tBtnOpenToFriendAnswer_MoreOption.setChecked(isChecked);
+//						publicAnswersToFriend = isChecked;
+//					}
+//				});
 
 		UserSettings us = new UserSettings();
 		userSettingsDao = new UserSettingsDao();
@@ -177,8 +177,8 @@ public class MoreSetting extends FragmentActivity implements
 
 			tBtnNewMessage_MoreOption.setChecked(localPush);
 			tBtnEconomize_MoreOption.setChecked(localSaveFlow);
-			tBtnOpenToFriendAnswer_MoreOption
-					.setChecked(localPublicAnswersToFriend);
+//			tBtnOpenToFriendAnswer_MoreOption
+//					.setChecked(localPublicAnswersToFriend);
 			receiveTime = localStartTime + "-" + localEndTime;
 			txtReceiveTime_MoreOption.setText(receiveTime);
 		}
@@ -350,13 +350,13 @@ public class MoreSetting extends FragmentActivity implements
 				case 2:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					Log.i("moresetting", "前二" + result);
+//					Log.i("moresetting", "前二" + result);
 					result.put("syncType", syncType);
 					break;
 				case 3:
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
-					Log.i("moresetting", "后二" + result);
+//					Log.i("moresetting", "后二" + result);
 					result.put("syncType", syncType);
 					break;
 				default:
@@ -391,7 +391,7 @@ public class MoreSetting extends FragmentActivity implements
 						handler.sendMessage(msg);
 						try {
 							userSettingsDao = new UserSettingsDao();
-							Log.i("获取设置", result + "");
+//							Log.i("获取设置", result + "");
 							userSettingsDao.saveUserSettings(result, userId);
 							;
 						} catch (JSONException e) {

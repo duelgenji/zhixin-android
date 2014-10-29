@@ -23,7 +23,7 @@
     <string name="share_content_quduijiang_part2">】，大家也一起来吧！</string>
 
     <!-- save url here -->
-    <string name="share_redirec_url">  应用下载链接:http://www.zhixin.com.cn</string>
+    <string name="share_redirec_url"> http://www.zhixin.com.cn</string>
     <string name="share_download"></string>
 
     <!-- share success -->

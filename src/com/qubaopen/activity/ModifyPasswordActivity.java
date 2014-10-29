@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -77,20 +76,24 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener 
 					+ this.getString(R.string.URL_MODIFY_PWD);
 			JSONObject params = new JSONObject();
 			if (!oldPassword.equals(localPassword)) {
-				Toast.makeText(_this, "原密码错误！", Toast.LENGTH_SHORT).show();
+				showToast(getString(R.string.toast_tow_line_password_not_match));
 			} else {
 				if (!newPasswordOne.equals(newPasswordTwo)) {
-					Toast.makeText(_this, "俩次输入的密码不一致！", Toast.LENGTH_SHORT)
-							.show();
+					showToast(getString(R.string.toast_more_reset_not_same));
 				} else {
-					try {
-						params.put("oldPwd", oldPassword);
-						params.put("newPwd", newPasswordOne);
-						new ModifyPwdTask().execute(1, requestUrl, params,
-								HttpClient.TYPE_POST_FORM);
-					} catch (JSONException e) {
-						e.printStackTrace();
+					if (oldPassword.equals(newPasswordOne)) {
+						showToast(getString(R.string.toast_more_reset_same));
+					} else {
+						try {
+							params.put("oldPwd", oldPassword);
+							params.put("newPwd", newPasswordOne);
+							new ModifyPwdTask().execute(1, requestUrl, params,
+									HttpClient.TYPE_POST_FORM);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
 					}
+
 				}
 
 			}
@@ -113,7 +116,7 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener 
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
-					Log.i("modifypwd", "修改密码" + result);
+					// Log.i("modifypwd", "修改密码" + result);
 					break;
 				default:
 					break;
@@ -131,15 +134,13 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener 
 				switch (syncType) {
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
-						Toast.makeText(_this, "修改密码成功！", Toast.LENGTH_SHORT)
-								.show();
+						showToast(getString(R.string.toast_more_reset_request_success));
 						userInfoDao.saveUserInfoPassword(
 								CurrentUserHelper.getCurrentPhone(),
 								newPasswordOne);
 						finish();
 					} else {
-						Toast.makeText(_this, "修改密码失败！", Toast.LENGTH_SHORT)
-								.show();
+						showToast(getString(R.string.toast_more_reset_request_failed));
 					}
 					break;
 				default:
@@ -150,6 +151,9 @@ public class ModifyPasswordActivity extends Activity implements OnClickListener 
 				e.printStackTrace();
 			}
 		}
+	}
 
+	private void showToast(String content) {
+		Toast.makeText(_this, content, Toast.LENGTH_SHORT).show();
 	}
 }

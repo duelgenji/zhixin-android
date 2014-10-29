@@ -290,7 +290,6 @@
                 android:ellipsize="end"
                 android:background="@null"
                 android:gravity="center_vertical|right"
-                android:text="普陀区同普路"
                 android:textSize="18sp" />
 
 

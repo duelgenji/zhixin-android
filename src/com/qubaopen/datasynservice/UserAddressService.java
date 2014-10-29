@@ -48,7 +48,7 @@ public class UserAddressService {
 	public void saveUserAddress() {
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_USER_GET_ADDRESS_LIST);
-		Log.i("address", requestUrl);
+//		Log.i("address", requestUrl);
 		new LoadDataTask1().execute(1, requestUrl, null, HttpClient.TYPE_GET);
 	}
 
@@ -64,7 +64,7 @@ public class UserAddressService {
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer)params[3]);
 					result.put("syncType", syncType);
-					Log.i("address", "获取到的地址：......" + result);
+//					Log.i("address", "获取到的地址：......" + result);
 					break;
 				default:
 					break;

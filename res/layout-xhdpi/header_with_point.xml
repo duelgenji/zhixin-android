@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="1dp"
+    android:layout_height="0dp"
     android:layout_weight="7"
     android:background="@drawable/header_background"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/title_of_the_page"
-        android:layout_marginTop="3dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1.5" />
+
+    <TextView
+        android:id="@+id/title_of_the_page"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
         android:gravity="center"
+        android:text="性格分析"
         android:textAlignment="center"
         android:textColor="#ffffff"
         android:textSize="18sp"
@@ -21,33 +26,37 @@
     <LinearLayout
         android:id="@+id/layout_select_point"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_weight="1.5"
         android:orientation="horizontal" >
 
         <ImageView
             android:id="@+id/img_select_point_first"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/round_pot_white" />
+
         <ImageView
             android:id="@+id/img_select_point_second"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
-             android:layout_marginLeft="5dp"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/round_pot_white" />
+            android:src="@drawable/round_pot_grey" />
+
         <ImageView
             android:id="@+id/img_select_point_third"
-            android:layout_width="5dp"
-            android:layout_height="5dp"
-             android:layout_marginLeft="5dp"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@drawable/round_pot_white" />
-        
+            android:src="@drawable/round_pot_grey" />
     </LinearLayout>
 
 </LinearLayout>

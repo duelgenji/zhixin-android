@@ -67,7 +67,7 @@ public class CardView extends LinearLayout {
 				if (mapData != null) {
 					Builder builder = new Builder();
 					final CardItemView cardItemView = builder.build(getContext());
-					Log.i("mapdata", "setMapData..." + mapData);
+//					Log.i("mapdata", "setMapData..." + mapData);
 					cardItemView.setMapData(mapData,
 							colorList.get(i % colorList.size()));
 					LinearLayout.LayoutParams cardItemLp = new LinearLayout.LayoutParams(
@@ -78,7 +78,7 @@ public class CardView extends LinearLayout {
 						cardItemLp.topMargin = 0;
 					} else {
 						cardItemLp.topMargin = (int) (-myHeight * 0.2);
-						Log.i("22222222", (-myHeight * 0.2)+"");
+//						Log.i("22222222", (-myHeight * 0.2)+"");
 					}
 
 					cardItemView.setLayoutParams(cardItemLp);
@@ -105,7 +105,7 @@ public class CardView extends LinearLayout {
 
 								@Override
 								public void onChanged(boolean isExpand) {
-									Log.i("mapdata", "position:..." + position);
+//									Log.i("mapdata", "position:..." + position);
 									// 关闭没选中的卡片
 									for (int j = 0; j < getChildCount(); j++) {
 										if ((isExpand && position != j)

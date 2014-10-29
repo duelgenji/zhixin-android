@@ -38,14 +38,14 @@ public class QbpPlatformAction implements PlatformActionListener {
 
 	@Override
 	public void onCancel(Platform platform, int action) {
-		Log.i("platform name cancel", platform.getName());
+//		Log.i("platform name cancel", platform.getName());
 		this.btn.setEnabled(true);
 	}
 
 	@Override
 	public void onComplete(Platform platform, int action,
 			HashMap<String, Object> res) {
-		Log.i("platform name complete", platform.getName());
+//		Log.i("platform name complete", platform.getName());
 		try {
 			callback();
 		} catch (JSONException e) {

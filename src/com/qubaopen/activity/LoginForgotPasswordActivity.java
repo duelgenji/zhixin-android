@@ -125,27 +125,27 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		sPwd2 = txtInputPwd2.getText().toString().trim();
 		switch (v.getId()) {
 		case R.id.backup_btn:
-			this.onBackPressed();
+			finish();
 			v.setEnabled(true);
 			break;
 		// 获取验证码
 		case R.id.im_retrieve_code:
 
 			if (phone == null && phone.equals("")) {
-				showToast(this.getString(R.string.logon_toast_phone_empty));
+				showToast(this.getString(R.string.login_toast_phone_empty));
 				return;
 			}
 
 			if (txtInputPwd1.getText() == null
 					|| txtInputPwd2.getText() == null) {
-				showToast(this.getString(R.string.logon_toast_password_empty));
+				showToast(this.getString(R.string.login_toast_password_empty));
 				im_retrieve_code.setEnabled(true);
 				regist_confirm_password.setEnabled(true);
 				return;
 			}
 
 			if (password.equals("") || sPwd2.equals("")) {
-				showToast(this.getString(R.string.logon_toast_password_empty));
+				showToast(this.getString(R.string.login_toast_password_empty));
 				im_retrieve_code.setEnabled(true);
 				regist_confirm_password.setEnabled(true);
 				return;
@@ -168,13 +168,17 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 					}
 				} else {
 					// 密码格式不正确
-					Toast.makeText(_this, "密码格式有误，密码至少8位,且只能包含字母或者数字和_", 5)
-							.show();
+					Toast.makeText(
+							_this,
+							getString(R.string.login_toast_password_format_incorrect),
+							5).show();
 				}
 
 			} else {
 				// 手机格式不正确
-				Toast.makeText(_this, "您填写的手机号码错误", 5).show();
+				Toast.makeText(_this,
+						getString(R.string.login_toast_phone_format_incorrect),
+						5).show();
 			}
 			v.setEnabled(true);
 			break;
@@ -212,13 +216,17 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 					}
 				} else {
 					// 密码格式不正确
-					Toast.makeText(_this, "密码格式有误，密码至少8位,且只能包含字母或者数字和_", 5)
-							.show();
+					Toast.makeText(
+							_this,
+							getString(R.string.login_toast_password_format_incorrect),
+							5).show();
 				}
 
 			} else {
 				// 手机格式不正确
-				Toast.makeText(_this, "您填写的手机号码错误", 5).show();
+				Toast.makeText(_this,
+						getString(R.string.login_toast_phone_format_incorrect),
+						5).show();
 			}
 
 			v.setEnabled(true);
@@ -308,12 +316,13 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 				switch (syncType) {
 				case 1:
 					if (result != null && result.getInt("success") == 1) {
-						Toast.makeText(_this, "验证码已发送！", Toast.LENGTH_SHORT)
-								.show();
+						Toast.makeText(_this,
+								getString(R.string.retrieve_code_already_send),
+								Toast.LENGTH_SHORT).show();
 						handler.postDelayed(runnable, 1000);
 					} else {
-						Toast.makeText(_this, "请求失败！", Toast.LENGTH_SHORT)
-								.show();
+						Toast.makeText(_this, getString(R.string.request_fail),
+								Toast.LENGTH_SHORT).show();
 					}
 					break;
 				case 2:
@@ -321,10 +330,11 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 							&& result.getString("success").equals("1")) {
 						Toast.makeText(
 								_this,
-								_this.getString(R.string.toast_forget_password_and_modify_it_successfully),
+								_this.getString(R.string.toast_modify_password_successfully),
 								Toast.LENGTH_SHORT).show();
 						Intent intent = new Intent(_this, MainActivity.class);
 						startActivity(intent);
+						finish();
 					} else if (result.getString("success").equals("0")) {
 						String content = ErrHashMap.getErrMessage(result
 								.getString("message"));

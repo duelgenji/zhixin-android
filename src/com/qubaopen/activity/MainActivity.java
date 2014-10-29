@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import cn.sharesdk.framework.ShareSDK;
@@ -33,10 +32,6 @@ public class MainActivity extends FragmentActivity {
 	private TabBarLayout zhibiTabBar;
 	private TabBarLayout messageTabBar;
 	private TabBarLayout meTabBar;
-	// private TabBarLayout homeTabBar;
-	// private TabBarLayout quduijiangBar;
-	// private TabBarLayout qushejiaoBar;
-	// private TabBarLayout moreBar;
 
 	private MainMenuService service;
 
@@ -62,7 +57,7 @@ public class MainActivity extends FragmentActivity {
 						fm.getBackStackEntryCount() - 1).getName();
 				currentCheckedBtnId = view.getId();
 				currentBtn = view;
-				Log.i("current fragment name", currentFragmentName);
+//				Log.i("current fragment name", currentFragmentName);
 
 				Fragment rootFg = fm
 						.findFragmentByTag(SettingValues.FRAGMENT_ROOT_FRAGMENT);

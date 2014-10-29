@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -300,7 +299,7 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 
 		if (min <= left && left <= max) {
 			// Log.i("phone", "upX:" + v.getLeft());
-			Log.i("phone", "自动距离");
+//			Log.i("phone", "自动距离");
 			Animation animation = new TranslateAnimation(0, mid - left, 0, 0);
 			animation.setDuration(500);
 			animation.setFillAfter(true);

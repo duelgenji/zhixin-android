@@ -145,7 +145,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 				jsonParams.put("phone", phone);
 				jsonParams.put("postCode", postCode);
 				jsonParams.put("defaultAddress", false);
-				Log.i("增加地址", jsonParams + "");
+//				Log.i("增加地址", jsonParams + "");
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_ADD_ADDRESS);
 
@@ -182,7 +182,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
-					Log.i("增加地址=====", result + "");
+//					Log.i("增加地址=====", result + "");
 					break;
 				default:
 					break;

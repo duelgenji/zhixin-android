@@ -59,8 +59,8 @@ public class SettingJpushAliasService extends IntentService {
 							@Override
 							public void gotResult(int statusCode, String arg1,
 									Set<String> arg2) {
-								Log.i("setting alias status code", statusCode
-										+ "");
+//								Log.i("setting alias status code", statusCode
+//										+ "");
 								if (statusCode == 0) {
 									shouldStop = true;
 								} else {

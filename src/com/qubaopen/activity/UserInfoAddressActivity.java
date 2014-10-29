@@ -72,7 +72,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		userAddressList = (ListView) this.findViewById(R.id.userAddressList);
 		String requestUrl = SettingValues.URL_PREFIX
 				+ this.getString(R.string.URL_USER_GET_ADDRESS_LIST);
-		Log.i("address", requestUrl);
+//		Log.i("address", requestUrl);
 		new LoadAddressDataTask().execute(1, requestUrl, null,
 				HttpClient.TYPE_GET);
 	}
@@ -168,7 +168,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
 					result.put("syncType", syncType);
-					Log.i("address", "获取到的地址：......" + result);
+//					Log.i("address", "获取到的地址：......" + result);
 					break;
 				default:
 					break;
@@ -188,7 +188,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 					if (result != null
 							&& result.getString("success").equals("1")) {
 						if (result.getJSONArray("content").length() != 0) {
-							Log.i("address", "地址信息长度" + result.getJSONArray("content").length());
+//							Log.i("address", "地址信息长度" + result.getJSONArray("content").length());
 							Toast.makeText(_this, "获取地址成功！", Toast.LENGTH_SHORT)
 									.show();
 						}

@@ -334,7 +334,7 @@ public class XinliMapPersonalFragment extends Fragment implements
 		int changePixel = changePixelList.get(pos);
 		deruation=(deruation==null?200:deruation);
 		if (!isOpenList.get(pos)) {
-			Log.d("login1", "pos: " + pos);
+//			Log.d("login1", "pos: " + pos);
 			for (int i = pos + 1; i <= numberOfLayout; i++) {
 				RelativeLayout layout = layoutList.get(i);
 				int currentMargin = ((RelativeLayout.LayoutParams) layout

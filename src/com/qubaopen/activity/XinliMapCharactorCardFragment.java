@@ -138,7 +138,7 @@ public class XinliMapCharactorCardFragment extends Fragment {
 							(Integer) params[3]);
 					result.put("syncType", syncType);
 
-					Log.i("地图信息第一页", result + "");
+//					Log.i("地图信息第一页", result + "");
 					break;
 				default:
 					break;
@@ -167,7 +167,7 @@ public class XinliMapCharactorCardFragment extends Fragment {
 									data = MapDataObject
 											.manageDataFromJson(result);
 									cardView.setMapList(data);
-									Log.i("mapdata", "charactor排序后的数据" + data);
+//									Log.i("mapdata", "charactor排序后的数据" + data);
 
 								} catch (JSONException e) {
 									e.printStackTrace();

@@ -231,7 +231,7 @@ public class RegistPhoneActivity extends Activity implements
 			phone = txtPhone.getText().toString().trim();
 			password = firstLinePassword.getText().toString().trim();
 			captcha = validateCodeEditText.getText().toString().trim();
-			Log.i("regist", "验证码:......" + captcha);
+//			Log.i("regist", "验证码:......" + captcha);
 			if (checkAgreement.isChecked()) {
 				if (MatcherUtil.validatePassword(password)) {
 					if (!(captcha == null || captcha.equals(""))) {
@@ -267,7 +267,7 @@ public class RegistPhoneActivity extends Activity implements
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
 		requestUrl += "?phone=" + phone;
-		Log.i("regist", "sendcode......" + requestUrl);
+//		Log.i("regist", "sendcode......" + requestUrl);
 
 		new LoadDataTask().execute(1, requestUrl, null, HttpClient.TYPE_GET);
 		return result;
@@ -281,7 +281,7 @@ public class RegistPhoneActivity extends Activity implements
 		params.put("password", password);
 		params.put("captcha", captcha);
 		if (fileToSend != null) {
-			Log.i("regist", "avatar....." + fileToSend.toString());
+//			Log.i("regist", "avatar....." + fileToSend.toString());
 			try {
 				params.put("avatar", fileToSend);
 			} catch (FileNotFoundException e) {
@@ -291,7 +291,7 @@ public class RegistPhoneActivity extends Activity implements
 
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_SETUP_PASSWORD);
-		Log.i("regist", "注册信息" + params);
+//		Log.i("regist", "注册信息" + params);
 		new LoadDataTask().execute(2, requestUrl, params,
 				HttpClient.TYPE_POST_NORMAL);
 		return result;
@@ -324,14 +324,14 @@ public class RegistPhoneActivity extends Activity implements
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
 					result.put("syncType", syncType);
-					Log.i("regiset", "获取验证码" + result);
+//					Log.i("regiset", "获取验证码" + result);
 					break;
 				case 2:
 					// (JSONObject)params[2]。。。Json解析，post方式
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
-					Log.i("regist", "注册结果:" + result);
+//					Log.i("regist", "注册结果:" + result);
 					break;
 				default:
 					break;
@@ -572,7 +572,7 @@ public class RegistPhoneActivity extends Activity implements
 					return;
 				}
 				fileToSend = new File(SettingValues.TEMP_PHOTO_FILE_PATH);
-				Log.i("regist", "fileToSend......" + fileToSend);
+//				Log.i("regist", "fileToSend......" + fileToSend);
 				if (closePicImageDialogHander != null) {
 					closePicImageDialogHander.sendEmptyMessage(0);
 				}

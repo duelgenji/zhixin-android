@@ -130,7 +130,7 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
 
-					Log.i("地图信息第三页", result + "");
+//					Log.i("地图信息第三页", result + "");
 
 					result.put("syncType", syncType);
 					// result.put("success", 1);
@@ -158,7 +158,7 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 								persenalImgBg.setVisibility(View.GONE);
 								List<MapData> data = new ArrayList<MapData>();
 								data = MapDataObject.manageDataFromJson(result);
-								Log.i("top", "cross排序后的数据" + data + "");
+//								Log.i("top", "cross排序后的数据" + data + "");
 								personCardView.setMapList(data);
 							}
 

@@ -119,7 +119,7 @@ public class MoreSuggestionActivity extends FragmentActivity implements
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_MORE_SUGGESTION);
 
-		Log.i("suggestion", "提交内容:......" + obj);
+//		Log.i("suggestion", "提交内容:......" + obj);
 		new LoadDataTask1().execute(1, requestUrl, obj,
 				HttpClient.TYPE_POST_JSON);
 	}
@@ -134,7 +134,7 @@ public class MoreSuggestionActivity extends FragmentActivity implements
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
-					Log.i("suggestion", "提交结果:......" + result);
+//					Log.i("suggestion", "提交结果:......" + result);
 					result.put("syncType", syncType);
 					break;
 				default:

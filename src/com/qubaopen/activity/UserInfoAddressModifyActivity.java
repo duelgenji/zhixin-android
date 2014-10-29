@@ -189,19 +189,19 @@ public class UserInfoAddressModifyActivity extends FragmentActivity implements
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
-					Log.i("modify", result + "");
+//					Log.i("modify", result + "");
 					result.put("syncType", syncType);
 					break;
 				case 2:
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
-					Log.i("modify", result + "");
+//					Log.i("modify", result + "");
 					result.put("syncType", syncType);
 					break;
 				case 3:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					Log.i("delete", result + "");
+//					Log.i("delete", result + "");
 					result.put("syncType", syncType);
 					break;
 				default:

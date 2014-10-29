@@ -204,7 +204,7 @@ public class UserAddressAdapter extends CursorAdapter {
 								+ context
 										.getString(R.string.URL_DELETE_USER_ADDRESS);
 						deleteUrl += "?id=" + id;
-						Log.i("delete", deleteUrl);
+//						Log.i("delete", deleteUrl);
 						new LoadDataTask1().execute(1, deleteUrl, id,
 								HttpClient.TYPE_DELETE);
 
@@ -264,7 +264,7 @@ public class UserAddressAdapter extends CursorAdapter {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					Log.i("delete", result + "");
+//					Log.i("delete", result + "");
 					result.put("syncType", syncType);
 					result.put("dzId", params[2]);
 					break;
@@ -272,7 +272,7 @@ public class UserAddressAdapter extends CursorAdapter {
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
 					
-					Log.i("modify", result + "");
+//					Log.i("modify", result + "");
 					result.put("syncType", syncType);
 					result.put("params", params[2]);
 					break;

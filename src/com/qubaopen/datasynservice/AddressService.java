@@ -42,7 +42,7 @@ public class AddressService {
 	}
 
 	public Void getAddress() {
-		Log.i("Thread id in intent service get address","" + Thread.currentThread().getId());
+//		Log.i("Thread id in intent service get address","" + Thread.currentThread().getId());
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_GET_ADDRESS);
 		try {

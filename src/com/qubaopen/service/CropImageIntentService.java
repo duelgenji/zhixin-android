@@ -38,7 +38,7 @@ public class CropImageIntentService extends IntentService {
 		try {
 			File fileToSend = new File(SettingValues.TEMP_PHOTO_FILE_PATH);
 			params.put("avatar", fileToSend);
-			Log.i("upload","上传头像：......" + fileToSend);
+//			Log.i("upload","上传头像：......" + fileToSend);
 			JSONObject result = HttpClient.requestSyncForUnchangedParams(
 					requestUrl, params);
 			if (result != null) {

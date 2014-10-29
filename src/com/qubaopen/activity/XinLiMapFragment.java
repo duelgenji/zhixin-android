@@ -49,7 +49,7 @@ public class XinLiMapFragment extends Fragment {
 		imgFirst = (ImageView) parentView.findViewById(R.id.img_select_point_first);
 		imgSecond = (ImageView) parentView.findViewById(R.id.img_select_point_second);
 		imgThird = (ImageView) parentView.findViewById(R.id.img_select_point_third);
-		Log.i("map", imgFirst + "...");
+//		Log.i("map", imgFirst + "...");
 		mPager = (ViewPager) parentView.findViewById(R.id.pager);
 		
 		fragmentsList = new ArrayList<Fragment>();

@@ -649,7 +649,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				default:
 					break;
 				}
-				Log.i("請求結果", result + "");
+//				Log.i("請求結果", result + "");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

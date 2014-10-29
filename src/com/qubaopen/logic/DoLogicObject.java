@@ -249,7 +249,7 @@ public class DoLogicObject {
 								|| midStr.equals(""
 										+ currentAnswer.get(0).getOptionId())) {
 							String lastStr = innerSt.nextToken();
-							Log.i("login1", "单选题型跳转  逻辑跳转" + lastStr);
+//							Log.i("login1", "单选题型跳转  逻辑跳转" + lastStr);
 							if (lastStr.equals("0")) {
 								return null;
 							}
@@ -267,17 +267,17 @@ public class DoLogicObject {
 						String midStr = innerSt.nextToken();
 						if (midStr.equals("0")) {
 							String lastStr = innerSt.nextToken();
-							Log.i("login1", "其他题型跳转  逻辑跳转" + lastStr);
+//							Log.i("login1", "其他题型跳转  逻辑跳转" + lastStr);
 							return Integer.parseInt(lastStr);
 						}
 					}
 				}
 			}
 
-			Log.i("login1", "莫名跳转");
+//			Log.i("login1", "莫名跳转");
 			return getNextQuesiton();
 		} else {
-			Log.i("login1", "无order跳转");
+//			Log.i("login1", "无order跳转");
 			return getNextQuesiton();
 		}
 

@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.ListFragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -265,7 +264,7 @@ public class FragmentStatePagerSupport extends Fragment implements
 									&& point_y < bitmap_left.getHeight()
 									&& bitmap_left.getPixel(point_x, point_y) != 0) {
 								activeView = leftInside;
-								Log.i("login", "left");
+//								Log.i("login", "left");
 								// leftBorder.getDrawable().setColorFilter(new
 								// LightingColorFilter(0xFFFFFFFF, 0xFFAA0000));
 								tempColor = bitmap_left.getPixel(
@@ -279,7 +278,7 @@ public class FragmentStatePagerSupport extends Fragment implements
 							} else if (point_x < bitmap_right.getWidth()
 									&& point_y < bitmap_right.getHeight()
 									&& bitmap_right.getPixel(point_x, point_y) != 0) {
-								Log.i("login", "right");
+//								Log.i("login", "right");
 								activeView = rightInside;
 								tempColor = bitmap_right.getPixel(
 										(int) (event.getX()),
@@ -292,7 +291,7 @@ public class FragmentStatePagerSupport extends Fragment implements
 							} else if (point_x < bitmap_body.getWidth()
 									&& point_y < bitmap_body.getHeight()
 									&& bitmap_body.getPixel(point_x, point_y) != 0) {
-								Log.i("login", "body");
+//								Log.i("login", "body");
 								activeView = bodyInside;
 								tempColor = bitmap_right.getPixel(
 										(int) (event.getX()),
@@ -305,7 +304,7 @@ public class FragmentStatePagerSupport extends Fragment implements
 							} else if (point_x < bitmap_head.getWidth()
 									&& point_y < bitmap_head.getHeight()
 									&& bitmap_head.getPixel(point_x, point_y) != 0) {
-								Log.i("login", "head");
+//								Log.i("login", "head");
 								activeView = headInside;
 								tempColor = bitmap_right.getPixel(
 										(int) (event.getX()),
@@ -316,7 +315,7 @@ public class FragmentStatePagerSupport extends Fragment implements
 								// 3).show();
 								return true;
 							} else {
-								Log.i("login", "mei");
+//								Log.i("login", "mei");
 								// Toast.makeText(mainActivity, "nothing",
 								// 3).show();
 							}
@@ -353,7 +352,7 @@ public class FragmentStatePagerSupport extends Fragment implements
 
 		@Override
 		public void onListItemClick(ListView l, View v, int position, long id) {
-			Log.i("login", "Item clicked: " + id);
+//			Log.i("login", "Item clicked: " + id);
 		}
 	}
 

@@ -114,7 +114,6 @@ public class InterestListActivity extends FragmentActivity implements
 					quListParent.setRefreshing(false);
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -390,7 +389,6 @@ public class InterestListActivity extends FragmentActivity implements
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
 

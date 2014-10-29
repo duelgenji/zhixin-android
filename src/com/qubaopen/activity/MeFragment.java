@@ -32,7 +32,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -188,7 +187,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		if (userInfo.getPicUrl() != null) {
 			String headIcnUrl = "http://115.28.176.74:8080/know-heart"
 					+ userInfo.getPicUrl();
-			Log.i("headIcon", headIcnUrl);
+			// Log.i("headIcon", headIcnUrl);
 
 			File fileFolder = new File(
 					Environment.getExternalStorageDirectory()
@@ -292,9 +291,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 			if (intent.resolveActivity(mainActivity.getPackageManager()) != null) {
 				startActivity(intent);
 			} else {
-
-				Toast.makeText(mainActivity, "您没有安装任何市场，无法打分",
-						Toast.LENGTH_SHORT).show();
+				showToast(getString(R.string.toast_have_no_market));
 			}
 			v.setEnabled(true);
 			break;
@@ -403,7 +400,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		mReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				Log.i("headIcon", "接受");
+				// Log.i("headIcon", "接受");
 				String success = intent.getStringExtra("success");
 				if (success.equals("1")) {
 					String requestUrl = SettingValues.URL_PREFIX
@@ -412,9 +409,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 							HttpClient.TYPE_GET);
 
 				} else {
-					Toast.makeText(context,
-							getString(R.string.toast_upload_photo_fail_tips),
-							Toast.LENGTH_SHORT).show();
+					showToast(getString(R.string.toast_upload_photo_fail_tips));
 				}
 			}
 		};
@@ -434,7 +429,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					Log.i("用户信息请求结果", result + "");
+					// Log.i("用户信息请求结果", result + "");
 					result.put("syncType", syncType);
 					break;
 
@@ -459,20 +454,17 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 						userInfoDao.saveUserInfo(result,
 								userInfoDao.getCurrentUser());
 						userInfo = userInfoDao.getCurrentUser();
-
-						Toast.makeText(mainActivity, "获取个人资料成功！",
-								Toast.LENGTH_SHORT).show();
+						showToast(getString(R.string.toast_get_userinfo_success));
 						nickName = result.getString("nickName");
 						signature = result.getString("signature");
-						Log.i("个人签名", signature);
+						// Log.i("个人签名", signature);
 
 						nickNameTextView.setText(nickName);
 						signatureTextView.setText(signature);
 						updateHeadIcon();
 
 					} else {
-						Toast.makeText(mainActivity, "获取数据失败！",
-								Toast.LENGTH_SHORT).show();
+						showToast(getString(R.string.toast_get_userinfo_failed));
 					}
 					break;
 				default:
@@ -616,4 +608,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		}
 	}
 
+	private void showToast(String content) {
+		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
+	}
 }

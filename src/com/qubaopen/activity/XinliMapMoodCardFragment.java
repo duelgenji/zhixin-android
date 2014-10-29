@@ -9,6 +9,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -121,7 +122,6 @@ public class XinliMapMoodCardFragment extends Fragment implements
 		if (rootView == null) {
 			rootView = inflater.inflate(R.layout.fragment_xinlimap_card_mood,
 					container, false);
-
 			initView();
 
 
@@ -190,7 +190,7 @@ public class XinliMapMoodCardFragment extends Fragment implements
 							(Integer) params[3]);
 					result.put("syncType", syncType);
 
-					Log.i("地图信息第二页", result + "");
+//					Log.i("地图信息第二页", result + "");
 					break;
 				default:
 					break;
@@ -216,11 +216,11 @@ public class XinliMapMoodCardFragment extends Fragment implements
 								List<MapData> data = new ArrayList<MapData>();
 								List<MapData> dataList = new ArrayList<MapData>();
 								data = MapDataObject.manageDataFromJson(result);
-								Log.i("排序后的数据", data + "");
+//								Log.i("排序后的数据", data + "");
 								for (int i = 0; i < data.size(); i++) {
 									if (data.get(i).isMapDataIsSpecial()) {
 										hsMapData = data.get(i);
-										Log.i("top", "mood===" + hsMapData + "");
+//										Log.i("top", "mood===" + hsMapData + "");
 									} else {
 										dataList.add(data.get(i));
 									}
@@ -230,7 +230,7 @@ public class XinliMapMoodCardFragment extends Fragment implements
 									progressDialog.dismiss();
 								}
 								setMoodView();
-								Log.i("top", "mood---" + hsMapData + "");
+//								Log.i("top", "mood---" + hsMapData + "");
 							}
 
 						} else {
@@ -332,6 +332,8 @@ public class XinliMapMoodCardFragment extends Fragment implements
 				+ "?height=300&color=1&timestamp=" + new Date().getTime());
 		// moodWebView.loadUrl("http://10.0.0.88/hs.html"+
 		// "?height=300&timestamp=" + new Date().getTime());
+		
+
 		moodWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onPageFinished(WebView view, String url) {
@@ -343,11 +345,11 @@ public class XinliMapMoodCardFragment extends Fragment implements
 					mapParamsJson.put("mapMax", hsMapData.getMapDataMax());
 					mapParamsJson.put("chartType",
 							hsMapData.getMapDataGraphicsType());
-					Log.i("moodchart", ">>>>>>" + hsMapData.getMapDataChat());
+//					Log.i("moodchart", ">>>>>>" + hsMapData.getMapDataChat());
 					mapParamsJson.put("chart", hsMapData.getMapDataChat());
 
 					String mapParams = mapParamsJson.toString();
-					Log.i("moodchart", ">>>>>>" + mapParams);
+//					Log.i("moodchart", ">>>>>>" + mapParams);
 					moodWebView.loadUrl("javascript:switchChart('" + mapParams
 							+ "')");
 				} catch (JSONException e) {

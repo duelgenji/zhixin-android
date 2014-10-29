@@ -109,12 +109,10 @@ public class ModifySignatureActivity extends Activity implements
 						userInfoDao
 								.saveUserInfoSignatureById(userId, signature);
 
-						Toast.makeText(_this, "修改签名成功！", Toast.LENGTH_SHORT)
-								.show();
+						showToast(getString(R.string.toast_modify_signature_success));
 						_this.onBackPressed();
 					} else {
-						Toast.makeText(_this, "修改失败！", Toast.LENGTH_SHORT)
-								.show();
+						showToast(getString(R.string.toast_modify_signature_failed));
 					}
 					break;
 				default:
@@ -167,7 +165,7 @@ public class ModifySignatureActivity extends Activity implements
 							new LoadDataTask().execute(1, requestUrl,
 									jsonParams, HttpClient.TYPE_PUT_JSON);
 						} else {
-							showToast("请修改签名！");
+							showToast(getString(R.string.toast_input_new_signature));
 						}
 
 					} else {

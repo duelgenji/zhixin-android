@@ -29,8 +29,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 import com.qubaopen.R;
 import com.qubaopen.datasynservice.MainMenuService;
 import com.qubaopen.datasynservice.UserService;
@@ -74,7 +72,6 @@ public class MainmenuFragment extends Fragment implements
 	private RelativeLayout layoutMoodFace1, layoutMoodFace2, layoutMoodFace3,
 			layoutMoodFace4, layoutMoodFace5, layoutMoodFace6;
 
-	Toast toast;
 	private UserService userService;
 
 	private boolean isMoodOpen = false;
@@ -91,10 +88,6 @@ public class MainmenuFragment extends Fragment implements
 		
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText("知心");
-		toast = new Toast(mainActivity);
-		imageLoader = ImageLoader.getInstance();
-		imageOptions = new DisplayImageOptions.Builder().cacheInMemory(true)
-				.cacheOnDisc(true).build();
 		// 心里自测的动画
 		ll_XLZC = (LinearLayout) view.findViewById(R.id.ll_XLZC);
 		ll_XLZC.setOnClickListener(this);
@@ -156,17 +149,6 @@ public class MainmenuFragment extends Fragment implements
 		userService = new UserService(mainActivity);
 		calcDistance();
 		mainMenuService = new MainMenuService(MyApplication.getAppContext());
-		// new LoadDataTask().execute();
-		// setIndexImage(0);
-
-		// imgMoodArrow.post(new Runnable() {
-		// @Override
-		// public void run() {
-		// imgMoodArrow
-		// .setBackgroundResource(R.drawable.today_mood_arrow_up);
-		// AnimationUtils.startImgBackGround(imgMoodArrow);
-		// }
-		// });
 
 		new LoadDataTask().execute(0, 0);
 
@@ -189,15 +171,10 @@ public class MainmenuFragment extends Fragment implements
 
 	/** 主菜单service */
 	private MainMenuService mainMenuService;
-	/***/
-	// private Integer prevSetImage;
 
 	/** 动画 */
 	AnimationDrawable progressAnimation;
 	/***/
-	private ImageLoader imageLoader;
-	/***/
-	private DisplayImageOptions imageOptions;
 	private MainmenuFragment _this;
 	private Activity mainActivity;
 
@@ -215,7 +192,6 @@ public class MainmenuFragment extends Fragment implements
 		switch (v.getId()) {
 		case R.id.ll_DYCS:
 			InitialAnimation();
-			// img1.startAnimation(animation);
 			img5.startAnimation(animation);
 			intent = new Intent(mainActivity, InterestListActivity.class);
 			startActivity(intent);
@@ -247,8 +223,6 @@ public class MainmenuFragment extends Fragment implements
 		case R.id.ll_QWCS:
 			InitialAnimation();
 			img3.startAnimation(animation4);
-			// intent = new Intent(mainActivity,InterestListActivity.class);
-			// startActivity(intent);
 			v.setEnabled(true);
 			break;
 		case R.id.ll_XLQZ:
@@ -328,19 +302,16 @@ public class MainmenuFragment extends Fragment implements
 
 			@Override
 			public void onAnimationStart(Animation animation) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onAnimationRepeat(Animation animation) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onAnimationEnd(Animation animation) {
-				// TODO Auto-generated method stub
 				Intent intent = new Intent(mainActivity,
 						InterestListActivity.class);
 				startActivity(intent);
@@ -413,9 +384,7 @@ public class MainmenuFragment extends Fragment implements
 	}
 
 	private void showToast(String content) {
-		toast.cancel();
-		toast = Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT);
-		toast.show();
+		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
 	}
 
 	// 计算圆盘距离 最笨方法
@@ -500,7 +469,6 @@ public class MainmenuFragment extends Fragment implements
 		protected void onPostExecute(JSONObject result) {
 			try {
 				Integer syncType = result.getInt("syncType");
-				// showToast(result.toString());
 				if (result != null && result.getInt("success") == 1) {
 
 					switch (syncType) {

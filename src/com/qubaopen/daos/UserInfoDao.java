@@ -18,7 +18,7 @@ public class UserInfoDao {
 //保存用户第一次登陆的信息
 	public void saveUserForFirsttime(JSONObject jbo, String password)
 			throws JSONException, ParseException {
-		Log.i("获取个人资料", jbo+"");
+//		Log.i("获取个人资料", jbo+"");
 		//用户名默认是手机号码
 		String username = jbo.getString("phone");
 		
@@ -33,7 +33,7 @@ public class UserInfoDao {
 			user.setUsername(username);
 			user.setPassword(password);
 			user = saveUserForFirsttime_particial(jbo, user);
-			Log.i("userinfo", user + "");
+//			Log.i("userinfo", user + "");
 			db.save(user);
 		} else {
 			user = saveUserForFirsttime_particial(jbo, user);
@@ -44,16 +44,6 @@ public class UserInfoDao {
 	}
 	
 	public void saveUserInfo(JSONObject jbo, UserInfo user)throws JSONException, ParseException{
-//		Log.i("获取个人资料", jbo+"");
-//		String username = phone;
-//		
-//		UserInfo user = new UserInfo();
-//		final FinalDb db = DbManager.getDatabase();
-////		检查用户信息是否存在
-//		if (db.tableExists(UserInfo.class)) {			
-//			user = db.findUniqueByWhere(UserInfo.class, "username='"+username+"'");
-//			Log.i("已存在数据", username);
-//		}
 		if (user != null) {
 				
 			user.setUserId(jbo.getLong("userId"));
