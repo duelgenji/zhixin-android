@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.qubaopen.R;
 import com.qubaopen.utils.ShareUtil;
+import com.qubaopen.utils.StringFormatUtil;
 
 public class InterestAnswerActivity extends Activity implements
 		View.OnClickListener {
@@ -51,7 +52,8 @@ public class InterestAnswerActivity extends Activity implements
 
 	private void showText() {
 		txtTitle.setText(getIntent().getStringExtra(INTENT_INTEREST_TITLE));
-		txtContent.setText(getIntent().getStringExtra(INTENT_INTEREST_ANSWER));
+		//txtContent.setText(getIntent().getStringExtra(INTENT_INTEREST_ANSWER));
+		txtContent.setText(StringFormatUtil.formatBreakLine(getIntent().getStringExtra(INTENT_INTEREST_ANSWER)));
 	}
 
 	@Override
@@ -59,10 +61,12 @@ public class InterestAnswerActivity extends Activity implements
 		Intent intent = new Intent(this, InterestListActivity.class);
 		switch (v.getId()) {
 		case R.id.backup_btn:
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
 			break;
 		case R.id.btn_back:
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
 			break;

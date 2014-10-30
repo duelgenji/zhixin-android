@@ -13,6 +13,7 @@ import com.qubaopen.cache.PreviousUserQuestionCache;
 import com.qubaopen.domain.DiaoyanUserQuestionAnswer;
 import com.qubaopen.domain.Options;
 import com.qubaopen.domain.QuUserQuestionAnswer;
+import com.qubaopen.domain.SelfUserQuestionAnswer;
 import com.qubaopen.domain.UserQuestionAnswer;
 import com.qubaopen.enums.QuestionTypeEnums;
 
@@ -55,6 +56,10 @@ public class DuoxuanChoice2 extends RadioGroup {
 							choiceItem.setChecked();
 						}
 					} else if (anAnswer instanceof DiaoyanUserQuestionAnswer) {
+						if (aChoice.getOptionId() == anAnswer.getOptionId()) {
+							choiceItem.setChecked();
+						}
+					} else if (anAnswer instanceof SelfUserQuestionAnswer) {
 						if (aChoice.getOptionId() == anAnswer.getOptionId()) {
 							choiceItem.setChecked();
 						}

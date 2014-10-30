@@ -208,10 +208,16 @@ public class MainmenuFragment extends Fragment implements
 					Intent intent = new Intent(mainActivity,
 							SelfListActivity.class);
 					startActivity(intent);
-					hbDrawable.selectDrawable(0);
+
+					//在动画结束后  把图片设置到第一帧  并且不也页面上感觉到有变化  
+					new Handler().postDelayed(new Runnable() {
+						public void run() {
+							hbDrawable.selectDrawable(0);
+						}
+					}, 500);
 				}
 			}, 500);
-
+			
 			v.setEnabled(true);
 			break;
 
@@ -231,6 +237,7 @@ public class MainmenuFragment extends Fragment implements
 			v.setEnabled(true);
 			break;
 		case R.id.img_mood_switch_panel:
+
 			if (isMoodFirst) {
 				isMoodFirst = false;
 				int h = (int) (PhoneHelper.getPhoneHeight() * 0.036875);
@@ -248,8 +255,11 @@ public class MainmenuFragment extends Fragment implements
 				AnimationUtils.startImgBackGround(imgMoodArrow);
 				AnimationUtils.performAnimateMarginTop(layoutPickMood, 1500,
 						moveDistance, 500);
+				v.setEnabled(true);
 			} else {
 				panelClose();
+				v.setEnabled(true);
+				
 			}
 			break;
 		case R.id.img_mood_close:
@@ -406,7 +416,7 @@ public class MainmenuFragment extends Fragment implements
 			moveDistance = 810-topLabel;
 			break;
 		default:
-			moveDistance = (int) (PhoneHelper.getPhoneHeight() * 0.3);
+			moveDistance = (int) (PhoneHelper.getPhoneHeight() * 0.3)-topLabel;
 			break;
 		}
 	}

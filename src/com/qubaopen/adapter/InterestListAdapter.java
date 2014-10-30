@@ -23,6 +23,10 @@ import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.qubaopen.R;
 import com.qubaopen.activity.InterestContentActivity;
+import com.qubaopen.daos.UserSettingsDao;
+import com.qubaopen.datasynservice.UserService;
+import com.qubaopen.domain.UserSettings;
+import com.qubaopen.settings.CurrentUserHelper;
 import com.qubaopen.settings.SettingValues;
 
 public class InterestListAdapter extends CursorAdapter {
@@ -128,8 +132,11 @@ public class InterestListAdapter extends CursorAdapter {
 
 		
 		
-		//需要增加省流量模式判断
-		if (StringUtils.isNotEmpty(cursor.getString(cursor
+		//省流量模式判断
+		UserSettings userSettings=new UserSettingsDao().getUserSettings(CurrentUserHelper.getCurrentUserId());
+		if(userSettings!=null && userSettings.isSaveFlow()){
+			img_quceshi_list.setImageResource(R.drawable.interest_list_default_image);
+		}else if (StringUtils.isNotEmpty(cursor.getString(cursor
 				.getColumnIndex("picPath")))) {
 			img_quceshi_list.setVisibility(View.VISIBLE);
 			String imageUri = cursor

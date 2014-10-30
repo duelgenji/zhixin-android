@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -293,13 +294,17 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 	private void autoMoveHeart(final View v) {
 		int left = v.getLeft();
 
+//		Log.i("phone", "left距离"+left);
+//		Log.i("phone", "right距离"+v.getRight());
+
 		int min = (int) (PhoneHelper.getPhoneWIDTH() * 0.25); // 1080的 270
 		int max = (int) (PhoneHelper.getPhoneWIDTH() * 0.37); // 1080的 400
 		int mid = (int) (PhoneHelper.getPhoneWIDTH() * 0.31); // 1080的 334
+		
+		int origin = (int) (PhoneHelper.getPhoneWIDTH() * 0.8);  //1080的864   
 
+		//如果到接近距离  自动移动到重点    否则回到起点
 		if (min <= left && left <= max) {
-			// Log.i("phone", "upX:" + v.getLeft());
-//			Log.i("phone", "自动距离");
 			Animation animation = new TranslateAnimation(0, mid - left, 0, 0);
 			animation.setDuration(500);
 			animation.setFillAfter(true);
@@ -333,6 +338,32 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 				}
 			});
 
+		}else{
+			Animation animation = new TranslateAnimation(0, origin - left, 0, 0);
+			animation.setDuration(500);
+			animation.setFillAfter(true);
+			animation.setFillEnabled(true);
+			animation.setInterpolator(new DecelerateInterpolator());
+			animation.setAnimationListener(new AnimationListener() {
+
+				@Override
+				public void onAnimationStart(Animation animation) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+				}
+
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					v.layout((int) (PhoneHelper.getPhoneWIDTH() * 0.8), v.getTop(), (int) (PhoneHelper.getPhoneWIDTH()), v.getBottom());
+					v.clearAnimation();
+				}
+			});
+
+			v.startAnimation(animation);
 		}
 	}
 

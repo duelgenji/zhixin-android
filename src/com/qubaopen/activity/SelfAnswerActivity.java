@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.qubaopen.R;
 import com.qubaopen.utils.ShareUtil;
+import com.qubaopen.utils.StringFormatUtil;
 
 public class SelfAnswerActivity extends Activity implements
 		View.OnClickListener {
@@ -58,7 +59,8 @@ public class SelfAnswerActivity extends Activity implements
 
 	private void showText() {
 		txtTitle.setText(getIntent().getStringExtra(INTENT_SELF_TITLE));
-		txtContent.setText(getIntent().getStringExtra(INTENT_SELF_ANSWER));
+		//txtContent.setText(getIntent().getStringExtra(INTENT_SELF_ANSWER));
+		txtContent.setText(StringFormatUtil.formatBreakLine(getIntent().getStringExtra(INTENT_SELF_ANSWER)));
 	}
 
 	@Override
@@ -66,10 +68,12 @@ public class SelfAnswerActivity extends Activity implements
 		Intent intent = new Intent(this, SelfListActivity.class);
 		switch (v.getId()) {
 		case R.id.backup_btn:
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
 			break;
 		case R.id.btn_back:
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
 			finish();
 			break;

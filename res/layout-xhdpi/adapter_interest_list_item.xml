@@ -65,6 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:visibility="gone"
                 android:text="好友："
                 android:textColor="@color/text_black"
                 android:textSize="13sp" />
@@ -73,14 +74,8 @@
                 android:id="@+id/answerFriendNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text="12"
-                android:textColor="@color/text_black"
-                android:textSize="13sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="人"
                 android:textColor="@color/text_black"
                 android:textSize="13sp" />
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.qubaopen.R;
 import com.qubaopen.database.DbManager;
 import com.qubaopen.datasynservice.SelfListService;
+import com.qubaopen.dialog.QubaopenProgressDialog;
 import com.qubaopen.domain.SelfList;
 
 public class SelfPrefaceActivity extends Activity implements
@@ -30,6 +31,8 @@ public class SelfPrefaceActivity extends Activity implements
 	private View divider;
 	private TextView txtGuideTitle;
 	private TextView txtGuide;
+	
+	private QubaopenProgressDialog progressDialog;
 
 	private ImageButton btnBegin;
 
@@ -61,6 +64,9 @@ public class SelfPrefaceActivity extends Activity implements
 
 		@Override
 		protected void onPostExecute(SelfList selfList) {
+			if (progressDialog.isShowing()) {
+				progressDialog.dismiss();
+			}
 			if (selfList != null) {
 				showText(selfList);
 			}
@@ -77,6 +83,7 @@ public class SelfPrefaceActivity extends Activity implements
 		txtPageTitle.setText("心理自测");
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
+		progressDialog = new QubaopenProgressDialog(this);
 
 		divider = (View) this.findViewById(R.id.divider);
 
@@ -92,6 +99,9 @@ public class SelfPrefaceActivity extends Activity implements
 
 		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
 		selfListService = new SelfListService(this);
+		if (!progressDialog.isShowing()) {
+			progressDialog.show();
+		}
 		new LoadDataTask().execute();
 	}
 

@@ -11,17 +11,18 @@
  
     <RelativeLayout
    	 android:layout_width="match_parent"
-   	 android:layout_height="40dp"
-   	 android:padding="5dp"
-   	 android:background="@drawable/title_background"
-   	 >
+   	 android:layout_height="60dp"
+   	 android:padding="10dp"
+   	 android:background="@drawable/title_background">
   		<TextView 
             android:id="@+id/txt_title"
   		    android:layout_width="wrap_content"
   		    android:layout_height="wrap_content"
   		    android:layout_centerVertical="true"
-  		    android:textSize="20sp"
-  		    />
+  		    android:ellipsize="end"
+  		    android:maxLines="2"
+  		    android:textSize="16sp"
+  		    android:paddingRight="40dp" />
   		<TextView 
   		    android:id="@+id/txtTotalNo" 
   		    android:layout_width="wrap_content" 
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:background="@drawable/round_cornor_rect"
+                android:background="@drawable/background_white_bottom_wave_small2"
                 android:orientation="vertical" >
 
                 <RelativeLayout
@@ -66,6 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
                         android:lineSpacingMultiplier="1.2"
+                        android:visibility="gone"
                         android:text=""
                         android:textColor="@color/text_orange"
                         android:textSize="15sp" />
@@ -81,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:layout_marginLeft="6dp"
+                            android:layout_marginLeft="6dp"	
                             android:textColor="@color/text_grey"
                             android:lineSpacingMultiplier="1.2"
                             android:textSize="15sp" />

@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
@@ -161,7 +162,11 @@ public class InterestContentActivity extends Activity implements
 		
 		interestId = getIntent().getIntExtra(INTENT_INTEREST_ID, 0);
 		int questionId = intent.getIntExtra(CURRENT_QUESTION, 0);
+	
 		if (questionId == 0) {
+			if (!progressDialog.isShowing()) {
+					progressDialog.show();
+			}
 			new LoadDataTask(true).execute(interestId);
 		} else {
 			new LoadDataTask(false).execute(questionId);
@@ -422,6 +427,7 @@ public class InterestContentActivity extends Activity implements
 			break;
 
 		}
+		
 		prevQuestionBtn.setOnClickListener(this);
 
 		if (countDownTimer != null) {
@@ -448,7 +454,7 @@ public class InterestContentActivity extends Activity implements
 
 				public void onTick(long millisUntilFinished) {
 					remainingTime.setText(String
-							.valueOf(millisUntilFinished / 1000));
+							.valueOf((millisUntilFinished / 1000)+1));
 				}
 
 				public void onFinish() {

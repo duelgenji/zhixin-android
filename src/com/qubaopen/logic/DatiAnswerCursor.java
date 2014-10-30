@@ -12,6 +12,7 @@ import com.qubaopen.cache.PreviousUserQuestionCache;
 import com.qubaopen.database.DbManager;
 import com.qubaopen.domain.DiaoyanUserQuestionAnswer;
 import com.qubaopen.domain.QuUserQuestionAnswer;
+import com.qubaopen.domain.SelfUserQuestionAnswer;
 import com.qubaopen.domain.UserQuestionAnswer;
 
 public class DatiAnswerCursor {
@@ -48,6 +49,15 @@ public class DatiAnswerCursor {
 					+ " group by questionId order by _id asc";
 			cursor = DbManager.getDatabase().findAllBySqlReturnCursor(
 					DiaoyanUserQuestionAnswer.class, sql);
+
+			break;
+		case 2:
+			sql = "select max(questionType),questionId from self_user_question_answer"
+					+ " where selfId="
+					+ wjId
+					+ " group by questionId order by _id asc";
+			cursor = DbManager.getDatabase().findAllBySqlReturnCursor(
+					SelfUserQuestionAnswer.class, sql);
 
 			break;
 		default:
@@ -130,7 +140,9 @@ public class DatiAnswerCursor {
 						DiaoyanUserQuestionAnswer.class, sqlStrBuff.toString());
 
 			}
-
+		case 2:
+			DbManager.getDatabase().deleteByWhere(SelfUserQuestionAnswer.class,
+					"questionId=" + question.getQuestionId());
 			break;
 		default:
 			break;
@@ -166,6 +178,11 @@ public class DatiAnswerCursor {
 								sqlStrBuff.toString()));
 			}
 			break;
+		case 2:
+			PreviousUserQuestionCache.saveCache(DbManager.getDatabase()
+					.findAllByWhere(SelfUserQuestionAnswer.class,
+							"questionId=" + question.getQuestionId()));
+			break;
 		default:
 			break;
 		}
@@ -182,6 +199,10 @@ public class DatiAnswerCursor {
 			return DbManager.getDatabase()
 					.findAllByWhere(DiaoyanUserQuestionAnswer.class,
 							"questionId=" + questionId);
+		case 2:
+			return DbManager.getDatabase()
+					.findAllByWhere(SelfUserQuestionAnswer.class,
+							"questionId=" + questionId);
 		}
 		return null;
 	}
@@ -195,6 +216,10 @@ public class DatiAnswerCursor {
 		case 1:
 			return DbManager.getDatabase()
 					.findAllByWhere(DiaoyanUserQuestionAnswer.class,
+							"questionId=" + questionId);
+		case 2:
+			return DbManager.getDatabase()
+					.findAllByWhere(SelfUserQuestionAnswer.class,
 							"questionId=" + questionId);
 		default:
 			return null;
