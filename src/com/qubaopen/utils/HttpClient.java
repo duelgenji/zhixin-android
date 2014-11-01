@@ -270,6 +270,21 @@ public class HttpClient {
 			if (result.has("success")
 					&& result.getString("success").equals("0")
 					&& result.getString("message").equals("err000")) {
+				//登陆接口 返回未登录的异常处理
+				if (requestUrl.equals(SettingValues.URL_PREFIX + MyApplication
+								.getAppContext().getString(
+										R.string.URL_USER_LOGON))) {
+					
+					Handler handler = new Handler(Looper.getMainLooper());
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Toast.makeText(MyApplication.getAppContext(),
+									"服务器故障", 3).show();
+						}
+					});
+					return null;
+				}
 				try {
 					if (new RegistService(MyApplication.getAppContext())
 							.logOnAction()) {

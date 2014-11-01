@@ -41,8 +41,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private Toast phoneEmptyToast;
 	/** 吐司无效的登陆 */
 	// private Toast invalidLogonToast;
-	/** 吐司请求失败 */
-	private Toast requestFailToast;
 	/** 用户信息Dao */
 	private UserInfoDao userInfoDao;
 	/***/

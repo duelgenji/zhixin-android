@@ -64,6 +64,8 @@ public class RegistPhoneActivity extends Activity implements
 	private ToggleButton showPassword;
 	private TextView txtAgreeTips;
 	private ImageButton btnClearText;
+	private TextView btnAlreadyRegist;
+	private TextView btnForgetPwd;
 	private RegistPhoneActivity _this;
 	// 获取验证码
 	private ImageButton ib_get_reg_code;
@@ -118,13 +120,14 @@ public class RegistPhoneActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.zhuce);
+		_this = this;
 
-		txtPageTitle = (TextView) findViewById(R.id.title_of_the_page);
-		txtPageTitle.setText(this
-				.getString(R.string.head_title_activity_regist_phone));
 		iBtnPageBack = (ImageButton) findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
-		_this = this;
+		txtPageTitle = (TextView) findViewById(R.id.title_of_the_page);
+		txtPageTitle.setText(this.getString(R.string.title_set_pwd));
+		registConfirmPassword = (TextView) findViewById(R.id.regist_submit);
+		registConfirmPassword.setOnClickListener(this);
 
 		take_pic = (ImageView) findViewById(R.id.take_pic);
 		take_pic.setOnClickListener(this);
@@ -164,14 +167,14 @@ public class RegistPhoneActivity extends Activity implements
 				+ "》" + "</font>";
 		txtAgreeTips.setText(Html.fromHtml(tips + tips2));
 		txtAgreeTips.setOnClickListener(this);
+		// 已有账号
+		btnAlreadyRegist = (TextView) findViewById(R.id.already_regist);
+		btnAlreadyRegist.setOnClickListener(this);
+		// 忘记密码
+		btnForgetPwd = (TextView) findViewById(R.id.forget_password);
+		btnForgetPwd.setOnClickListener(this);
 
 		context = this.getApplicationContext();
-
-		txtPageTitle = (TextView) findViewById(R.id.title_of_the_page);
-		txtPageTitle.setText(this.getString(R.string.title_set_pwd));
-
-		registConfirmPassword = (TextView) findViewById(R.id.regist_submit);
-		registConfirmPassword.setOnClickListener(this);
 
 	}
 
@@ -187,51 +190,13 @@ public class RegistPhoneActivity extends Activity implements
 			finish();
 			v.setEnabled(true);
 			break;
-		// 相机
-		case R.id.take_pic:
-			v.setEnabled(false);
-			takePicFromCamera();
-			v.setEnabled(true);
-			break;
-		// 清除验证码
-		case R.id.clearTextviewBtn:
-			v.setEnabled(false);
-			validateCodeEditText.setText("");
-			v.setEnabled(true);
-			break;
-		// 查看条款
-		case R.id.txtAgreePrivacyTips:
-			v.setEnabled(false);
-			intent = new Intent(RegistPhoneActivity.this,
-					MorePrivacyActivity.class);
-			startActivity(intent);
-			v.setEnabled(true);
-			break;
-		// 获取验证码
-		case R.id.ib_get_reg_code:
-			v.setEnabled(false);
-			phone = txtPhone.getText().toString();
-			password = firstLinePassword.getText().toString();
-			// 石头
-			if (MatcherUtil.validateMobile(phone)) {
-				try {
-					sendValidateCode(phone);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-			} else {
-				// 手机号格式不正确
-				Toast.makeText(_this, "您填写的手机号码错误", 5).show();
-			}
-
-			v.setEnabled(true);
-			break;
+		// 提交
 		case R.id.regist_submit:
 			v.setEnabled(false);
 			phone = txtPhone.getText().toString().trim();
 			password = firstLinePassword.getText().toString().trim();
 			captcha = validateCodeEditText.getText().toString().trim();
-//			Log.i("regist", "验证码:......" + captcha);
+			// Log.i("regist", "验证码:......" + captcha);
 			if (checkAgreement.isChecked()) {
 				if (MatcherUtil.validatePassword(password)) {
 					if (!(captcha == null || captcha.equals(""))) {
@@ -257,6 +222,59 @@ public class RegistPhoneActivity extends Activity implements
 			}
 			v.setEnabled(true);
 			break;
+		// 相机
+		case R.id.take_pic:
+			v.setEnabled(false);
+			takePicFromCamera();
+			v.setEnabled(true);
+			break;
+		// 清除验证码
+		case R.id.clearTextviewBtn:
+			v.setEnabled(false);
+			validateCodeEditText.setText("");
+			v.setEnabled(true);
+			break;
+		// 获取验证码
+		case R.id.ib_get_reg_code:
+			v.setEnabled(false);
+			phone = txtPhone.getText().toString();
+			password = firstLinePassword.getText().toString();
+			// 石头
+			if (MatcherUtil.validateMobile(phone)) {
+				try {
+					sendValidateCode(phone);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+			} else {
+				// 手机号格式不正确
+				Toast.makeText(_this, "您填写的手机号码错误", 5).show();
+			}
+
+			v.setEnabled(true);
+			break;
+		// 查看条款
+		case R.id.txtAgreePrivacyTips:
+			v.setEnabled(false);
+			intent = new Intent(RegistPhoneActivity.this,
+					MorePrivacyActivity.class);
+			startActivity(intent);
+			v.setEnabled(true);
+			break;
+		//
+		case R.id.already_regist:
+			intent = new Intent(RegistPhoneActivity.this,
+					LoginActivity.class);
+			startActivity(intent);
+			finish();
+			break;
+		//
+		case R.id.forget_password:
+			intent = new Intent(RegistPhoneActivity.this,
+					LoginForgotPasswordActivity.class);
+			startActivity(intent);
+			finish();
+			break;
 		default:
 			break;
 		}
@@ -267,7 +285,7 @@ public class RegistPhoneActivity extends Activity implements
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
 		requestUrl += "?phone=" + phone;
-//		Log.i("regist", "sendcode......" + requestUrl);
+		// Log.i("regist", "sendcode......" + requestUrl);
 
 		new LoadDataTask().execute(1, requestUrl, null, HttpClient.TYPE_GET);
 		return result;
@@ -281,7 +299,7 @@ public class RegistPhoneActivity extends Activity implements
 		params.put("password", password);
 		params.put("captcha", captcha);
 		if (fileToSend != null) {
-//			Log.i("regist", "avatar....." + fileToSend.toString());
+			// Log.i("regist", "avatar....." + fileToSend.toString());
 			try {
 				params.put("avatar", fileToSend);
 			} catch (FileNotFoundException e) {
@@ -291,7 +309,7 @@ public class RegistPhoneActivity extends Activity implements
 
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_SETUP_PASSWORD);
-//		Log.i("regist", "注册信息" + params);
+		// Log.i("regist", "注册信息" + params);
 		new LoadDataTask().execute(2, requestUrl, params,
 				HttpClient.TYPE_POST_NORMAL);
 		return result;
@@ -324,14 +342,14 @@ public class RegistPhoneActivity extends Activity implements
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
 					result.put("syncType", syncType);
-//					Log.i("regiset", "获取验证码" + result);
+					// Log.i("regiset", "获取验证码" + result);
 					break;
 				case 2:
 					// (JSONObject)params[2]。。。Json解析，post方式
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
-//					Log.i("regist", "注册结果:" + result);
+					// Log.i("regist", "注册结果:" + result);
 					break;
 				default:
 					break;
@@ -572,7 +590,7 @@ public class RegistPhoneActivity extends Activity implements
 					return;
 				}
 				fileToSend = new File(SettingValues.TEMP_PHOTO_FILE_PATH);
-//				Log.i("regist", "fileToSend......" + fileToSend);
+				// Log.i("regist", "fileToSend......" + fileToSend);
 				if (closePicImageDialogHander != null) {
 					closePicImageDialogHander.sendEmptyMessage(0);
 				}

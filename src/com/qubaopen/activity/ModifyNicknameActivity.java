@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -19,6 +20,7 @@ import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.settings.CurrentUserHelper;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
+import com.qubaopen.utils.StringFormatUtil;
 
 public class ModifyNicknameActivity extends Activity implements OnClickListener {
 
@@ -145,7 +147,7 @@ public class ModifyNicknameActivity extends Activity implements OnClickListener 
 			if (nicknameTextView.getText() != null) {
 				nickName = nicknameTextView.getText().toString();
 				if (!nickName.equals("")) {
-					if (nickName.getBytes().length <= 14) {
+					if (StringFormatUtil.caculateStringLength(nickName) <= 14) {
 						if (!nickName.equals(localNickName)) {
 							String requestUrl = SettingValues.URL_PREFIX
 									+ ModifyNicknameActivity.this

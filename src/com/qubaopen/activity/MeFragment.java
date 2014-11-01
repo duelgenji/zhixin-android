@@ -32,6 +32,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	private String localNickName;
 	private ImageButton editNickNameBtn;
 
+	private TextView signatureHead;
 	private TextView signatureTextView;
 	private String signature;
 	private String localSignature;
@@ -133,13 +135,13 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		txtPageTitle.setText(this.getString(R.string.title_me));
 
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
-
-		nickNameTextView.setOnClickListener(this);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
 		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
-
+		
+		signatureHead = (TextView) view.findViewById(R.id.tv_signature);
+		signatureHead.setOnClickListener(new SignatureClickListener());
+		
 		signatureTextView = (TextView) view.findViewById(R.id.signature);
-
 		signatureTextView.setOnClickListener(new SignatureClickListener());
 
 		layoutMyprofile = (LinearLayout) view
@@ -166,6 +168,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		headImageView = (CircleImageView) view.findViewById(R.id.headIcon);
 
 		headImageView.setOnClickListener(new ClickImageToChangeHeadIcon());
+		
 		if (userInfo != null) {
 			if (userInfo.getNickName() != null) {
 				localNickName = userInfo.getNickName();
@@ -178,7 +181,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 			updateHeadIcon();
 
 		} else {
-			updateUserInfo();
+			String requestUrl = SettingValues.URL_PREFIX
+					+ getString(R.string.URL_USER_INFO_ADD);
+			new LoadDataTask1().execute(1, requestUrl, null,
+					HttpClient.TYPE_GET);
 		}
 
 	}
@@ -429,7 +435,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					// Log.i("用户信息请求结果", result + "");
+					Log.i("userinfo", "个人资料。。。。。。" + result);
 					result.put("syncType", syncType);
 					break;
 
@@ -448,17 +454,15 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				Integer syncType = result.getInt("syncType");
 				switch (syncType) {
 				case 1:
-					if (result != null
-							&& result.getString("success").equals("1")) {
+					if (result.getString("success").equals("1")) {
 						UserInfoDao userInfoDao = new UserInfoDao();
 						userInfoDao.saveUserInfo(result,
 								userInfoDao.getCurrentUser());
 						userInfo = userInfoDao.getCurrentUser();
 						showToast(getString(R.string.toast_get_userinfo_success));
+						
 						nickName = result.getString("nickName");
 						signature = result.getString("signature");
-						// Log.i("个人签名", signature);
-
 						nickNameTextView.setText(nickName);
 						signatureTextView.setText(signature);
 						updateHeadIcon();

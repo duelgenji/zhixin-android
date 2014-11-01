@@ -47,7 +47,7 @@
     <string name="user_friend_input_search_key">请输入朋友昵称/手机号码</string>
 
     <!-- save textview text here -->
-    <string name="login_account">手机号</string>
+    <string name="login_account">账号</string>
     <string name="login_password">密码</string>
     <string name="regist_input_your_phone">请输入注册手机号:</string>
     <string name="regist_input_your_validate_code">请输入收到的短信验证码号:</string>
@@ -146,6 +146,7 @@
     <string name="login">登录</string>
     <string name="regist">注册</string>
     <string name="login_password_forgot">忘记密码？</string>
+    <string name="already_regiset_user">已有账号</string>
     <string name="share_yaoqingma">接头暗号:</string>
     <string name="header_skip_text">跳过</string>
     <string name="regist_invite_code_tips">注：如没有接头暗号，可直接跳过</string>

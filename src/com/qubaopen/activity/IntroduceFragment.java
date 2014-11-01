@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,7 +26,7 @@ import com.qubaopen.utils.AnimationUtils;
  * 
  */
 @SuppressLint("ValidFragment")
-public class IntroduceFragment extends Fragment implements View.OnClickListener {
+public class IntroduceFragment extends Fragment  {
 
 	private int pos;
 
@@ -111,16 +110,16 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 
 	}
 
-	@Override
-	public void onClick(View v) {
-		if (imageClickable) {
-			imageClickable = false;
-			// 跳转到登陆的界面
-			Intent intent = new Intent(mainActivity, LoginActivity.class);
-			startActivity(intent);
-			imageClickable = true;
-		}
-	}
+//	@Override
+//	public void onClick(View v) {
+//		if (imageClickable) {
+//			imageClickable = false;
+//			// 跳转到注册的界面
+//			Intent intent = new Intent(mainActivity, RegistPhoneActivity.class);
+//			startActivity(intent);
+//			imageClickable = true;
+//		}
+//	}
 
 	// 第一页 小人
 	private void moveLittleMan(ViewGroup rootView) {
@@ -315,25 +314,22 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 
 				@Override
 				public void onAnimationStart(Animation animation) {
-					// TODO Auto-generated method stub
 
 				}
 
 				@Override
 				public void onAnimationRepeat(Animation animation) {
-					// TODO Auto-generated method stub
 
 				}
 
 				@Override
 				public void onAnimationEnd(Animation animation) {
-					// TODO Auto-generated method stub
 					if (isEasterEgg) {
 						mainActivity.onBackPressed();
 						return;
 					}
 					Intent intent = new Intent(mainActivity,
-							LoginActivity.class);
+							RegistPhoneActivity.class);
 					startActivity(intent);
 				}
 			});
@@ -348,7 +344,6 @@ public class IntroduceFragment extends Fragment implements View.OnClickListener 
 
 				@Override
 				public void onAnimationStart(Animation animation) {
-					// TODO Auto-generated method stub
 
 				}
 

@@ -19,6 +19,7 @@ import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.settings.CurrentUserHelper;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
+import com.qubaopen.utils.StringFormatUtil;
 
 public class ModifySignatureActivity extends Activity implements
 		OnClickListener {
@@ -149,7 +150,7 @@ public class ModifySignatureActivity extends Activity implements
 			if (signatureTextView.getText() != null) {
 				signature = signatureTextView.getText().toString();
 				if (!signature.equals("")) {
-					if (signature.getBytes().length <= 40) {
+					if (StringFormatUtil.caculateStringLength(signature) <= 20) {
 						if (!signature.equals(localSignature)) {
 							String requestUrl = SettingValues.URL_PREFIX
 									+ ModifySignatureActivity.this

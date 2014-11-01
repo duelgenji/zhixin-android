@@ -6,9 +6,10 @@ public class SettingValues {
 	// Settings Url prefix
 
 	// public static final String URL_PREFIX = "http://qubaopen.com.cn/demo/";
-	 public static final String URL_PREFIX = "http://10.0.0.88:8080/know-heart/";
+	public static final String URL_PREFIX = "http://10.0.0.88:8080/know-heart/";
 	// public static final String URL_PREFIX = "http://10.0.0.16:8081/";
-//	public static final String URL_PREFIX = "http://115.28.176.74:8080/know-heart/";
+	// public static final String URL_PREFIX =
+	// "http://115.28.176.74:8080/know-heart/";
 	// Setttings in quceshi
 	public static final int QU_LIST_BY_DEFAULT_NEXT_ROUND_NUM = 10;
 

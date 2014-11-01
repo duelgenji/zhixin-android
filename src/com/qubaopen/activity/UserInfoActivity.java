@@ -1,5 +1,6 @@
 package com.qubaopen.activity;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 
 import org.json.JSONException;
@@ -23,6 +24,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -46,6 +48,7 @@ public class UserInfoActivity extends FragmentActivity implements
 	private ImageButton iBtnPageBack;
 	private UserInfoActivity _this;
 	private Boolean pickerExist;
+	private Boolean yearCanPick = false;
 	/** 性别 */
 	private LinearLayout layoutSexPersonalProfile;
 	/** 血型 */
@@ -73,6 +76,7 @@ public class UserInfoActivity extends FragmentActivity implements
 	/** 邮箱 */
 	private long userId;
 	private int mYear, mMonth, mDay;
+	private int selectYear, selectMonth, selectDay;
 	// private QubaopenProgressDialog progressDialog;
 	private Integer sex, bloodType;
 	private Integer localSex, localBloodType;
@@ -276,10 +280,10 @@ public class UserInfoActivity extends FragmentActivity implements
 			break;
 		case R.id.layoutAddressPersonalProfile:
 			if (!pickerExist) {
-//				SharedPreferences sharedPref = this.getSharedPreferences(
-//						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-//				Boolean isAddressSaved = sharedPref.getBoolean(
-//						SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
+				// SharedPreferences sharedPref = this.getSharedPreferences(
+				// SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
+				// Boolean isAddressSaved = sharedPref.getBoolean(
+				// SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
 				intent = new Intent(_this, UserInfoAddressActivity.class);
 				startActivity(intent);
 				v.setEnabled(false);
@@ -394,25 +398,39 @@ public class UserInfoActivity extends FragmentActivity implements
 	}
 
 	public void DatePicker() {
-		Calendar c = Calendar.getInstance();
+		final Calendar c = Calendar.getInstance();
 		mYear = c.get(Calendar.YEAR);
 		mMonth = c.get(Calendar.MONTH);
 		mDay = c.get(Calendar.DAY_OF_MONTH);
 		final DatePicker datepicker = new DatePicker(_this);
 		String sBirth = "";
-		Integer year = 1995;
-		Integer month = 0;
-		Integer day = 1;
+		// Integer year = 1995;
+		// Integer month = 01;
+		// Integer day = 01;
 		if (txtBirthPersonalProfile.getText() != null) {
 			sBirth = txtBirthPersonalProfile.getText().toString().trim();
 			if (sBirth.length() >= 10) {
-				year = Integer.parseInt(sBirth.substring(0, 4));
-				month = Integer.parseInt(sBirth.substring(5, 7)) - 1;
-				day = Integer.parseInt(sBirth.substring(8, 10));
+				mYear = Integer.parseInt(sBirth.substring(0, 4));
+				mMonth = Integer.parseInt(sBirth.substring(5, 7)) - 1;
+				mDay = Integer.parseInt(sBirth.substring(8, 10));
 			}
+			// datepicker.init(year, month, day, null);
 		}
-		;
-		datepicker.init(year, month, day, null);
+		OnDateChangedListener onDateChangedListener = new OnDateChangedListener() {
+
+			@Override
+			public void onDateChanged(DatePicker view, int year,
+					int monthOfYear, int dayOfMonth) {
+				Log.i("year", "select......" + year);
+				if (year >= 1970 && year <= c.get(Calendar.YEAR)) {
+					yearCanPick = true;
+				} else {
+					yearCanPick = false;
+				}
+				mYear = year;
+			}
+		};
+		datepicker.init(mYear, mMonth, mDay, onDateChangedListener);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(_this);
 		builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -421,37 +439,88 @@ public class UserInfoActivity extends FragmentActivity implements
 				pickerExist = false;
 			}
 		});
+
 		builder.setView(datepicker);
+
 		builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
-				mYear = datepicker.getYear();
-				mMonth = datepicker.getMonth() + 1;
-				mDay = datepicker.getDayOfMonth();
+				datepicker.clearFocus();
+				
+				Log.i("yearCanPick", "......" + yearCanPick);
+				selectYear = datepicker.getYear();
+				Log.i("year", "年份" + selectYear);
+					if (yearCanPick) {
+						selectMonth = datepicker.getMonth() + 1;
+						selectDay = datepicker.getDayOfMonth();
+						StringBuilder stringBuilder = new StringBuilder();
+						stringBuilder.append(selectYear);
 
-				currentBirthDay = mYear + "-" + mMonth + "-" + mDay;
-				if (currentBirthDay != localBirthDay) {
-					JSONObject obj = new JSONObject();
-					try {
-						obj.put("birthday", currentBirthDay);
-						obj.put("id", userId);
-					} catch (JSONException e) {
-						e.printStackTrace();
+						if (selectMonth < 10) {
+							stringBuilder.append("-0").append(selectMonth);
+						} else {
+							stringBuilder.append("-").append(selectMonth);
+						}
+						if (selectDay < 10) {
+							stringBuilder.append("-0").append(selectDay);
+						} else {
+							stringBuilder.append("-").append(selectDay);
+						}
+						currentBirthDay = stringBuilder.toString();
+						Log.i("datepicker", "日期......" + currentBirthDay);
+						if (currentBirthDay != localBirthDay) {
+							JSONObject obj = new JSONObject();
+							try {
+								obj.put("birthday", currentBirthDay);
+								obj.put("id", userId);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+							String requestUrl = SettingValues.URL_PREFIX
+									+ getString(R.string.URL_USER_INFO_UPDATE);
+							new LoadDataTask().execute(1, requestUrl, obj,
+									HttpClient.TYPE_PUT_JSON);
+						}
+					} else {
+						showToast("年份错误");
+						try {
+							Field field = arg0.getClass().getSuperclass()
+									.getDeclaredField("mShowing");
+							field.setAccessible(true);
+							field.set(arg0, false); // false - 使之不能关闭(此为机关所在，其它语句相同)
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						return;
 					}
-					String requestUrl = SettingValues.URL_PREFIX
-							+ getString(R.string.URL_USER_INFO_UPDATE);
-					new LoadDataTask().execute(1, requestUrl, obj,
-							HttpClient.TYPE_PUT_JSON);
+				
+				try {
+					Field field = arg0.getClass().getSuperclass()
+							.getDeclaredField("mShowing");
+					field.setAccessible(true);
+					field.set(arg0, true); // true - 使之可以关闭(此为机关所在，其它语句相同)
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 				pickerExist = false;
+
 			}
 
 		});
+
 		builder.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
+						try {
+							Field field = dialog.getClass().getSuperclass()
+									.getDeclaredField("mShowing");
+							field.setAccessible(true);
+							field.set(dialog, true); // true - 使之可以关闭(此为机关所在，其它语句相同)
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
 						pickerExist = false;
 					}
 				});
@@ -649,7 +718,7 @@ public class UserInfoActivity extends FragmentActivity implements
 				default:
 					break;
 				}
-//				Log.i("請求結果", result + "");
+				// Log.i("請求結果", result + "");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}

@@ -43,8 +43,8 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 	private EditText txtAddressAddAddress;
 
 	private JSONObject jsonParams;
-	private UserAddressDao userAddressDao;
-	
+	 private UserAddressDao userAddressDao;
+
 	private AddressDialog areaDialog;
 	private UserInfoAddressAddActivity _this;
 
@@ -60,7 +60,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 		setContentView(R.layout.activity_user_info_address_add);
 
 		_this = this;
-		userAddressDao = new UserAddressDao(); 
+		 userAddressDao = new UserAddressDao();
 
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
@@ -92,11 +92,12 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 		// v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.backup_btn:
+			v.setEnabled(false);
 			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.addressSubmit:
-
+			v.setEnabled(false);
 			try {
 				jsonParams = new JSONObject();
 				String name = "";
@@ -145,7 +146,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 				jsonParams.put("phone", phone);
 				jsonParams.put("postCode", postCode);
 				jsonParams.put("defaultAddress", false);
-//				Log.i("增加地址", jsonParams + "");
+				// Log.i("增加地址", jsonParams + "");
 				String requestUrl = SettingValues.URL_PREFIX
 						+ getString(R.string.URL_USER_ADD_ADDRESS);
 
@@ -182,7 +183,7 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
-//					Log.i("增加地址=====", result + "");
+					Log.i("增加地址=====", result + "");
 					break;
 				default:
 					break;
@@ -199,17 +200,74 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 				Integer syncType = result.getInt("syncType");
 				switch (syncType) {
 				case 1:
-					if (result != null
+					if (result.has("success")
 							&& result.getString("success").equals("1")) {
 						// 。。。。。。。。。
 						Toast.makeText(_this, "提交地址成功！", Toast.LENGTH_SHORT)
 								.show();
-						jsonParams.put("userId", CurrentUserHelper.getCurrentUserId());
-						userAddressDao.saveSingleUserAddress(jsonParams);
-						UserInfoAddressActivity.userInfoAddressActivity.reSetAddress();
+						// jsonParams.put("userId",
+						// CurrentUserHelper.getCurrentUserId());
+						String requestUrl = SettingValues.URL_PREFIX
+								+ getString(R.string.URL_USER_GET_ADDRESS_LIST);
+						new updateAddressAddedDataTask().execute(1, requestUrl, null,
+								HttpClient.TYPE_GET);
+						
 						_this.finish();
 					} else {
 						Toast.makeText(_this, "提交地址失败！", Toast.LENGTH_SHORT)
+								.show();
+					}
+					break;
+
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	private class updateAddressAddedDataTask extends
+			AsyncTask<Object, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Object... params) {
+			JSONObject result = null;
+			Integer syncType = (Integer) params[0];
+			try {
+				switch (syncType) {
+				case 1:
+					result = HttpClient.requestSync(params[1].toString(), null,
+							(Integer) params[3]);
+					result.put("syncType", syncType);
+					Log.i("address", "获取到的地址：......" + result);
+					// 保存到本地数据库
+					
+					userAddressDao.saveUserAddress(result);
+					break;
+				default:
+					break;
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				Integer syncType = result.getInt("syncType");
+				switch (syncType) {
+				case 1:
+					if (result.has("success")
+							&& result.getString("success").equals("1")) {
+						UserInfoAddressActivity.userInfoAddressActivity
+						.reSetAddress();
+					} else {
+						Toast.makeText(_this, "刷新地址失败！", Toast.LENGTH_SHORT)
 								.show();
 					}
 					break;

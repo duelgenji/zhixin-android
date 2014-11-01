@@ -51,6 +51,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 	private UserAddressAdapter adapter;
 	private Activity _this;
 	public static UserInfoAddressActivity userInfoAddressActivity;
+	private String requestUrl;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,9 +71,9 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		btnAdd = (ImageView) this.findViewById(R.id.add_address);
 		btnAdd.setOnClickListener(this);
 		userAddressList = (ListView) this.findViewById(R.id.userAddressList);
-		String requestUrl = SettingValues.URL_PREFIX
+		requestUrl = SettingValues.URL_PREFIX
 				+ this.getString(R.string.URL_USER_GET_ADDRESS_LIST);
-//		Log.i("address", requestUrl);
+		// Log.i("address", requestUrl);
 		new LoadAddressDataTask().execute(1, requestUrl, null,
 				HttpClient.TYPE_GET);
 	}
@@ -168,7 +169,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
 					result.put("syncType", syncType);
-//					Log.i("address", "获取到的地址：......" + result);
+					// Log.i("address", "获取到的地址：......" + result);
 					break;
 				default:
 					break;
@@ -185,14 +186,10 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 				Integer syncType = result.getInt("syncType");
 				switch (syncType) {
 				case 1:
-					if (result != null
+					if (result.has("success")
 							&& result.getString("success").equals("1")) {
-						if (result.getJSONArray("content").length() != 0) {
-//							Log.i("address", "地址信息长度" + result.getJSONArray("content").length());
-							Toast.makeText(_this, "获取地址成功！", Toast.LENGTH_SHORT)
-									.show();
-						}
 						// 保存到本地数据库
+						 Log.i("address", "获取到的地址：......" + result);
 						userAddressDao.saveUserAddress(result);
 					} else {
 						Toast.makeText(_this, "获取地址失败！", Toast.LENGTH_SHORT)
@@ -210,9 +207,12 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 
 	}
 
+
 	public void reSetAddress() {
+
 		getSupportLoaderManager().restartLoader(0, null,
 				UserInfoAddressActivity.this);
 	}
+
 
 }

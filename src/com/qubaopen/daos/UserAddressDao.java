@@ -90,23 +90,23 @@ public class UserAddressDao {
 
 	}
 
-	public void saveSingleUserAddress(JSONObject jbo) throws JSONException {
-
-		UserAddress userAddress = new UserAddress();
-
-		if (jbo.has("id")) {
-			userAddress.setDzId(jbo.getInt("id"));
-		}
-
-		if (jbo.has("userId")) {
-			userAddress.setUserId(jbo.getLong("userId"));
-		}
-
-		setSameContent(jbo, userAddress);
-
-		DbManager.getDatabase().save(userAddress);
-
-	}
+//	public void saveSingleUserAddress(JSONObject jbo) throws JSONException {
+//
+//		UserAddress userAddress = new UserAddress();
+//
+//		if (jbo.has("id")) {
+//			userAddress.setDzId(jbo.getInt("id"));
+//		}
+//
+//		if (jbo.has("userId")) {
+//			userAddress.setUserId(jbo.getLong("userId"));
+//		}
+//
+//		setSameContent(jbo, userAddress);
+//
+//		DbManager.getDatabase().save(userAddress);
+//
+//	}
 
 	private void setSameContent(JSONObject jbo, UserAddress userAddress) {
 

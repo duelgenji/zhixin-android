@@ -347,7 +347,8 @@ public class OnekeyShare extends FakeActivity implements
 			}
 		};
 		llPage.setOrientation(LinearLayout.VERTICAL);
-		int resId = getBitmapRes(getContext(), "input_background_middle_white_default");
+		//设置分享框背景
+		int resId = getBitmapRes(getContext(), "card_small_origin");
 		if (resId > 0) {
 			llPage.setBackgroundResource(resId);
 		}
