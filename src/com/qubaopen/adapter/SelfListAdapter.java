@@ -62,15 +62,15 @@ public class SelfListAdapter extends CursorAdapter {
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.tv_title);
 		txtTitle.setText(cursor.getString(cursor.getColumnIndex("title")));
 
-		int type = cursor.getInt(cursor.getColumnIndex("managementType"));
-		ImageView img_xlzc = (ImageView) rowView.findViewById(R.id.img_xlzc);
-		if (type == 1) {
-			img_xlzc.setImageResource(R.drawable.icon_self_type_character);
-		} else if (type == 2) {
-			img_xlzc.setImageResource(R.drawable.icon_self_type_emotional);
-		} else if (type == 3) {
-			img_xlzc.setImageResource(R.drawable.icon_self_type_personal);
-		}
+//		int type = cursor.getInt(cursor.getColumnIndex("managementType"));
+//		ImageView img_xlzc = (ImageView) rowView.findViewById(R.id.img_xlzc);
+//		if (type == 1) {
+//			img_xlzc.setImageResource(R.drawable.icon_self_type_character);
+//		} else if (type == 2) {
+//			img_xlzc.setImageResource(R.drawable.icon_self_type_emotional);
+//		} else if (type == 3) {
+//			img_xlzc.setImageResource(R.drawable.icon_self_type_personal);
+//		}
 
 		int questionnareId = cursor.getInt(cursor.getColumnIndex("selfId"));
 		rowView.setOnClickListener(new SelfListClickListener(questionnareId));

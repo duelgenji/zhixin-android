@@ -107,10 +107,13 @@
     <string name="URL_UPLOAD_AVATAR">userInfos/uploadAvatar</string>
     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
     <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string>
+    <string name="URL_GET_SELF_LIST">selfs/retrieveSelfByType/</string>
     <string name="URL_USER_ADD_ADDRESS">userReceiveAddresses/addAddress</string>
     <string name="URL_USER_GET_ADDRESS_LIST">userReceiveAddresses/getAddressList</string>
     <string name="URL_MODIFY_USER_ADDRESS">userReceiveAddresses/modifyAddress</string>
     <string name="URL_DELETE_USER_ADDRESS">userReceiveAddresses/deleteAddress</string>
     <string name="URL_MODIFY_PWD">users/modifyPassword</string>
+    <string name="URL_GET_MAP_MOOD_CONTROL">mapStatistics/retrieveSpecialMap</string>
+    <string name="URL_RETEST">selfs/retrieveSelfByGroupId</string>
 
 </resources>

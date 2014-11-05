@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.qubaopen.R;
 import com.qubaopen.daos.UserInfoDao;
@@ -55,20 +56,20 @@ public class UserService {
 	
 	//获取每日心情
 	public JSONObject getMood() {
+		JSONObject result = new JSONObject();
 		try {
 			String requestUrl = SettingValues.URL_PREFIX
 					+ context.getString(R.string.URL_USER_GET_MOOD);
 			
-			JSONObject result = HttpClient.requestSync(requestUrl, null,HttpClient.TYPE_GET);
-
-			if (result != null && result.getInt("success") == 1) {
-
-			}
-			return result;
+			 result = HttpClient.requestSync(requestUrl, null,HttpClient.TYPE_GET);
+//			if (result != null && result.getInt("success") == 1) {
+//
+//			}
+//			return result;
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 	
 	//提交每日心情

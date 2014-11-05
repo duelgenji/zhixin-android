@@ -57,6 +57,14 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:src="@drawable/round_pot_grey" />
+         <ImageView
+            android:id="@+id/img_select_point_four"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/round_pot_grey" />
     </LinearLayout>
 
 </LinearLayout>

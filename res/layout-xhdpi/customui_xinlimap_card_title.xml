@@ -12,7 +12,8 @@
         android:id="@+id/layout_card_item_title_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_marginLeft="5dp"
+        android:gravity="left"
         android:textSize="18sp"
         android:layout_weight="1"
         android:text="title" />

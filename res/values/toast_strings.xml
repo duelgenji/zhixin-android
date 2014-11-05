@@ -23,6 +23,7 @@
     <string name="toast_set_mood_success">设置心情成功!</string>
 
     <!-- save toast me page here -->
+     <string name="toast_upload_photo_success_tips">上传头像成功</string>
     <string name="toast_upload_photo_fail_tips">上传头像失败</string>
     <string name="toast_get_userinfo_success">获取个人资料成功！</string>
     <string name="toast_get_userinfo_failed">获取数据失败！</string>

@@ -64,8 +64,9 @@ public class CardItemView extends LinearLayout {
 	private TextView cardItemName;
 	private TextView cardItemScore;
 	private TextView cardItemContent;
+	private Button cardItemRetest;
 	private Button cardItemShare;
-	
+
 	private String contentStr;
 	private int endHeight;
 
@@ -118,7 +119,7 @@ public class CardItemView extends LinearLayout {
 	}
 
 	private void initView(int color) {
-//		Log.i("init", windowWidth + ";" + windowHeight);
+		// Log.i("init", windowWidth + ";" + windowHeight);
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.interest_list_default_image)
 				.showImageForEmptyUri(R.drawable.interest_list_default_image)
@@ -154,7 +155,7 @@ public class CardItemView extends LinearLayout {
 
 		LinearLayout.LayoutParams webLp = (LinearLayout.LayoutParams) cardItemWebView
 				.getLayoutParams();
-		webLp.height = (int) (1.8*imgHeight);
+		webLp.height = (int) (1.8 * imgHeight);
 		cardItemWebView.setLayoutParams(webLp);
 
 		LinearLayout.LayoutParams epqLp = (LinearLayout.LayoutParams) cardItemEpq
@@ -163,11 +164,13 @@ public class CardItemView extends LinearLayout {
 		cardItemEpq.setLayoutParams(epqLp);
 
 		cardItemLeft.setBackgroundColor(color);
+		cardItemTitle.setTextColor(color);
 		cardItemRight.setBackgroundColor(color);
 		cardItemRight.setImageResource(R.drawable.card_arrow_origin);
 		if (mapData.getMapDataTitle() != null) {
 			cardItemTitle.setText(mapData.getMapDataTitle());
-//			Log.i("mapdata", "carditemview...tilte" + mapData.getMapDataTitle());
+			// Log.i("mapdata", "carditemview...tilte" +
+			// mapData.getMapDataTitle());
 		}
 
 		if (mapData.isMapDataIsLock()) {
@@ -178,7 +181,7 @@ public class CardItemView extends LinearLayout {
 			nsLayout.setVisibility(View.GONE);
 			cardItemContent.setVisibility(View.GONE);
 
-			cardItemImg.setImageResource(R.drawable.ic_launcher);
+			cardItemImg.setImageResource(R.drawable.xinlimap_lock);
 			if (mapData.getMapDataTips() != null) {
 				cardItemTips.setText(mapData.getMapDataTips());
 			}
@@ -186,11 +189,11 @@ public class CardItemView extends LinearLayout {
 			cardItemTips.setVisibility(View.GONE);
 			nsLayout.setVisibility(View.VISIBLE);
 			cardItemContent.setVisibility(View.VISIBLE);
-			
+
 			if (mapData.getMapDataPicPath() != null) {
 				cardItemImg.setVisibility(View.VISIBLE);
-//				Log.i("mapdata",
-//						"carditemview...picpath" + mapData.getMapDataPicPath());
+				// Log.i("mapdata",
+				// "carditemview...picpath" + mapData.getMapDataPicPath());
 				String imgUrl = SettingValues.URL_PREFIX
 						+ mapData.getMapDataPicPath();
 				imageLoader.displayImage(imgUrl, cardItemImg, options,
@@ -235,18 +238,29 @@ public class CardItemView extends LinearLayout {
 				cardItemScore.setVisibility(View.GONE);
 			}
 			if (mapData.getMapDataContent() != null) {
-//				Log.i("mapdata",
-//						"carditemview...content改前"
-//								+ mapData.getMapDataContent());
+				// Log.i("mapdata",
+				// "carditemview...content改前"
+				// + mapData.getMapDataContent());
 				contentStr = (mapData.getMapDataContent()).replaceAll("\\\\n",
 						"\n");
-//				Log.i("mapdata", "carditemview...content改后" + contentStr);
+				// Log.i("mapdata", "carditemview...content改后" + contentStr);
 				cardItemContent.setText(contentStr);
 			} else {
 				cardItemContent.setVisibility(View.GONE);
 			}
 		}
+		// 重做按钮
+		cardItemRetest.setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+				String requestUrl = SettingValues.URL_PREFIX
+						+ MyApplication.getAppContext().getString(
+								R.string.URL_RETEST);
+				requestUrl += "/" + "groupId";
+			}
+		});
+		// 分享按钮
 		cardItemShare.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -269,8 +283,8 @@ public class CardItemView extends LinearLayout {
 								.removeGlobalOnLayoutListener(this);
 						// 现在布局全部完成，可以获取到任何View组件的宽度、高度、左边、右边等信息
 						endHeight = getMeasuredHeight();
-//						Log.i("open", mapData.getMapDataTitle()
-//								+ "inner getMeasuredHeight:..." + endHeight);
+						// Log.i("open", mapData.getMapDataTitle()
+						// + "inner getMeasuredHeight:..." + endHeight);
 						setIntialHeight();
 
 					}
@@ -302,6 +316,7 @@ public class CardItemView extends LinearLayout {
 		cardItemName = (TextView) findViewById(R.id.layout_card_item_name);
 		cardItemScore = (TextView) findViewById(R.id.layout_card_item_score);
 		cardItemContent = (TextView) findViewById(R.id.layout_card_item_content);
+		cardItemRetest = (Button) findViewById(R.id.btn_card_item_retest);
 		cardItemShare = (Button) findViewById(R.id.btn_card_item_share);
 		addListener();
 	}
@@ -335,11 +350,11 @@ public class CardItemView extends LinearLayout {
 		if (isExpand) {
 			isExpand = false;
 			rotateArrow(cardItemRight, true, 50);
-//			Log.i("close", "before_close..." + endHeight);
+			// Log.i("close", "before_close..." + endHeight);
 			if (isAnimate) {
 				int afterHeight = titleLayout.getHeight() + getPaddingBottom()
 						+ getPaddingTop();
-//				Log.i("close", afterHeight + "");
+				// Log.i("close", afterHeight + "");
 				performAnimate(this, endHeight, afterHeight, 50);
 			}
 		}
@@ -357,7 +372,7 @@ public class CardItemView extends LinearLayout {
 		// 改变箭头
 		rotateArrow(cardItemRight, false, 50);
 		int height = getHeight();
-//		Log.i("open", "height:" + height + ";endHeight:" + endHeight);
+		// Log.i("open", "height:" + height + ";endHeight:" + endHeight);
 		performAnimate(this, height, endHeight, 50);
 
 	}
@@ -499,11 +514,11 @@ public class CardItemView extends LinearLayout {
 			JSONObject point = new JSONObject();
 
 			point = json;
-//			Log.i("epq", point + "");
+			// Log.i("epq", point + "");
 			x = point.getDouble("E") - 50;
 			y = point.getDouble("N") - 50;
 			rad = Math.atan2(y, x);
-//			Log.i("epq", rad + "");
+			// Log.i("epq", rad + "");
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -545,7 +560,7 @@ public class CardItemView extends LinearLayout {
 
 				}
 			}
-//			Log.i("epq", "p" + p + "...pb" + pb + "...ps" + ps + "");
+			// Log.i("epq", "p" + p + "...pb" + pb + "...ps" + ps + "");
 			epqList = new ArrayList<Integer>();
 			switch (epqLevel) {
 			case 1:
@@ -608,8 +623,8 @@ public class CardItemView extends LinearLayout {
 						if (i == 0) {
 							epqResource = CrossSystemMap
 									.getErrMessage(color, p);
-//							Log.i("epq", "resource:" + epqResource
-//									+ "...color:" + color + "...p:" + p);
+							// Log.i("epq", "resource:" + epqResource
+							// + "...color:" + color + "...p:" + p);
 							epqList.add(epqResource);
 						} else {
 							color = "y";
@@ -645,12 +660,12 @@ public class CardItemView extends LinearLayout {
 	// EPQ测试图结果图片
 	private void setImg(List<Integer> epqList) {
 		for (int i = 0; i < epqList.size(); i++) {
-//			Log.i("epq", "resource" + "......" + epqList.size());
+			// Log.i("epq", "resource" + "......" + epqList.size());
 			epqListItem = new ImageView(getContext());
 			Bitmap bm = BitmapFactory.decodeResource(MyApplication
 					.getAppContext().getResources(), epqList.get(i));
 			epqListItem.setImageBitmap(bm);
-//			Log.i("epq", "Bitmap" + "......" + bm);
+			// Log.i("epq", "Bitmap" + "......" + bm);
 			epqListItem.setLayoutParams(new LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			epqListItem.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -680,9 +695,9 @@ public class CardItemView extends LinearLayout {
 		});
 		cardItemWebView.loadUrl("http://115.28.176.74/hc.html"
 				+ "?height=300&timestamp=" + new Date().getTime());
-//		cardItemWebView.loadUrl("http://10.0.0.88/hc.html"
-//				+ "?height=300&timestamp=" + new Date().getTime());
-		
+		// cardItemWebView.loadUrl("http://10.0.0.88/hc.html"
+		// + "?height=300&timestamp=" + new Date().getTime());
+
 		cardItemWebView.setWebViewClient(new WebViewClient() {
 			@Override
 			public void onPageFinished(WebView view, String url) {
@@ -695,9 +710,9 @@ public class CardItemView extends LinearLayout {
 					mapParamsJson.put("chartType",
 							mapData.getMapDataGraphicsType());
 					mapParamsJson.put("chart", mapData.getMapDataChat());
-				
+
 					String mapParams = mapParamsJson.toString();
-//					Log.i("chart",">>>>>>>" + mapParams);
+					// Log.i("chart",">>>>>>>" + mapParams);
 					cardItemWebView.loadUrl("javascript:switchChart('"
 							+ mapParams + "')");
 				} catch (JSONException e) {

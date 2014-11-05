@@ -79,6 +79,15 @@
                         android:text="13611845993"
                         android:textSize="16sp" />
 
+                    <ImageButton
+                        android:id="@+id/btn_clear"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/modify_nickname_button" />
+
                     <View
                         android:layout_width="1dp"
                         android:layout_height="match_parent"
@@ -121,6 +130,16 @@
                         android:maxLength="30"
                         android:text="11111111"
                         android:textSize="16sp" />
+
+                    <ToggleButton
+                        android:id="@+id/btn_show_pwd"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/checkbox_square"
+                        android:button="@android:color/transparent"
+                        android:checked="false"
+                        android:textOff=""
+                        android:textOn="" />
 
                     <View
                         android:layout_width="1dp"

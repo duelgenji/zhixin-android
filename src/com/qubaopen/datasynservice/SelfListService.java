@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.qubaopen.R;
 import com.qubaopen.daos.SelfListDao;
@@ -31,25 +32,40 @@ public class SelfListService {
 		this.context = context;
 		this.selfListDao = new SelfListDao();
 	}
-
-	public String requestSelfList(boolean refresh) {
+	//新接口
+	public String requestSelfList(int type) {
+		try {
+			String requestUrl = SettingValues.URL_PREFIX
+					+ context.getString(R.string.URL_GET_SELF_LIST) + "/" +type;
+			JSONObject result;
+			result = HttpClient.requestSync(requestUrl, null,
+					HttpClient.TYPE_GET);
+			if (result != null && result.getString("success").equals("1")) {
+				selfListDao = new SelfListDao();
+				return selfListDao.saveSelfList(result);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	//原接口（带刷新）
+	public String requestSelfList(boolean refresh,int type) {
 		try {
 			String requestUrl = SettingValues.URL_PREFIX
 					+ context.getString(R.string.URL_SELF_GET_LIST);
-
+			
 			if (refresh) {
 				requestUrl += "/?refresh=true";
 			}
 			JSONObject result;
 			result = HttpClient.requestSync(requestUrl, null,
 					HttpClient.TYPE_GET);
-
 			if (result != null && result.getString("success").equals("1")) {
 				selfListDao = new SelfListDao();
 				return selfListDao.saveSelfList(result);
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -74,7 +90,6 @@ public class SelfListService {
 				return result;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

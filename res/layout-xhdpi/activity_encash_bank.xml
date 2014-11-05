@@ -227,7 +227,7 @@
                 android:paddingRight="7.56dp" >
 
                 <LinearLayout
-                    android:id="@+id/layoutAlipayAccountEncash"
+                    android:id="@+id/layoutAlipayAccountEncash1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_background_middle_white_default"
@@ -278,7 +278,7 @@
                 android:paddingRight="7.56dp" >
 
                 <LinearLayout
-                    android:id="@+id/layoutAlipayAccountEncash"
+                    android:id="@+id/layoutAlipayAccountEncash2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_background_middle_white_default"
@@ -328,7 +328,7 @@
                 android:paddingRight="7.56dp" >
 
                 <LinearLayout
-                    android:id="@+id/layoutAlipayAccountEncash"
+                    android:id="@+id/layoutAlipayAccountEncash3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_background_bottom_white_default"
@@ -406,7 +406,7 @@
                 android:paddingRight="7.56dp" >
 
                 <LinearLayout
-                    android:id="@+id/layoutAlipayAccountEncash"
+                    android:id="@+id/layoutAlipayAccountEncash4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/input_background_single_white_default"

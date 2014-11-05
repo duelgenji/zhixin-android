@@ -12,11 +12,15 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
@@ -50,8 +54,9 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	private Context context;
 
 	private String phone;
-
+	private ImageButton phoneClear;
 	private String password;
+	private ToggleButton showPassword;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +67,24 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 		userInfoDao = new UserInfoDao();
 
 		phoneStr = (EditText) this.findViewById(R.id.phone);
+		phoneClear = (ImageButton) this.findViewById(R.id.btn_clear);
+		phoneClear.setOnClickListener(this);
 		passwordStr = (EditText) this.findViewById(R.id.password);
+		showPassword = (ToggleButton) this.findViewById(R.id.btn_show_pwd);
+		showPassword.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				if (isChecked) {
+					passwordStr.setInputType(InputType.TYPE_NULL);
+				} else {
+					passwordStr.setInputType(InputType.TYPE_CLASS_TEXT
+							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
+				}
+			}
+		});
+		
 
 		btnRegister = (ImageButton) this.findViewById(R.id.btnRegister);
 		btnRegister.setOnClickListener(this);
@@ -181,11 +203,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		Intent intent;
 		switch (v.getId()) {
+		case R.id.btn_clear:
+			v.setEnabled(false);
+			phoneStr.setText("");
+			v.setEnabled(true);
+			break;
 		case R.id.btnRegister:
 			v.setEnabled(false);
 			intent = new Intent(this, RegistPhoneActivity.class);
 			startActivity(intent);
-			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.txtForgot:

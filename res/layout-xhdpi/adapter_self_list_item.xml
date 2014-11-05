@@ -14,7 +14,8 @@
         android:background="@drawable/input_background_single_white"
         android:orientation="horizontal" >
 
-        <ImageView
+        <!--
+             <ImageView
             android:id="@+id/img_xlzc"
             android:layout_width="1dp"
             android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
             android:layout_weight="3"
             android:padding="3dp"
             android:src="@drawable/icon_self_type_character" />
+        -->
 
         <TextView
             android:id="@+id/tv_title"

@@ -301,6 +301,7 @@ public class MoreSetting extends FragmentActivity implements
 
 		case R.id.logOutBtn:
 			logOut();
+			MainActivity.mainActivity.finish();
 			break;
 		default:
 			break;

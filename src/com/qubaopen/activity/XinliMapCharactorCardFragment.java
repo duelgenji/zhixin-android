@@ -80,6 +80,7 @@ public class XinliMapCharactorCardFragment extends Fragment {
 				}
 				String requestUrl = SettingValues.URL_PREFIX
 						+ context.getString(R.string.URL_GET_MAP) + "?typeId=1";
+				
 
 				new LoadDataTask()
 						.execute(1, requestUrl, null, HttpClient.TYPE_GET);
@@ -136,6 +137,7 @@ public class XinliMapCharactorCardFragment extends Fragment {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
+					Log.i("mapData", "first page......" + result);
 					result.put("syncType", syncType);
 
 //					Log.i("地图信息第一页", result + "");

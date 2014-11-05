@@ -139,7 +139,7 @@
                 android:layout_weight="1.4"/>
 
             <TextView
-                android:id="@+id/nicknameTextView"
+                android:id="@+id/user_info_attention"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
@@ -149,7 +149,7 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/nicknameTextView"
+                android:id="@+id/user_info_authentication"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_weight="72.6"

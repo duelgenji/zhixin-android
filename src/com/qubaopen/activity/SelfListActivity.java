@@ -2,6 +2,7 @@ package com.qubaopen.activity;
 
 import org.apache.commons.lang3.StringUtils;
 
+import android.R.integer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -34,19 +35,21 @@ import com.qubaopen.utils.SqlCursorLoader;
 public class SelfListActivity extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener,
 		OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
-	/**趣测试列表 */
+	/** 列表类型 */
+	public static String SELF_LIST_TYPE = "selfListType";
+	private int type;
+	/** 趣测试列表 */
 	private ListView selfList;
-	
+
 	private RelativeLayout layoutSelfListEmpty;
-	/**loading */
+	/** loading */
 	private QubaopenProgressDialog progressDialog;
-	
+
 	private SelfListAdapter adapter;
-	
+
 	private SelfListService selfListService;
 
 	private SelfListActivity _this;
-
 
 	private int currentFirstVisibleItem;
 	private int currentVisibleItemCount;
@@ -55,49 +58,81 @@ public class SelfListActivity extends FragmentActivity implements
 
 	private LoadDataTask refreshDataTask;
 
-	/**下拉刷新*/
+	/** 下拉刷新 */
 	private SwipeRefreshLayout selfListParent;
 
-	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
-		private boolean refreshFlag;
-
-		public LoadDataTask(boolean refreshFlag) {
-			super();
-			this.refreshFlag = refreshFlag;
-		}
-
-		@Override
-		protected String doInBackground(Integer... params) {
-			return selfListService.requestSelfList(refreshFlag);
-		}
-
-		@Override
-		protected void onPostExecute(String params) {
-			Bundle bundle=new Bundle();
-			if(params==null){
-				params="";
-			}
-			bundle.putString("ids", params);
-			getSupportLoaderManager().restartLoader(0, bundle, _this);
-			if (selfListParent.isRefreshing()){
-				selfListParent.setRefreshing(false);
-			}
-			
-		}
-		@Override
-		protected void onCancelled() {
-			super.onCancelled();
-			if (selfListParent.isRefreshing()){
-				selfListParent.setRefreshing(false);
-			}
-		}
-	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_self_list);
 		_this = this;
+		initIntent();
 		init();
+	}
+
+	private void init() {
+		selfListService = new SelfListService(this);
+		progressDialog = new QubaopenProgressDialog(this);
+		selfListParent = (SwipeRefreshLayout) this
+				.findViewById(R.id.selfListParent);
+		layoutSelfListEmpty = (RelativeLayout) this
+				.findViewById(R.id.layoutSelfListEmpty);
+		selfListParent.setColorScheme(R.color.know_heart_theme,
+				R.color.general_activity_background, R.color.know_heart_theme,
+				R.color.general_activity_background);
+		selfListParent.setOnRefreshListener(this);
+
+		((TextView) findViewById(R.id.title_of_the_page)).setText("心理自测");
+
+		findViewById(R.id.backup_btn).setOnClickListener(this);
+		selfList = (ListView) this.findViewById(R.id.selfList);
+//		//原方法（带刷新）
+//		refreshDataTask = new LoadDataTask(false);
+		//新方法
+		refreshDataTask = new LoadDataTask();
+		if (!progressDialog.isShowing()) {
+			progressDialog.show();
+		}
+		refreshDataTask.execute();
+
+		// app第一次到此页面 有教学图片
+		new AsyncTask<Void, Void, Integer>() {
+			@Override
+			protected Integer doInBackground(Void... params) {
+				SharedPreferences sharedPref = _this.getSharedPreferences(
+						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
+				UserInfo userInfo = new UserInfoDao().getCurrentUser();
+
+				if (userInfo != null
+						&& (userInfo.getSex() == 2 || StringUtils
+								.isEmpty(userInfo.getBirthDay()))) {
+					return 2;
+				} else if (userInfo == null) {
+					return 2;
+				} else if (sharedPref.getBoolean(
+						SettingValues.INSTRUCTION_SELF_LIST, true)) {
+					return 1;
+				}
+				return 0;
+			}
+
+			@Override
+			protected void onPostExecute(Integer result) {
+				if (result == 1) {
+					InstructionDialog instructionDialog = new InstructionDialog(
+							_this, SettingValues.INSTRUCTION_SELF_LIST);
+					instructionDialog.show();
+				} else if (result == 2) {
+					Intent intent = new Intent(SelfListActivity.this,
+							SelectAgeSexActivity.class);
+					startActivity(intent);
+				}
+			}
+		}.execute();
+	}
+
+	private void initIntent() {
+		type = getIntent().getIntExtra(SELF_LIST_TYPE, 0);
 	}
 
 	@Override
@@ -105,18 +140,59 @@ public class SelfListActivity extends FragmentActivity implements
 		super.onStart();
 	}
 
+	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
+//		private boolean refreshFlag;
+//
+//		public LoadDataTask(boolean refreshFlag) {
+//			super();
+//			this.refreshFlag = refreshFlag;
+//		}
+
+		@Override
+		protected String doInBackground(Integer... params) {
+//			//原方法（带刷新）
+//			return selfListService.requestSelfList(refreshFlag,type);
+			//新方法
+			return selfListService.requestSelfList(type);
+		}
+
+		@Override
+		protected void onPostExecute(String params) {
+			Bundle bundle = new Bundle();
+			if (params == null) {
+				params = "";
+			}
+			bundle.putString("ids", params);
+			getSupportLoaderManager().restartLoader(0, bundle, _this);
+			if (selfListParent.isRefreshing()) {
+				selfListParent.setRefreshing(false);
+			}
+
+		}
+
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+			if (selfListParent.isRefreshing()) {
+				selfListParent.setRefreshing(false);
+			}
+		}
+	}
+
 	@Override
 	public Loader<Cursor> onCreateLoader(int id, Bundle bundle) {
 
-		return new SqlCursorLoader(this, SelfListService.SelfListSqlMaker.makeSql(bundle.getString("ids")), SelfList.class);
+		return new SqlCursorLoader(this,
+				SelfListService.SelfListSqlMaker.makeSql(bundle
+						.getString("ids")), SelfList.class);
 	}
 
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-		if(cursor.getCount()==0){
+		if (cursor.getCount() == 0) {
 			selfListParent.setVisibility(View.GONE);
 			layoutSelfListEmpty.setVisibility(View.VISIBLE);
-		}else{
+		} else {
 			selfListParent.setVisibility(View.VISIBLE);
 			layoutSelfListEmpty.setVisibility(View.GONE);
 		}
@@ -154,63 +230,6 @@ public class SelfListActivity extends FragmentActivity implements
 
 	}
 
-	private void init() {
-		selfListService = new SelfListService(this);
-		progressDialog = new QubaopenProgressDialog(this);
-		selfListParent = (SwipeRefreshLayout) this
-				.findViewById(R.id.selfListParent);
-		layoutSelfListEmpty =(RelativeLayout) this.findViewById(R.id.layoutSelfListEmpty);
-		selfListParent.setColorScheme(R.color.know_heart_theme,
-				R.color.general_activity_background, R.color.know_heart_theme,
-				R.color.general_activity_background);
-		selfListParent.setOnRefreshListener(this);
-	
-		((TextView)findViewById(R.id.title_of_the_page))
-		.setText("心理自测");
-
-		findViewById(R.id.backup_btn).setOnClickListener(this);
-		selfList = (ListView) this.findViewById(R.id.selfList);
-
-		refreshDataTask = new LoadDataTask(false);
-		if (!progressDialog.isShowing()) {
-			progressDialog.show();
-		}
-		refreshDataTask.execute();
-
-		//app第一次到此页面     有教学图片
-		new AsyncTask<Void, Void, Integer>() {
-			@Override
-			protected Integer doInBackground(Void... params) {
-				SharedPreferences sharedPref = _this.getSharedPreferences(
-						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-				UserInfo userInfo =new UserInfoDao().getCurrentUser();
-				
-				
-				if(userInfo!=null && (userInfo.getSex()==2 || StringUtils.isEmpty(userInfo.getBirthDay()))){
-					return 2;
-				}else if(userInfo==null){
-					return 2;
-				}else if(sharedPref.getBoolean(
-						SettingValues.INSTRUCTION_SELF_LIST, true)){
-					return 1;
-				}
-				return 0;
-			}
-
-			@Override
-			protected void onPostExecute(Integer result) {
-				if (result==1) {
-					InstructionDialog instructionDialog = new InstructionDialog(
-							_this, SettingValues.INSTRUCTION_SELF_LIST);
-					instructionDialog.show();
-				}else if (result==2){
-					Intent intent = new Intent(SelfListActivity.this, SelectAgeSexActivity.class);
-					startActivity(intent);
-				}
-			}
-		}.execute();
-	}
-
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
 			int visibleItemCount, int totalItemCount) {
@@ -219,6 +238,7 @@ public class SelfListActivity extends FragmentActivity implements
 		this.currentVisibleItemCount = visibleItemCount;
 		this.currentTotalItemCount = totalItemCount;
 	}
+
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {
 		this.currentScrollState = scrollState;
@@ -231,7 +251,10 @@ public class SelfListActivity extends FragmentActivity implements
 				&& this.currentScrollState == SCROLL_STATE_IDLE) {
 			if ((this.currentFirstVisibleItem + this.currentVisibleItemCount) == this.currentTotalItemCount) {
 				if (refreshDataTask.getStatus() != AsyncTask.Status.RUNNING) {
-					refreshDataTask = new LoadDataTask(true);
+//					//原方法（带刷新）
+//					refreshDataTask = new LoadDataTask(false);
+					//新方法
+					refreshDataTask = new LoadDataTask();
 					if (!progressDialog.isShowing()) {
 						progressDialog.show();
 					}
@@ -243,7 +266,6 @@ public class SelfListActivity extends FragmentActivity implements
 
 	@Override
 	protected void onResume() {
-		// TODO Auto-generated method stub
 		super.onResume();
 		StatService.onResume(this);
 
@@ -258,7 +280,10 @@ public class SelfListActivity extends FragmentActivity implements
 	@Override
 	public void onRefresh() {
 		if (refreshDataTask.getStatus() != AsyncTask.Status.RUNNING) {
-			refreshDataTask = new LoadDataTask(true);
+//			//原方法（带刷新）
+//			refreshDataTask = new LoadDataTask(false);
+			//新方法
+			refreshDataTask = new LoadDataTask();
 			// if (!progressDialog.isShowing()) {
 			// progressDialog.show();
 			// }

@@ -12,6 +12,7 @@ import net.tsz.afinal.FinalHttp;
 import net.tsz.afinal.http.AjaxCallBack;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +33,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -137,10 +137,10 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		nickNameTextView = (TextView) view.findViewById(R.id.nickNameTextView);
 		editNickNameBtn = (ImageButton) view.findViewById(R.id.editNickNameBtn);
 		editNickNameBtn.setOnClickListener(new NicknameIconClickListener());
-		
+
 		signatureHead = (TextView) view.findViewById(R.id.tv_signature);
 		signatureHead.setOnClickListener(new SignatureClickListener());
-		
+
 		signatureTextView = (TextView) view.findViewById(R.id.signature);
 		signatureTextView.setOnClickListener(new SignatureClickListener());
 
@@ -168,22 +168,31 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		headImageView = (CircleImageView) view.findViewById(R.id.headIcon);
 
 		headImageView.setOnClickListener(new ClickImageToChangeHeadIcon());
-		
+		String requestUrl = SettingValues.URL_PREFIX
+				+ getString(R.string.URL_USER_INFO_ADD);
 		if (userInfo != null) {
-			if (userInfo.getNickName() != null) {
+//			Log.i("userinfo", "find sqlite");
+			if (StringUtils.isNotEmpty(userInfo.getNickName())) {
+//				Log.i("userinfo", "find a nickname");
 				localNickName = userInfo.getNickName();
 				nickNameTextView.setText(localNickName);
+				
+			} else {
+//				Log.i("userinfo", "find no nickname");
+				new LoadDataTask1().execute(1, requestUrl, 0,
+						HttpClient.TYPE_GET);
 			}
-			if (userInfo.getSignature() != null) {
+			if (StringUtils.isNotEmpty(userInfo.getSignature())) {
 				localSignature = userInfo.getSignature();
 				signatureTextView.setText(localSignature);
+			} else {
+				new LoadDataTask1().execute(1, requestUrl, 0,
+						HttpClient.TYPE_GET);
 			}
 			updateHeadIcon();
 
 		} else {
-			String requestUrl = SettingValues.URL_PREFIX
-					+ getString(R.string.URL_USER_INFO_ADD);
-			new LoadDataTask1().execute(1, requestUrl, null,
+			new LoadDataTask1().execute(1, requestUrl, 0,
 					HttpClient.TYPE_GET);
 		}
 
@@ -191,9 +200,11 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 
 	private void updateHeadIcon() {
 		if (userInfo.getPicUrl() != null) {
-			String headIcnUrl = "http://115.28.176.74:8080/know-heart"
+			String frontStr = SettingValues.URL_PREFIX;
+			frontStr = frontStr.substring(0,frontStr.length()-1);
+			String headIcnUrl = frontStr
 					+ userInfo.getPicUrl();
-			// Log.i("headIcon", headIcnUrl);
+//			 Log.i("headIcon", headIcnUrl);
 
 			File fileFolder = new File(
 					Environment.getExternalStorageDirectory()
@@ -403,17 +414,19 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		updateUserInfo();
 		IntentFilter intentFilter = new IntentFilter(
 				CropImageIntentService.IMAGE_UPLOAD_DONE_RECEIVER);
+		
 		mReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				// Log.i("headIcon", "接受");
+				
 				String success = intent.getStringExtra("success");
+//				 Log.i("upload", "成功？。。。。。。" + success);
 				if (success.equals("1")) {
 					String requestUrl = SettingValues.URL_PREFIX
 							+ getString(R.string.URL_USER_INFO_ADD);
-					new LoadDataTask1().execute(1, requestUrl, null,
+					new LoadDataTask1().execute(1, requestUrl, 1,
 							HttpClient.TYPE_GET);
-
+					showToast(getString(R.string.toast_upload_photo_success_tips));
 				} else {
 					showToast(getString(R.string.toast_upload_photo_fail_tips));
 				}
@@ -435,8 +448,9 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-					Log.i("userinfo", "个人资料。。。。。。" + result);
+//					Log.i("userinfo", "个人资料。。。。。。" + result);
 					result.put("syncType", syncType);
+					result.put("isFirst", (Integer)params[2]);
 					break;
 
 				default:
@@ -459,12 +473,23 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 						userInfoDao.saveUserInfo(result,
 								userInfoDao.getCurrentUser());
 						userInfo = userInfoDao.getCurrentUser();
-						showToast(getString(R.string.toast_get_userinfo_success));
+						if (result.getInt("isFirst") == 0) {
+							showToast(getString(R.string.toast_get_userinfo_success));
+						}
 						
+
 						nickName = result.getString("nickName");
+//						Log.i("nickname", "昵称......" + nickName);
+						if (StringUtils.isNotEmpty(nickName)) {
+							nickNameTextView.setText(nickName);
+						} else {
+							String phone = CurrentUserHelper.getCurrentPhone();
+							String str = "手机用户" + phone.substring(7, 11);
+							nickNameTextView.setText(str);
+						}
 						signature = result.getString("signature");
-						nickNameTextView.setText(nickName);
 						signatureTextView.setText(signature);
+
 						updateHeadIcon();
 
 					} else {

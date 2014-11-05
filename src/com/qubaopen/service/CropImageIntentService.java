@@ -41,6 +41,7 @@ public class CropImageIntentService extends IntentService {
 //			Log.i("upload","上传头像：......" + fileToSend);
 			JSONObject result = HttpClient.requestSyncForUnchangedParams(
 					requestUrl, params);
+//			Log.i("upload","上传头像：......" + result);
 			if (result != null) {
 
 				if (result.getString("success").equals("1")) {

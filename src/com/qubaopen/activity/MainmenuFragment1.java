@@ -9,21 +9,12 @@ import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.LinearInterpolator;
-import android.view.animation.RotateAnimation;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -38,32 +29,34 @@ import com.qubaopen.settings.PhoneHelper;
 import com.qubaopen.utils.AnimationUtils;
 import com.qubaopen.utils.MatcherUtil;
 
-public class MainmenuFragment extends Fragment implements
+public class MainmenuFragment1 extends Fragment implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener {
 
 	/***/
 	/***/
 	// private FragmentManager fm;
 	private TextView txtPageTitle;
-	/** 心理自测按钮 */
-	private LinearLayout ll_XLZC;
-	/** 心情回收站按钮 */
-	private LinearLayout ll_XQHSZ;
-	/** 趣味测试按钮 */
-	private LinearLayout ll_QWCS;
-	/** 心理求助按钮 */
-
-	private LinearLayout ll_XLQZ;
-	/** 调研测试按钮 */
-	private LinearLayout ll_DYCS;
-
-	private Animation animation, animation1, animation2, animation3,
-			animation4, animation5;
-	private ImageView img1, img2, img3, img4, img5;
 
 	private RelativeLayout layoutPickMood;
 
 	private RelativeLayout layoutMoodSwitch;
+	/** 主菜单service */
+	private MainMenuService mainMenuService;
+
+	/** 动画 */
+	AnimationDrawable progressAnimation;
+	/***/
+	private MainmenuFragment1 _this;
+	private Activity mainActivity;
+
+	private LinearLayout characterPercent;
+	private RelativeLayout moodControl;
+	private LinearLayout character;
+	private LinearLayout communication;
+	private LinearLayout career;
+	private LinearLayout health;
+	private LinearLayout interest;
+	private LinearLayout recycle;
 
 	private ImageView imgMoodClose;
 	private ImageView imgMoodArrow;
@@ -84,33 +77,39 @@ public class MainmenuFragment extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.main_activity, container, false);
+		View view = inflater.inflate(R.layout.main_activity_new, container,
+				false);
 		_this = this;
 
+		initView(view);
+
+		return view;
+	}
+
+	private void initView(View view) {
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText("知心");
-		// 心里自测的动画
-		ll_XLZC = (LinearLayout) view.findViewById(R.id.ll_XLZC);
-		ll_XLZC.setOnClickListener(this);
-		img1 = (ImageView) view.findViewById(R.id.menu_heart_beat);
-		((AnimationDrawable) img1.getDrawable()).stop();
-		((AnimationDrawable) img1.getDrawable()).selectDrawable(0);
-		// 心情回收站的动画
-		ll_XQHSZ = (LinearLayout) view.findViewById(R.id.ll_XQHSZ);
-		ll_XQHSZ.setOnClickListener(this);
-		img2 = (ImageView) view.findViewById(R.id.img_huishouzhangaizi);
-		// 趣味测试的动画
-		img3 = (ImageView) view.findViewById(R.id.img_QWCS);
-		ll_QWCS = (LinearLayout) view.findViewById(R.id.ll_QWCS);
-		ll_QWCS.setOnClickListener(this);
-		// 心理求助的动画
-		ll_XLQZ = (LinearLayout) view.findViewById(R.id.ll_XLQZ);
-		ll_XLQZ.setOnClickListener(this);
-		img4 = (ImageView) view.findViewById(R.id.img_xin);
-		// 调研测试
-		ll_DYCS = (LinearLayout) view.findViewById(R.id.ll_DYCS);
-		ll_DYCS.setOnClickListener(this);
-		img5 = (ImageView) view.findViewById(R.id.img_dycs);
+
+		characterPercent = (LinearLayout) view
+				.findViewById(R.id.layout_character_complete_num);
+		characterPercent.setOnClickListener(this);
+		moodControl = (RelativeLayout) view
+				.findViewById(R.id.layout_mood_control);
+		moodControl.setOnClickListener(this);
+
+		character = (LinearLayout) view.findViewById(R.id.layout_character);
+		character.setOnClickListener(this);
+		communication = (LinearLayout) view
+				.findViewById(R.id.layout_communication);
+		communication.setOnClickListener(this);
+		career = (LinearLayout) view.findViewById(R.id.layout_career);
+		career.setOnClickListener(this);
+		health = (LinearLayout) view.findViewById(R.id.layout_health);
+		health.setOnClickListener(this);
+		interest = (LinearLayout) view.findViewById(R.id.layout_interest);
+		interest.setOnClickListener(this);
+		recycle = (LinearLayout) view.findViewById(R.id.layout_recycle);
+		recycle.setOnClickListener(this);
 
 		layoutPickMood = (RelativeLayout) view
 				.findViewById(R.id.layout_pick_mood);
@@ -152,32 +151,7 @@ public class MainmenuFragment extends Fragment implements
 		mainMenuService = new MainMenuService(MyApplication.getAppContext());
 
 		new LoadDataTask().execute(0, 0);
-
-		return view;
 	}
-
-	Handler handler = new Handler() {
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case 0:
-				img5.setAnimation(animation1);
-				break;
-			case 1:
-				img5.setAnimation(animation2);
-				break;
-
-			}
-		};
-	};
-
-	/** 主菜单service */
-	private MainMenuService mainMenuService;
-
-	/** 动画 */
-	AnimationDrawable progressAnimation;
-	/***/
-	private MainmenuFragment _this;
-	private Activity mainActivity;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -189,53 +163,37 @@ public class MainmenuFragment extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		v.setEnabled(false);
-		Intent intent;
+		// Intent intent;
 		switch (v.getId()) {
-		case R.id.ll_DYCS:
-			InitialAnimation();
-			img5.startAnimation(animation);
-			intent = new Intent(mainActivity, InterestListActivity.class);
+		case R.id.layout_character_complete_num:
+			v.setEnabled(true);
+			break;
+		case R.id.layout_mood_control:
+			startMoodControlActivity();
+			v.setEnabled(true);
+			break;
+		case R.id.layout_character:
+			startSelfListActivity(1);
+			v.setEnabled(true);
+			break;
+		case R.id.layout_communication:
+			startSelfListActivity(2);
+			v.setEnabled(true);
+			break;
+		case R.id.layout_career:
+			startSelfListActivity(3);
+			v.setEnabled(true);
+			break;
+		case R.id.layout_health:
+			startSelfListActivity(4);
+			v.setEnabled(true);
+			break;
+		case R.id.layout_interest:
+			Intent intent = new Intent(mainActivity, InterestListActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
-		case R.id.ll_XLZC:
-			final AnimationDrawable hbDrawable = (AnimationDrawable) img1
-					.getDrawable();
-			hbDrawable.run();
-			Handler handler = new Handler();
-			handler.postDelayed(new Runnable() {
-				public void run() {
-					// 此处调用第二个动画播放方法
-					Intent intent = new Intent(mainActivity,
-							SelfListActivity.class);
-					startActivity(intent);
-
-					// 在动画结束后 把图片设置到第一帧 并且不也页面上感觉到有变化
-					new Handler().postDelayed(new Runnable() {
-						public void run() {
-							hbDrawable.selectDrawable(0);
-						}
-					}, 500);
-				}
-			}, 500);
-
-			v.setEnabled(true);
-			break;
-
-		case R.id.ll_XQHSZ:
-			InitialAnimation();
-			img2.startAnimation(animation3);
-			v.setEnabled(true);
-			break;
-		case R.id.ll_QWCS:
-			InitialAnimation();
-			img3.startAnimation(animation4);
-			v.setEnabled(true);
-			break;
-		case R.id.ll_XLQZ:
-			InitialAnimation();
-			img4.startAnimation(animation5);
-			v.setEnabled(true);
+		case R.id.layout_recycle:
 			break;
 		case R.id.img_mood_switch_panel:
 
@@ -300,83 +258,15 @@ public class MainmenuFragment extends Fragment implements
 		}
 	}
 
-	private void InitialAnimation() {
-		animation3 = new RotateAnimation(0.0f, -20.0f, 30, 43);
-		// 旋转起始角度；终止角度；圆心的X坐标；圆心的Y坐标
-		// animation4 = new RotateAnimation(0.0f, -90.0f, 0, 0);
-		animation4 = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF,
-				0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-		LinearInterpolator lin = new LinearInterpolator();
-		animation4.setInterpolator(lin);
-		animation4.setDuration(300);
-		animation4.setAnimationListener(new AnimationListener() {
+	private void startMoodControlActivity() {
+		Intent intent = new Intent(mainActivity, MoodControlActivity.class);
+		startActivity(intent);
+	}
 
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				Intent intent = new Intent(mainActivity,
-						InterestListActivity.class);
-				startActivity(intent);
-			}
-		});
-
-		animation5 = new ScaleAnimation(1f, 1.2f, 1f, 1.2f,
-				Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF,
-				0.8f);
-		animation = new TranslateAnimation(0, -15, 0, 15);
-		animation.setDuration(500);
-		animation.setAnimationListener(new AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				Message msg = Message.obtain();
-				msg.what = 0;
-				handler.sendMessage(msg);
-			}
-		});
-		animation1 = new TranslateAnimation(-15, 15, 15, 15);
-		animation1.setDuration(500);
-		animation1.setAnimationListener(new AnimationListener() {
-
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(Animation animation) {
-				Message msg = Message.obtain();
-				msg.what = 1;
-				handler.sendMessage(msg);
-			}
-		});
-		animation2 = new TranslateAnimation(15, 0, 15, 0);
-		animation2.setDuration(500);
-
+	private void startSelfListActivity(int type) {
+		Intent intent = new Intent(mainActivity, SelfListActivity.class);
+		intent.putExtra(SelfListActivity.SELF_LIST_TYPE, type);
+		startActivity(intent);
 	}
 
 	@Override

@@ -13,8 +13,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.ListView;
@@ -26,7 +26,6 @@ import com.qubaopen.R;
 import com.qubaopen.adapter.InterestListAdapter;
 import com.qubaopen.datasynservice.InterestListService;
 import com.qubaopen.dialog.QubaopenProgressDialog;
-import com.qubaopen.dialog.QuceshiOrderPickerDialog;
 import com.qubaopen.dialog.QuceshiTypePickerDialog;
 import com.qubaopen.domain.InterestList;
 import com.qubaopen.utils.SqlCursorLoader;
@@ -36,12 +35,12 @@ public class InterestListActivity extends FragmentActivity implements
 		OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
 	private QuceshiTypePickerDialog quceshiTypePickerDialog;
-	private QuceshiOrderPickerDialog quceshiOrderPickerDialog;
-	private ViewGroup qucehiTypePickerComp;
-	private View quceshiOrderComponent;
+//	private QuceshiOrderPickerDialog quceshiOrderPickerDialog;
+//	private ViewGroup qucehiTypePickerComp;
+//	private View quceshiOrderComponent;
 
 	private TextView txtInterestType;
-	private TextView txtInterestOrderType;
+//	private TextView txtInterestOrderType;
 
 	/** 趣测试列表 */
 	private ListView quList;
@@ -58,7 +57,7 @@ public class InterestListActivity extends FragmentActivity implements
 
 	private boolean refreshListIsRefreshing;
 
-	private int order = 0;
+//	private int order = 0;
 
 	private int type = 0;
 
@@ -74,58 +73,7 @@ public class InterestListActivity extends FragmentActivity implements
 	/** 下拉刷新 */
 	private SwipeRefreshLayout quListParent;
 
-	private class LoadDataTask extends AsyncTask<Integer, Void, JSONObject> {
-		private boolean refreshFlag;
 
-		public LoadDataTask(boolean refreshFlag) {
-			super();
-			this.refreshFlag = refreshFlag;
-			if (refreshFlag) {
-				shouldGetMoreData = true;
-				currentListPage = 0;
-			}
-		}
-
-		@Override
-		protected JSONObject doInBackground(Integer... params) {
-			int order = params[0] == null ? 0 : params[0];
-			int type = params[1] == null ? 0 : params[1];
-			try {
-				return quListService.getInterestList(order, type,
-						currentListPage);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(JSONObject params) {
-			try {
-				shouldGetMoreData = !params.getBoolean("lastPage");
-				if (shouldGetMoreData) {
-					currentListPage++;
-				}
-
-				getSupportLoaderManager().restartLoader(0, null, _this);
-				if (quListParent.isRefreshing()) {
-					quListParent.setRefreshing(false);
-				}
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-		}
-
-		@Override
-		protected void onCancelled() {
-			super.onCancelled();
-			if (quListParent.isRefreshing()) {
-				quListParent.setRefreshing(false);
-			}
-		}
-	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +82,50 @@ public class InterestListActivity extends FragmentActivity implements
 		_this = this;
 		init();
 	}
+	private void init() {
+		shouldGetMoreData = true;
+		currentListPage = 0;
+		quListService = new InterestListService(this);
+		progressDialog = new QubaopenProgressDialog(this);
+		quListParent = (SwipeRefreshLayout) this
+				.findViewById(R.id.quListParent);
+		layoutInterestListEmpty =(RelativeLayout) this.findViewById(R.id.layoutInterestListEmpty);
+		quListParent.setColorScheme(R.color.know_heart_theme,
+				R.color.general_activity_background, R.color.know_heart_theme,
+				R.color.general_activity_background);
+		quListParent.setOnRefreshListener(this);
 
+		this.findViewById(R.id.backup_btn).setOnClickListener(this);
+		quList = (ListView) this.findViewById(R.id.quList);
+
+		refreshDataTask = new LoadDataTask(true);
+		refreshListIsRefreshing = false;
+		if (!progressDialog.isShowing()) {
+			progressDialog.show();
+		}
+//		refreshDataTask.execute(order, type);
+		refreshDataTask.execute(type);
+
+		// 类型和排序
+		txtInterestType = (TextView) this.findViewById(R.id.txtInterestType);
+//		txtInterestOrderType = (TextView) this
+//				.findViewById(R.id.txtInterestOrderType);
+		txtInterestType.setOnClickListener(this);
+//		txtInterestOrderType.setOnClickListener(this);
+
+		quceshiTypePickerDialog = new QuceshiTypePickerDialog(this,
+				android.R.style.Theme_Translucent_NoTitleBar);
+		quceshiTypePickerDialog
+				.setOnDismissListener(new TypePickerDialogDismissListener());
+		quceshiTypePickerDialog.setOwnerActivity(this);
+
+//		quceshiOrderPickerDialog = new QuceshiOrderPickerDialog(this,
+//				android.R.style.Theme_Translucent_NoTitleBar);
+//		quceshiOrderPickerDialog
+//				.setOnDismissListener(new OrderPickerDialogDismissListener());
+//		quceshiOrderPickerDialog.setOwnerActivity(this);
+
+	}
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -203,24 +194,83 @@ public class InterestListActivity extends FragmentActivity implements
 			}
 
 			break;
-		case R.id.txtInterestOrderType:
-
-			// if (refreshDataTask.getStatus() == AsyncTask.Status.RUNNING) {
-			// cancelSuccess = refreshDataTask.cancel(true);
-			// }
-
-			if (!quceshiOrderPickerDialog.isShowing()) {
-				quceshiOrderPickerDialog.show();
-
-			}
-
-			break;
+//		case R.id.txtInterestOrderType:
+//
+//			// if (refreshDataTask.getStatus() == AsyncTask.Status.RUNNING) {
+//			// cancelSuccess = refreshDataTask.cancel(true);
+//			// }
+//
+//			if (!quceshiOrderPickerDialog.isShowing()) {
+//				quceshiOrderPickerDialog.show();
+//
+//			}
+//
+//			break;
 		default:
 			break;
 		}
 
 	}
+	
+	private class LoadDataTask extends AsyncTask<Integer, Void, JSONObject> {
+		private boolean refreshFlag;
 
+		public LoadDataTask(boolean refreshFlag) {
+			super();
+			this.refreshFlag = refreshFlag;
+			if (refreshFlag) {
+				shouldGetMoreData = true;
+				currentListPage = 0;
+			}
+		}
+
+		@Override
+		protected JSONObject doInBackground(Integer... params) {
+//			int order = params[0] == null ? 0 : params[0];
+//			int type = params[1] == null ? 0 : params[1];
+			int type = params[0] == null ? 0 : params[0];
+			try {
+//				return quListService.getInterestList(order, type,
+//						currentListPage);
+				return quListService.getInterestList(type,currentListPage);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject params) {
+			try {
+				Log.i("morepage", "当前。。。" + shouldGetMoreData + "后台" + params.getBoolean("lastPage"));
+				shouldGetMoreData = !params.getBoolean("lastPage");
+				if (shouldGetMoreData) {
+					currentListPage++;
+				}
+//				Bundle bundle = new Bundle();
+//				if (params == null) {
+//					params.put("ids", "");
+//				}
+//				bundle.putString("ids", params.getString("ids"));
+				getSupportLoaderManager().restartLoader(0, null, _this);
+				if (quListParent.isRefreshing()) {
+					quListParent.setRefreshing(false);
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		@Override
+		protected void onCancelled() {
+			super.onCancelled();
+			if (quListParent.isRefreshing()) {
+				quListParent.setRefreshing(false);
+			}
+		}
+	}
 	private class TypePickerDialogDismissListener implements
 			DialogInterface.OnDismissListener {
 
@@ -237,7 +287,8 @@ public class InterestListActivity extends FragmentActivity implements
 					if (!progressDialog.isShowing()) {
 						progressDialog.show();
 					}
-					refreshDataTask.execute(order, type);
+//					refreshDataTask.execute(order, type);
+					refreshDataTask.execute(type);
 				}
 			} else {
 				if (refreshDataTask.isCancelled()) {
@@ -245,114 +296,46 @@ public class InterestListActivity extends FragmentActivity implements
 					if (!progressDialog.isShowing()) {
 						progressDialog.show();
 					}
-					refreshDataTask.execute(order, type);
+//					refreshDataTask.execute(order, type);
+					refreshDataTask.execute(type);
 				}
 			}
 		}
 	}
 
-	private class OrderPickerDialogDismissListener implements
-			DialogInterface.OnDismissListener {
-
-		@Override
-		public void onDismiss(DialogInterface arg0) {
-
-			if (quceshiOrderPickerDialog.isPickOrderOrNot()) {
-				if (order != quceshiOrderPickerDialog.getOrder()) {
-
-					order = quceshiOrderPickerDialog.getOrder();
-					txtInterestOrderType.setText(quceshiOrderPickerDialog
-							.getOrderStr());
-
-					refreshDataTask = new LoadDataTask(true);
-					if (!progressDialog.isShowing()) {
-						progressDialog.show();
-					}
-					refreshDataTask.execute(order, type);
-				}
-			} else {
-				if (refreshDataTask.isCancelled()) {
-					refreshDataTask = new LoadDataTask(true);
-					if (!progressDialog.isShowing()) {
-						progressDialog.show();
-					}
-
-					refreshDataTask.execute(order, type);
-				}
-			}
-		}
-	}
-
-	private void init() {
-		shouldGetMoreData = true;
-		currentListPage = 0;
-		quListService = new InterestListService(this);
-		progressDialog = new QubaopenProgressDialog(this);
-		quListParent = (SwipeRefreshLayout) this
-				.findViewById(R.id.quListParent);
-		layoutInterestListEmpty =(RelativeLayout) this.findViewById(R.id.layoutInterestListEmpty);
-		quListParent.setColorScheme(R.color.know_heart_theme,
-				R.color.general_activity_background, R.color.know_heart_theme,
-				R.color.general_activity_background);
-		quListParent.setOnRefreshListener(this);
-
-		this.findViewById(R.id.backup_btn).setOnClickListener(this);
-		quList = (ListView) this.findViewById(R.id.quList);
-
-		refreshDataTask = new LoadDataTask(true);
-		refreshListIsRefreshing = false;
-		if (!progressDialog.isShowing()) {
-			progressDialog.show();
-		}
-		refreshDataTask.execute(order, type);
-
-		// 类型和排序
-		txtInterestType = (TextView) this.findViewById(R.id.txtInterestType);
-		txtInterestOrderType = (TextView) this
-				.findViewById(R.id.txtInterestOrderType);
-		txtInterestType.setOnClickListener(this);
-		txtInterestOrderType.setOnClickListener(this);
-
-		quceshiTypePickerDialog = new QuceshiTypePickerDialog(this,
-				android.R.style.Theme_Translucent_NoTitleBar);
-		quceshiTypePickerDialog
-				.setOnDismissListener(new TypePickerDialogDismissListener());
-		quceshiTypePickerDialog.setOwnerActivity(this);
-
-		quceshiOrderPickerDialog = new QuceshiOrderPickerDialog(this,
-				android.R.style.Theme_Translucent_NoTitleBar);
-		quceshiOrderPickerDialog
-				.setOnDismissListener(new OrderPickerDialogDismissListener());
-		quceshiOrderPickerDialog.setOwnerActivity(this);
-
-		//第一次进入 列表 加载引导图
-//		new AsyncTask<Void, Void, Boolean>() {
-//			@Override
-//			protected Boolean doInBackground(Void... params) {
-//				SharedPreferences sharedPref = _this.getSharedPreferences(
-//						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-//				return sharedPref.getBoolean(
-//						SettingValues.INSTRUCTION_QUCESHI_LIST1, true);
-//			}
+//	private class OrderPickerDialogDismissListener implements
+//			DialogInterface.OnDismissListener {
 //
-//			@Override
-//			protected void onPostExecute(Boolean result) {
-//				if (result) {
-//					InstructionDialog qushouyeFirst = new InstructionDialog(
-//							_this, SettingValues.INSTRUCTION_QUCESHI_LIST1);
-//					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
-//						@Override
-//						public void onDismiss(DialogInterface dialog) {
-//							new InstructionDialog(_this,
-//									SettingValues.INSTRUCTION_QUCESHI_LIST2)
-//									.show();
-//						}
-//					});
-//					qushouyeFirst.show();
+//		@Override
+//		public void onDismiss(DialogInterface arg0) {
+//
+//			if (quceshiOrderPickerDialog.isPickOrderOrNot()) {
+//				if (order != quceshiOrderPickerDialog.getOrder()) {
+//
+//					order = quceshiOrderPickerDialog.getOrder();
+//					txtInterestOrderType.setText(quceshiOrderPickerDialog
+//							.getOrderStr());
+//
+//					refreshDataTask = new LoadDataTask(true);
+//					if (!progressDialog.isShowing()) {
+//						progressDialog.show();
+//					}
+//					refreshDataTask.execute(order, type);
+//				}
+//			} else {
+//				if (refreshDataTask.isCancelled()) {
+//					refreshDataTask = new LoadDataTask(true);
+//					if (!progressDialog.isShowing()) {
+//						progressDialog.show();
+//					}
+//
+//					refreshDataTask.execute(order, type);
 //				}
 //			}
-//		}.execute();
-	}
+//		}
+//	}
+
+	
 
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem,
@@ -380,7 +363,8 @@ public class InterestListActivity extends FragmentActivity implements
 						if (!progressDialog.isShowing()) {
 							progressDialog.show();
 						}
-						refreshDataTask.execute(order, type);
+//						refreshDataTask.execute(order, type);
+						refreshDataTask.execute(type);
 					}
 				}
 			}
@@ -408,7 +392,8 @@ public class InterestListActivity extends FragmentActivity implements
 			// if (!progressDialog.isShowing()) {
 			// progressDialog.show();
 			// }
-			refreshDataTask.execute(order, type);
+//			refreshDataTask.execute(order, type);
+			refreshDataTask.execute(type);
 		}
 
 	}

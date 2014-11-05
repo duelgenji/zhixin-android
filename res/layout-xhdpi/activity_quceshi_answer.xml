@@ -204,7 +204,7 @@
                    android:paddingRight="10dp"
                    android:layout_centerVertical="true" >
 
-                  <ImageView
+                  <ToggleButton
                       android:id="@+id/btnHideAnswerQCSA"
                       android:layout_width="match_parent"
                       android:layout_height="match_parent"

@@ -12,14 +12,14 @@ import com.qubaopen.domain.SelfList;
 
 public class SelfListDao {
 
-	/**保存自测问卷列表  返回问卷组id 用来做数据库查询 格式如: “15,5,6”*/
+	/** 保存自测问卷列表 返回问卷组id 用来做数据库查询 格式如: “15,5,6” */
 	public String saveSelfList(JSONObject jbo) {
 
-		String ids="";
+		String ids = "";
 		try {
 			JSONArray array;
 			array = jbo.getJSONArray("data");
-			boolean isNew=false;
+			boolean isNew = false;
 
 			SelfList selfList;
 			JSONObject jboInA;
@@ -31,14 +31,14 @@ public class SelfListDao {
 					int selfId = jboInA.getInt("selfId");
 					selfList = getSelfList(selfId);
 					if (selfList == null) {
-						isNew=true;
+						isNew = true;
 						selfList = new SelfList();
 						selfList.setSelfId(selfId);
 					}
 
 					if (jboInA.has("title")
-							&& StringUtils.isNotEmpty(jboInA
-									.getString("title"))) {
+							&& StringUtils
+									.isNotEmpty(jboInA.getString("title"))) {
 						selfList.setTitle(jboInA.getString("title"));
 					}
 
@@ -48,17 +48,20 @@ public class SelfListDao {
 						selfList.setManagementType(jboInA
 								.getInt("managementType"));
 					}
-					
+
 					selfList.setLastGetTime(new Date());
-					
-					if(isNew)
+
+					if (isNew) {
 						DbManager.getDatabase().save(selfList);
-					else 
+					}
+
+					else {
 						DbManager.getDatabase().update(selfList);
-					
-					ids+= (i==array.length()-1)?selfId:selfId+",";
-					
-					
+
+					}
+
+					ids += (i == array.length() - 1) ? selfId : selfId + ",";
+
 				}
 
 			}
@@ -87,15 +90,17 @@ public class SelfListDao {
 				}
 
 				if (jbo.has("guidanceSentence")
-						&& StringUtils.isNotEmpty(jbo.getString("guidanceSentence"))) {
-					selfList.setGuidanceSentence(jbo.getString("guidanceSentence"));
+						&& StringUtils.isNotEmpty(jbo
+								.getString("guidanceSentence"))) {
+					selfList.setGuidanceSentence(jbo
+							.getString("guidanceSentence"));
 				}
 
 				if (jbo.has("tips")
 						&& StringUtils.isNotEmpty(jbo.getString("tips"))) {
 					selfList.setTips(jbo.getString("tips"));
 				}
-				
+
 				if (jbo.has("remark")
 						&& StringUtils.isNotEmpty(jbo.getString("remark"))) {
 					selfList.setRemark(jbo.getString("remark"));

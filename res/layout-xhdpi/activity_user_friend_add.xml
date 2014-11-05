@@ -168,7 +168,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/textViewForCreditAvailable"
+                android:id="@+id/textViewForCreditAvailable1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"

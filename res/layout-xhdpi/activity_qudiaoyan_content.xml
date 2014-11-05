@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content" >
 
                     <RelativeLayout
-                        android:id="@+id/layoutContentQDYC"
+                        android:id="@+id/layoutContentQDYC1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="3dp"

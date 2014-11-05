@@ -44,6 +44,66 @@ public class MainActivity extends FragmentActivity {
 	private View currentBtn;
 
 	private MainActivity _this;
+	public static MainActivity mainActivity;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_main);
+		_this = this;
+		service = new MainMenuService(MyApplication.getAppContext());
+		new LoadDataTask().execute();
+
+		// new loginAsyncTask().execute();
+		startLogOnService();
+
+		_this = this;
+		mainActivity = this;
+
+		fm = this.getSupportFragmentManager();
+		fm.addOnBackStackChangedListener(initalFinishListener);
+
+//		 MainmenuFragment newFragment = new MainmenuFragment();
+		MainmenuFragment1 newFragment = new MainmenuFragment1();
+		FragmentTransaction transaction = fm.beginTransaction();
+		transaction.add(R.id.contentFragment, newFragment,
+				SettingValues.FRAGMENT_ROOT_FRAGMENT);
+		transaction.addToBackStack(SettingValues.FRAGMENT_ROOT_FRAGMENT);
+		transaction.commit();
+
+		new AsyncTask<Void, Void, Boolean>() {
+			@Override
+			protected Boolean doInBackground(Void... params) {
+				LoadAddressUtil.loadAddress();
+				SharedPreferences sharedPref = MainActivity.this
+						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
+								Context.MODE_PRIVATE);
+				return sharedPref.getBoolean(SettingValues.INSTRUCTION_MAIN1,
+						true);
+			}
+
+			@Override
+			protected void onPostExecute(Boolean result) {
+				if (result) {
+					InstructionDialog qushouyeFirst = new InstructionDialog(
+							MainActivity.this, SettingValues.INSTRUCTION_MAIN1);
+					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							new InstructionDialog(MainActivity.this,
+									SettingValues.INSTRUCTION_MAIN2).show();
+						}
+					});
+
+					qushouyeFirst.show();
+
+				}
+			}
+
+		}.execute();
+
+	}
 
 	private class FooterAction implements View.OnClickListener {
 
@@ -57,7 +117,7 @@ public class MainActivity extends FragmentActivity {
 						fm.getBackStackEntryCount() - 1).getName();
 				currentCheckedBtnId = view.getId();
 				currentBtn = view;
-//				Log.i("current fragment name", currentFragmentName);
+				// Log.i("current fragment name", currentFragmentName);
 
 				Fragment rootFg = fm
 						.findFragmentByTag(SettingValues.FRAGMENT_ROOT_FRAGMENT);
@@ -219,64 +279,7 @@ public class MainActivity extends FragmentActivity {
 
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.activity_main);
-		_this = this;
-		service = new MainMenuService(MyApplication.getAppContext());
-		new LoadDataTask().execute();
-
-		// new loginAsyncTask().execute();
-		startLogOnService();
-
-		_this = this;
-		fm = this.getSupportFragmentManager();
-		fm.addOnBackStackChangedListener(initalFinishListener);
-
-		MainmenuFragment newFragment = new MainmenuFragment();
-		FragmentTransaction transaction = fm.beginTransaction();
-		transaction.add(R.id.contentFragment, newFragment,
-				SettingValues.FRAGMENT_ROOT_FRAGMENT);
-		transaction.addToBackStack(SettingValues.FRAGMENT_ROOT_FRAGMENT);
-		transaction.commit();
-
-		new AsyncTask<Void, Void, Boolean>() {
-			@Override
-			protected Boolean doInBackground(Void... params) {
-				LoadAddressUtil.loadAddress();
-				SharedPreferences sharedPref = MainActivity.this
-						.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
-								Context.MODE_PRIVATE);
-				return sharedPref.getBoolean(SettingValues.INSTRUCTION_MAIN1,
-						true);
-			}
-
-			@Override
-			protected void onPostExecute(Boolean result) {
-				if (result) {
-					InstructionDialog qushouyeFirst = new InstructionDialog(
-							MainActivity.this, SettingValues.INSTRUCTION_MAIN1);
-					qushouyeFirst.setOnDismissListener(new OnDismissListener() {
-						@Override
-						public void onDismiss(DialogInterface dialog) {
-							new InstructionDialog(MainActivity.this,
-									SettingValues.INSTRUCTION_MAIN2).show();
-						}
-					});
-
-					qushouyeFirst.show();
-
-				}
-			}
-
-		}.execute();
-
-	}
-
 	private class LoadDataTask extends AsyncTask<Object, Object, String> {
-
 		@Override
 		protected String doInBackground(Object[] params) {
 			try {

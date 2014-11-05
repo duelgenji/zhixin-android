@@ -54,7 +54,7 @@
                 android:src="@drawable/drop_down_triangle_icon" />
         </RelativeLayout>
 
-        <ImageView
+        <!-- <ImageView
             android:id="@+id/imgOrderTypeTriangle"
             android:layout_width="7dp"
             android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
             android:layout_toLeftOf="@id/imgOrderTypeTriangle"
             android:text="@string/quceshi_order_default"
             android:textColor="@color/text_white"
-            android:textSize="14sp" />
+            android:textSize="14sp" /> -->
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
