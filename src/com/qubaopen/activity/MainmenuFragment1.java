@@ -16,6 +16,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -68,6 +71,11 @@ public class MainmenuFragment1 extends Fragment implements
 	private ImageView imgMoodArrow;
 	private ImageView imgMoodPanel;
 	private ImageView imgMoodBackground;
+	
+	private ImageView imgLastScoreBackground;
+	private ImageView imgLastScorePointer;
+	private TextView  txtLastScore;
+	private TextView  txtCurrentScore;
 
 	private RelativeLayout layoutMoodFace1, layoutMoodFace2, layoutMoodFace3,
 			layoutMoodFace4, layoutMoodFace5, layoutMoodFace6;
@@ -132,6 +140,17 @@ public class MainmenuFragment1 extends Fragment implements
 		imgMoodArrow = (ImageView) view
 				.findViewById(R.id.img_mood_switch_arrow);
 		AnimationUtils.startImgBackGround(imgMoodArrow);
+		
+		imgLastScoreBackground= (ImageView) view
+				.findViewById(R.id.img_last_score);
+		imgLastScorePointer= (ImageView) view
+				.findViewById(R.id.img_last_score_pointer);
+		txtLastScore= (TextView) view
+				.findViewById(R.id.last_score);
+		txtLastScore.setOnClickListener(this);
+		txtLastScore= (TextView) view
+				.findViewById(R.id.current_score);
+		
 
 		layoutMoodFace1 = (RelativeLayout) view
 				.findViewById(R.id.layout_mood_face_1);
@@ -210,6 +229,10 @@ public class MainmenuFragment1 extends Fragment implements
 			v.setEnabled(true);
 			break;
 		case R.id.layout_recycle:
+			break;
+		case R.id.last_score:
+				dashBoardAnim();
+				v.setEnabled(true);
 			break;
 		case R.id.img_mood_switch_panel:
 
@@ -304,6 +327,20 @@ public class MainmenuFragment1 extends Fragment implements
 
 	private void showToast(String content) {
 		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
+	}
+	
+	
+	//心情指数 仪表盘 动画
+	private void dashBoardAnim(){
+//		Animation animation4 = new RotateAnimation(0, 270, Animation.RELATIVE_TO_SELF,
+//				0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+//		LinearInterpolator lin = new LinearInterpolator();
+//		animation4.setInterpolator(lin);
+//		animation4.setDuration(666);
+//		animation4.setFillEnabled(true);
+//		animation4.setFillAfter(true);
+//		imgLastScorePointer.startAnimation(animation4);
+		AnimationUtils.performAnimateRoration(imgLastScorePointer, 90, 360, 666,txtLastScore);
 	}
 
 	// 计算圆盘距离 最笨方法
