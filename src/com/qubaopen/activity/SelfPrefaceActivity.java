@@ -21,6 +21,7 @@ public class SelfPrefaceActivity extends Activity implements
 		View.OnClickListener {
 
 	public static final String INTENT_SELF_ID = "selfId";
+	public static final String INTENT_SELF_ISRETEST = "selfIsRetest";
 
 	private ImageButton iBtnPageBack;
 	private TextView txtPageTitle;
@@ -39,6 +40,7 @@ public class SelfPrefaceActivity extends Activity implements
 	private SelfListService selfListService;
 
 	private int selfId;
+	private boolean isRetest;
 
 	private class LoadDataTask extends AsyncTask<Integer, Void, SelfList> {
 
@@ -56,7 +58,6 @@ public class SelfPrefaceActivity extends Activity implements
 							SelfList.class, "selfId=" + selfId);
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			return null;
@@ -76,7 +77,6 @@ public class SelfPrefaceActivity extends Activity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_self_preface);
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
@@ -127,6 +127,7 @@ public class SelfPrefaceActivity extends Activity implements
 		case R.id.btn_begin:
 			Intent intent = new Intent(this, SelfContentActivity.class);
 			intent.putExtra(SelfContentActivity.INTENT_SELF_ID, selfId);
+			intent.putExtra(SelfContentActivity.INTENT_QUESTIONNAIRE_ISRETEST, isRetest);
 			intent.putExtra(SelfContentActivity.INTENT_QUESTIONNAIRE_TITLE, txtTitle.getText());
 			startActivity(intent);
 			//Toast.makeText(this, "进入答题页面" + selfId, Toast.LENGTH_SHORT).show();

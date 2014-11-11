@@ -16,29 +16,36 @@ import com.qubaopen.activity.SelfPrefaceActivity;
 public class SelfListAdapter extends CursorAdapter {
 
 	private Context context;
+	private boolean isRetest;
 
 	private class SelfListClickListener implements View.OnClickListener {
 		private int selfId;
+		private boolean isRetest;
 
-		public SelfListClickListener(int selfId) {
+
+		public SelfListClickListener(int selfId, boolean isRetest) {
+			super();
 			this.selfId = selfId;
+			this.isRetest = isRetest;
 		}
+
 
 		@Override
 		public void onClick(View v) {
 			Intent intent;
 			intent = new Intent(context, SelfPrefaceActivity.class);
 			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
+			intent.putExtra("isRetest", isRetest);
 			context.startActivity(intent);
 
 		}
 
 	}
 
-	public SelfListAdapter(Context context, Cursor c) {
+	public SelfListAdapter(Context context, Cursor c, boolean isRetest) {
 		super(context, c, FLAG_REGISTER_CONTENT_OBSERVER);
+		this.isRetest = isRetest;
 		this.context = context;
-
 	}
 
 	@Override
@@ -73,7 +80,7 @@ public class SelfListAdapter extends CursorAdapter {
 //		}
 
 		int questionnareId = cursor.getInt(cursor.getColumnIndex("selfId"));
-		rowView.setOnClickListener(new SelfListClickListener(questionnareId));
+		rowView.setOnClickListener(new SelfListClickListener(questionnareId,isRetest));
 
 		return rowView;
 

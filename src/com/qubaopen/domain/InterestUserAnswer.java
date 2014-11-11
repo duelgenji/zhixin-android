@@ -1,6 +1,5 @@
 package com.qubaopen.domain;
 
-
 import net.tsz.afinal.annotation.sqlite.Id;
 import net.tsz.afinal.annotation.sqlite.Table;
 
@@ -13,6 +12,8 @@ public class InterestUserAnswer {
 
 	private int interestId;
 
+	private String interestTitle;
+
 	private String resultTitle;
 
 	private String resultNum;
@@ -20,7 +21,6 @@ public class InterestUserAnswer {
 	private String optionTitle;
 
 	private String content;
-
 
 	public int get_id() {
 		return _id;
@@ -44,6 +44,14 @@ public class InterestUserAnswer {
 
 	public void setInterestId(int interestId) {
 		this.interestId = interestId;
+	}
+
+	public String getInterestTitle() {
+		return interestTitle;
+	}
+
+	public void setInterestTitle(String interestTitle) {
+		this.interestTitle = interestTitle;
 	}
 
 	public String getResultTitle() {
@@ -77,6 +85,5 @@ public class InterestUserAnswer {
 	public void setContent(String content) {
 		this.content = content;
 	}
-
 
 }

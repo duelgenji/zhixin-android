@@ -33,6 +33,7 @@ public class MainActivity extends FragmentActivity {
 	private TabBarLayout messageTabBar;
 	private TabBarLayout meTabBar;
 
+
 	private MainMenuService service;
 
 	private UpdateManager updateManager;
@@ -41,7 +42,7 @@ public class MainActivity extends FragmentActivity {
 
 	private int currentCheckedBtnId;
 	private String currentFragmentName;
-	private View currentBtn;
+//	private View currentBtn;
 
 	private MainActivity _this;
 	public static MainActivity mainActivity;
@@ -64,8 +65,10 @@ public class MainActivity extends FragmentActivity {
 		fm = this.getSupportFragmentManager();
 		fm.addOnBackStackChangedListener(initalFinishListener);
 
-//		 MainmenuFragment newFragment = new MainmenuFragment();
+
+		// MainmenuFragment newFragment = new MainmenuFragment();
 		MainmenuFragment1 newFragment = new MainmenuFragment1();
+		
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.add(R.id.contentFragment, newFragment,
 				SettingValues.FRAGMENT_ROOT_FRAGMENT);
@@ -116,7 +119,7 @@ public class MainActivity extends FragmentActivity {
 				currentFragmentName = fm.getBackStackEntryAt(
 						fm.getBackStackEntryCount() - 1).getName();
 				currentCheckedBtnId = view.getId();
-				currentBtn = view;
+//				currentBtn = view;
 				// Log.i("current fragment name", currentFragmentName);
 
 				Fragment rootFg = fm

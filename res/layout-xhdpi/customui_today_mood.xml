@@ -20,7 +20,7 @@
             android:src="@drawable/today_mood_round_background" />
 
         <ImageView
-            android:id="@+id/img_mood_close"
+            android:id="@+id/img_mood_history"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:layout_centerInParent="true"

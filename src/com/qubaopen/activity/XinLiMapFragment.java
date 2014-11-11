@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +30,14 @@ public class XinLiMapFragment extends Fragment {
 	// private int offset = 0;
 	// private int position_one;
 	public final static int num = 4;
-	Fragment characterFragment;
-	Fragment moodFragment;
-	Fragment personalFragment;
-	Fragment personalFragment1;
+//	Fragment characterFragment;
+//	Fragment moodFragment;
+//	Fragment personalFragment;
+//	Fragment personalFragment1;
+	private Fragment characterFragment;
+	private Fragment communicationFragment;
+	private Fragment careerFragment;
+	private Fragment healthFragment;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,16 +59,36 @@ public class XinLiMapFragment extends Fragment {
 		mPager = (ViewPager) parentView.findViewById(R.id.pager);
 		
 		fragmentsList = new ArrayList<Fragment>();
-		characterFragment = new XinliMapCharactorCardFragment();
-		moodFragment = new XinliMapMoodCardFragment();
-		personalFragment = new XinliMapPersonalCardFragment();
-		personalFragment1 = new XinliMapPersonalCardFragment();
+//		characterFragment = new XinliMapCharactorCardFragment();
+//		moodFragment = new XinliMapMoodCardFragment();
+//		personalFragment = new XinliMapPersonalCardFragment();
+//		personalFragment1 = new XinliMapPersonalCardFragment();
+		characterFragment = new XinliMapCardFragment();
+		communicationFragment = new XinliMapCardFragment();
+		careerFragment = new XinliMapCardFragment();
+		healthFragment = new XinliMapCardFragment();
+		
+		/*创建一个Bundle用来存储数据，传递到Fragment中*/  
+		Bundle bundle1 = new Bundle();
+		Bundle bundle2 = new Bundle();
+		Bundle bundle3 = new Bundle();
+		Bundle bundle4 = new Bundle();
+		  /*往bundle中添加数据*/  
+		bundle1.putString("mapType", "1"); 
+		bundle2.putString("mapType", "2");
+		bundle3.putString("mapType", "3");
+		bundle4.putString("mapType", "4");
+        /*把数据设置到Fragment中*/  
+		characterFragment.setArguments(bundle1);  
+		communicationFragment.setArguments(bundle2);  
+		careerFragment.setArguments(bundle3);  
+		healthFragment.setArguments(bundle4);  
 
 		fragmentsList.add(characterFragment);
-		fragmentsList.add(moodFragment);
-		fragmentsList.add(personalFragment);
-		fragmentsList.add(personalFragment1);
-		// 设置预加载个数为0， 为了防止 预加载
+		fragmentsList.add(communicationFragment);
+		fragmentsList.add(careerFragment);
+		fragmentsList.add(healthFragment);
+		// 设置预加载个数为4， 与fragment中的方法配合防止 预加载
 		mPager.setOffscreenPageLimit(4);
 
 		mPager.setAdapter(new MyFragmentPagerAdapter(getChildFragmentManager(),

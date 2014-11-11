@@ -1,6 +1,7 @@
-package com.qubaopen.adapter;
+package com.qubaopen.domain;
 
 import java.util.LinkedList;
+
 
 public class ZiCeWenJuan {
 	private String success;

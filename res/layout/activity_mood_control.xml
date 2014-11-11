@@ -27,12 +27,12 @@
             android:splitMotionEvents="false" >
 
             <LinearLayout
+                android:id="@+id/layout_mood_control"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
                 <LinearLayout
-                    android:id="@+id/layout_mood"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical" >
@@ -103,19 +103,23 @@
                         android:id="@+id/btn_mood_retest"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:layout_marginRight="5dp"
                         android:background="@drawable/btn_retest_selector"
                         android:gravity="center_vertical|right"
-                        android:paddingRight="5dp"
-                        android:text="重做" />
+                        android:paddingRight="15dp"
+                        android:text="@string/retest"
+                        android:textColor="@color/text_white" />
 
                     <Button
                         android:id="@+id/btn_mood_share"
                         android:layout_width="wrap_content"
                         android:layout_height="35dp"
+                        android:layout_marginLeft="5dp"
                         android:background="@drawable/btn_share_selector"
                         android:gravity="center_vertical|right"
-                        android:paddingRight="5dp"
-                        android:text="分享" />
+                        android:paddingRight="15dp"
+                        android:text="@string/share"
+                        android:textColor="@color/text_white" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

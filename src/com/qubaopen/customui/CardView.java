@@ -6,7 +6,6 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.LinearLayout;
@@ -91,7 +90,6 @@ public class CardView extends LinearLayout {
 							getViewTreeObserver().addOnPreDrawListener(new OnPreDrawListener() {
 								@Override
 								public boolean onPreDraw() {
-									// TODO Auto-generated method stub
 									getViewTreeObserver().removeOnPreDrawListener(this);
 									cardItemView.openCard(true);
 									return false;

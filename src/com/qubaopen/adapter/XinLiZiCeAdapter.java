@@ -7,11 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.qubaopen.R;
+import com.qubaopen.domain.WenJuanShuJu;
 
 public class XinLiZiCeAdapter extends BaseAdapter{
 	private Context context;

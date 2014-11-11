@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,9 +38,11 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 import com.qubaopen.R;
 import com.qubaopen.customui.CardView;
 import com.qubaopen.dialog.QubaopenProgressDialog;
+import com.qubaopen.settings.MyApplication;
 import com.qubaopen.settings.PhoneHelper;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
+import com.qubaopen.utils.ShareUtil;
 
 public class MoodControlActivity extends Activity implements OnClickListener {
 
@@ -48,12 +52,14 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 	private ImageButton btn_back;
 	private TextView txtPageTitle;
 	private ImageView moodImageView;
+	private LinearLayout moodLayout;
 	private WebView moodWebView;
 	private TextView moodTips, moodName, moodScore, moodContent;
 	private ScrollView moodCardScrollView;
 	private CardView moodCardView;
 	private ImageView moodImaBg;
-
+	private Button moodRetest;
+	private Button moodShare;
 	private JSONObject hasMapData = new JSONObject();
 
 	private int windowWidth = PhoneHelper.getPhoneWIDTH();
@@ -87,6 +93,8 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 		moodImaBg = (ImageView) this
 				.findViewById(R.id.img_xinlimap_mood_no_content_bg);
 		moodImaBg.setVisibility(View.GONE);
+		moodLayout = (LinearLayout) this.findViewById(R.id.layout_mood_control);
+		moodLayout.setVisibility(View.GONE);
 		moodImageView = (ImageView) this.findViewById(R.id.mood_img);
 		moodWebView = (WebView) this.findViewById(R.id.mood_webView);
 		moodTips = (TextView) this.findViewById(R.id.mood_lock_tips);
@@ -94,6 +102,10 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 		moodScore = (TextView) this.findViewById(R.id.mood_score);
 		moodContent = (TextView) this.findViewById(R.id.mood_content);
 		moodCardScrollView = (ScrollView) this.findViewById(R.id.layout_scroll);
+		moodRetest = (Button) this.findViewById(R.id.btn_mood_retest);
+		moodRetest.setOnClickListener(this);
+		moodShare = (Button) this.findViewById(R.id.btn_mood_share);
+		moodShare.setOnClickListener(this);
 
 		options = new DisplayImageOptions.Builder()
 				.showImageOnLoading(R.drawable.interest_list_default_image)
@@ -150,13 +162,14 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 								moodImaBg.setVisibility(View.VISIBLE);
 							} else {
 								moodImaBg.setVisibility(View.GONE);
+								moodLayout.setVisibility(View.VISIBLE);
 								hasMapData = result.getJSONArray("data")
 										.getJSONObject(0);
 								Log.i("moodControl", "有数据......" + hasMapData);
-								setMoodView();
 								if (progressDialog.isShowing()) {
 									progressDialog.dismiss();
 								}
+								setMoodView();
 							}
 
 						} else {
@@ -338,8 +351,22 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_mood_retest:
+			Intent intent = new Intent(this, SelfRetestListActivity.class);
+			try {
+				intent.putExtra(
+						SelfRetestListActivity.SELF_RETEST_LIST_GROUPID,
+						hasMapData.getInt("gruopId"));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			startActivity(intent);
 			break;
 		case R.id.btn_mood_share:
+			ShareUtil.showShare(
+					MyApplication.getAppContext().getString(
+							R.string.share_title_sharesoft),
+					MyApplication.getAppContext().getString(
+							R.string.share_content_sharesoft));
 			break;
 		default:
 			break;

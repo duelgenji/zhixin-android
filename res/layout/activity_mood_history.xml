@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header_with_backward" />
+
+    <LinearLayout
+        android:id="@+id/layout_mood_history"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="89.1"
+        android:orientation="vertical" >
+
+        <com.squareup.timessquare.CalendarPickerView
+            android:id="@+id/calendar_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:scrollbarStyle="outsideOverlay" />
+
+        <LinearLayout
+            android:id="@+id/layout_mood_history_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/img_mood_history_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/today_mood_face_1" />
+
+            <TextView
+                android:id="@+id/mood_history_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="心情。。。。。。心情不错，我要打十个" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

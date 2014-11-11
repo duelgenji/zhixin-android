@@ -10,6 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.AttributeSet;
@@ -43,6 +44,11 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.qubaopen.R;
+import com.qubaopen.activity.MainActivity;
+import com.qubaopen.activity.SelectAgeSexActivity;
+import com.qubaopen.activity.SelfListActivity;
+import com.qubaopen.activity.SelfRetestListActivity;
+import com.qubaopen.datasynservice.SelfRetestListService;
 import com.qubaopen.domain.MapData;
 import com.qubaopen.settings.CrossSystemMap;
 import com.qubaopen.settings.MyApplication;
@@ -52,6 +58,7 @@ import com.qubaopen.utils.ShareUtil;
 
 public class CardItemView extends LinearLayout {
 
+	private MainActivity _this;
 	private LinearLayout titleLayout;
 	private ImageView cardItemLeft;
 	private TextView cardItemTitle;
@@ -254,10 +261,13 @@ public class CardItemView extends LinearLayout {
 
 			@Override
 			public void onClick(View v) {
-				String requestUrl = SettingValues.URL_PREFIX
-						+ MyApplication.getAppContext().getString(
-								R.string.URL_RETEST);
-				requestUrl += "/" + "groupId";
+			
+				Intent intent = new Intent(getContext(),
+						SelfRetestListActivity.class);
+				intent.putExtra(SelfRetestListActivity.SELF_RETEST_LIST_GROUPID, mapData.getMapDataGroupId());
+				Log.i("retest", "groupId...111..." + mapData.getMapDataGroupId());
+				getContext().startActivity(intent);
+				
 			}
 		});
 		// 分享按钮

@@ -97,7 +97,7 @@ public class QuduijiangAddressActivity extends FragmentActivity implements
                 this.findViewById(R.id.title_of_the_page);
         iBtnPageBack =(ImageButton) this.findViewById(R.id.backup_btn);
         txtPageTitle.setText(this.getString(R.string.title_quduijiang));
-        btnHistory=(Button) this.findViewById(R.id.btnHistory);
+        btnHistory=(Button) this.findViewById(R.id.btn_history);
         txtDefaultAddress=(TextView) this.findViewById(R.id.txtDefaultAddress);
         btnConfirm=(Button) this.findViewById(R.id.btnConfirm);
         layoutDefaultAddress=(LinearLayout)this.findViewById(R.id.layoutDefaultAddress);
@@ -190,7 +190,7 @@ public class QuduijiangAddressActivity extends FragmentActivity implements
                 toggleBtnAddressOther.setChecked(true);
                 v.setEnabled(true);
                 break;
-            case R.id.btnHistory:
+            case R.id.btn_history:
                 Intent intent = new Intent(_this,
                         DuijiangHistoryActivity.class);
                 startActivity(intent);
@@ -393,7 +393,6 @@ public class QuduijiangAddressActivity extends FragmentActivity implements
 
     @Override
     protected void onResume() {
-        // TODO Auto-generated method stub
         super.onResume();
         StatService.onResume(this);
 

@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,12 +18,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
+import com.qubaopen.adapter.InterestHistoryAdapter;
 import com.qubaopen.adapter.InterestListAdapter;
 import com.qubaopen.datasynservice.InterestListService;
 import com.qubaopen.dialog.QubaopenProgressDialog;
@@ -38,8 +42,9 @@ public class InterestListActivity extends FragmentActivity implements
 //	private QuceshiOrderPickerDialog quceshiOrderPickerDialog;
 //	private ViewGroup qucehiTypePickerComp;
 //	private View quceshiOrderComponent;
-
+	private ImageButton btnBack;
 	private TextView txtInterestType;
+	private Button btnHistory;
 //	private TextView txtInterestOrderType;
 
 	/** 趣测试列表 */
@@ -52,13 +57,10 @@ public class InterestListActivity extends FragmentActivity implements
 	private InterestListAdapter adapter;
 
 	private InterestListService quListService;
-
 	private InterestListActivity _this;
-
 	private boolean refreshListIsRefreshing;
 
 //	private int order = 0;
-
 	private int type = 0;
 
 	private int currentFirstVisibleItem;
@@ -80,9 +82,9 @@ public class InterestListActivity extends FragmentActivity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_interest_list);
 		_this = this;
-		init();
+		initView();
 	}
-	private void init() {
+	private void initView() {
 		shouldGetMoreData = true;
 		currentListPage = 0;
 		quListService = new InterestListService(this);
@@ -95,9 +97,13 @@ public class InterestListActivity extends FragmentActivity implements
 				R.color.general_activity_background);
 		quListParent.setOnRefreshListener(this);
 
-		this.findViewById(R.id.backup_btn).setOnClickListener(this);
+		btnBack = (ImageButton) this.findViewById(R.id.backup_btn);
+		btnBack.setOnClickListener(this);
 		quList = (ListView) this.findViewById(R.id.quList);
 
+		btnHistory = (Button) this.findViewById(R.id.btn_interest_history);
+		btnHistory.setOnClickListener(this);
+		
 		refreshDataTask = new LoadDataTask(true);
 		refreshListIsRefreshing = false;
 		if (!progressDialog.isShowing()) {
@@ -194,6 +200,10 @@ public class InterestListActivity extends FragmentActivity implements
 			}
 
 			break;
+		case R.id.btn_interest_history:
+			Intent intent = new Intent(this,InterestHistoryActivity.class);
+			startActivity(intent);
+			break;
 //		case R.id.txtInterestOrderType:
 //
 //			// if (refreshDataTask.getStatus() == AsyncTask.Status.RUNNING) {
@@ -244,16 +254,10 @@ public class InterestListActivity extends FragmentActivity implements
 		@Override
 		protected void onPostExecute(JSONObject params) {
 			try {
-				Log.i("morepage", "当前。。。" + shouldGetMoreData + "后台" + params.getBoolean("lastPage"));
 				shouldGetMoreData = !params.getBoolean("lastPage");
 				if (shouldGetMoreData) {
 					currentListPage++;
 				}
-//				Bundle bundle = new Bundle();
-//				if (params == null) {
-//					params.put("ids", "");
-//				}
-//				bundle.putString("ids", params.getString("ids"));
 				getSupportLoaderManager().restartLoader(0, null, _this);
 				if (quListParent.isRefreshing()) {
 					quListParent.setRefreshing(false);

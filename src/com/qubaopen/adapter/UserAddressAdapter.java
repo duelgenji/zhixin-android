@@ -4,20 +4,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,6 +23,8 @@ import com.qubaopen.R;
 import com.qubaopen.activity.UserInfoAddressActivity;
 import com.qubaopen.activity.UserInfoAddressModifyActivity;
 import com.qubaopen.daos.UserAddressDao;
+import com.qubaopen.dialog.CommonDialog;
+import com.qubaopen.dialog.CommonDialog.CommonDialogListener;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
 
@@ -188,36 +186,61 @@ public class UserAddressAdapter extends CursorAdapter {
 		@Override
 		public boolean onTouch(View v, MotionEvent event) {
 			if (event.getAction() == MotionEvent.ACTION_DOWN) {
-				final AlertDialog dlg = new AlertDialog.Builder(context)
-						.create();
-				dlg.show();
-				Window window = dlg.getWindow();
-				window.setContentView(R.layout.dialog_alert_dialog);
-				// 为确认按钮添加事件,执行退出应用操作
-				TextView txtAlertContent = (TextView) window
-						.findViewById(R.id.txtAlertContent);
-				txtAlertContent.setText("确认删除地址？");
-				Button ok = (Button) window.findViewById(R.id.btnConfirm);
-				ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						String deleteUrl = SettingValues.URL_PREFIX
-								+ context
-										.getString(R.string.URL_DELETE_USER_ADDRESS);
-						deleteUrl += "?id=" + id;
-//						Log.i("delete", deleteUrl);
-						new LoadDataTask1().execute(1, deleteUrl, id,
-								HttpClient.TYPE_DELETE);
+				CommonDialog dialog = new CommonDialog(context, "确认删除地址？",
+						new CommonDialogListener() {
 
-						dlg.cancel();
-					}
-				});
-				// 关闭alert对话框架
-				Button cancel = (Button) window.findViewById(R.id.btnCancel);
-				cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();// 对话框关闭。
-					}
-				});
+							@Override
+							public void onClick(View view) {
+								switch (view.getId()) {
+								case R.id.dialog_common_confirm:
+									String deleteUrl = SettingValues.URL_PREFIX
+											+ context
+													.getString(R.string.URL_DELETE_USER_ADDRESS);
+									deleteUrl += "?id=" + id;
+									// Log.i("delete", deleteUrl);
+									new LoadDataTask1().execute(1, deleteUrl,
+											id, HttpClient.TYPE_DELETE);
+
+									break;
+								case R.id.dialog_common_cancel:
+									break;
+
+								default:
+									break;
+								}
+							}
+						});
+				dialog.show();
+				// final AlertDialog dlg = new AlertDialog.Builder(context)
+				// .create();
+				// dlg.show();
+				// Window window = dlg.getWindow();
+				// window.setContentView(R.layout.dialog_alert_dialog);
+				// // 为确认按钮添加事件,执行退出应用操作
+				// TextView txtAlertContent = (TextView) window
+				// .findViewById(R.id.txtAlertContent);
+				// txtAlertContent.setText("确认删除地址？");
+				// Button ok = (Button) window.findViewById(R.id.btnConfirm);
+				// ok.setOnClickListener(new View.OnClickListener() {
+				// public void onClick(View v) {
+				// String deleteUrl = SettingValues.URL_PREFIX
+				// + context
+				// .getString(R.string.URL_DELETE_USER_ADDRESS);
+				// deleteUrl += "?id=" + id;
+				// // Log.i("delete", deleteUrl);
+				// new LoadDataTask1().execute(1, deleteUrl, id,
+				// HttpClient.TYPE_DELETE);
+				//
+				// dlg.cancel();
+				// }
+				// });
+				// // 关闭alert对话框架
+				// Button cancel = (Button) window.findViewById(R.id.btnCancel);
+				// cancel.setOnClickListener(new View.OnClickListener() {
+				// public void onClick(View v) {
+				// dlg.cancel();// 对话框关闭。
+				// }
+				// });
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
 
 			} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
@@ -264,15 +287,15 @@ public class UserAddressAdapter extends CursorAdapter {
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(), null,
 							(Integer) params[3]);
-//					Log.i("delete", result + "");
+					// Log.i("delete", result + "");
 					result.put("syncType", syncType);
 					result.put("dzId", params[2]);
 					break;
 				case 2:
 					result = HttpClient.requestSync(params[1].toString(),
 							params[2], (Integer) params[3]);
-					
-//					Log.i("modify", result + "");
+
+					// Log.i("modify", result + "");
 					result.put("syncType", syncType);
 					result.put("params", params[2]);
 					break;
@@ -295,7 +318,8 @@ public class UserAddressAdapter extends CursorAdapter {
 							&& result.getString("success").equals("1")) {
 						Toast.makeText(context, "删除地址成功！", Toast.LENGTH_SHORT)
 								.show();
-						userAddressDao.deleteAddressById((Integer) result.get("dzId"));
+						userAddressDao.deleteAddressById((Integer) result
+								.get("dzId"));
 						UserInfoAddressActivity.userInfoAddressActivity
 								.reSetAddress();
 					} else {
@@ -310,7 +334,8 @@ public class UserAddressAdapter extends CursorAdapter {
 						Toast.makeText(context, "修改地址成功！", Toast.LENGTH_SHORT)
 								.show();
 						userAddressDao
-								.updateSingleUserAddress((JSONObject) result.getJSONObject("params"));
+								.updateSingleUserAddress((JSONObject) result
+										.getJSONObject("params"));
 						UserInfoAddressActivity.userInfoAddressActivity
 								.reSetAddress();
 					} else {

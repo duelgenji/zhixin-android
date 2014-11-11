@@ -29,6 +29,10 @@ public class MapDataObject {
 
 			tempJson = array.getJSONObject(i);
 			mapData = new MapData();
+			if (tempJson.has("groupId")
+					&& StringUtils.isNotEmpty(tempJson.getString("groupId"))) {
+				mapData.setMapDataGroupId(tempJson.getInt("groupId"));
+			}
 
 			if (tempJson.has("lock")
 					&& StringUtils.isNotEmpty(tempJson.getString("lock"))) {

@@ -103,10 +103,11 @@
     <string name="URL_SELF_SUBMIT_QUESTION">selfs/calculateSelfResult</string>
     <string name="URL_USER_SUBMIT_AGE_SEX">userInfos/submitAgeAndSex</string>
     <string name="URL_USER_SET_MOOD">userMood/setMood</string>
-    <string name="URL_USER_GET_MOOD">userMood/getMood</string>
+    <string name="URL_USER_GET_MOOD">userInfos/getIndexInfo</string>
     <string name="URL_UPLOAD_AVATAR">userInfos/uploadAvatar</string>
     <string name="URL_GET_GIFT_LIST">rewardActivitys/retrieveOnlineReward</string>
     <string name="URL_GET_MAP">mapStatistics/retrieveMapStatistics</string>
+    <string name="URL_GET_MAP_NEW">mapStatistics/newRetrieveMapStatistics</string>
     <string name="URL_GET_SELF_LIST">selfs/retrieveSelfByType/</string>
     <string name="URL_USER_ADD_ADDRESS">userReceiveAddresses/addAddress</string>
     <string name="URL_USER_GET_ADDRESS_LIST">userReceiveAddresses/getAddressList</string>
@@ -115,5 +116,7 @@
     <string name="URL_MODIFY_PWD">users/modifyPassword</string>
     <string name="URL_GET_MAP_MOOD_CONTROL">mapStatistics/retrieveSpecialMap</string>
     <string name="URL_RETEST">selfs/retrieveSelfByGroupId</string>
+    <string name="URL_GET_INTEREST_HISTORY">interests/retrieveInterestHistoryByFilter</string>
+    <string name="URL_JOIN_HEART_REPORT">rewardActivityRecords/selfReportReward</string>
 
 </resources>

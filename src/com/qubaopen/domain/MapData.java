@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class MapData {
+	
+	private int mapDataGroupId;
 
 	private String mapDataGraphicsType;
 
@@ -34,6 +36,14 @@ public class MapData {
 	private String mapDataTips;
 
 	private String mapDataPicPath;
+
+	public int getMapDataGroupId() {
+		return mapDataGroupId;
+	}
+
+	public void setMapDataGroupId(int mapDataGroupId) {
+		this.mapDataGroupId = mapDataGroupId;
+	}
 
 	public String getMapDataGraphicsType() {
 		return mapDataGraphicsType;

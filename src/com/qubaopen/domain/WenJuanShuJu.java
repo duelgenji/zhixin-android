@@ -1,4 +1,4 @@
-package com.qubaopen.adapter;
+package com.qubaopen.domain;
 
 public class WenJuanShuJu {
 	private long  selfId;

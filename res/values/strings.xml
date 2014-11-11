@@ -298,7 +298,7 @@
     
     <!-- save mainpage text here -->
     <string name="last_score">最近得分</string>
-    <string name="character_complete">性格完善度</string>
+    <string name="character_complete">性格解析度</string>
     <string name="mood_control">情绪管理</string>
     <string name="character">性格</string>
     <string name="communication">交往</string>
@@ -323,4 +323,6 @@
     <string name="preparing_card">存储卡准备中</string>
     <string name="no_storage_card">没有存储卡</string>
     <string name="not_enough_space">空间不够</string>
+    
+    <string name="retest">重做</string>
 </resources>

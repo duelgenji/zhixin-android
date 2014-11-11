@@ -144,11 +144,13 @@ public class RegistPhoneActivity extends Activity implements
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				if (isChecked) {
-					firstLinePassword.setInputType(InputType.TYPE_NULL);
+					firstLinePassword.setInputType(InputType.TYPE_CLASS_TEXT);
 				} else {
 					firstLinePassword.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_PASSWORD);
+					
 				}
+				firstLinePassword.invalidate();
 			}
 		});
 		// 获取验证码

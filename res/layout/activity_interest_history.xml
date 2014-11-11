@@ -24,13 +24,13 @@
             android:src="@drawable/header_back_button" />
 
         <RelativeLayout
-            android:id="@+id/quceshiTypeComponent"
+            android:id="@+id/layout_interest_history_type_component"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_centerInParent="true" >
 
             <TextView
-                android:id="@+id/txtInterestType"
+                android:id="@+id/txt_interest_history_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:spinnerMode="dropdown"
-                android:text="全部测试"
+                android:text="全部历史"
                 android:textColor="@color/text_white"
                 android:textSize="18sp" />
 
@@ -48,51 +48,21 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:layout_marginLeft="2dp"
-                android:layout_toRightOf="@id/txtInterestType"
+                android:layout_toRightOf="@id/txt_interest_history_type"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/drop_down_triangle_icon" />
         </RelativeLayout>
-
-        <Button
-            android:id="@+id/btn_interest_history"
-            android:layout_width="76dp"
-            android:layout_height="31dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/quceshi_order"
-            android:text="@string/header_history_text"
-            android:textColor="@color/text_white"
-            android:textSize="14sp" />
-        <!--
-        <ImageView
-            android:id="@+id/imgOrderTypeTriangle"
-            android:layout_width="7dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/drop_down_triangle_icon" />
-
-        <TextView
-            android:id="@+id/txtInterestOrderType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/imgOrderTypeTriangle"
-            android:text="@string/quceshi_order_default"
-            android:textColor="@color/text_white"
-            android:textSize="14sp" />
-        -->
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/quListParent"
+        android:id="@+id/interest_history_list_parent"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_weight="89.1" >
 
         <ListView
-            android:id="@+id/quList"
+            android:id="@+id/interest_history_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:dividerHeight="0.1dp"
@@ -100,14 +70,14 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <RelativeLayout
-        android:id="@+id/layoutInterestListEmpty"
+        android:id="@+id/layout_interest_history_empty"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="89.1"
         android:visibility="gone" >
 
         <ImageView
-            android:id="@+id/imgInterestListEmpty"
+            android:id="@+id/img_interest_history_empty"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"

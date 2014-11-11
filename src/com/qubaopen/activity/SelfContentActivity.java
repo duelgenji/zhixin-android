@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout.LayoutParams;
@@ -31,6 +32,8 @@ import com.qubaopen.customui.ShunxuViewGroup;
 import com.qubaopen.customui.Wenda;
 import com.qubaopen.datasynservice.SelfAnswerService;
 import com.qubaopen.datasynservice.SelfContentService;
+import com.qubaopen.dialog.CommonDialog;
+import com.qubaopen.dialog.CommonDialog.CommonDialogListener;
 import com.qubaopen.dialog.DafenFenshuOverlayer2;
 import com.qubaopen.dialog.QubaopenProgressDialog;
 import com.qubaopen.domain.SelfUserAnswer;
@@ -48,10 +51,12 @@ public class SelfContentActivity extends Activity implements
 	public static final String INTENT_SELF_ID = "selfId";
 	public static final String INTENT_QUESTIONNAIRE_TITLE = "questionnaireTitle";
 	public static final String CURRENT_QUESTION = "currentQuestion";
+	public static final String INTENT_QUESTIONNAIRE_ISRETEST = "questionnaireIsRetest";
 
 	private SelfContentService selfContentService;
 	private SelfAnswerService selfAnswerService;
 	private Integer selfId;
+	private boolean isRetest;
 
 	private RelativeLayout quceshiContentArea;
 
@@ -155,8 +160,10 @@ public class SelfContentActivity extends Activity implements
 		selfAnswerService = new SelfAnswerService(this);
 		String title = intent.getStringExtra(INTENT_QUESTIONNAIRE_TITLE);
 		((TextView) this.findViewById(R.id.txt_title)).setText(title);
-
 		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
+		isRetest = getIntent().getBooleanExtra(INTENT_QUESTIONNAIRE_ISRETEST,
+				false);
+		Log.i("SelfContentActivity", "isRetest...first..." + isRetest);
 		int questionId = intent.getIntExtra(CURRENT_QUESTION, 0);
 		if (questionId == 0) {
 			if (!progressDialog.isShowing()) {
@@ -241,40 +248,82 @@ public class SelfContentActivity extends Activity implements
 				intent.putExtra(INTENT_QUESTIONNAIRE_TITLE, getIntent()
 						.getStringExtra(INTENT_QUESTIONNAIRE_TITLE));
 				intent.putExtra(CURRENT_QUESTION, nextQuestionId.intValue());
+				intent.putExtra(INTENT_QUESTIONNAIRE_ISRETEST, isRetest);
 				startActivity(intent);
 			} else {
 
 				if (NetworkUtils.isNetworkAvailable(this)) {
+					Log.i("SelfContentActivity", "isRetest...second..." + isRetest);
+					if (!isRetest) {
+						CommonDialog dialog = new CommonDialog(this,
+								getString(R.string.submmit_wj_tips),
+								new CommonDialogListener() {
 
-					AlertDialog alert = new AlertDialog.Builder(this)
-							.setTitle("提示")
-							.setMessage(
-									SelfContentActivity.this
-											.getString(R.string.submmit_wj_tips))
-							.setPositiveButton("确定",
-									new DialogInterface.OnClickListener() {// 设置确定按钮
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
-
+									@Override
+									public void onClick(View view) {
+										switch (view.getId()) {
+										case R.id.dialog_common_confirm:
 											nextQuestionBtn.setEnabled(false);
 											new SubmitDataTask()
 													.execute(doDataObject
 															.getWjId());
-										}
-									})
-							.setNegativeButton("取消",
-									new DialogInterface.OnClickListener() {// 设置取消按钮
-										@Override
-										public void onClick(
-												DialogInterface dialog,
-												int which) {
+											break;
+										case R.id.dialog_common_cancel:
+											break;
 
+										default:
+											break;
 										}
-									}).create();
-					alert.show();
+									}
+								});
+						dialog.show();
 
+					} else {
+						AlertDialog alert = new AlertDialog.Builder(this)
+								.setTitle("提示")
+								.setMessage(
+										SelfContentActivity.this
+												.getString(R.string.submmit_wj_tips))
+								.setNeutralButton("不覆盖",
+										new DialogInterface.OnClickListener() {
+
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which) {
+												nextQuestionBtn
+														.setEnabled(false);
+												new SubmitDataTask()
+														.execute(doDataObject
+																.getWjId());
+											}
+
+										})
+								.setPositiveButton("覆盖",
+										new DialogInterface.OnClickListener() {// 设置确定按钮
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which) {
+
+												nextQuestionBtn
+														.setEnabled(false);
+												new SubmitDataTask()
+														.execute(doDataObject
+																.getWjId());
+											}
+										})
+								.setNegativeButton("取消",
+										new DialogInterface.OnClickListener() {// 设置取消按钮
+											@Override
+											public void onClick(
+													DialogInterface dialog,
+													int which) {
+
+											}
+										}).create();
+						alert.show();
+					}
 				} else {
 					Toast.makeText(this,
 							this.getString(R.string.toast_network_unvaiable),
@@ -315,26 +364,24 @@ public class SelfContentActivity extends Activity implements
 	@Override
 	public void onBackPressed() {
 
-		AlertDialog alert = new AlertDialog.Builder(this)
-				.setTitle("提示")
-				.setMessage(
-						SelfContentActivity.this
-								.getString(R.string.back_wj_tips))
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {// 设置确定按钮
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								SelfContentActivity.super.onBackPressed();
-							}
-						})
-				.setNegativeButton("取消", new DialogInterface.OnClickListener() {// 设置取消按钮
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
+		CommonDialog dialog = new CommonDialog(this,
+				getString(R.string.back_wj_tips), new CommonDialogListener() {
 
-							}
-						}).create();
-		alert.show();
+					@Override
+					public void onClick(View view) {
+						switch (view.getId()) {
+						case R.id.dialog_common_confirm:
+							finish();
+							break;
+						case R.id.dialog_common_cancel:
+							break;
+
+						default:
+							break;
+						}
+					}
+				});
+		dialog.show();
 
 	}
 
@@ -442,7 +489,7 @@ public class SelfContentActivity extends Activity implements
 
 				public void onTick(long millisUntilFinished) {
 					remainingTime.setText(String
-							.valueOf((millisUntilFinished / 1000)+1));
+							.valueOf((millisUntilFinished / 1000) + 1));
 				}
 
 				public void onFinish() {
@@ -470,6 +517,8 @@ public class SelfContentActivity extends Activity implements
 		protected Object doInBackground(Integer... params) {
 			try {
 				JSONObject jbo = DoQuestionAnswer.loadSelfAnswers(params[0]);
+				Log.i("SelfContentActivity", "isRetest...three..." + isRetest);
+				jbo.put("refresh", isRetest);// 是否是重测
 				return selfAnswerService.getAnswer(jbo);
 			} catch (Exception e) {
 				e.printStackTrace();

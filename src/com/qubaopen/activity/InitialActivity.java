@@ -27,7 +27,7 @@ public class InitialActivity extends InstrumentedActivity {
 
 	boolean isFirstIn = false;
 
-	private RegistService registService;
+//	private RegistService registService;
 
 	private String currentPhone;
 
@@ -42,15 +42,15 @@ public class InitialActivity extends InstrumentedActivity {
 		ShareSDK.initSDK(this);
 		ShareUtil.addSharePic();
 
-		registService = new RegistService(this);
+//		registService = new RegistService(this);
 
 		// determine screen size in dp
 		Display display = getWindowManager().getDefaultDisplay();
 		DisplayMetrics outMetrics = new DisplayMetrics();
 		display.getMetrics(outMetrics);
 		float density = getResources().getDisplayMetrics().density;
-		float dpHeight = outMetrics.heightPixels / density;
-		float dpWidth = outMetrics.widthPixels / density;
+//		float dpHeight = outMetrics.heightPixels / density;
+//		float dpWidth = outMetrics.widthPixels / density;
 
 		PhoneHelper.savePhoneDensity(density);
 		PhoneHelper.savePhoneHeight(outMetrics.heightPixels);

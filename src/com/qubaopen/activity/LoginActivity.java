@@ -77,7 +77,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
 				if (isChecked) {
-					passwordStr.setInputType(InputType.TYPE_NULL);
+					passwordStr.setInputType(InputType.TYPE_CLASS_TEXT);
 				} else {
 					passwordStr.setInputType(InputType.TYPE_CLASS_TEXT
 							| InputType.TYPE_TEXT_VARIATION_PASSWORD);

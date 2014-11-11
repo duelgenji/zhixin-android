@@ -26,10 +26,10 @@ import android.widget.TextView;
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
 import com.qubaopen.adapter.SelfListAdapter;
-import com.qubaopen.adapter.WenJuanShuJu;
 import com.qubaopen.adapter.XinLiZiCeAdapter;
 import com.qubaopen.daos.SelfListDao;
 import com.qubaopen.dialog.QubaopenProgressDialog;
+import com.qubaopen.domain.WenJuanShuJu;
 import com.qubaopen.domain.XinliziceList;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
@@ -210,7 +210,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (adapter == null) {
-			adapter = new SelfListAdapter(this, cursor);
+			adapter = new SelfListAdapter(this, cursor,false);
 			xinliziceList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);

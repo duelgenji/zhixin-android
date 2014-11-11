@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,10 +47,15 @@ public class MainmenuFragment1 extends Fragment implements
 	/** 动画 */
 	AnimationDrawable progressAnimation;
 	/***/
-	private MainmenuFragment1 _this;
 	private Activity mainActivity;
 
-	private LinearLayout characterPercent;
+	private String designation;
+	private Double percent;
+	private boolean isChecked;
+	private Double deduction;
+
+	private LinearLayout characterPercentLayout;
+	private TextView characterPercent;
 	private RelativeLayout moodControl;
 	private LinearLayout character;
 	private LinearLayout communication;
@@ -58,7 +64,7 @@ public class MainmenuFragment1 extends Fragment implements
 	private LinearLayout interest;
 	private LinearLayout recycle;
 
-	private ImageView imgMoodClose;
+	private ImageView imgMoodHistory;
 	private ImageView imgMoodArrow;
 	private ImageView imgMoodPanel;
 	private ImageView imgMoodBackground;
@@ -76,10 +82,8 @@ public class MainmenuFragment1 extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		View view = inflater.inflate(R.layout.main_activity_new, container,
 				false);
-		_this = this;
 
 		initView(view);
 
@@ -90,9 +94,11 @@ public class MainmenuFragment1 extends Fragment implements
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText("知心");
 
-		characterPercent = (LinearLayout) view
-				.findViewById(R.id.layout_character_complete_num);
-		characterPercent.setOnClickListener(this);
+		characterPercentLayout = (LinearLayout) view
+				.findViewById(R.id.layout_character_analysis_num);
+		characterPercentLayout.setOnClickListener(this);
+		characterPercent = (TextView) view
+				.findViewById(R.id.character_analysis_num);
 		moodControl = (RelativeLayout) view
 				.findViewById(R.id.layout_mood_control);
 		moodControl.setOnClickListener(this);
@@ -115,8 +121,8 @@ public class MainmenuFragment1 extends Fragment implements
 				.findViewById(R.id.layout_pick_mood);
 		layoutMoodSwitch = (RelativeLayout) view
 				.findViewById(R.id.layout_mood_switch);
-		imgMoodClose = (ImageView) view.findViewById(R.id.img_mood_close);
-		imgMoodClose.setOnClickListener(this);
+		imgMoodHistory = (ImageView) view.findViewById(R.id.img_mood_history);
+		imgMoodHistory.setOnClickListener(this);
 		imgMoodBackground = (ImageView) view
 				.findViewById(R.id.img_mood_background);
 		imgMoodBackground.setOnClickListener(this);
@@ -151,6 +157,7 @@ public class MainmenuFragment1 extends Fragment implements
 		mainMenuService = new MainMenuService(MyApplication.getAppContext());
 
 		new LoadDataTask().execute(0, 0);
+
 	}
 
 	@Override
@@ -163,9 +170,18 @@ public class MainmenuFragment1 extends Fragment implements
 	@Override
 	public void onClick(View v) {
 		v.setEnabled(false);
-		// Intent intent;
+		Intent intent;
 		switch (v.getId()) {
-		case R.id.layout_character_complete_num:
+		case R.id.layout_character_analysis_num:
+			intent = new Intent(mainActivity, AnalysisCharacterActivity.class);
+			intent.putExtra(
+					AnalysisCharacterActivity.USER_CHARACTER_DESIGNATION,
+					designation);
+			intent.putExtra(AnalysisCharacterActivity.USER_CHARACTER_PERCENT,
+					percent);
+			intent.putExtra(AnalysisCharacterActivity.USER_CHARACTER_ISCHECKED,
+					isChecked);
+			startActivity(intent);
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_control:
@@ -189,7 +205,7 @@ public class MainmenuFragment1 extends Fragment implements
 			v.setEnabled(true);
 			break;
 		case R.id.layout_interest:
-			Intent intent = new Intent(mainActivity, InterestListActivity.class);
+			intent = new Intent(mainActivity, InterestListActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
@@ -221,8 +237,10 @@ public class MainmenuFragment1 extends Fragment implements
 
 			}
 			break;
-		case R.id.img_mood_close:
-			panelClose();
+		case R.id.img_mood_history:
+//			panelClose();
+			intent = new Intent(mainActivity,MoodHistoryActivity.class);
+			startActivity(intent);
 			v.setEnabled(true);
 			break;
 		case R.id.img_mood_background:
@@ -350,6 +368,7 @@ public class MainmenuFragment1 extends Fragment implements
 				case 0:
 					// getMood 获取用户心情
 					result = userService.getMood();
+
 					result.put("syncType", syncType);
 					break;
 				case 1:
@@ -370,11 +389,19 @@ public class MainmenuFragment1 extends Fragment implements
 		@Override
 		protected void onPostExecute(JSONObject result) {
 			try {
+				Log.i("getIndexInfo", "mood+others..." + result);
 				Integer syncType = result.getInt("syncType");
 				if (result != null && result.getInt("success") == 1) {
 
 					switch (syncType) {
 					case 0:
+						percent = result.getDouble("resolution");
+						deduction = result.getDouble("deduction");
+						designation = result.getString("userSelfTitle");
+						Log.i("percent", "percent..." + percent
+								+ "...deduction..." + deduction
+								+ "...designation..." + designation);
+						characterPercent.setText(percent + "%");
 						String lastTime = result.getString("lastTime");
 						if (MatcherUtil.isToday(lastTime)) {
 							swtichPanelDown();

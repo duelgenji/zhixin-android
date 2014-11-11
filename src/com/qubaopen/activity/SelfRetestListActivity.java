@@ -1,10 +1,5 @@
 package com.qubaopen.activity;
 
-import org.apache.commons.lang3.StringUtils;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -22,21 +18,19 @@ import android.widget.TextView;
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
 import com.qubaopen.adapter.SelfListAdapter;
-import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.datasynservice.SelfListService;
-import com.qubaopen.dialog.InstructionDialog;
+import com.qubaopen.datasynservice.SelfRetestListService;
 import com.qubaopen.dialog.QubaopenProgressDialog;
 import com.qubaopen.domain.SelfList;
-import com.qubaopen.domain.UserInfo;
-import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.SqlCursorLoader;
 
-public class SelfListActivity extends FragmentActivity implements
+public class SelfRetestListActivity extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener,
 		OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	/** 列表类型 */
-	public static String SELF_LIST_TYPE = "selfListType";
-	private int type;
+	public static final String SELF_RETEST_LIST_GROUPID = "selfRetestListGroupid";
+
+	private int groupId;
 	/** 测试列表 */
 	private ListView selfList;
 
@@ -46,9 +40,9 @@ public class SelfListActivity extends FragmentActivity implements
 
 	private SelfListAdapter adapter;
 
-	private SelfListService selfListService;
+	private SelfRetestListService selfRetestListService;
 
-	private SelfListActivity _this;
+	private SelfRetestListActivity _this;
 
 	private int currentFirstVisibleItem;
 	private int currentVisibleItemCount;
@@ -70,7 +64,7 @@ public class SelfListActivity extends FragmentActivity implements
 	}
 
 	private void init() {
-		selfListService = new SelfListService(this);
+		selfRetestListService = new SelfRetestListService(this);
 		progressDialog = new QubaopenProgressDialog(this);
 		selfListParent = (SwipeRefreshLayout) this
 				.findViewById(R.id.selfListParent);
@@ -85,53 +79,16 @@ public class SelfListActivity extends FragmentActivity implements
 
 		findViewById(R.id.backup_btn).setOnClickListener(this);
 		selfList = (ListView) this.findViewById(R.id.selfList);
-//		//原方法（带刷新）
-//		refreshDataTask = new LoadDataTask(false);
-		//新方法
 		refreshDataTask = new LoadDataTask();
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
 		}
 		refreshDataTask.execute();
 
-		// app第一次到此页面 有教学图片
-		new AsyncTask<Void, Void, Integer>() {
-			@Override
-			protected Integer doInBackground(Void... params) {
-				SharedPreferences sharedPref = _this.getSharedPreferences(
-						SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-				UserInfo userInfo = new UserInfoDao().getCurrentUser();
-
-				if (userInfo != null
-						&& (userInfo.getSex() == 2 || StringUtils
-								.isEmpty(userInfo.getBirthDay()))) {
-					return 2;
-				} else if (userInfo == null) {
-					return 2;
-				} else if (sharedPref.getBoolean(
-						SettingValues.INSTRUCTION_SELF_LIST, true)) {
-					return 1;
-				}
-				return 0;
-			}
-
-			@Override
-			protected void onPostExecute(Integer result) {
-				if (result == 1) {
-					InstructionDialog instructionDialog = new InstructionDialog(
-							_this, SettingValues.INSTRUCTION_SELF_LIST);
-					instructionDialog.show();
-				} else if (result == 2) {
-					Intent intent = new Intent(SelfListActivity.this,
-							SelectAgeSexActivity.class);
-					startActivity(intent);
-				}
-			}
-		}.execute();
 	}
 
 	private void initIntent() {
-		type = getIntent().getIntExtra(SELF_LIST_TYPE, 0);
+		groupId = getIntent().getIntExtra(SELF_RETEST_LIST_GROUPID, 0);
 	}
 
 	@Override
@@ -140,19 +97,11 @@ public class SelfListActivity extends FragmentActivity implements
 	}
 
 	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
-//		private boolean refreshFlag;
-//
-//		public LoadDataTask(boolean refreshFlag) {
-//			super();
-//			this.refreshFlag = refreshFlag;
-//		}
 
 		@Override
 		protected String doInBackground(Integer... params) {
-//			//原方法（带刷新）
-//			return selfListService.requestSelfList(refreshFlag,type);
-			//新方法
-			return selfListService.requestSelfList(type);
+			Log.i("retest", "groupId......" + groupId);
+			return selfRetestListService.requestSelfList(groupId);
 		}
 
 		@Override
@@ -196,7 +145,7 @@ public class SelfListActivity extends FragmentActivity implements
 			layoutSelfListEmpty.setVisibility(View.GONE);
 		}
 		if (adapter == null) {
-			adapter = new SelfListAdapter(this, cursor,false);
+			adapter = new SelfListAdapter(this, cursor,true);
 			selfList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);
@@ -250,9 +199,7 @@ public class SelfListActivity extends FragmentActivity implements
 				&& this.currentScrollState == SCROLL_STATE_IDLE) {
 			if ((this.currentFirstVisibleItem + this.currentVisibleItemCount) == this.currentTotalItemCount) {
 				if (refreshDataTask.getStatus() != AsyncTask.Status.RUNNING) {
-//					//原方法（带刷新）
-//					refreshDataTask = new LoadDataTask(false);
-					//新方法
+
 					refreshDataTask = new LoadDataTask();
 					if (!progressDialog.isShowing()) {
 						progressDialog.show();
@@ -279,13 +226,8 @@ public class SelfListActivity extends FragmentActivity implements
 	@Override
 	public void onRefresh() {
 		if (refreshDataTask.getStatus() != AsyncTask.Status.RUNNING) {
-//			//原方法（带刷新）
-//			refreshDataTask = new LoadDataTask(false);
-			//新方法
 			refreshDataTask = new LoadDataTask();
-			// if (!progressDialog.isShowing()) {
-			// progressDialog.show();
-			// }
+
 			refreshDataTask.execute();
 		}
 

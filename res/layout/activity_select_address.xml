@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/general_activity_background"
+    android:orientation="vertical"
+    android:splitMotionEvents="false"
+    android:weightSum="96.1" >
+
+    <include layout="@layout/header_user_info_address_manager" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:layout_weight="89.1"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/layout_analysis_no_address"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/img_analysis_no_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/address_no_content" />
+
+            <TextView
+                android:id="@+id/tv_analysis_no_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/img_analysis_no_address"
+                android:layout_below="@id/img_analysis_no_address"
+                android:text="还没有收货地址"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/user_analysis_address_list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="60.1"
+            android:dividerHeight="10dp"
+            android:splitMotionEvents="false" />
+
+        <TextView
+            android:id="@+id/btn_sumbmit_selected_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/more_logout"
+            android:gravity="center"
+            android:text="参与心理体检报告活动"
+            android:textColor="@color/text_white"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>

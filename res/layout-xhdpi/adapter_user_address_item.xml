@@ -9,6 +9,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:paddingBottom="3dp" >
 
         <TextView
@@ -61,6 +63,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="上海市普陀区1680弄建德花园"
@@ -74,7 +78,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp" >
+        android:layout_height="30dp"
+         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" >
 
         <LinearLayout
             android:id="@+id/layout_address_delete"
@@ -92,6 +98,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textColor="@color/text_red"
+                android:textSize="@dimen/text_size_custom"
                 android:text="删除" />
         </LinearLayout>
 
@@ -112,6 +120,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="@dimen/text_size_custom"
+                android:textColor="@color/text_red"
                 android:text="编辑" />
         </LinearLayout>
     </RelativeLayout>
