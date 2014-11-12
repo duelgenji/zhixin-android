@@ -9,17 +9,18 @@
     <include layout="@layout/header_with_backward" />
 
     <LinearLayout
-        android:id="@+id/layout_mood_history"
+        android:id="@+id/layout_mood_histor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="89.1"
+        android:weightSum="89.1"
         android:orientation="vertical" >
 
         <com.squareup.timessquare.CalendarPickerView
             android:id="@+id/calendar_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="69.1"
             android:background="#FFFFFF"
             android:clipToPadding="false"
             android:paddingBottom="16dp"
@@ -30,7 +31,8 @@
         <LinearLayout
             android:id="@+id/layout_mood_history_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="20"
             android:orientation="horizontal" >
 
             <ImageView

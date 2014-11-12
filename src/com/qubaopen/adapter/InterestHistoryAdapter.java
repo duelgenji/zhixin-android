@@ -59,8 +59,11 @@ public class InterestHistoryAdapter extends BaseAdapter {
 			viewHolder = new ViewHolder();
 			viewHolder.title = (TextView) convertView
 					.findViewById(R.id.interest_history_questionare);
-			viewHolder.content = (TextView) convertView
-					.findViewById(R.id.interest_history_content);
+//			viewHolder.content = (TextView) convertView
+//					.findViewById(R.id.interest_history_content);
+			convertView.setTag(viewHolder);
+		}else {
+			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		if (list == null) {
 			return convertView;
@@ -69,14 +72,14 @@ public class InterestHistoryAdapter extends BaseAdapter {
 		Log.i("interestHistory", "position......" + position
 				+ "interestUserAnswer......" + list.get(position));
 		viewHolder.title.setText(interestUserAnswer.getInterestTitle());
-		viewHolder.content.setText(interestUserAnswer.getContent());
-
+//		viewHolder.content.setText(interestUserAnswer.getContent());
+		viewHolder.title.setTag(interestUserAnswer);
 		return convertView;
 	}
 
 	public final class ViewHolder {
 		public TextView title;
-		public TextView content;
+//		public TextView content;
 	}
 
 }

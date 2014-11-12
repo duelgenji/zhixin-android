@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.qubaopen.R;
 import com.qubaopen.activity.SelfPrefaceActivity;
+import com.qubaopen.database.DbManager;
 
 public class SelfListAdapter extends CursorAdapter {
 
@@ -22,16 +23,17 @@ public class SelfListAdapter extends CursorAdapter {
 		private int selfId;
 		private boolean isRetest;
 
-
 		public SelfListClickListener(int selfId, boolean isRetest) {
 			super();
 			this.selfId = selfId;
 			this.isRetest = isRetest;
 		}
 
-
 		@Override
 		public void onClick(View v) {
+			if (isRetest) {
+				deleteCurrentQuesitonAnswerByselfId(selfId);
+			}
 			Intent intent;
 			intent = new Intent(context, SelfPrefaceActivity.class);
 			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
@@ -69,21 +71,28 @@ public class SelfListAdapter extends CursorAdapter {
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.tv_title);
 		txtTitle.setText(cursor.getString(cursor.getColumnIndex("title")));
 
-//		int type = cursor.getInt(cursor.getColumnIndex("managementType"));
-//		ImageView img_xlzc = (ImageView) rowView.findViewById(R.id.img_xlzc);
-//		if (type == 1) {
-//			img_xlzc.setImageResource(R.drawable.icon_self_type_character);
-//		} else if (type == 2) {
-//			img_xlzc.setImageResource(R.drawable.icon_self_type_emotional);
-//		} else if (type == 3) {
-//			img_xlzc.setImageResource(R.drawable.icon_self_type_personal);
-//		}
+		// int type = cursor.getInt(cursor.getColumnIndex("managementType"));
+		// ImageView img_xlzc = (ImageView) rowView.findViewById(R.id.img_xlzc);
+		// if (type == 1) {
+		// img_xlzc.setImageResource(R.drawable.icon_self_type_character);
+		// } else if (type == 2) {
+		// img_xlzc.setImageResource(R.drawable.icon_self_type_emotional);
+		// } else if (type == 3) {
+		// img_xlzc.setImageResource(R.drawable.icon_self_type_personal);
+		// }
 
 		int questionnareId = cursor.getInt(cursor.getColumnIndex("selfId"));
-		rowView.setOnClickListener(new SelfListClickListener(questionnareId,isRetest));
+		rowView.setOnClickListener(new SelfListClickListener(questionnareId,
+				isRetest));
 
 		return rowView;
 
 	}
 
+	private void deleteCurrentQuesitonAnswerByselfId(int selfId) {
+
+		String sql = "delete from self_user_question_answer where questionId="
+				+ selfId;
+		DbManager.getDatabase().exeCustomerSql(sql);
+	}
 }

@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -98,6 +100,26 @@ public class InterestHistoryActivity extends Activity implements
 		btnBack.setOnClickListener(this);
 		interstHistoryList = (ListView) this
 				.findViewById(R.id.interest_history_list);
+		interstHistoryList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				InterestUserAnswer interestUserAnswer = null;
+				if (view instanceof TextView) {
+					interestUserAnswer = (InterestUserAnswer) view.getTag();
+				} else {
+					TextView tv = (TextView) view.findViewById(R.id.interest_history_questionare);
+					interestUserAnswer = (InterestUserAnswer) tv.getTag();
+				}
+				Intent intent = new Intent(_this,InterestAnswerActivity.class); 
+				intent.putExtra(InterestAnswerActivity.INTENT_INTEREST_TITLE,interestUserAnswer.getInterestTitle());
+				intent.putExtra(InterestAnswerActivity.INTENT_INTEREST_ANSWER,interestUserAnswer.getContent());
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				_this.startActivity(intent);
+			}
+			
+		});
 		progressDialog = new QubaopenProgressDialog(this);
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();

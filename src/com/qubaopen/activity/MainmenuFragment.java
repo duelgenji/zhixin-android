@@ -116,8 +116,8 @@ public class MainmenuFragment extends Fragment implements
 				.findViewById(R.id.layout_pick_mood);
 		layoutMoodSwitch = (RelativeLayout) view
 				.findViewById(R.id.layout_mood_switch);
-		imgMoodClose = (ImageView) view.findViewById(R.id.img_mood_close);
-		imgMoodClose.setOnClickListener(this);
+//		imgMoodClose = (ImageView) view.findViewById(R.id.img_mood_close);
+//		imgMoodClose.setOnClickListener(this);
 		imgMoodBackground = (ImageView) view
 				.findViewById(R.id.img_mood_background);
 		imgMoodBackground.setOnClickListener(this);
@@ -263,10 +263,10 @@ public class MainmenuFragment extends Fragment implements
 
 			}
 			break;
-		case R.id.img_mood_close:
-			panelClose();
-			v.setEnabled(true);
-			break;
+//		case R.id.img_mood_close:
+//			panelClose();
+//			v.setEnabled(true);
+//			break;
 		case R.id.img_mood_background:
 			v.setEnabled(true);
 			break;
