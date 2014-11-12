@@ -30,7 +30,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/img_last_score" />
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/img_last_score_background" />
+                
+                  <ImageView
+                    android:id="@+id/img_last_score_pointer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+ 					android:rotation="-270"                   
+ 					android:src="@drawable/img_last_score_pointer" />
 
                 <TextView
                     android:id="@+id/last_score"
@@ -41,6 +50,16 @@
                     android:layout_toLeftOf="@id/img_last_score"
                     android:text="@string/last_score"
                     android:textSize="16sp" />
+                
+                    <TextView
+                    android:id="@+id/current_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/know_heart_theme"
+                    android:text="0%"
+                    android:textSize="12sp" />
             </RelativeLayout>
 
             <LinearLayout
