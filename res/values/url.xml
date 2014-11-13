@@ -118,5 +118,6 @@
     <string name="URL_RETEST">selfs/retrieveSelfByGroupId</string>
     <string name="URL_GET_INTEREST_HISTORY">interests/retrieveInterestHistoryByFilter</string>
     <string name="URL_JOIN_HEART_REPORT">rewardActivityRecords/selfReportReward</string>
+    <string name="URL_GET_MOOD_LIST">userMood/getMoodList</string>
 
 </resources>

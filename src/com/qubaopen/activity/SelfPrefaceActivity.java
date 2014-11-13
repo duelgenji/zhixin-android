@@ -98,6 +98,7 @@ public class SelfPrefaceActivity extends Activity implements
 		btnBegin.setOnClickListener(this);
 
 		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
+		isRetest = getIntent().getBooleanExtra(INTENT_SELF_ISRETEST, false);
 		selfListService = new SelfListService(this);
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();

@@ -21,6 +21,8 @@ public class InterestUserAnswer {
 	private String optionTitle;
 
 	private String content;
+	
+	private String date;
 
 	public int get_id() {
 		return _id;
@@ -84,6 +86,14 @@ public class InterestUserAnswer {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 }

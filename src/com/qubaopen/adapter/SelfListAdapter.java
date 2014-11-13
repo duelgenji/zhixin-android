@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class SelfListAdapter extends CursorAdapter {
 			Intent intent;
 			intent = new Intent(context, SelfPrefaceActivity.class);
 			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
-			intent.putExtra("isRetest", isRetest);
+			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ISRETEST, isRetest);
 			context.startActivity(intent);
 
 		}

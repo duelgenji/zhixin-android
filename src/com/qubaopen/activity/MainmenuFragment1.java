@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
@@ -54,8 +56,8 @@ public class MainmenuFragment1 extends Fragment implements
 
 	private String designation;
 	private Double percent;
-	private boolean isChecked;
-	private Double deduction;
+	private boolean isJoined;
+	
 
 	private LinearLayout characterPercentLayout;
 	private TextView characterPercent;
@@ -74,8 +76,9 @@ public class MainmenuFragment1 extends Fragment implements
 	
 	private ImageView imgLastScoreBackground;
 	private ImageView imgLastScorePointer;
-	private TextView  txtLastScore;
 	private TextView  txtCurrentScore;
+	private Double deduction;
+	private int setRetotion;
 
 	private RelativeLayout layoutMoodFace1, layoutMoodFace2, layoutMoodFace3,
 			layoutMoodFace4, layoutMoodFace5, layoutMoodFace6;
@@ -143,12 +146,10 @@ public class MainmenuFragment1 extends Fragment implements
 		
 		imgLastScoreBackground= (ImageView) view
 				.findViewById(R.id.img_last_score);
+		imgLastScoreBackground.setOnClickListener(this);
 		imgLastScorePointer= (ImageView) view
 				.findViewById(R.id.img_last_score_pointer);
-		txtLastScore= (TextView) view
-				.findViewById(R.id.last_score);
-		txtLastScore.setOnClickListener(this);
-		txtLastScore= (TextView) view
+		txtCurrentScore= (TextView) view
 				.findViewById(R.id.current_score);
 		
 
@@ -174,7 +175,6 @@ public class MainmenuFragment1 extends Fragment implements
 		userService = new UserService(mainActivity);
 		calcDistance();
 		mainMenuService = new MainMenuService(MyApplication.getAppContext());
-
 		new LoadDataTask().execute(0, 0);
 
 	}
@@ -198,8 +198,8 @@ public class MainmenuFragment1 extends Fragment implements
 					designation);
 			intent.putExtra(AnalysisCharacterActivity.USER_CHARACTER_PERCENT,
 					percent);
-			intent.putExtra(AnalysisCharacterActivity.USER_CHARACTER_ISCHECKED,
-					isChecked);
+			intent.putExtra(AnalysisCharacterActivity.USER_CHARACTER_ISJOINED,
+					isJoined);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
@@ -230,7 +230,7 @@ public class MainmenuFragment1 extends Fragment implements
 			break;
 		case R.id.layout_recycle:
 			break;
-		case R.id.last_score:
+		case R.id.img_last_score:
 				dashBoardAnim();
 				v.setEnabled(true);
 			break;
@@ -332,15 +332,49 @@ public class MainmenuFragment1 extends Fragment implements
 	
 	//心情指数 仪表盘 动画
 	private void dashBoardAnim(){
-//		Animation animation4 = new RotateAnimation(0, 270, Animation.RELATIVE_TO_SELF,
-//				0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-//		LinearInterpolator lin = new LinearInterpolator();
-//		animation4.setInterpolator(lin);
-//		animation4.setDuration(666);
-//		animation4.setFillEnabled(true);
-//		animation4.setFillAfter(true);
-//		imgLastScorePointer.startAnimation(animation4);
-		AnimationUtils.performAnimateRoration(imgLastScorePointer, 90, 360, 666,txtLastScore);
+		setRetotion = (int) (270*deduction/100);
+		if (Build.VERSION.SDK_INT < 11) {
+			Animation animation4 = new RotateAnimation(90, 360, Animation.RELATIVE_TO_SELF,
+					0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+			LinearInterpolator lin = new LinearInterpolator();
+			animation4.setInterpolator(lin);
+			animation4.setDuration(666);
+			animation4.setFillEnabled(true);
+			animation4.setFillAfter(true);
+			animation4.setAnimationListener(new AnimationListener() {
+				
+				@Override
+				public void onAnimationStart(Animation animation) {
+					
+				}
+				
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+					
+				}
+				
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					Log.i("setRetotion", "setRetotion....." + setRetotion);
+					Animation animation5 = new RotateAnimation(360, 360-setRetotion, Animation.RELATIVE_TO_SELF,
+							0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+
+					LinearInterpolator lin = new LinearInterpolator();
+					animation5.setInterpolator(lin);
+					animation5.setDuration(666);
+					animation5.setFillEnabled(true);
+					animation5.setFillAfter(true);
+					imgLastScorePointer.startAnimation(animation5);
+				}
+			});
+			imgLastScorePointer.startAnimation(animation4);
+			txtCurrentScore.setText(((int)(100-deduction)) +"%");
+		
+		}else {
+			AnimationUtils.performAnimateRoration(imgLastScorePointer, 90, 360, 666,txtCurrentScore,0);
+			AnimationUtils.performAnimateRoration(imgLastScorePointer, 360, 360-setRetotion, 666,txtCurrentScore,667);
+		}
+		
 	}
 
 	// 计算圆盘距离 最笨方法
@@ -435,10 +469,13 @@ public class MainmenuFragment1 extends Fragment implements
 						percent = result.getDouble("resolution");
 						deduction = result.getDouble("deduction");
 						designation = result.getString("userSelfTitle");
-						Log.i("percent", "percent..." + percent
+						isJoined = result.getBoolean("isJoined");
+						Log.i("MainmenuFragment1", "percent..." + percent
 								+ "...deduction..." + deduction
-								+ "...designation..." + designation);
+								+ "...designation..." + designation
+								+ "...isJoined..." + isJoined);
 						characterPercent.setText(percent + "%");
+						dashBoardAnim();
 						String lastTime = result.getString("lastTime");
 						if (MatcherUtil.isToday(lastTime)) {
 							swtichPanelDown();

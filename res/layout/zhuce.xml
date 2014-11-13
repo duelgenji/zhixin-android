@@ -254,6 +254,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -264,7 +265,7 @@
                 android:background="@null"
                 android:gravity="center"
                 android:text="@string/already_regiset_user"
-                android:textColor="@color/text_black"
+                android:textColor="@color/text_red"
                 android:textSize="18sp" />
 
             <TextView
@@ -284,7 +285,7 @@
                 android:background="@null"
                 android:gravity="center"
                 android:text="@string/login_password_forgot"
-                android:textColor="@color/text_black"
+                android:textColor="@color/text_red"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>

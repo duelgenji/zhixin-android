@@ -13,39 +13,178 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="89.1"
-        android:weightSum="89.1"
-        android:orientation="vertical" >
+        android:background="@color/text_white"
+        android:orientation="vertical"
+        android:weightSum="89.1" >
 
-        <com.squareup.timessquare.CalendarPickerView
+        <LinearLayout
+            android:id="@+id/layout_mood_histor_calendar_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:id="@+id/btn_last_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="后退"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/layout_mood_histor_calendar_title_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="十一月"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/layout_mood_histor_calendar_title_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:text="2014"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/btn_next_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="前进"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tools_prepare_pregnancy_calendar_fragment_title_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/text_blue"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周日"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周一"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周二"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周三"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周四"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周五"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="周六"
+                android:textColor="@color/text_white"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <com.qubaopen.calendar.CalendarCardPager
             android:id="@+id/calendar_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="69.1"
-            android:background="#FFFFFF"
-            android:clipToPadding="false"
-            android:paddingBottom="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:scrollbarStyle="outsideOverlay" />
+            android:layout_weight="60.1"
+            android:background="#FFFFFF" />
 
         <LinearLayout
             android:id="@+id/layout_mood_history_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="20"
-            android:orientation="horizontal" >
+            android:layout_weight="29"
+            android:background="@color/text_white"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="当日心情："
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tv_mood_history_selected_day_mood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="无"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
             <ImageView
-                android:id="@+id/img_mood_history_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/img_mood_history_selected_day_mood"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:src="@drawable/today_mood_face_1" />
 
             <TextView
                 android:id="@+id/mood_history_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="心情。。。。。。心情不错，我要打十个" />
+                android:text="心情不错，我要打十个" />
         </LinearLayout>
     </LinearLayout>
 

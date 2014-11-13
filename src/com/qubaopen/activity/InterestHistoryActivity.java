@@ -229,9 +229,12 @@ public class InterestHistoryActivity extends Activity implements
 									.getString("interestTitle");
 							String content = array.getJSONObject(i).getString(
 									"content");
+							String date = array.getJSONObject(i).getString(
+									"date");
 							InterestUserAnswer interestUserAnswer = new InterestUserAnswer();
 							interestUserAnswer.setInterestTitle(interestTitle);
 							interestUserAnswer.setContent(content);
+							interestUserAnswer.setDate(date);
 							list.add(interestUserAnswer);
 						}
 						Log.i("interestHistory", "最终的数组长度" + list.size());

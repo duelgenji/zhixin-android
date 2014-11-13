@@ -1,8 +1,10 @@
 package com.qubaopen.utils;
 
+import android.R.integer;
 import android.annotation.TargetApi;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -97,7 +99,7 @@ public class AnimationUtils {
       
    	// view 改变roration动画
       static public void performAnimateRoration(final View target, final int start,
- 			final int end, Integer duration,final TextView textView) {
+ 			final int end, Integer duration,final TextView textView,int delay) {
  		ValueAnimator valueAnimator = ValueAnimator.ofInt(1, 1000);
 
  		valueAnimator.addUpdateListener(new AnimatorUpdateListener() {
@@ -110,7 +112,9 @@ public class AnimationUtils {
  				// 获得当前动画的进度值，整型，1-100之间
  				int currentValue = (Integer) animator.getAnimatedValue();
  				// 计算当前进度占整个动画过程的比例，浮点型，0-1之间
- 				textView.setText(currentValue/10+"%");
+ 				int currentRotation = (int) target.getRotation();
+ 				Log.i("currentRotation", "currentRotation......" + currentRotation);
+ 				textView.setText((currentRotation-90)*100/270+"%");
  				float fraction = currentValue / 1000f;
 
  				// 这里我偷懒了，不过有现成的干吗不用呢
@@ -125,7 +129,7 @@ public class AnimationUtils {
  		});
  		 valueAnimator.setInterpolator(android.view.animation.AnimationUtils.loadInterpolator(MyApplication.getAppContext(),
  		 android.R.anim.linear_interpolator)); //减速
- 		
+ 		valueAnimator.setStartDelay(delay);
  		valueAnimator.setDuration(duration).start();
  	}
 	

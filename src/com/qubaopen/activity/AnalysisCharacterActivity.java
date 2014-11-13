@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
@@ -18,10 +19,10 @@ public class AnalysisCharacterActivity extends FragmentActivity implements
 		OnClickListener {
 	public static String USER_CHARACTER_DESIGNATION = "userCharacterDesignation";
 	public static String USER_CHARACTER_PERCENT = "userCharacterPercent";
-	public static String USER_CHARACTER_ISCHECKED = "userCharacterIschecked";
+	public static String USER_CHARACTER_ISJOINED = "userCharacterIsJoined";
 	private String desination;
 	private Double percent;
-	private boolean isChecked;
+	private boolean isJoined;
 	private ImageButton btnBack;
 	private TextView title;
 	private ImageView btnShare;
@@ -39,16 +40,17 @@ public class AnalysisCharacterActivity extends FragmentActivity implements
 		btnShare.setOnClickListener(this);
 
 		desination = getIntent().getStringExtra(USER_CHARACTER_DESIGNATION);
-		// percent = getIntent().getDoubleExtra(USER_CHARACTER_PERCENT, 0);
-		isChecked = getIntent().getBooleanExtra(USER_CHARACTER_ISCHECKED, true);
-		percent = 100.00;
-		if (percent == 100 && !isChecked) {
+		percent = getIntent().getDoubleExtra(USER_CHARACTER_PERCENT, 0);
+		isJoined = getIntent().getBooleanExtra(USER_CHARACTER_ISJOINED, true);
+		Log.i("AnalysisCharacterActivity", "desination..." + desination
+				+ "...percent..." + percent + "...isJoined..." + isJoined);
+		if (percent == 100 && !isJoined) {
 			fragment = new AnalysisCompletedFragment();
 		} else {
 			fragment = new AnalysisNotCompletedFragment();
 		}
 		Bundle bundle = new Bundle();
-		bundle.putString("desination", desination);
+		bundle.putString("designation", desination);
 		bundle.putDouble("percent", percent);
 		fragment.setArguments(bundle);
 

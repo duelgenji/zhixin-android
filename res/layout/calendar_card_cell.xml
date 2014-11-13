@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.qubaopen.calendar.CheckableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="center"
+    style="@style/CalendarCard.Cell">
+    <include layout="@layout/calendar_card_item_simple"/>
+</com.qubaopen.calendar.CheckableLayout>
