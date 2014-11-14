@@ -4,11 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qubaopen.R;
@@ -18,36 +16,29 @@ import com.qubaopen.database.DbManager;
 public class SelfListAdapter extends CursorAdapter {
 
 	private Context context;
-	private boolean isRetest;
 
 	private class SelfListClickListener implements View.OnClickListener {
 		private int selfId;
-		private boolean isRetest;
 
-		public SelfListClickListener(int selfId, boolean isRetest) {
+		public SelfListClickListener(int selfId) {
 			super();
 			this.selfId = selfId;
-			this.isRetest = isRetest;
 		}
 
 		@Override
 		public void onClick(View v) {
-			if (isRetest) {
-				deleteCurrentQuesitonAnswerByselfId(selfId);
-			}
 			Intent intent;
 			intent = new Intent(context, SelfPrefaceActivity.class);
 			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
-			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ISRETEST, isRetest);
+			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ISRETEST, false);
 			context.startActivity(intent);
 
 		}
 
 	}
 
-	public SelfListAdapter(Context context, Cursor c, boolean isRetest) {
+	public SelfListAdapter(Context context, Cursor c) {
 		super(context, c, FLAG_REGISTER_CONTENT_OBSERVER);
-		this.isRetest = isRetest;
 		this.context = context;
 	}
 
@@ -83,17 +74,10 @@ public class SelfListAdapter extends CursorAdapter {
 		// }
 
 		int questionnareId = cursor.getInt(cursor.getColumnIndex("selfId"));
-		rowView.setOnClickListener(new SelfListClickListener(questionnareId,
-				isRetest));
+		rowView.setOnClickListener(new SelfListClickListener(questionnareId));
 
 		return rowView;
 
 	}
 
-	private void deleteCurrentQuesitonAnswerByselfId(int selfId) {
-
-		String sql = "delete from self_user_question_answer where questionId="
-				+ selfId;
-		DbManager.getDatabase().exeCustomerSql(sql);
-	}
 }

@@ -6,13 +6,14 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,12 +45,10 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.qubaopen.R;
-import com.qubaopen.activity.MainActivity;
-import com.qubaopen.activity.SelectAgeSexActivity;
-import com.qubaopen.activity.SelfListActivity;
-import com.qubaopen.activity.SelfRetestListActivity;
 import com.qubaopen.datasynservice.SelfRetestListService;
+import com.qubaopen.dialog.RetestDialog;
 import com.qubaopen.domain.MapData;
+import com.qubaopen.domain.SelfList;
 import com.qubaopen.settings.CrossSystemMap;
 import com.qubaopen.settings.MyApplication;
 import com.qubaopen.settings.PhoneHelper;
@@ -58,7 +57,7 @@ import com.qubaopen.utils.ShareUtil;
 
 public class CardItemView extends LinearLayout {
 
-	private MainActivity _this;
+	private Context context;
 	private LinearLayout titleLayout;
 	private ImageView cardItemLeft;
 	private TextView cardItemTitle;
@@ -87,6 +86,9 @@ public class CardItemView extends LinearLayout {
 	private int epqLevel = 0;
 	private int epqResource = 0;
 
+	private List<SelfList> list;
+	private SelfRetestListService selfRetestListService;
+
 	private DisplayImageOptions options;
 	private ImageLoadingListener animateFirstListener = new AnimateFirstDisplayListener();
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
@@ -101,6 +103,7 @@ public class CardItemView extends LinearLayout {
 
 	public CardItemView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.context = context;
 		setOrientation(VERTICAL);
 	}
 
@@ -133,6 +136,7 @@ public class CardItemView extends LinearLayout {
 				.showImageOnFail(R.drawable.interest_list_default_image)
 				.cacheInMemory(true).cacheOnDisk(true).considerExifParams(true)
 				.displayer(new RoundedBitmapDisplayer(20)).build();
+		selfRetestListService = new SelfRetestListService(context);
 		if (mapData == null) {
 			return;
 		}
@@ -261,13 +265,8 @@ public class CardItemView extends LinearLayout {
 
 			@Override
 			public void onClick(View v) {
-			
-				Intent intent = new Intent(getContext(),
-						SelfRetestListActivity.class);
-				intent.putExtra(SelfRetestListActivity.SELF_RETEST_LIST_GROUPID, mapData.getMapDataGroupId());
-				Log.i("retest", "groupId...111..." + mapData.getMapDataGroupId());
-				getContext().startActivity(intent);
-				
+				new LoadRetestListTask().execute(mapData.getMapDataGroupId());
+
 			}
 		});
 		// 分享按钮
@@ -301,6 +300,49 @@ public class CardItemView extends LinearLayout {
 				});
 
 		requestLayout();
+	}
+
+	private class LoadRetestListTask extends
+			AsyncTask<Integer, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Integer... params) {
+			int groupId = params[0] == null ? 0 : params[0];
+			JSONObject result = new JSONObject();
+			result = selfRetestListService.requestSelfList(groupId);
+			Log.i("RetestDialog", "result......" + result);
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				if (result != null && result.getString("success").equals("1")) {
+
+					list = new ArrayList<SelfList>();
+					JSONArray data = new JSONArray();
+					data = result.getJSONArray("data");
+					for (int i = 0; i < data.length(); i++) {
+						JSONObject tempJson = new JSONObject();
+						tempJson = data.getJSONObject(i);
+						Log.i("RetestDialog", "tempJson......" + tempJson);
+						SelfList retestList = new SelfList();
+						retestList.setSelfId(tempJson.getInt("selfId"));
+						retestList.setTitle(tempJson.getString("title"));
+						list.add(retestList);
+					}
+					RetestDialog dialog = new RetestDialog(context, list);
+					if (!dialog.isShowing()) {
+						dialog.show();
+					}
+
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 
 	public void setIntialHeight() {

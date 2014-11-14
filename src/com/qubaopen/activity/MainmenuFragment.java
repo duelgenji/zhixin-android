@@ -459,7 +459,7 @@ public class MainmenuFragment extends Fragment implements
 				switch (syncType) {
 				case 0:
 					// getMood 获取用户心情
-					result = userService.getMood();
+					result = userService.getIndexInfo();
 					result.put("syncType", syncType);
 					break;
 				case 1:

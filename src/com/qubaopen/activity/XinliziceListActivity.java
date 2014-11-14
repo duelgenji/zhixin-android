@@ -210,7 +210,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (adapter == null) {
-			adapter = new SelfListAdapter(this, cursor,false);
+			adapter = new SelfListAdapter(this, cursor);
 			xinliziceList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);
@@ -293,10 +293,8 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 				adapter2 = new XinLiZiCeAdapter(_this, list); 
 				xinliziceList.setAdapter(adapter2);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ExecutionException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

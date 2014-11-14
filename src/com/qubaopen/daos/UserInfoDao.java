@@ -1,6 +1,8 @@
 package com.qubaopen.daos;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import net.tsz.afinal.FinalDb;
 
@@ -8,32 +10,32 @@ import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
+import android.annotation.SuppressLint;
 import com.qubaopen.database.DbManager;
 import com.qubaopen.domain.UserInfo;
 import com.qubaopen.settings.CurrentUserHelper;
 
 public class UserInfoDao {
-//保存用户第一次登陆的信息
+	// 保存用户第一次登陆的信息
 	public void saveUserForFirsttime(JSONObject jbo, String password)
 			throws JSONException, ParseException {
-//		Log.i("获取个人资料", jbo+"");
-		//用户名默认是手机号码
+		// Log.i("获取个人资料", jbo+"");
+		// 用户名默认是手机号码
 		String username = jbo.getString("phone");
-		
+
 		UserInfo user = null;
 		final FinalDb db = DbManager.getDatabase();
-		//检查用户信息是否存在
-		if (db.tableExists(UserInfo.class)) {			
-			user = db.findUniqueByWhere(UserInfo.class, "username='"+username+"'");
+		// 检查用户信息是否存在
+		if (db.tableExists(UserInfo.class)) {
+			user = db.findUniqueByWhere(UserInfo.class, "username='" + username
+					+ "'");
 		}
 		if (user == null) {
 			user = new UserInfo();
 			user.setUsername(username);
 			user.setPassword(password);
 			user = saveUserForFirsttime_particial(jbo, user);
-//			Log.i("userinfo", user + "");
+			// Log.i("userinfo", user + "");
 			db.save(user);
 		} else {
 			user = saveUserForFirsttime_particial(jbo, user);
@@ -42,156 +44,190 @@ public class UserInfoDao {
 		}
 
 	}
-	
-	public void saveUserInfo(JSONObject jbo, UserInfo user)throws JSONException, ParseException{
+
+	public void saveUserInfo(JSONObject jbo, UserInfo user)
+			throws JSONException, ParseException {
 		if (user != null) {
-				
+
 			user.setUserId(jbo.getLong("userId"));
-				
+
 			if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
 				user.setPicUrl(jbo.getString("avatarPath"));
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("name"))) {
 				user.setName(jbo.getString("name"));
-			}else {
+			} else {
 				user.setName("");
 			}
 			// sex 0 for male 1 for female
 			if (StringUtils.isNotEmpty(jbo.getString("sex"))) {
 				user.setSex(jbo.getInt("sex"));
-			}else {
+			} else {
 				user.setSex(2);
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 				user.setNickName(jbo.getString("nickName"));
-			}else {
+			} else {
 				user.setNickName("");
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
 				user.setSignature(jbo.getString("signature"));
-			}else {
+			} else {
 				user.setSignature("");
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
 				user.setBirthDay(jbo.getString("birthday"));
-			}else {
+			} else {
 				user.setBirthDay("");
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("IdCard"))) {
 				user.setIdentityNumber(jbo.getString("IdCard"));
-			}else {
+			} else {
 				user.setIdentityNumber("");
 			}
-			
+
 			// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
 			if (StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
 				user.setBloodType(jbo.getInt("bloodType"));
-			}else {
+			} else {
 				user.setBloodType(4);
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("district"))) {
 				user.setDistrict(jbo.getString("district"));
-			}else {
+			} else {
 				user.setDistrict("");
 			}
 
 			if (StringUtils.isNotEmpty(jbo.getString("defaultAddress"))) {
 				user.setAddress(jbo.getString("defaultAddress"));
-			}else {
+			} else {
 				user.setAddress("");
 			}
-			
+
 			if (StringUtils.isNotEmpty(jbo.getString("email"))) {
 				user.setEmail(jbo.getString("email"));
-			}else {
+			} else {
 				user.setEmail("");
 			}
-			
+
 			DbManager.getDatabase().update(user);
 		}
 	}
-		
-		
+
+	@SuppressLint("SimpleDateFormat") public void saveUserIndexInfo(JSONObject jbo) {
+		UserInfo user = null;
+		final FinalDb db = DbManager.getDatabase();
+		user = db.findUniqueByWhere(UserInfo.class, "userId='"
+				+ CurrentUserHelper.getCurrentUserId() + "'");
+
+		try {
+			if (StringUtils.isNotEmpty(jbo.getString("moodType"))) {
+				user.setTodayMood(jbo.getInt("moodType"));
+			}
+			if (StringUtils.isNotEmpty(jbo.getString("userSelfTitle"))) {
+				user.setDesignation(jbo.getString("userSelfTitle"));
+			}
+			if (StringUtils.isNotEmpty(jbo.getString("deduction"))) {
+				user.setDeduction(jbo.getDouble("deduction"));
+			}
+			if (StringUtils.isNotEmpty(jbo.getString("resolution"))) {
+				user.setResolution(jbo.getDouble("resolution"));
+			}
+			if (StringUtils.isNotEmpty(jbo.getString("isJoined"))) {
+				user.setJoined(jbo.getBoolean("isJoined"));
+			}
+			if (StringUtils.isNotEmpty(jbo.getString("lastTime"))) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				Date date = dateFormat.parse(jbo.getString("lastTime"));
+				user.setLastTime(date);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		DbManager.getDatabase().update(user);
+	}
+
 	private UserInfo saveUserForFirsttime_particial(JSONObject jbo,
 			UserInfo user) throws JSONException, ParseException {
 
 		if (StringUtils.isNotEmpty(jbo.getString("userId"))) {
 			user.setUserId(jbo.getLong("userId"));
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
 			user.setPicUrl(jbo.getString("avatarPath"));
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("name"))) {
 			user.setName(jbo.getString("name"));
-		}else {
+		} else {
 			user.setName("");
 		}
 		// sex 0 for male 1 for female
 		if (StringUtils.isNotEmpty(jbo.getString("sex"))) {
 			user.setSex(jbo.getInt("sex"));
-		}else {
+		} else {
 			user.setSex(2);
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 			user.setNickName(jbo.getString("nickName"));
-		}else {
+		} else {
 			user.setNickName("");
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
 			user.setSignature(jbo.getString("signature"));
-		}else {
+		} else {
 			user.setSignature("");
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
 			user.setBirthDay(jbo.getString("birthday"));
-		}else {
+		} else {
 			user.setBirthDay("");
 		}
-		
+
 		// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
 		if (StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
 			user.setBloodType(jbo.getInt("bloodType"));
-		}else {
+		} else {
 			user.setBloodType(4);
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("district"))) {
 			user.setDistrict(jbo.getString("district"));
-		}else {
+		} else {
 			user.setDistrict("");
 		}
 
 		if (StringUtils.isNotEmpty(jbo.getString("defaultAddress"))) {
 			user.setAddress(jbo.getString("defaultAddress"));
-		}else {
+		} else {
 			user.setAddress("");
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("email"))) {
 			user.setEmail(jbo.getString("email"));
-		}else {
+		} else {
 			user.setEmail("");
 		}
-		
+
 		if (StringUtils.isNotEmpty(jbo.getString("idCard"))) {
 			user.setIdentityNumber(jbo.getString("idCard"));
-		}else {
+		} else {
 			user.setIdentityNumber("");
 		}
-		
+
 		return user;
-	
 
 	}
 
@@ -224,6 +260,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoEmailById(long id, String email) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -238,6 +275,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoSex(String phone, Integer sex) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -252,6 +290,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoSexById(long id, Integer sex) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -266,6 +305,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoBloodType(String phone, Integer type) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -280,13 +320,15 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoBloodTypeById(long id, Integer type) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
 		if (user == null) {
 			user = new UserInfo();
-			user.setUserId(id);;
+			user.setUserId(id);
+			;
 			user.setBloodType(type);
 			DbManager.getDatabase().save(user);
 		} else {
@@ -294,6 +336,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoBirthDay(String phone, String date) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -308,6 +351,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoBirthDayById(long id, String date) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -322,6 +366,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoNickNameById(long id, String nickName) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -336,7 +381,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
-	
+
 	public void saveUserInfoSignatureById(long id, String signature) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -351,6 +396,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public void saveUserInfoDefaultAddressById(long id, String defaultAddress) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -365,6 +411,7 @@ public class UserInfoDao {
 			DbManager.getDatabase().update(user);
 		}
 	}
+
 	public String getUserPasswordByPhone(String phone) {
 		String sql = "select * from user_info where username='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -375,16 +422,18 @@ public class UserInfoDao {
 			return null;
 		}
 	}
-	public long getUserIdByPhone(String phone){
+
+	public long getUserIdByPhone(String phone) {
 		String sql = "select * from user_info where userId='" + phone + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
 		if (user != null) {
 			return user.getUserId();
-		}else {
+		} else {
 			return 0;
 		}
 	}
+
 	public UserInfo saveUserZhibiInfo(String phone, JSONObject result)
 			throws JSONException {
 		String sql = "select * from user_info where username='" + phone + "'";
@@ -422,7 +471,7 @@ public class UserInfoDao {
 				sql);
 		return user;
 	}
-	
+
 	public UserInfo getUserById(Long id) {
 		String sql = "select * from user_info where userId='" + id + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
@@ -431,9 +480,11 @@ public class UserInfoDao {
 	}
 
 	public UserInfo getCurrentUser() {
-		String sql = "select * from user_info where userId='" + CurrentUserHelper.getCurrentUserId() + "'";
+		String sql = "select * from user_info where userId='"
+				+ CurrentUserHelper.getCurrentUserId() + "'";
 		UserInfo user = DbManager.getDatabase().findUniqueBySql(UserInfo.class,
 				sql);
 		return user;
 	}
+
 }

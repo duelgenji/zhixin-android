@@ -280,7 +280,6 @@ public class SelfContentActivity extends Activity implements
 
 					} else {
 						AlertDialog alert = new AlertDialog.Builder(this)
-								.setTitle("提示")
 								.setMessage(
 										SelfContentActivity.this
 												.getString(R.string.submmit_wj_tips))

@@ -1,16 +1,17 @@
 package com.qubaopen.activity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -37,7 +38,10 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.qubaopen.R;
 import com.qubaopen.customui.CardView;
+import com.qubaopen.datasynservice.SelfRetestListService;
 import com.qubaopen.dialog.QubaopenProgressDialog;
+import com.qubaopen.dialog.RetestDialog;
+import com.qubaopen.domain.SelfList;
 import com.qubaopen.settings.MyApplication;
 import com.qubaopen.settings.PhoneHelper;
 import com.qubaopen.settings.SettingValues;
@@ -62,6 +66,9 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 	private Button moodShare;
 	private JSONObject hasMapData = new JSONObject();
 
+	private List<SelfList> list;
+	private SelfRetestListService selfRetestListService;
+
 	private int windowWidth = PhoneHelper.getPhoneWIDTH();
 	private int imgHeight = (int) (windowWidth * 0.6);
 
@@ -74,6 +81,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_mood_control);
 		_this = this;
+		selfRetestListService = new SelfRetestListService(this);
 		initView();
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
@@ -351,15 +359,6 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_mood_retest:
-			Intent intent = new Intent(this, SelfRetestListActivity.class);
-			try {
-				intent.putExtra(
-						SelfRetestListActivity.SELF_RETEST_LIST_GROUPID,
-						hasMapData.getInt("gruopId"));
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			startActivity(intent);
 			break;
 		case R.id.btn_mood_share:
 			ShareUtil.showShare(
@@ -370,6 +369,49 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 			break;
 		default:
 			break;
+		}
+
+	}
+
+	private class LoadRetestListTask extends
+			AsyncTask<Integer, Void, JSONObject> {
+
+		@Override
+		protected JSONObject doInBackground(Integer... params) {
+			int groupId = params[0] == null ? 0 : params[0];
+			JSONObject result = new JSONObject();
+			result = selfRetestListService.requestSelfList(groupId);
+			Log.i("RetestDialog", "result......" + result);
+			return result;
+		}
+
+		@Override
+		protected void onPostExecute(JSONObject result) {
+			try {
+				if (result != null && result.getString("success").equals("1")) {
+
+					list = new ArrayList<SelfList>();
+					JSONArray data = new JSONArray();
+					data = result.getJSONArray("data");
+					for (int i = 0; i < data.length(); i++) {
+						JSONObject tempJson = new JSONObject();
+						tempJson = data.getJSONObject(i);
+						Log.i("RetestDialog", "tempJson......" + tempJson);
+						SelfList retestList = new SelfList();
+						retestList.setSelfId(tempJson.getInt("selfId"));
+						retestList.setTitle(tempJson.getString("title"));
+						list.add(retestList);
+					}
+					RetestDialog dialog = new RetestDialog(_this, list);
+					if (!dialog.isShowing()) {
+						dialog.show();
+					}
+
+				}
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
 		}
 
 	}

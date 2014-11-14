@@ -1,5 +1,7 @@
 package com.qubaopen.activity;
 
+import java.util.Date;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,8 +30,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qubaopen.R;
+import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.datasynservice.MainMenuService;
 import com.qubaopen.datasynservice.UserService;
+import com.qubaopen.domain.UserInfo;
 import com.qubaopen.settings.MyApplication;
 import com.qubaopen.settings.PhoneHelper;
 import com.qubaopen.utils.AnimationUtils;
@@ -54,11 +58,6 @@ public class MainmenuFragment1 extends Fragment implements
 	/***/
 	private Activity mainActivity;
 
-	private String designation;
-	private Double percent;
-	private boolean isJoined;
-	
-
 	private LinearLayout characterPercentLayout;
 	private TextView characterPercent;
 	private RelativeLayout moodControl;
@@ -73,10 +72,14 @@ public class MainmenuFragment1 extends Fragment implements
 	private ImageView imgMoodArrow;
 	private ImageView imgMoodPanel;
 	private ImageView imgMoodBackground;
-	
+
 	private ImageView imgLastScoreBackground;
 	private ImageView imgLastScorePointer;
-	private TextView  txtCurrentScore;
+	private TextView txtCurrentScore;
+
+	private String designation;
+	private Double percent;
+	private boolean isJoined;
 	private Double deduction;
 	private int setRetotion;
 
@@ -88,7 +91,12 @@ public class MainmenuFragment1 extends Fragment implements
 	private boolean isMoodOpen = false;
 	private boolean isMoodFirst = true;
 
+	private boolean isDone = false;
+
 	private int moveDistance = 0;
+
+	private UserInfo userInfo;
+	private UserInfoDao userInfoDao;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -102,6 +110,9 @@ public class MainmenuFragment1 extends Fragment implements
 	}
 
 	private void initView(View view) {
+		userInfoDao = new UserInfoDao();
+		userInfo = userInfoDao.getCurrentUser();
+
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText("知心");
 
@@ -143,15 +154,13 @@ public class MainmenuFragment1 extends Fragment implements
 		imgMoodArrow = (ImageView) view
 				.findViewById(R.id.img_mood_switch_arrow);
 		AnimationUtils.startImgBackGround(imgMoodArrow);
-		
-		imgLastScoreBackground= (ImageView) view
+
+		imgLastScoreBackground = (ImageView) view
 				.findViewById(R.id.img_last_score);
 		imgLastScoreBackground.setOnClickListener(this);
-		imgLastScorePointer= (ImageView) view
+		imgLastScorePointer = (ImageView) view
 				.findViewById(R.id.img_last_score_pointer);
-		txtCurrentScore= (TextView) view
-				.findViewById(R.id.current_score);
-		
+		txtCurrentScore = (TextView) view.findViewById(R.id.current_score);
 
 		layoutMoodFace1 = (RelativeLayout) view
 				.findViewById(R.id.layout_mood_face_1);
@@ -175,7 +184,51 @@ public class MainmenuFragment1 extends Fragment implements
 		userService = new UserService(mainActivity);
 		calcDistance();
 		mainMenuService = new MainMenuService(MyApplication.getAppContext());
-		new LoadDataTask().execute(0, 0);
+		if (userInfo != null) {
+			if (userInfo.getTodayMood() != 0) {
+
+			} else {
+				if (!isDone) {
+					isDone = true;
+					new LoadDataTask().execute(0, 0);
+				}
+
+			}
+			if (userInfo.getLastTime() != new Date()) {
+				if (!isDone) {
+					isDone = true;
+					new LoadDataTask().execute(0, 0);
+				}
+			}
+			if (userInfo.getDesignation() != null) {
+				designation = userInfo.getDesignation();
+			} else {
+				if (!isDone) {
+					isDone = true;
+					new LoadDataTask().execute(0, 0);
+				}
+
+			}
+			if (userInfo.getDeduction() != null) {
+				deduction = userInfo.getDeduction();
+			} else {
+				if (!isDone) {
+					isDone = true;
+					new LoadDataTask().execute(0, 0);
+				}
+
+			}
+			if (userInfo.getResolution() != null) {
+				percent = userInfo.getResolution();
+			} else {
+				if (!isDone) {
+					isDone = true;
+					new LoadDataTask().execute(0, 0);
+				}
+
+			}
+			isJoined = userInfo.isJoined();
+		}
 
 	}
 
@@ -231,8 +284,8 @@ public class MainmenuFragment1 extends Fragment implements
 		case R.id.layout_recycle:
 			break;
 		case R.id.img_last_score:
-				dashBoardAnim();
-				v.setEnabled(true);
+			dashBoardAnim();
+			v.setEnabled(true);
 			break;
 		case R.id.img_mood_switch_panel:
 
@@ -261,8 +314,8 @@ public class MainmenuFragment1 extends Fragment implements
 			}
 			break;
 		case R.id.img_mood_history:
-//			panelClose();
-			intent = new Intent(mainActivity,MoodHistoryActivity.class);
+			// panelClose();
+			intent = new Intent(mainActivity, MoodHistoryActivity.class);
 			startActivity(intent);
 			v.setEnabled(true);
 			break;
@@ -328,35 +381,36 @@ public class MainmenuFragment1 extends Fragment implements
 	private void showToast(String content) {
 		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
 	}
-	
-	
-	//心情指数 仪表盘 动画
-	private void dashBoardAnim(){
-		setRetotion = (int) (270*deduction/100);
+
+	// 心情指数 仪表盘 动画
+	private void dashBoardAnim() {
+		setRetotion = (int) (270 * deduction / 100);
 		if (Build.VERSION.SDK_INT < 11) {
-			Animation animation4 = new RotateAnimation(90, 360, Animation.RELATIVE_TO_SELF,
-					0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+			Animation animation4 = new RotateAnimation(90, 360,
+					Animation.RELATIVE_TO_SELF, 0.5f,
+					Animation.RELATIVE_TO_SELF, 0.5f);
 			LinearInterpolator lin = new LinearInterpolator();
 			animation4.setInterpolator(lin);
 			animation4.setDuration(666);
 			animation4.setFillEnabled(true);
 			animation4.setFillAfter(true);
 			animation4.setAnimationListener(new AnimationListener() {
-				
+
 				@Override
 				public void onAnimationStart(Animation animation) {
-					
+
 				}
-				
+
 				@Override
 				public void onAnimationRepeat(Animation animation) {
-					
+
 				}
-				
+
 				@Override
 				public void onAnimationEnd(Animation animation) {
 					Log.i("setRetotion", "setRetotion....." + setRetotion);
-					Animation animation5 = new RotateAnimation(360, 360-setRetotion, Animation.RELATIVE_TO_SELF,
+					Animation animation5 = new RotateAnimation(360,
+							360 - setRetotion, Animation.RELATIVE_TO_SELF,
 							0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
 
 					LinearInterpolator lin = new LinearInterpolator();
@@ -368,13 +422,15 @@ public class MainmenuFragment1 extends Fragment implements
 				}
 			});
 			imgLastScorePointer.startAnimation(animation4);
-			txtCurrentScore.setText(((int)(100-deduction)) +"%");
-		
-		}else {
-			AnimationUtils.performAnimateRoration(imgLastScorePointer, 90, 360, 666,txtCurrentScore,0);
-			AnimationUtils.performAnimateRoration(imgLastScorePointer, 360, 360-setRetotion, 666,txtCurrentScore,667);
+			txtCurrentScore.setText(((int) (100 - deduction)) + "%");
+
+		} else {
+			AnimationUtils.performAnimateRoration(imgLastScorePointer, 90, 360,
+					666, txtCurrentScore, 0);
+			AnimationUtils.performAnimateRoration(imgLastScorePointer, 360,
+					360 - setRetotion, 666, txtCurrentScore, 667);
 		}
-		
+
 	}
 
 	// 计算圆盘距离 最笨方法
@@ -438,7 +494,7 @@ public class MainmenuFragment1 extends Fragment implements
 				switch (syncType) {
 				case 0:
 					// getMood 获取用户心情
-					result = userService.getMood();
+					result = userService.getIndexInfo();
 
 					result.put("syncType", syncType);
 					break;
@@ -466,6 +522,7 @@ public class MainmenuFragment1 extends Fragment implements
 
 					switch (syncType) {
 					case 0:
+						userInfoDao.saveUserIndexInfo(result);
 						percent = result.getDouble("resolution");
 						deduction = result.getDouble("deduction");
 						designation = result.getString("userSelfTitle");

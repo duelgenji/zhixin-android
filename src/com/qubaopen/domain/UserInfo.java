@@ -55,6 +55,19 @@ public class UserInfo {
 	private int qiandaoId;
 
 	private int fameValue;
+	
+	private int todayMood;
+	
+	private String designation;
+	
+	private Double resolution;
+	
+	private Double deduction;
+	
+	private boolean isJoined;
+	
+	private Date lastTime;
+	
 
 	public String getUsername() {
 		return username;
@@ -227,4 +240,53 @@ public class UserInfo {
 		this.fameValue = fameValue;
 	}
 
+	public int getTodayMood() {
+		return todayMood;
+	}
+
+	public void setTodayMood(int todayMood) {
+		this.todayMood = todayMood;
+	}
+
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
+	public Double getResolution() {
+		return resolution;
+	}
+
+	public void setResolution(Double resolution) {
+		this.resolution = resolution;
+	}
+
+	public Double getDeduction() {
+		return deduction;
+	}
+
+	public void setDeduction(Double deduction) {
+		this.deduction = deduction;
+	}
+
+	public boolean isJoined() {
+		return isJoined;
+	}
+
+	public void setJoined(boolean isJoined) {
+		this.isJoined = isJoined;
+	}
+
+	public Date getLastTime() {
+		return lastTime;
+	}
+
+	public void setLastTime(Date lastTime) {
+		this.lastTime = lastTime;
+	}
+
+	
 }

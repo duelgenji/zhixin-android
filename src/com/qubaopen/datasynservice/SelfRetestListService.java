@@ -7,7 +7,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.qubaopen.R;
-import com.qubaopen.daos.SelfListDao;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
 
@@ -26,29 +25,24 @@ public class SelfRetestListService {
 	}
 
 	private Context context;
-	private SelfListDao selfListDao;
 
 	public SelfRetestListService(Context context) {
 		this.context = context;
-		this.selfListDao = new SelfListDao();
 	}
 	//新接口
-	public String requestSelfList(int groupId) {
+	public JSONObject requestSelfList(int groupId) {
+		JSONObject result = null;
 		try {
 			String requestUrl = SettingValues.URL_PREFIX
 					+ context.getString(R.string.URL_RETEST) + "/" +groupId;
-			JSONObject result;
+			
 			result = HttpClient.requestSync(requestUrl, null,
 					HttpClient.TYPE_GET);
 			Log.i("retest", "retest......" + result);
-			if (result != null && result.getString("success").equals("1")) {
-				selfListDao = new SelfListDao();
-				return selfListDao.saveSelfList(result);
-			}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return result;
 	}
 	
 }

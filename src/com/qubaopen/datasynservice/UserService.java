@@ -55,7 +55,7 @@ public class UserService {
 	}
 	
 	//获取每日心情
-	public JSONObject getMood() {
+	public JSONObject getIndexInfo() {
 		JSONObject result = new JSONObject();
 		try {
 			String requestUrl = SettingValues.URL_PREFIX

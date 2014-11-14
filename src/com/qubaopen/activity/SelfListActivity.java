@@ -196,7 +196,7 @@ public class SelfListActivity extends FragmentActivity implements
 			layoutSelfListEmpty.setVisibility(View.GONE);
 		}
 		if (adapter == null) {
-			adapter = new SelfListAdapter(this, cursor,false);
+			adapter = new SelfListAdapter(this, cursor);
 			selfList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);

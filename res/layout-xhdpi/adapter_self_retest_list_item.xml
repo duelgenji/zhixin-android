@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_xlzc"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:paddingTop="8dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/input_background_single_white"
+        android:orientation="horizontal" >
+
+
+        <TextView
+            android:id="@+id/self_retest_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:text="你的心情会随什么改变？"
+            android:textSize="20sp" />
+
+       <!--  <ImageView
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="3"
+            android:src="@drawable/right_arrow_xinlizice" /> -->
+    </LinearLayout>
+
+</LinearLayout>
