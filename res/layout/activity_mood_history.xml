@@ -141,14 +141,14 @@
             android:id="@+id/calendar_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="60.1"
+            android:layout_weight="64.1"
             android:background="#FFFFFF" />
 
         <LinearLayout
             android:id="@+id/layout_mood_history_content"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="29"
+            android:layout_weight="25"
             android:background="@color/text_white"
             android:orientation="vertical" >
 
@@ -181,7 +181,7 @@
                 android:src="@drawable/today_mood_face_1" />
 
             <TextView
-                android:id="@+id/mood_history_content"
+                android:id="@+id/mood_history_selected_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="心情不错，我要打十个" />

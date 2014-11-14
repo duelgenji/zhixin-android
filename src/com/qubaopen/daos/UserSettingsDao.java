@@ -21,7 +21,7 @@ public class UserSettingsDao {
 			throws JSONException, ParseException {
 		// Log.i("要存储的设置", jbo + "");
 		UserSettings us = null;
-		if (db.tableExists(UserInfo.class)) {
+		if (db.tableExists(UserSettings.class)) {
 			us = db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 					+ "'");
 		}
@@ -42,7 +42,7 @@ public class UserSettingsDao {
 		// Log.i("要存储的前二设置", jbo + "");
 		UserSettings us = null;
 
-		if (db.tableExists(UserInfo.class)) {
+		if (db.tableExists(UserSettings.class)) {
 			us = db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 					+ "'");
 		}
@@ -64,7 +64,7 @@ public class UserSettingsDao {
 		// Log.i("要存储的后二设置", jbo + "");
 		UserSettings us = null;
 
-		if (db.tableExists(UserInfo.class)) {
+		if (db.tableExists(UserSettings.class)) {
 			us = db.findUniqueByWhere(UserSettings.class, "userId='" + userId
 					+ "'");
 		}
