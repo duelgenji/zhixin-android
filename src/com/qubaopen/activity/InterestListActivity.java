@@ -44,7 +44,7 @@ public class InterestListActivity extends FragmentActivity implements
 //	private View quceshiOrderComponent;
 	private ImageButton btnBack;
 	private TextView txtInterestType;
-	private Button btnHistory;
+	private TextView btnHistory;
 //	private TextView txtInterestOrderType;
 
 	/** 趣测试列表 */
@@ -101,7 +101,7 @@ public class InterestListActivity extends FragmentActivity implements
 		btnBack.setOnClickListener(this);
 		quList = (ListView) this.findViewById(R.id.quList);
 
-		btnHistory = (Button) this.findViewById(R.id.btn_interest_history);
+		btnHistory = (TextView) this.findViewById(R.id.btn_interest_history);
 		btnHistory.setOnClickListener(this);
 		
 		refreshDataTask = new LoadDataTask(true);

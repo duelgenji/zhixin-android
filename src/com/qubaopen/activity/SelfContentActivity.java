@@ -6,8 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +34,8 @@ import com.qubaopen.dialog.CommonDialog;
 import com.qubaopen.dialog.CommonDialog.CommonDialogListener;
 import com.qubaopen.dialog.DafenFenshuOverlayer2;
 import com.qubaopen.dialog.QubaopenProgressDialog;
+import com.qubaopen.dialog.RecoverDialog;
+import com.qubaopen.dialog.RecoverDialog.RecoverDialogListener;
 import com.qubaopen.domain.SelfUserAnswer;
 import com.qubaopen.domain.UserQuestionAnswer;
 import com.qubaopen.enums.QuestionTypeEnums;
@@ -57,6 +57,7 @@ public class SelfContentActivity extends Activity implements
 	private SelfAnswerService selfAnswerService;
 	private Integer selfId;
 	private boolean isRetest;
+	private boolean isRecover;
 
 	private RelativeLayout quceshiContentArea;
 
@@ -253,7 +254,8 @@ public class SelfContentActivity extends Activity implements
 			} else {
 
 				if (NetworkUtils.isNetworkAvailable(this)) {
-					Log.i("SelfContentActivity", "isRetest...second..." + isRetest);
+					Log.i("SelfContentActivity", "isRetest...second..."
+							+ isRetest);
 					if (!isRetest) {
 						CommonDialog dialog = new CommonDialog(this,
 								getString(R.string.submmit_wj_tips),
@@ -279,49 +281,79 @@ public class SelfContentActivity extends Activity implements
 						dialog.show();
 
 					} else {
-						AlertDialog alert = new AlertDialog.Builder(this)
-								.setMessage(
-										SelfContentActivity.this
-												.getString(R.string.submmit_wj_tips))
-								.setNeutralButton("不覆盖",
-										new DialogInterface.OnClickListener() {
+						RecoverDialog dialog = new RecoverDialog(this,
+								new RecoverDialogListener() {
 
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
-												nextQuestionBtn
-														.setEnabled(false);
-												new SubmitDataTask()
-														.execute(doDataObject
-																.getWjId());
-											}
+									@Override
+									public void onClick(View view) {
+										switch (view.getId()) {
+										case R.id.dialog_btn_recover:
+											isRecover = true;
+											nextQuestionBtn.setEnabled(false);
+											new SubmitDataTask()
+													.execute(doDataObject
+															.getWjId());
+											break;
+										case R.id.dialog_btn_not_recover:
+											isRecover = false;
+											nextQuestionBtn.setEnabled(false);
+											new SubmitDataTask()
+													.execute(doDataObject
+															.getWjId());
+											break;
+										case R.id.dialog_recover_cancel:
 
-										})
-								.setPositiveButton("覆盖",
-										new DialogInterface.OnClickListener() {// 设置确定按钮
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
+											break;
 
-												nextQuestionBtn
-														.setEnabled(false);
-												new SubmitDataTask()
-														.execute(doDataObject
-																.getWjId());
-											}
-										})
-								.setNegativeButton("取消",
-										new DialogInterface.OnClickListener() {// 设置取消按钮
-											@Override
-											public void onClick(
-													DialogInterface dialog,
-													int which) {
-
-											}
-										}).create();
-						alert.show();
+										default:
+											break;
+										}
+									}
+								});
+						dialog.show();
+						// AlertDialog alert = new AlertDialog.Builder(this)
+						// .setMessage(
+						// SelfContentActivity.this
+						// .getString(R.string.submmit_wj_tips))
+						// .setNeutralButton("不覆盖",
+						// new DialogInterface.OnClickListener() {
+						//
+						// @Override
+						// public void onClick(
+						// DialogInterface dialog,
+						// int which) {
+						// nextQuestionBtn
+						// .setEnabled(false);
+						// new SubmitDataTask()
+						// .execute(doDataObject
+						// .getWjId());
+						// }
+						//
+						// })
+						// .setPositiveButton("覆盖",
+						// new DialogInterface.OnClickListener() {// 设置确定按钮
+						// @Override
+						// public void onClick(
+						// DialogInterface dialog,
+						// int which) {
+						//
+						// nextQuestionBtn
+						// .setEnabled(false);
+						// new SubmitDataTask()
+						// .execute(doDataObject
+						// .getWjId());
+						// }
+						// })
+						// .setNegativeButton("取消",
+						// new DialogInterface.OnClickListener() {// 设置取消按钮
+						// @Override
+						// public void onClick(
+						// DialogInterface dialog,
+						// int which) {
+						//
+						// }
+						// }).create();
+						// alert.show();
 					}
 				} else {
 					Toast.makeText(this,
@@ -516,8 +548,8 @@ public class SelfContentActivity extends Activity implements
 		protected Object doInBackground(Integer... params) {
 			try {
 				JSONObject jbo = DoQuestionAnswer.loadSelfAnswers(params[0]);
-				Log.i("SelfContentActivity", "isRetest...three..." + isRetest);
-				jbo.put("refresh", isRetest);// 是否是重测
+				Log.i("SelfContentActivity", "isRecover......" + isRecover);
+				jbo.put("refresh", isRecover);// 是否覆盖
 				return selfAnswerService.getAnswer(jbo);
 			} catch (Exception e) {
 				e.printStackTrace();

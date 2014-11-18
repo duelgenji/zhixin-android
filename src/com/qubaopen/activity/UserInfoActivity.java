@@ -422,7 +422,7 @@ public class UserInfoActivity extends FragmentActivity implements
 			public void onDateChanged(DatePicker view, int year,
 					int monthOfYear, int dayOfMonth) {
 				Log.i("year", "select......" + year);
-				if (year >= 1970 && year <= c.get(Calendar.YEAR)) {
+				if (year >= 1900 && year <= c.get(Calendar.YEAR)) {
 					yearCanPick = true;
 				} else {
 					yearCanPick = false;
@@ -483,7 +483,7 @@ public class UserInfoActivity extends FragmentActivity implements
 									HttpClient.TYPE_PUT_JSON);
 						}
 					} else {
-						showToast("年份错误");
+						showToast("年份错误,有效期为1900至今");
 						try {
 							Field field = arg0.getClass().getSuperclass()
 									.getDeclaredField("mShowing");

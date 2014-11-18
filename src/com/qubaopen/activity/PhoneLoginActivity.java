@@ -30,27 +30,26 @@ import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
 import com.qubaopen.utils.MatcherUtil;
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+public class PhoneLoginActivity extends Activity implements
+		View.OnClickListener {
+
+	private ImageButton btnBack;
+	private TextView title;
 	/** 电话账号 */
 	private EditText phoneStr;
 	/** 密码 */
 	private EditText passwordStr;
 	/** 登陆按钮 */
 	private ImageButton btnLogin;
-	/** 注册按钮 */
-	private ImageButton btnRegister;
 	/** 忘记密码 */
 	private TextView txtForgot;
 	/** 吐司电话账号为空 */
 	private Toast phoneEmptyToast;
-	/** 吐司无效的登陆 */
-	// private Toast invalidLogonToast;
 	/** 用户信息Dao */
 	private UserInfoDao userInfoDao;
 	/***/
 
-	private LoginActivity _this;
-
+	private PhoneLoginActivity _this;
 	private Context context;
 
 	private String phone;
@@ -62,15 +61,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_login);
+		setContentView(R.layout.phone_login);
 		_this = this;
 		userInfoDao = new UserInfoDao();
 
-		phoneStr = (EditText) this.findViewById(R.id.phone);
-		phoneClear = (ImageButton) this.findViewById(R.id.btn_clear);
+		initView();
+	}
+
+	private void initView() {
+		btnBack = (ImageButton) findViewById(R.id.backup_btn);
+		btnBack.setOnClickListener(this);
+		title = (TextView) findViewById(R.id.title_of_the_page);
+		title.setText(getString(R.string.login_title));
+		phoneStr = (EditText) findViewById(R.id.phone);
+		phoneClear = (ImageButton) findViewById(R.id.btn_clear);
 		phoneClear.setOnClickListener(this);
-		passwordStr = (EditText) this.findViewById(R.id.password);
-		showPassword = (ToggleButton) this.findViewById(R.id.btn_show_pwd);
+		passwordStr = (EditText) findViewById(R.id.password);
+		showPassword = (ToggleButton) findViewById(R.id.btn_show_pwd);
 		showPassword.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -84,10 +91,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 				}
 			}
 		});
-		
-
-		btnRegister = (ImageButton) this.findViewById(R.id.btnRegister);
-		btnRegister.setOnClickListener(this);
 
 		txtForgot = (TextView) this.findViewById(R.id.txtForgot);
 		txtForgot.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -167,7 +170,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 						CurrentUserHelper.saveCurrentPhone(phone);
 						CurrentUserHelper.saveCurrentUserId(userId);
-						// CurrentUserHelper.saveCurrentPassword(password);
 						try {
 							userInfoDao.saveUserForFirsttime(result, password);
 						} catch (JSONException e) {
@@ -202,27 +204,23 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 	@Override
 	public void onClick(View v) {
 		Intent intent;
+		v.setEnabled(false);
 		switch (v.getId()) {
+		case R.id.backup_btn:
+			finish();
+			v.setEnabled(true);
+			break;
 		case R.id.btn_clear:
-			v.setEnabled(false);
 			phoneStr.setText("");
 			v.setEnabled(true);
 			break;
-		case R.id.btnRegister:
-			v.setEnabled(false);
-			intent = new Intent(this, RegistPhoneActivity.class);
-			startActivity(intent);
-			v.setEnabled(true);
-			break;
 		case R.id.txtForgot:
-			v.setEnabled(false);
 			intent = new Intent(this, LoginForgotPasswordActivity.class);
 			startActivity(intent);
 			finish();
 			v.setEnabled(true);
 			break;
 		case R.id.btnLogin:
-			v.setEnabled(false);
 			phone = phoneStr.getText().toString();
 			password = passwordStr.getText().toString();
 			if (StringUtils.isEmpty(phone)) {

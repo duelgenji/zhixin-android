@@ -23,15 +23,14 @@
         </shape>
     </item>
     
-     <!-- 左1 -->
+     <!-- 左2 -->
     <item
-        Android:bottom="37.5dp"
+        Android:bottom="25dp"
         Android:left="1dp"
         Android:right="25dp"
-        Android:top="1dp">
+        Android:top="12.5dp">
         <shape Android:shape="rectangle" >
-            <solid Android:color="#ff0000" />
+            <solid Android:color="#ffff00" />
         </shape>
     </item>
-   
 </layer-list>

@@ -17,7 +17,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.qubaopen.R;
-import com.qubaopen.activity.LoginActivity;
+import com.qubaopen.activity.MainLoginActivity;
+import com.qubaopen.activity.PhoneLoginActivity;
 import com.qubaopen.common.RequestLogic;
 import com.qubaopen.datasynservice.RegistService;
 import com.qubaopen.settings.ErrHashMap;
@@ -118,7 +119,7 @@ public class HttpClient {
 							@Override
 							public void run() {
 								Intent intent = new Intent(MyApplication
-										.getAppContext(), LoginActivity.class);
+										.getAppContext(), MainLoginActivity.class);
 								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 										| Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
@@ -315,7 +316,7 @@ public class HttpClient {
 							@Override
 							public void run() {
 								Intent intent = new Intent(MyApplication
-										.getAppContext(), LoginActivity.class);
+										.getAppContext(), MainLoginActivity.class);
 								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 										| Intent.FLAG_ACTIVITY_CLEAR_TASK);
 

@@ -140,9 +140,12 @@
             android:name=".provider.InternalStorageContentProvider"
             android:authorities="com.qubaopen.provider"
             android:exported="true" />
-
+ <activity
+            android:name=".activity.MainLoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.PhoneLoginActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
         <activity

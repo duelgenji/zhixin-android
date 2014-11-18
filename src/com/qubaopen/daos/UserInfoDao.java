@@ -120,7 +120,8 @@ public class UserInfoDao {
 		}
 	}
 
-	@SuppressLint("SimpleDateFormat") public void saveUserIndexInfo(JSONObject jbo) {
+	@SuppressLint("SimpleDateFormat")
+	public void saveUserIndexInfo(JSONObject jbo) {
 		UserInfo user = null;
 		final FinalDb db = DbManager.getDatabase();
 		user = db.findUniqueByWhere(UserInfo.class, "userId='"

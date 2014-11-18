@@ -329,7 +329,7 @@ public class IntroduceFragment extends Fragment  {
 						return;
 					}
 					Intent intent = new Intent(mainActivity,
-							RegistPhoneActivity.class);
+							MainLoginActivity.class);
 					startActivity(intent);
 				}
 			});

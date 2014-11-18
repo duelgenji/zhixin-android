@@ -114,7 +114,7 @@ public class AnimationUtils {
  				// 计算当前进度占整个动画过程的比例，浮点型，0-1之间
  				int currentRotation = (int) target.getRotation();
  				Log.i("currentRotation", "currentRotation......" + currentRotation);
- 				textView.setText((currentRotation-90)*100/270+"%");
+ 				textView.setText((currentRotation-90)*100/270+"分");
  				float fraction = currentValue / 1000f;
 
  				// 这里我偷懒了，不过有现成的干吗不用呢

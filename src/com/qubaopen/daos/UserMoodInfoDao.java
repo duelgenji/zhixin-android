@@ -1,11 +1,15 @@
 package com.qubaopen.daos;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import net.tsz.afinal.FinalDb;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import com.qubaopen.database.DbManager;
 import com.qubaopen.domain.UserMoodInfo;
 import com.qubaopen.settings.CurrentUserHelper;
@@ -21,7 +25,7 @@ public class UserMoodInfoDao {
 
 		JSONArray data = jbo.getJSONArray("moodList");
 		JSONObject tempJson;
-		
+
 		UserMoodInfo userMoodInfo = null;
 
 		for (int i = 0; i < data.length(); i++) {
@@ -43,7 +47,7 @@ public class UserMoodInfoDao {
 					}
 
 					DbManager.getDatabase().save(userMoodInfo);
-				}else {
+				} else {
 					userMoodInfo.setMoodDate(tempJson.getString("date"));
 					userMoodInfo.setMoodId(tempJson.getInt("mood"));
 					if (tempJson.has("message")
@@ -58,14 +62,38 @@ public class UserMoodInfoDao {
 		}
 
 	}
-	public UserMoodInfo getUserMoodInfo(String date){
+
+	@SuppressLint("SimpleDateFormat")
+	public void saveTodayMood(JSONObject jbo) throws JSONException {
+		UserMoodInfo userMoodInfo = null;
+		String moodDate = (new SimpleDateFormat("yyyy-MM-dd"))
+				.format(new Date());
+		if (db.tableExists(UserMoodInfo.class)) {
+			userMoodInfo = db.findUniqueByWhere(UserMoodInfo.class, "userId='"
+					+ userId + "'" + "and moodDate='" + moodDate + "'");
+			if (userMoodInfo == null) {
+				userMoodInfo = new UserMoodInfo();
+				userMoodInfo.setUserId(userId);
+				userMoodInfo.setMoodDate(moodDate);
+				userMoodInfo.setMoodId(jbo.getInt("moodType"));
+				userMoodInfo.setMoodMessage(jbo.getString("message"));
+
+				DbManager.getDatabase().save(userMoodInfo);
+			} else {
+				userMoodInfo.setMoodId(jbo.getInt("moodType"));
+				userMoodInfo.setMoodMessage(jbo.getString("message"));
+				DbManager.getDatabase().update(userMoodInfo);
+			}
+		}
+	}
+
+	public UserMoodInfo getUserMoodInfo(String date) {
 		UserMoodInfo userMoodInfo = null;
 		if (db.tableExists(UserMoodInfo.class)) {
-			userMoodInfo = db.findUniqueByWhere(UserMoodInfo.class,
-					"userId='" + userId + "'" + "and moodDate='" + date
-							+ "'");
+			userMoodInfo = db.findUniqueByWhere(UserMoodInfo.class, "userId='"
+					+ userId + "'" + "and moodDate='" + date + "'");
 		}
 		return userMoodInfo;
-		
+
 	}
 }

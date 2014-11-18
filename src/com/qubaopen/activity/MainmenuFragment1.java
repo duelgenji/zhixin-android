@@ -33,6 +33,7 @@ import com.qubaopen.R;
 import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.datasynservice.MainMenuService;
 import com.qubaopen.datasynservice.UserService;
+import com.qubaopen.dialog.SetMoodDialog;
 import com.qubaopen.domain.UserInfo;
 import com.qubaopen.settings.MyApplication;
 import com.qubaopen.settings.PhoneHelper;
@@ -85,12 +86,11 @@ public class MainmenuFragment1 extends Fragment implements
 
 	private RelativeLayout layoutMoodFace1, layoutMoodFace2, layoutMoodFace3,
 			layoutMoodFace4, layoutMoodFace5, layoutMoodFace6;
-
-	private UserService userService;
-
+	private SetMoodDialog setMoodDialog;
 	private boolean isMoodOpen = false;
 	private boolean isMoodFirst = true;
 
+	private UserService userService;
 	private boolean isDone = false;
 
 	private int moveDistance = 0;
@@ -323,27 +323,57 @@ public class MainmenuFragment1 extends Fragment implements
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_1:
-			new LoadDataTask().execute(1, 1);
+			// new LoadDataTask().execute(1, 1);
+			setMoodDialog = new SetMoodDialog(mainActivity, 1);
+			if (!setMoodDialog.isShowing()) {
+				setMoodDialog.show();
+			}
+			panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_2:
-			new LoadDataTask().execute(1, 2);
+			// new LoadDataTask().execute(1, 2);
+			setMoodDialog = new SetMoodDialog(mainActivity, 2);
+			if (!setMoodDialog.isShowing()) {
+				setMoodDialog.show();
+			}
+			panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_3:
-			new LoadDataTask().execute(1, 3);
+			// new LoadDataTask().execute(1, 3);
+			setMoodDialog = new SetMoodDialog(mainActivity, 3);
+			if (!setMoodDialog.isShowing()) {
+				setMoodDialog.show();
+			}
+			panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_4:
-			new LoadDataTask().execute(1, 4);
+			// new LoadDataTask().execute(1, 4);
+			setMoodDialog = new SetMoodDialog(mainActivity, 4);
+			if (!setMoodDialog.isShowing()) {
+				setMoodDialog.show();
+			}
+			panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_5:
-			new LoadDataTask().execute(1, 5);
+			setMoodDialog = new SetMoodDialog(mainActivity, 5);
+			if (!setMoodDialog.isShowing()) {
+				setMoodDialog.show();
+			}
+			panelClose();
+			// new LoadDataTask().execute(1, 5);
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_6:
-			new LoadDataTask().execute(1, 6);
+			setMoodDialog = new SetMoodDialog(mainActivity, 6);
+			if (!setMoodDialog.isShowing()) {
+				setMoodDialog.show();
+			}
+			panelClose();
+			// new LoadDataTask().execute(1, 6);
 			v.setEnabled(true);
 			break;
 		default:
@@ -376,10 +406,6 @@ public class MainmenuFragment1 extends Fragment implements
 	@Override
 	public void onLoaderReset(Loader<Cursor> arg0) {
 
-	}
-
-	private void showToast(String content) {
-		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
 	}
 
 	// 心情指数 仪表盘 动画
@@ -422,7 +448,7 @@ public class MainmenuFragment1 extends Fragment implements
 				}
 			});
 			imgLastScorePointer.startAnimation(animation4);
-			txtCurrentScore.setText(((int) (100 - deduction)) + "%");
+			txtCurrentScore.setText(((int) (100 - deduction)) + "分");
 
 		} else {
 			AnimationUtils.performAnimateRoration(imgLastScorePointer, 90, 360,
@@ -498,11 +524,11 @@ public class MainmenuFragment1 extends Fragment implements
 
 					result.put("syncType", syncType);
 					break;
-				case 1:
-					// setMood 设置用户
-					result = userService.setMood(type);
-					result.put("syncType", syncType);
-					break;
+				// case 1:
+				// // setMood 设置用户
+				// result = userService.setMood(type);
+				// result.put("syncType", syncType);
+				// break;
 				default:
 					break;
 				}
@@ -542,11 +568,11 @@ public class MainmenuFragment1 extends Fragment implements
 							AnimationUtils.startImgBackGround(imgMoodArrow);
 						}
 						break;
-					case 1:
-						showToast(mainActivity
-								.getString(R.string.toast_set_mood_success));
-						panelClose();
-						break;
+					// case 1:
+					// showToast(mainActivity
+					// .getString(R.string.toast_set_mood_success));
+					// panelClose();
+					// break;
 					default:
 						break;
 					}
@@ -566,4 +592,7 @@ public class MainmenuFragment1 extends Fragment implements
 
 	}
 
+	private void showToast(String content) {
+		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
+	}
 }

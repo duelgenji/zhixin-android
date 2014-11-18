@@ -256,7 +256,7 @@ public class RegistPhoneActivity extends Activity implements
 			v.setEnabled(true);
 			break;
 		// 查看条款
-		case R.id.txtAgreePrivacyTips:
+		case R.id.txtAgreeTips:
 			v.setEnabled(false);
 			intent = new Intent(RegistPhoneActivity.this,
 					MorePrivacyActivity.class);
@@ -266,7 +266,7 @@ public class RegistPhoneActivity extends Activity implements
 		//
 		case R.id.already_regist:
 			intent = new Intent(RegistPhoneActivity.this,
-					LoginActivity.class);
+					PhoneLoginActivity.class);
 			startActivity(intent);
 			finish();
 			break;
