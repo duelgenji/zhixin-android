@@ -1,18 +1,29 @@
 package com.qubaopen.activity;
 
+import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.sina.weibo.SinaWeibo;
+import cn.sharesdk.tencent.qq.QQ;
+import cn.sharesdk.wechat.friends.Wechat;
+
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
+import com.qubaopen.settings.MyApplication;
 
 public class MainLoginActivity extends Activity implements View.OnClickListener {
 	/** 电话账号 */
@@ -69,15 +80,15 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 		v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.layout_tencent_login:
-
+			qqLogin();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_wx_login:
-
+			WechatLogin();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_sina_login:
-
+			sinaWeiboLogin();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_phone_login:
@@ -95,5 +106,93 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 
 		}
 
+	}
+	
+	
+	
+	private void sinaWeiboLogin(){
+
+    	Platform sinaWeibo= ShareSDK.getPlatform(MyApplication.getAppContext(), SinaWeibo.NAME);
+
+    	sinaWeibo.setPlatformActionListener(new PlatformActionListener() {
+    	                        
+    	                        @Override
+    	                        public void onError(Platform platform, int action, Throwable t) {
+    	                        	Log.i("ssssss","e");
+    	                                // TODO Auto-generated method stub                              
+    	                        }
+    	                        
+    	                        @Override
+    	                        public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
+    	                                // 通过platform.getDb().getUserId();
+    	                                String name=platform.getDb().getUserName(); //等等来获取用户信息       
+    	                                Log.i("ssssss","s:"+name);
+    	                        }
+    	                        
+    	                        @Override
+    	                        public void onCancel(Platform platform, int action) {
+    	                        	Log.i("ssssss","c");
+    	                                // TODO Auto-generated method stub                              
+    	                        }
+    	                });
+    	sinaWeibo.authorize();
+	}
+	
+	
+	private void qqLogin(){
+
+    	Platform qq= ShareSDK.getPlatform(MyApplication.getAppContext(), QQ.NAME);
+
+    	qq.setPlatformActionListener(new PlatformActionListener() {
+    	                        
+    	                        @Override
+    	                        public void onError(Platform platform, int action, Throwable t) {
+    	                        	Log.i("ssssss","e");
+    	                                // TODO Auto-generated method stub                              
+    	                        }
+    	                        
+    	                        @Override
+    	                        public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
+    	                                // 通过platform.getDb().getUserId();
+    	                                String name=platform.getDb().getUserName(); //等等来获取用户信息       
+    	                                Log.i("ssssss","s:"+name);
+    	                        }
+    	                        
+    	                        @Override
+    	                        public void onCancel(Platform platform, int action) {
+    	                        	Log.i("ssssss","c");
+    	                                // TODO Auto-generated method stub                              
+    	                        }
+    	                });
+    	qq.authorize();
+	}
+	
+	
+	private void WechatLogin(){
+
+    	Platform wechat= ShareSDK.getPlatform(MyApplication.getAppContext(), Wechat.NAME);
+
+    	wechat.setPlatformActionListener(new PlatformActionListener() {
+    	                        
+    	                        @Override
+    	                        public void onError(Platform platform, int action, Throwable t) {
+    	                        	Log.i("ssssss","e");
+    	                                // TODO Auto-generated method stub                              
+    	                        }
+    	                        
+    	                        @Override
+    	                        public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
+    	                                // 通过platform.getDb().getUserId();
+    	                                String name=platform.getDb().getUserName(); //等等来获取用户信息       
+    	                                Log.i("ssssss","s:"+name);
+    	                        }
+    	                        
+    	                        @Override
+    	                        public void onCancel(Platform platform, int action) {
+    	                        	Log.i("ssssss","c");
+    	                                // TODO Auto-generated method stub                              
+    	                        }
+    	                });
+    	wechat.authorize();
 	}
 }
