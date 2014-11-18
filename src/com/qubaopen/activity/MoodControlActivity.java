@@ -165,6 +165,9 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 				switch (syncType) {
 				case 1:
 					if (result.getString("success").equals("1")) {
+						if (progressDialog.isShowing()) {
+							progressDialog.dismiss();
+						}
 						if (result.has("data")) {
 							if (result.getJSONArray("data").length() == 0) {
 								moodImaBg.setVisibility(View.VISIBLE);
@@ -174,16 +177,11 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 								hasMapData = result.getJSONArray("data")
 										.getJSONObject(0);
 								Log.i("moodControl", "有数据......" + hasMapData);
-								if (progressDialog.isShowing()) {
-									progressDialog.dismiss();
-								}
+								
 								setMoodView();
 							}
 
 						} else {
-							if (progressDialog.isShowing()) {
-								progressDialog.dismiss();
-							}
 							moodImaBg.setVisibility(View.VISIBLE);
 						}
 

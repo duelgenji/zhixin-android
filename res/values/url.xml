@@ -35,7 +35,7 @@
     <string name="URL_QU_GONG_GAO_LIST">xtgg/getList.htm</string>
     <string name="URL_MORE_SETTINGS">userUDIDs/modifyUDID</string>
     <string name="URL_GET_OPTION">more/getOption.htm</string>
-    <string name="URL_MORE_SUGGESTION">userFeedBacks</string>
+    <string name="URL_MORE_SUGGESTION">userFeedBacks/addUserFeedBack</string>
     <string name="URL_MORE_RESET">user/resetpwd.htm</string>
     <string name="URL_GET_XQWJ">xqwj/getXqwj.htm</string>
     <string name="URL_USER_INFO_EMAIL">member/modifyemail.htm</string>

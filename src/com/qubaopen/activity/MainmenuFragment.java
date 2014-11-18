@@ -464,7 +464,7 @@ public class MainmenuFragment extends Fragment implements
 					break;
 				case 1:
 					// setMood 设置用户
-					result = userService.setMood(type);
+//					result = userService.setMood(type);
 					result.put("syncType", syncType);
 					break;
 				default:

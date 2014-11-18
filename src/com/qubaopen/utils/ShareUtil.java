@@ -62,9 +62,6 @@ public class ShareUtil {
 			}
 
 			File dbFile = new File(SettingValues.SHAREPIC_PHOTO_FILE_PATH);
-			if (!dbFile.exists()) {
-				dbFile.mkdir();
-			}
 			is = MyApplication.getAppContext().getResources()
 					.openRawResource(R.drawable.logo);
 			fos = new FileOutputStream(dbFile);

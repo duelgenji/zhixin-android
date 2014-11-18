@@ -280,8 +280,7 @@ public class CalendarCard extends GridView implements AdapterView.OnItemClickLis
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        super.onLayout(changed, l, t, r, b);
-        if (changed && getChildCount() > 0) {
+        if (getChildCount() > 0) {
             int size = (int) ((r - l) / 1.2f / 6f);
             int counts = getChildCount();
             for (int i = 0; i < counts; i++) {
@@ -291,6 +290,7 @@ public class CalendarCard extends GridView implements AdapterView.OnItemClickLis
                 }
             }
         }
+        super.onLayout(changed, l, t, r, b);
 
     }
 

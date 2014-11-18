@@ -58,7 +58,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:textColor="@color/know_heart_theme"
-                    android:text="0%"
+                    android:text="100分"
                     android:textSize="12sp" />
             </RelativeLayout>
 
@@ -128,7 +128,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="45"
+                android:layout_weight="38"
                 android:background="@color/text_white"
                 android:orientation="vertical" >
 

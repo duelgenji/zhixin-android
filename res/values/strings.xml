@@ -3,8 +3,7 @@
 
     <string name="app_name">知心</string>
     <string name="action_settings">Settings</string>
-
-     <string name="logoImageDescription">知心图标</string>
+    <string name="logoImageDescription">知心图标</string>
     <string name="null_value">0</string>
 
     <!-- save the shared preference key here -->
@@ -143,10 +142,6 @@
     <string name="quceshi_hide_answer">隐藏答案</string>
     <string name="quceshi_public_answer">公开答案</string>
     <string name="quceshi_friend_answer">好友答案</string>
-    <string name="login">登录</string>
-    <string name="regist">注册</string>
-    <string name="login_password_forgot">忘记密码？</string>
-    <string name="already_regiset_user">已有账号</string>
     <string name="share_yaoqingma">接头暗号:</string>
     <string name="header_skip_text">跳过</string>
     <string name="regist_invite_code_tips">注：如没有接头暗号，可直接跳过</string>
@@ -294,11 +289,13 @@
     <string name="my_rank_tip">我的排名:</string>
     <string name="back_wj_tips">您确定要退出答题页面吗？</string>
     <string name="submmit_wj_tips">您确定要提交答案吗？</string>
+    <string name="submmit_recover_wj_tips">您确定要提交答案吗?</string>
+    <string name="submmit_recover_wj_tips_hint">(请选择是否覆盖以前的答案)</string>
     <string name="initial_producer">知心团队 &amp; 华东师范大学联合出品</string>
-    
+
     <!-- save mainpage text here -->
-    <string name="last_score">最近得分</string>
-    <string name="character_complete">性格解析度</string>
+    <string name="last_score">心理健康指数</string>
+    <string name="character_complete">心理解析度</string>
     <string name="mood_control">情绪管理</string>
     <string name="character">性格</string>
     <string name="communication">交往</string>
@@ -306,16 +303,14 @@
     <string name="health">健康</string>
     <string name="interest">兴趣测试</string>
     <string name="recycle">心情回收站</string>
-    
-    
-    
+
     <!-- save footer title here -->
     <string name="footer_zhiji">知己</string>
     <string name="footer_xinliditu">心理地图</string>
     <string name="footer_zhibi">知彼</string>
     <string name="footer_message">消息</string>
     <string name="footer_me">我</string>
-    
+
     <!-- crop image -->
 
     <string name="save">上传</string>
@@ -323,6 +318,23 @@
     <string name="preparing_card">存储卡准备中</string>
     <string name="no_storage_card">没有存储卡</string>
     <string name="not_enough_space">空间不够</string>
-    
     <string name="retest">重做</string>
+    <!-- dialog text -->
+    <string name="recover">覆盖</string>
+    <string name="not_recover">不覆盖</string>
+    <string name="set_mood">设置心情</string>
+    <string name="set_mood_text">每天有个好心情</string>
+    <string name="set_mood_hint">说点什么</string>
+    
+    <!-- login text -->
+    <string name="login_by_tencent">QQ账号登录</string>
+    <string name="login_by_wx">微信账号登录</string>
+    <string name="login_by_sina">微博账号登录</string>
+    <string name="login_by_phone">知心账号登录</string>
+    <string name="login_title">知心账号登录</string>
+    <string name="login">登录</string>
+    <string name="regist"><u>注册成为知心会员</u></string>
+    <string name="login_password_forgot">忘记密码？</string>
+    <string name="already_regiset_user">已有账号</string>
+
 </resources>

@@ -104,14 +104,10 @@ public class MoreSuggestionActivity extends FragmentActivity implements
 
 	private void sendSuggestion(String content, String contactMethod)
 			throws ParseException {
-		JSONObject obj = new JSONObject();
-		JSONObject user = new JSONObject();
-		long userId = CurrentUserHelper.getCurrentUserId();
+		JSONObject params = new JSONObject();
 		try {
-			user.put("id", userId);
-			obj.put("user", user);
-			obj.put("content", content);
-			obj.put("contactMethod", contactMethod);
+			params.put("content", content);
+			params.put("contactMethod", contactMethod);
 
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -120,8 +116,8 @@ public class MoreSuggestionActivity extends FragmentActivity implements
 				+ context.getString(R.string.URL_MORE_SUGGESTION);
 
 //		Log.i("suggestion", "提交内容:......" + obj);
-		new LoadDataTask1().execute(1, requestUrl, obj,
-				HttpClient.TYPE_POST_JSON);
+		new LoadDataTask1().execute(1, requestUrl, params,
+				HttpClient.TYPE_POST_FORM);
 	}
 
 	private class LoadDataTask1 extends AsyncTask<Object, Void, JSONObject> {
@@ -134,7 +130,7 @@ public class MoreSuggestionActivity extends FragmentActivity implements
 				case 1:
 					result = HttpClient.requestSync(params[1].toString(),
 							(JSONObject) params[2], (Integer) params[3]);
-//					Log.i("suggestion", "提交结果:......" + result);
+					Log.i("suggestion", "提交结果:......" + result);
 					result.put("syncType", syncType);
 					break;
 				default:

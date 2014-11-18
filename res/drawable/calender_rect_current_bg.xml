@@ -21,7 +21,7 @@
          Android:bottom="1dp"
          Android:left="1dp">  
         <shape Android:shape="rectangle">  
-             <solid Android:color="#efefef" />  
+             <solid Android:color="#000000" />  
         </shape>  
   
     </item>  

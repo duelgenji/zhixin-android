@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@drawable/calender_rect_enabled_seleceted_bg" android:state_checked="true" android:state_enabled="true"></item>
-    <item android:drawable="@drawable/calender_rect_enabled_bg" android:state_enabled="true"></item>
+    <item android:drawable="@drawable/calender_rect_custom_color_block_1" android:state_enabled="true"></item>
     <item android:drawable="@drawable/calender_rect_enabled_bg"></item>
 
 </selector>
