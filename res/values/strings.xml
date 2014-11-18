@@ -319,6 +319,7 @@
     <string name="no_storage_card">没有存储卡</string>
     <string name="not_enough_space">空间不够</string>
     <string name="retest">重做</string>
+    <string name="retest_mood">重新记录当天情绪</string>
     <!-- dialog text -->
     <string name="recover">覆盖</string>
     <string name="not_recover">不覆盖</string>

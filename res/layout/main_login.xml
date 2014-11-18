@@ -3,24 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/initial_background_blue"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:weightSum="96.1" >
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="12" />
 
     <ImageView
         android:id="@+id/login_logo"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
+        android:layout_weight="25"
         android:src="@drawable/ic_launcher" />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
 
     <LinearLayout
         android:id="@+id/layout_tencent_login"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
+        android:layout_weight="10"
         android:background="@drawable/login_button_9"
         android:gravity="center"
         android:orientation="horizontal" >
@@ -41,11 +54,12 @@
     <LinearLayout
         android:id="@+id/layout_wx_login"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
+        android:layout_weight="10"
         android:background="@drawable/login_button_9"
         android:gravity="center"
         android:orientation="horizontal" >
@@ -61,17 +75,17 @@
             android:gravity="center"
             android:text="@string/login_by_wx"
             android:textSize="18sp" />
-
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout_sina_login"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
+        android:layout_weight="10"
         android:background="@drawable/login_button_9"
         android:gravity="center"
         android:orientation="horizontal" >
@@ -92,19 +106,21 @@
     <LinearLayout
         android:id="@+id/layout_phone_login"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
+        android:layout_weight="10"
         android:background="@drawable/login_button_9"
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/logo" />
+       <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/phone_logo" />
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -116,19 +132,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="bottom"
+        android:layout_weight="10"
         android:gravity="center"
         android:orientation="vertical" >
-		<View
-		    android:layout_width="match_parent"
-		    android:layout_height="0dp"
-		    android:layout_weight="1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <TextView
             android:id="@+id/txt_regiset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="17dp"
             android:background="@null"
             android:text="@string/regist"
             android:textColor="@color/text_regist_selector"

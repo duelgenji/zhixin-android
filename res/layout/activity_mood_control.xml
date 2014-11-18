@@ -6,7 +6,7 @@
     android:splitMotionEvents="false"
     android:weightSum="96.1" >
 
-    <include layout="@layout/header_with_backward" />
+    <include layout="@layout/header_with_share" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,11 +14,11 @@
         android:layout_weight="88.1"
         android:orientation="vertical" >
 
-        <ImageView
+       <!--  <ImageView
             android:id="@+id/img_xinlimap_mood_no_content_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/xinlimap_no_map_bg" />
+            android:src="@drawable/xinlimap_no_map_bg" /> -->
 
         <ScrollView
             android:id="@+id/layout_mood_scroll"
@@ -96,29 +96,17 @@
                     android:id="@+id/layout_card_item_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:orientation="horizontal" >
+                    android:gravity="center"
+                    android:orientation="vertical" >
 
                     <Button
                         android:id="@+id/btn_mood_retest"
                         android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/btn_retest_selector"
-                        android:gravity="center_vertical|right"
-                        android:paddingRight="15dp"
-                        android:text="@string/retest"
-                        android:textColor="@color/text_white" />
-
-                    <Button
-                        android:id="@+id/btn_mood_share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="35dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/btn_share_selector"
-                        android:gravity="center_vertical|right"
-                        android:paddingRight="15dp"
-                        android:text="@string/share"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/more_logout"
+                        android:gravity="center"
+                        android:text="@string/retest_mood"
                         android:textColor="@color/text_white" />
                 </LinearLayout>
             </LinearLayout>

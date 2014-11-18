@@ -55,6 +55,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 	private QubaopenProgressDialog progressDialog;
 	private ImageButton btn_back;
 	private TextView txtPageTitle;
+	private ImageView moodShare;
 	private ImageView moodImageView;
 	private LinearLayout moodLayout;
 	private WebView moodWebView;
@@ -63,7 +64,6 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 	private CardView moodCardView;
 	private ImageView moodImaBg;
 	private Button moodRetest;
-	private Button moodShare;
 	private JSONObject hasMapData = new JSONObject();
 
 	private List<SelfList> list;
@@ -112,7 +112,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 		moodCardScrollView = (ScrollView) this.findViewById(R.id.layout_scroll);
 		moodRetest = (Button) this.findViewById(R.id.btn_mood_retest);
 		moodRetest.setOnClickListener(this);
-		moodShare = (Button) this.findViewById(R.id.btn_mood_share);
+		moodShare = (ImageView) this.findViewById(R.id.btnShare);
 		moodShare.setOnClickListener(this);
 
 		options = new DisplayImageOptions.Builder()
@@ -358,7 +358,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btn_mood_retest:
 			break;
-		case R.id.btn_mood_share:
+		case R.id.btnShare:
 			ShareUtil.showShare(
 					MyApplication.getAppContext().getString(
 							R.string.share_title_sharesoft),

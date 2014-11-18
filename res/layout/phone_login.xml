@@ -163,28 +163,16 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal" >
 
-                    <FrameLayout
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="38" >
-
-                        <ImageButton
-                            android:id="@+id/btnLogin"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:background="@drawable/login_button_blue"
-                            android:button="@android:color/transparent" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@null"
-                            android:gravity="center"
-                            android:text="@string/login"
-                            android:textColor="@color/text_white"
-                            android:textSize="18sp" />
-                    </FrameLayout>
+                    <TextView
+                        android:id="@+id/btn_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@drawable/more_logout"
+                        android:gravity="center"
+                        android:text="@string/login"
+                        android:textColor="@color/text_white"
+                        android:textSize="18sp" />
                 </LinearLayout>
             </RelativeLayout>
         </LinearLayout>

@@ -40,7 +40,7 @@ public class PhoneLoginActivity extends Activity implements
 	/** 密码 */
 	private EditText passwordStr;
 	/** 登陆按钮 */
-	private ImageButton btnLogin;
+	private TextView btnLogin;
 	/** 忘记密码 */
 	private TextView txtForgot;
 	/** 吐司电话账号为空 */
@@ -98,7 +98,7 @@ public class PhoneLoginActivity extends Activity implements
 
 		context = this.getApplicationContext();
 
-		btnLogin = (ImageButton) this.findViewById(R.id.btnLogin);
+		btnLogin = (TextView) this.findViewById(R.id.btn_login);
 		btnLogin.setOnClickListener(this);
 	}
 
@@ -220,7 +220,7 @@ public class PhoneLoginActivity extends Activity implements
 			finish();
 			v.setEnabled(true);
 			break;
-		case R.id.btnLogin:
+		case R.id.btn_login:
 			phone = phoneStr.getText().toString();
 			password = passwordStr.getText().toString();
 			if (StringUtils.isEmpty(phone)) {
