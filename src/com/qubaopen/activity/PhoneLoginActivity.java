@@ -167,9 +167,7 @@ public class PhoneLoginActivity extends Activity implements
 						// 。。。。。。。。。
 						long userId = result.getLong("userId");
 						CurrentUserHelper.saveCurrentUserId(userId);
-
 						CurrentUserHelper.saveCurrentPhone(phone);
-						CurrentUserHelper.saveCurrentUserId(userId);
 						try {
 							userInfoDao.saveUserForFirsttime(result, password);
 						} catch (JSONException e) {

@@ -21,18 +21,18 @@ public class UserInfoDao {
 			throws JSONException, ParseException {
 		// Log.i("获取个人资料", jbo+"");
 		// 用户名默认是手机号码
-		String username = jbo.getString("phone");
+		Long userId = jbo.getLong("userId");
 
 		UserInfo user = null;
 		final FinalDb db = DbManager.getDatabase();
 		// 检查用户信息是否存在
 		if (db.tableExists(UserInfo.class)) {
-			user = db.findUniqueByWhere(UserInfo.class, "username='" + username
-					+ "'");
+			user = db.findUniqueByWhere(UserInfo.class, "userId=" + userId
+					+ "");
 		}
 		if (user == null) {
 			user = new UserInfo();
-			user.setUsername(username);
+			user.setUserId(userId);
 			user.setPassword(password);
 			user = saveUserForFirsttime_particial(jbo, user);
 			// Log.i("userinfo", user + "");
@@ -159,8 +159,16 @@ public class UserInfoDao {
 	private UserInfo saveUserForFirsttime_particial(JSONObject jbo,
 			UserInfo user) throws JSONException, ParseException {
 
-		if (StringUtils.isNotEmpty(jbo.getString("userId"))) {
-			user.setUserId(jbo.getLong("userId"));
+		if (StringUtils.isNotEmpty(jbo.getString("phone"))) {
+			user.setUsername(jbo.getString("phone"));
+		}
+		
+		if(StringUtils.isNotEmpty(jbo.getString("thirdToken"))){
+			user.setThirdToken(jbo.getString("thirdToken"));
+		}
+		
+		if(StringUtils.isNotEmpty(jbo.getString("thirdType"))){
+			user.setThirdType(jbo.getString("thirdType"));
 		}
 
 		if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {

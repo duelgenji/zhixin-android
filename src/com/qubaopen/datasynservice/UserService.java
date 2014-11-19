@@ -8,16 +8,20 @@ import org.json.JSONObject;
 import android.content.Context;
 
 import com.qubaopen.R;
+import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.settings.SettingValues;
 import com.qubaopen.utils.HttpClient;
 
 public class UserService {
 
 	private Context context;
+
+	private UserInfoDao userInfoDao;
 	
 
 	public UserService(Context context) {
 		this.context = context;
+		this.userInfoDao = new UserInfoDao();
 		
 	}
 
@@ -93,4 +97,27 @@ public class UserService {
 		return null;
 	}
 
+	
+
+	//第三方登录
+	public JSONObject thirdLogin(JSONObject jsonObject) {
+		try {
+			String requestUrl = SettingValues.URL_PREFIX
+					+ context.getString(R.string.URL_USER_THIRD_LOGON);
+			JSONObject result = HttpClient.requestSync(requestUrl, jsonObject,
+					HttpClient.TYPE_POST_FORM);
+
+			if (result != null && result.getInt("success") == 1) {
+				result.put("thirdToken", jsonObject.getString("token"));
+				result.put("thirdType", jsonObject.getString("type"));
+				userInfoDao.saveUserForFirsttime(result, "");
+			}
+			return result;
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -68,6 +68,9 @@ public class UserInfo {
 	
 	private Date lastTime;
 	
+	private String thirdToken;
+	
+	private String thirdType;
 
 	public String getUsername() {
 		return username;
@@ -286,6 +289,22 @@ public class UserInfo {
 
 	public void setLastTime(Date lastTime) {
 		this.lastTime = lastTime;
+	}
+
+	public String getThirdToken() {
+		return thirdToken;
+	}
+
+	public void setThirdToken(String thirdToken) {
+		this.thirdToken = thirdToken;
+	}
+
+	public String getThirdType() {
+		return thirdType;
+	}
+
+	public void setThirdType(String thirdType) {
+		this.thirdType = thirdType;
 	}
 
 	

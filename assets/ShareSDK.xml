@@ -60,7 +60,7 @@
         SortId="1"
         AppKey="1104333418"
         AppSecret="9670c296bd99535319b9eafc00bf04b8"
-        RedirectUrl="http://www.zhixin.me"
+        RedirectUrl="http://sns.whalecloud.com/sina2/callback"
         ShareByAppClient="false"
         Enable="true" />
 
@@ -105,7 +105,8 @@
         Id="5"
         SortId="5"
        	AppId="wxa46025ba7c946c08"
-        BypassApproval="true"
+        AppSecret="446ad95448845342b0fa51c2ddcaa1cf"
+        BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
@@ -113,7 +114,7 @@
         SortId="6"
         AppId="wxa46025ba7c946c08"
         AppSecret="446ad95448845342b0fa51c2ddcaa1cf"
-        Enable="false" />
+        Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
 	<QQ

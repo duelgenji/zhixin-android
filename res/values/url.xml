@@ -3,6 +3,7 @@
 
     <!-- save request context here -->
     <string name="URL_USER_LOGON">users/login</string>
+    <string name="URL_USER_THIRD_LOGON">users/thirdLogin</string>
     <string name="URL_USER_UPDATE">users</string>
     <string name="URL_QUCESHI_LIST">interests</string>
     <string name="URL_XINLIZICE_LIST">selfs/retrieveSelf</string>
