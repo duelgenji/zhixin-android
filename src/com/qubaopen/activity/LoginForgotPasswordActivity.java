@@ -120,7 +120,7 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 	@Override
 	public void onClick(View v) {
 
-		phone = txtInputPhone.getText().toString();
+		phone = txtInputPhone.getText().toString().trim();
 		password = txtInputPwd1.getText().toString().trim();
 		sPwd2 = txtInputPwd2.getText().toString().trim();
 		switch (v.getId()) {
@@ -240,7 +240,7 @@ public class LoginForgotPasswordActivity extends FragmentActivity implements
 		JSONObject result = new JSONObject();
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_REGIST_REQUEST_VALIDATE_CODE);
-		requestUrl += "?phone=" + phone;
+		requestUrl += "?phone=" + phone + "&activated=" + true;
 		new LoadDataTask().execute(1, requestUrl, null, HttpClient.TYPE_GET);
 		return result;
 	}
