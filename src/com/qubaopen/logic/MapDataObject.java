@@ -12,7 +12,7 @@ import com.qubaopen.domain.MapData;
 
 public class MapDataObject {
 
-	public static List<MapData> manageDataFromJson(JSONObject jbo)
+	public static List<MapData> manageDataFromJson(JSONObject jbo, int type)
 			throws JSONException {
 
 		JSONArray array = new JSONArray();
@@ -29,6 +29,7 @@ public class MapDataObject {
 
 			tempJson = array.getJSONObject(i);
 			mapData = new MapData();
+			mapData.setMapDataType(type);
 			if (tempJson.has("groupId")
 					&& StringUtils.isNotEmpty(tempJson.getString("groupId"))) {
 				mapData.setMapDataGroupId(tempJson.getInt("groupId"));

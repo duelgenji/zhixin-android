@@ -14,11 +14,11 @@
         android:layout_weight="88.1"
         android:orientation="vertical" >
 
-       <!--  <ImageView
+       <ImageView
             android:id="@+id/img_xinlimap_mood_no_content_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/xinlimap_no_map_bg" /> -->
+            android:src="@drawable/xinlimap_no_map_bg" /> 
 
         <ScrollView
             android:id="@+id/layout_mood_scroll"

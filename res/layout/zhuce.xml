@@ -132,7 +132,7 @@
                     android:layout_height="25dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="10"
-                    android:background="@drawable/checkbox_square"
+                    android:background="@drawable/checkbox_eye"
                     android:button="@android:color/transparent"
                     android:checked="false"
                     android:textOff=""

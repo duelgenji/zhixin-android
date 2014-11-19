@@ -157,7 +157,7 @@ public class XinliMapPersonalCardFragment extends Fragment implements
 							} else {
 								persenalImgBg.setVisibility(View.GONE);
 								List<MapData> data = new ArrayList<MapData>();
-								data = MapDataObject.manageDataFromJson(result);
+								data = MapDataObject.manageDataFromJson(result,3);
 //								Log.i("top", "cross排序后的数据" + data + "");
 								personCardView.setMapList(data);
 							}

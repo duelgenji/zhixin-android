@@ -14,7 +14,7 @@
     <string name="head_rank_list">排行榜</string>
     <string name="head_qu_friend">趣好友</string>
     <string name="head_qu_baobao">趣宝宝</string>
-	<string name="head_baobao_market">宝宝市场</string>
+    <string name="head_baobao_market">宝宝市场</string>
     <string name="head_share">分享</string>
     <string name="title_more">更多</string>
     <string name="title_me">我</string>
@@ -56,9 +56,20 @@
     <string name="title_qu_gonggao">趣公告</string>
     <string name="title_quhuati_publish">发布话题</string>
     <string name="title_quchoujiang_detail">活动详情</string>
-    
+
     <!-- 知心 -->
-    <string name="title_questionnaire_content">答题页面</string>
+    <string name="title_questionnaire_content">题目指导</string>
     <string name="title_questionnaire_answer">测试结果</string>
-    
+    <string name="self_list_title_1">性格自测</string>
+    <string name="self_list_title_2">交往自测</string>
+    <string name="self_list_title_3">职导自测</string>
+    <string name="self_list_title_4">健康自测</string>
+
+    <!-- save footer title here -->
+    <string name="footer_zhiji">知己</string>
+    <string name="footer_xinliditu">心理地图</string>
+    <string name="footer_zhibi">知彼</string>
+    <string name="footer_message">消息</string>
+    <string name="footer_me">我</string>
+
 </resources>

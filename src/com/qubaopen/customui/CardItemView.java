@@ -331,7 +331,7 @@ public class CardItemView extends LinearLayout {
 						retestList.setTitle(tempJson.getString("title"));
 						list.add(retestList);
 					}
-					RetestDialog dialog = new RetestDialog(context, list);
+					RetestDialog dialog = new RetestDialog(context, list, mapData.getMapDataType());
 					if (!dialog.isShowing()) {
 						dialog.show();
 					}

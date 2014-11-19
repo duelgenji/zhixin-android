@@ -177,7 +177,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 								hasMapData = result.getJSONArray("data")
 										.getJSONObject(0);
 								Log.i("moodControl", "有数据......" + hasMapData);
-								
+
 								setMoodView();
 							}
 
@@ -357,6 +357,15 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.btn_mood_retest:
+			try {
+				if (StringUtils.isNotEmpty(hasMapData.getString("groupId"))) {
+					new LoadRetestListTask().execute(hasMapData
+							.getInt("groupId"));
+				}
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			break;
 		case R.id.btnShare:
 			ShareUtil.showShare(
@@ -400,7 +409,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 						retestList.setTitle(tempJson.getString("title"));
 						list.add(retestList);
 					}
-					RetestDialog dialog = new RetestDialog(_this, list);
+					RetestDialog dialog = new RetestDialog(_this, list, 2);
 					if (!dialog.isShowing()) {
 						dialog.show();
 					}

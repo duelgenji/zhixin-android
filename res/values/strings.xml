@@ -303,13 +303,7 @@
     <string name="health">健康</string>
     <string name="interest">兴趣测试</string>
     <string name="recycle">心情回收站</string>
-
-    <!-- save footer title here -->
-    <string name="footer_zhiji">知己</string>
-    <string name="footer_xinliditu">心理地图</string>
-    <string name="footer_zhibi">知彼</string>
-    <string name="footer_message">消息</string>
-    <string name="footer_me">我</string>
+   
 
     <!-- crop image -->
 

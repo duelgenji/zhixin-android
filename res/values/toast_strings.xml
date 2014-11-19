@@ -21,6 +21,7 @@
 
     <!-- save toast me page here -->
     <string name="toast_set_mood_success">设置心情成功!</string>
+   
 
     <!-- save toast me page here -->
      <string name="toast_upload_photo_success_tips">上传头像成功</string>
@@ -28,7 +29,13 @@
     <string name="toast_get_userinfo_success">获取个人资料成功！</string>
     <string name="toast_get_userinfo_failed">获取数据失败！</string>
     <string name="toast_have_no_market">您没有安装任何市场，无法打分！</string>
-    
+    <string name="toast_modify_sex_success">修改性别成功!</string>
+    <string name="toast_modify_sex_failed">修改性别失败!</string>
+    <string name="toast_modify_blood_success">修改血型成功!</string>
+    <string name="toast_modify_blood_failed">修改血型失败!</string>
+     <string name="toast_modify_birthday_success">修改生日成功!</string>
+    <string name="toast_modify_birthday_failed">修改生日失败!</string>
+     <string name="toast_birthday_year_unavilable">年份错误,有效期为1900至今</string>
     <string name="toast_starttime_grater_than_endtime">起始时间大于结束时间</string>
 
     <!-- save toast modify nickname here -->

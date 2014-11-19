@@ -8,12 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -108,7 +105,9 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 
 	}
 	
-	
+	//type---0  sina
+	//type---1  wx
+	//type---2  qq
 	
 	private void sinaWeiboLogin(){
 
@@ -119,7 +118,6 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
     	                        @Override
     	                        public void onError(Platform platform, int action, Throwable t) {
     	                        	Log.i("ssssss","e");
-    	                                // TODO Auto-generated method stub                              
     	                        }
     	                        
     	                        @Override
@@ -132,7 +130,6 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
     	                        @Override
     	                        public void onCancel(Platform platform, int action) {
     	                        	Log.i("ssssss","c");
-    	                                // TODO Auto-generated method stub                              
     	                        }
     	                });
     	sinaWeibo.authorize();
@@ -148,7 +145,6 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
     	                        @Override
     	                        public void onError(Platform platform, int action, Throwable t) {
     	                        	Log.i("ssssss","e");
-    	                                // TODO Auto-generated method stub                              
     	                        }
     	                        
     	                        @Override
@@ -161,7 +157,6 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
     	                        @Override
     	                        public void onCancel(Platform platform, int action) {
     	                        	Log.i("ssssss","c");
-    	                                // TODO Auto-generated method stub                              
     	                        }
     	                });
     	qq.authorize();
@@ -177,20 +172,18 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
     	                        @Override
     	                        public void onError(Platform platform, int action, Throwable t) {
     	                        	Log.i("ssssss","e");
-    	                                // TODO Auto-generated method stub                              
     	                        }
     	                        
     	                        @Override
     	                        public void onComplete(Platform platform, int action, HashMap<String, Object> res) {
     	                                // 通过platform.getDb().getUserId();
-    	                                String name=platform.getDb().getUserName(); //等等来获取用户信息       
+    	                                String name = platform.getDb().getUserName(); //等等来获取用户信息       
     	                                Log.i("ssssss","s:"+name);
     	                        }
     	                        
     	                        @Override
     	                        public void onCancel(Platform platform, int action) {
     	                        	Log.i("ssssss","c");
-    	                                // TODO Auto-generated method stub                              
     	                        }
     	                });
     	wechat.authorize();
