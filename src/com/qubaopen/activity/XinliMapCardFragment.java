@@ -11,7 +11,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +43,7 @@ public class XinliMapCardFragment extends Fragment {
 	private CardView cardView;
 
 	private View rootView;
-	private String type;
+	private int type;
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -95,7 +94,7 @@ public class XinliMapCardFragment extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		//为处理预加载，首个页面设置true
-		if (type.equals("1")) {
+		if (type == 1) {
 			setUserVisibleHint(true);
 		}
 		super.onActivityCreated(savedInstanceState);
@@ -107,7 +106,7 @@ public class XinliMapCardFragment extends Fragment {
 		isInit = true;
 		 /*通过getArgments()方法获取从Activity传过来的值*/  
         Bundle bundle = this.getArguments();  
-        type = bundle.getString("mapType");
+        type = bundle.getInt("mapType");
 		if (rootView == null) {
 			rootView = inflater.inflate(
 					R.layout.fragment_xinlimap_card_general, container, false);
@@ -169,7 +168,7 @@ public class XinliMapCardFragment extends Fragment {
 								try {
 									List<MapData> data = new ArrayList<MapData>();
 									data = MapDataObject
-											.manageDataFromJson(result);
+											.manageDataFromJson(result,type);
 									cardView.setMapList(data);
 //									 Log.i("mapdata", "charactor排序后的数据" +
 //									 data);

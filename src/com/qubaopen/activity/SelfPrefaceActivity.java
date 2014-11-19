@@ -19,7 +19,7 @@ import com.qubaopen.domain.SelfList;
 
 public class SelfPrefaceActivity extends Activity implements
 		View.OnClickListener {
-
+	public static final String INTENT_TYPE = "type";
 	public static final String INTENT_SELF_ID = "selfId";
 	public static final String INTENT_SELF_ISRETEST = "selfIsRetest";
 
@@ -39,6 +39,7 @@ public class SelfPrefaceActivity extends Activity implements
 
 	private SelfListService selfListService;
 
+	private int type;
 	private int selfId;
 	private boolean isRetest;
 
@@ -79,8 +80,27 @@ public class SelfPrefaceActivity extends Activity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_self_preface);
+		initIntent();
+		initView();
+		
+	}
+
+	private void initIntent(){
+		type = getIntent().getIntExtra(INTENT_TYPE, 0);
+		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
+		isRetest = getIntent().getBooleanExtra(INTENT_SELF_ISRETEST, false);
+	}
+	private void initView(){
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
-		txtPageTitle.setText("心理自测");
+		if (type == 1) {
+			txtPageTitle.setText(getString(R.string.self_list_title_1));
+		}else if (type == 2) {
+			txtPageTitle.setText(getString(R.string.self_list_title_2));
+		}else if (type == 3) {
+			txtPageTitle.setText(getString(R.string.self_list_title_3));
+		}else if (type == 4) {
+			txtPageTitle.setText(getString(R.string.self_list_title_4));
+		}
 		iBtnPageBack = (ImageButton) this.findViewById(R.id.backup_btn);
 		iBtnPageBack.setOnClickListener(this);
 		progressDialog = new QubaopenProgressDialog(this);
@@ -97,15 +117,13 @@ public class SelfPrefaceActivity extends Activity implements
 		btnBegin = (ImageButton) this.findViewById(R.id.btn_begin);
 		btnBegin.setOnClickListener(this);
 
-		selfId = getIntent().getIntExtra(INTENT_SELF_ID, 0);
-		isRetest = getIntent().getBooleanExtra(INTENT_SELF_ISRETEST, false);
+		
 		selfListService = new SelfListService(this);
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
 		}
 		new LoadDataTask().execute();
 	}
-
 	private void showText(SelfList selfList) {
 		txtTitle.setText(selfList.getTitle());
 		

@@ -210,7 +210,7 @@ OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 	@Override
 	public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
 		if (adapter == null) {
-			adapter = new SelfListAdapter(this, cursor);
+			adapter = new SelfListAdapter(this, cursor,0);
 			xinliziceList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);

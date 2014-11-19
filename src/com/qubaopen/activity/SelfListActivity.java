@@ -45,11 +45,11 @@ public class SelfListActivity extends FragmentActivity implements
 	private QubaopenProgressDialog progressDialog;
 
 	private SelfListAdapter adapter;
-
 	private SelfListService selfListService;
 
 	private SelfListActivity _this;
 
+	private TextView title;
 	private int currentFirstVisibleItem;
 	private int currentVisibleItemCount;
 	private int currentTotalItemCount;
@@ -81,13 +81,22 @@ public class SelfListActivity extends FragmentActivity implements
 				R.color.general_activity_background);
 		selfListParent.setOnRefreshListener(this);
 
-		((TextView) findViewById(R.id.title_of_the_page)).setText("心理自测");
+		title = (TextView) findViewById(R.id.title_of_the_page);
+		if (type == 1) {
+			title.setText(getString(R.string.self_list_title_1));
+		}else if (type == 2) {
+			title.setText(getString(R.string.self_list_title_2));
+		}else if (type == 3) {
+			title.setText(getString(R.string.self_list_title_3));
+		}else if (type == 4) {
+			title.setText(getString(R.string.self_list_title_4));
+		}
 
 		findViewById(R.id.backup_btn).setOnClickListener(this);
 		selfList = (ListView) this.findViewById(R.id.selfList);
-//		//原方法（带刷新）
-//		refreshDataTask = new LoadDataTask(false);
-		//新方法
+		// //原方法（带刷新）
+		// refreshDataTask = new LoadDataTask(false);
+		// 新方法
 		refreshDataTask = new LoadDataTask();
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
@@ -140,18 +149,18 @@ public class SelfListActivity extends FragmentActivity implements
 	}
 
 	private class LoadDataTask extends AsyncTask<Integer, Void, String> {
-//		private boolean refreshFlag;
-//
-//		public LoadDataTask(boolean refreshFlag) {
-//			super();
-//			this.refreshFlag = refreshFlag;
-//		}
+		// private boolean refreshFlag;
+		//
+		// public LoadDataTask(boolean refreshFlag) {
+		// super();
+		// this.refreshFlag = refreshFlag;
+		// }
 
 		@Override
 		protected String doInBackground(Integer... params) {
-//			//原方法（带刷新）
-//			return selfListService.requestSelfList(refreshFlag,type);
-			//新方法
+			// //原方法（带刷新）
+			// return selfListService.requestSelfList(refreshFlag,type);
+			// 新方法
 			return selfListService.requestSelfList(type);
 		}
 
@@ -196,7 +205,7 @@ public class SelfListActivity extends FragmentActivity implements
 			layoutSelfListEmpty.setVisibility(View.GONE);
 		}
 		if (adapter == null) {
-			adapter = new SelfListAdapter(this, cursor);
+			adapter = new SelfListAdapter(this, cursor,type);
 			selfList.setAdapter(adapter);
 		} else {
 			adapter.changeCursor(cursor);
@@ -250,9 +259,9 @@ public class SelfListActivity extends FragmentActivity implements
 				&& this.currentScrollState == SCROLL_STATE_IDLE) {
 			if ((this.currentFirstVisibleItem + this.currentVisibleItemCount) == this.currentTotalItemCount) {
 				if (refreshDataTask.getStatus() != AsyncTask.Status.RUNNING) {
-//					//原方法（带刷新）
-//					refreshDataTask = new LoadDataTask(false);
-					//新方法
+					// //原方法（带刷新）
+					// refreshDataTask = new LoadDataTask(false);
+					// 新方法
 					refreshDataTask = new LoadDataTask();
 					if (!progressDialog.isShowing()) {
 						progressDialog.show();
@@ -279,9 +288,9 @@ public class SelfListActivity extends FragmentActivity implements
 	@Override
 	public void onRefresh() {
 		if (refreshDataTask.getStatus() != AsyncTask.Status.RUNNING) {
-//			//原方法（带刷新）
-//			refreshDataTask = new LoadDataTask(false);
-			//新方法
+			// //原方法（带刷新）
+			// refreshDataTask = new LoadDataTask(false);
+			// 新方法
 			refreshDataTask = new LoadDataTask();
 			// if (!progressDialog.isShowing()) {
 			// progressDialog.show();

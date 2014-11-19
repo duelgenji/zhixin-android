@@ -138,7 +138,7 @@
                         android:id="@+id/btn_show_pwd"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:background="@drawable/checkbox_square"
+                        android:background="@drawable/checkbox_eye"
                         android:button="@android:color/transparent"
                         android:checked="false"
                         android:textOff=""

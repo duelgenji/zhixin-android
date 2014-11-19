@@ -74,10 +74,10 @@ public class XinLiMapFragment extends Fragment {
 		Bundle bundle3 = new Bundle();
 		Bundle bundle4 = new Bundle();
 		  /*往bundle中添加数据*/  
-		bundle1.putString("mapType", "1"); 
-		bundle2.putString("mapType", "2");
-		bundle3.putString("mapType", "3");
-		bundle4.putString("mapType", "4");
+		bundle1.putInt("mapType", 1); 
+		bundle2.putInt("mapType", 2); 
+		bundle3.putInt("mapType", 3); 
+		bundle4.putInt("mapType", 4); 
         /*把数据设置到Fragment中*/  
 		characterFragment.setArguments(bundle1);  
 		communicationFragment.setArguments(bundle2);  

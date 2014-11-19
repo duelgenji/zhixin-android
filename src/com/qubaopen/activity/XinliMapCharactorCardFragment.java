@@ -167,7 +167,7 @@ public class XinliMapCharactorCardFragment extends Fragment {
 								try {
 									List<MapData> data = new ArrayList<MapData>();
 									data = MapDataObject
-											.manageDataFromJson(result);
+											.manageDataFromJson(result,1);
 									cardView.setMapList(data);
 //									Log.i("mapdata", "charactor排序后的数据" + data);
 

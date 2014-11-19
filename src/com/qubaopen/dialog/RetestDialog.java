@@ -29,11 +29,13 @@ public class RetestDialog extends Dialog {
 
 	private ListView retestList;
 	private SelfRetestListAdapter adapter;
+	private int type;
 
-	public RetestDialog(Context context, List<SelfList> list) {
+	public RetestDialog(Context context, List<SelfList> list, int type) {
 		super(context, android.R.style.Theme_Translucent_NoTitleBar);
 		this.context = context;
 		this.list = list;
+		this.type = type;
 		init();
 	}
 
@@ -66,6 +68,7 @@ public class RetestDialog extends Dialog {
 
 				Intent intent;
 				intent = new Intent(context, SelfPrefaceActivity.class);
+				intent.putExtra(SelfPrefaceActivity.INTENT_TYPE, type);
 				intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
 				intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ISRETEST, true);
 				context.startActivity(intent);

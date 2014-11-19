@@ -86,13 +86,13 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 		Calendar calendar = Calendar.getInstance();
 		month = calendar.get(Calendar.MONTH);
 		year = calendar.get(Calendar.YEAR);
-		LoadDataByMonth(month);
 		progressDialog = new QubaopenProgressDialog(this);
 		if (!progressDialog.isShowing()) {
 			progressDialog.show();
 		}
 		initView();
 		calendarCardPager.requestLayout();
+		LoadDataByMonth(month);
 	}
 
 	@SuppressLint("SimpleDateFormat")
@@ -175,16 +175,15 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 			public void onRender(CheckableLayout v, CardGridItem item) {
 				String date = (new SimpleDateFormat("yyyy-MM-dd")).format(item
 						.getDate().getTime());
-//				Log.i("MoodHistoryActivity", "date......" + date);
 				userMoodInfo = userMoodInfoDao.getUserMoodInfo(date);
 				String currentDate = (new SimpleDateFormat("yyyy-MM-dd"))
 						.format(new Date());
+				v.setBackgroundDrawable(null);
 				if (date.equals(currentDate)) {
 					Log.i("MoodHistoryActivity", "date......" + date
 							+ "currentDate......" + currentDate);
 					 v.setBackgroundResource(R.drawable.card_item_bg_currrent_date);
 				} else {
-					v.setBackgroundDrawable(null);
 					v.setBackgroundResource(R.drawable.card_item_bg);
 					if (userMoodInfo != null) {
 						if (userMoodInfo.getMoodId() == 1) {
@@ -217,8 +216,6 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 					public void monthChanged(Calendar calendar) {
 						month = calendar.get(Calendar.MONTH);// 当前界面的月份
 						year = calendar.get(Calendar.YEAR);
-//						Log.i("MoodHistoryActivity", "month......" + month
-//								+ "year......" + year);
 						setTitleByMonth(month, year);
 						LoadDataByMonth(month);
 
@@ -271,10 +268,6 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 							params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
 					Log.i("MoodHistoryActivity", "心情记录：......" + result);
-
-					Message msg = Message.obtain();
-					msg.what = 0;
-					handler.sendMessage(msg);
 					break;
 				default:
 					break;
@@ -296,6 +289,9 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 							&& result.getString("success").equals("1")) {
 
 						userMoodInfoDao.saveUserMoodInfo(result);
+						Message msg = Message.obtain();
+						msg.what = 0;
+						handler.sendMessage(msg);
 
 					} else {
 						showToast("获取心情记录失败！");

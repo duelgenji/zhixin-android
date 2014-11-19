@@ -118,6 +118,10 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 		}
 
 	}
+	
+	// type---0 sina
+	// type---1 wx
+	// type---2 qq
 
 	private void sinaWeiboLogin() {
 
@@ -208,14 +212,14 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 				String token = platform.getDb().getToken();
 				String id = platform.getDb().getUserId();
 				String avatarUrl = platform.getDb().getUserIcon();
-//				Log.i("ssssss", nickName + "," + token + "," + id + ","
-//						+ avatarUrl);
+				// Log.i("ssssss", nickName + "," + token + "," + id + ","
+				// + avatarUrl);
 
 			}
 
 			@Override
 			public void onCancel(Platform platform, int action) {
-			
+
 			}
 		});
 
@@ -233,7 +237,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 		@Override
 		protected void onPostExecute(JSONObject result) {
 			try {
-				if (result != null  && result.getInt("success") == 1) {
+				if (result != null && result.getInt("success") == 1) {
 					Long userId = result.getLong("userId");
 					CurrentUserHelper.saveCurrentUserId(userId);
 					Intent intent = new Intent(_this, MainActivity.class);
@@ -246,5 +250,4 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 			}
 		}
 	}
-
 }

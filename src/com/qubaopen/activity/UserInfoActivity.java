@@ -483,7 +483,7 @@ public class UserInfoActivity extends FragmentActivity implements
 									HttpClient.TYPE_PUT_JSON);
 						}
 					} else {
-						showToast("年份错误,有效期为1900至今");
+						showToast(getString(R.string.toast_birthday_year_unavilable));
 						try {
 							Field field = arg0.getClass().getSuperclass()
 									.getDeclaredField("mShowing");
@@ -739,9 +739,9 @@ public class UserInfoActivity extends FragmentActivity implements
 						msg.what = 0;
 						handler.sendMessage(msg);
 
-						showToast("修改性别成功！");
+						showToast(getString(R.string.toast_modify_sex_success));
 					} else {
-						showToast("修改性别失败！");
+						showToast(getString(R.string.toast_modify_sex_failed));
 					}
 					break;
 				case 1:
@@ -753,9 +753,9 @@ public class UserInfoActivity extends FragmentActivity implements
 						Message msg = Message.obtain();
 						msg.what = 0;
 						handler.sendMessage(msg);
-						showToast("修改生日成功！");
+						showToast(getString(R.string.toast_modify_birthday_success));
 					} else {
-						showToast("修改生日失败！");
+						showToast(getString(R.string.toast_modify_birthday_failed));
 					}
 					break;
 				case 2:
@@ -767,9 +767,9 @@ public class UserInfoActivity extends FragmentActivity implements
 						Message msg = Message.obtain();
 						msg.what = 0;
 						handler.sendMessage(msg);
-						showToast("修改血型成功！");
+						showToast(getString(R.string.toast_modify_blood_success));
 					} else {
-						showToast("修改血型失败！");
+						showToast(getString(R.string.toast_modify_blood_success));
 					}
 					break;
 				default:

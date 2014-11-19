@@ -215,7 +215,7 @@ public class XinliMapMoodCardFragment extends Fragment implements
 								moodImaBg.setVisibility(View.GONE);
 								List<MapData> data = new ArrayList<MapData>();
 								List<MapData> dataList = new ArrayList<MapData>();
-								data = MapDataObject.manageDataFromJson(result);
+								data = MapDataObject.manageDataFromJson(result,2);
 //								Log.i("排序后的数据", data + "");
 								for (int i = 0; i < data.size(); i++) {
 									if (data.get(i).isMapDataIsSpecial()) {

@@ -16,30 +16,12 @@ import com.qubaopen.database.DbManager;
 public class SelfListAdapter extends CursorAdapter {
 
 	private Context context;
+	private int type;
 
-	private class SelfListClickListener implements View.OnClickListener {
-		private int selfId;
-
-		public SelfListClickListener(int selfId) {
-			super();
-			this.selfId = selfId;
-		}
-
-		@Override
-		public void onClick(View v) {
-			Intent intent;
-			intent = new Intent(context, SelfPrefaceActivity.class);
-			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
-			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ISRETEST, false);
-			context.startActivity(intent);
-
-		}
-
-	}
-
-	public SelfListAdapter(Context context, Cursor c) {
+	public SelfListAdapter(Context context, Cursor c, int type) {
 		super(context, c, FLAG_REGISTER_CONTENT_OBSERVER);
 		this.context = context;
+		this.type = type;
 	}
 
 	@Override
@@ -80,4 +62,24 @@ public class SelfListAdapter extends CursorAdapter {
 
 	}
 
+	private class SelfListClickListener implements View.OnClickListener {
+		private int selfId;
+
+		public SelfListClickListener(int selfId) {
+			super();
+			this.selfId = selfId;
+		}
+
+		@Override
+		public void onClick(View v) {
+			Intent intent;
+			intent = new Intent(context, SelfPrefaceActivity.class);
+			intent.putExtra(SelfPrefaceActivity.INTENT_TYPE, type);
+			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ID, selfId);
+			intent.putExtra(SelfPrefaceActivity.INTENT_SELF_ISRETEST, false);
+			context.startActivity(intent);
+
+		}
+
+	}
 }
