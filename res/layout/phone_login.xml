@@ -83,8 +83,8 @@
 
                     <ImageButton
                         android:id="@+id/btn_clear"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
                         android:layout_gravity="center"
                         android:background="@null"
                         android:scaleType="fitCenter"
@@ -136,8 +136,8 @@
 
                     <ToggleButton
                         android:id="@+id/btn_show_pwd"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="@drawable/checkbox_eye"
                         android:button="@android:color/transparent"
                         android:checked="false"

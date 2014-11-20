@@ -13,6 +13,7 @@ import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -169,6 +170,7 @@ public class PhoneLoginActivity extends Activity implements
 						CurrentUserHelper.saveCurrentUserId(userId);
 						CurrentUserHelper.saveCurrentPhone(phone);
 						try {
+							Log.i("PhoneLoginActivity", "userinfo" + result);
 							userInfoDao.saveUserForFirsttime(result, password);
 						} catch (JSONException e) {
 							e.printStackTrace();

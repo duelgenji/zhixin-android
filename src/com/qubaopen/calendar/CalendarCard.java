@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;

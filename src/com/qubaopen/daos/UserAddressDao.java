@@ -90,23 +90,23 @@ public class UserAddressDao {
 
 	}
 
-//	public void saveSingleUserAddress(JSONObject jbo) throws JSONException {
-//
-//		UserAddress userAddress = new UserAddress();
-//
-//		if (jbo.has("id")) {
-//			userAddress.setDzId(jbo.getInt("id"));
-//		}
-//
-//		if (jbo.has("userId")) {
-//			userAddress.setUserId(jbo.getLong("userId"));
-//		}
-//
-//		setSameContent(jbo, userAddress);
-//
-//		DbManager.getDatabase().save(userAddress);
-//
-//	}
+	// public void saveSingleUserAddress(JSONObject jbo) throws JSONException {
+	//
+	// UserAddress userAddress = new UserAddress();
+	//
+	// if (jbo.has("id")) {
+	// userAddress.setDzId(jbo.getInt("id"));
+	// }
+	//
+	// if (jbo.has("userId")) {
+	// userAddress.setUserId(jbo.getLong("userId"));
+	// }
+	//
+	// setSameContent(jbo, userAddress);
+	//
+	// DbManager.getDatabase().save(userAddress);
+	//
+	// }
 
 	private void setSameContent(JSONObject jbo, UserAddress userAddress) {
 
@@ -191,7 +191,7 @@ public class UserAddressDao {
 				"select * from user_address where dzId='" + iDzId + "';");
 
 		setSameContent(jbo, userAddress);
-		
+
 		if (jbo.has("defaultAddress")) {
 
 			if (jbo.getBoolean("defaultAddress")) {
@@ -228,11 +228,34 @@ public class UserAddressDao {
 		}
 	}
 
+	// 根据id 删除收货地址，如果删除了默认收货地址，并且有其他收货地址，则默认地址赋给第一个
 	public void deleteAddressById(int id) {
 		if (DbManager.getDatabase().tableExists(UserAddress.class)) {
-			String sql = "delete from user_address where dzId=" + id;
-			DbManager.getDatabase().exeCustomerSql(sql);
+
+			UserAddress dUserAddress = DbManager.getDatabase().findUniqueBySql(
+					UserAddress.class,
+					"select * from user_address where dzId='" + id + "';");
+
+			if (dUserAddress != null) {
+				Integer isDefault = dUserAddress.getIsDefault();
+				DbManager.getDatabase().delete(dUserAddress);
+				if (isDefault == 1) {
+					UserAddress nUserAddress = DbManager.getDatabase()
+							.findUniqueByWhere(
+									UserAddress.class,
+									"userId='"
+											+ CurrentUserHelper
+													.getCurrentUserId() + "'"
+											+ " limit 1 ");
+					if (nUserAddress != null) {
+						nUserAddress.setIsDefault(1);
+						DbManager.getDatabase().update(nUserAddress);
+					}
+				}
+			}
+
 		}
+
 	}
 
 	private void setNoDefault() {

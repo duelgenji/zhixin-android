@@ -211,36 +211,6 @@ public class UserAddressAdapter extends CursorAdapter {
 							}
 						});
 				dialog.show();
-				// final AlertDialog dlg = new AlertDialog.Builder(context)
-				// .create();
-				// dlg.show();
-				// Window window = dlg.getWindow();
-				// window.setContentView(R.layout.dialog_alert_dialog);
-				// // 为确认按钮添加事件,执行退出应用操作
-				// TextView txtAlertContent = (TextView) window
-				// .findViewById(R.id.txtAlertContent);
-				// txtAlertContent.setText("确认删除地址？");
-				// Button ok = (Button) window.findViewById(R.id.btnConfirm);
-				// ok.setOnClickListener(new View.OnClickListener() {
-				// public void onClick(View v) {
-				// String deleteUrl = SettingValues.URL_PREFIX
-				// + context
-				// .getString(R.string.URL_DELETE_USER_ADDRESS);
-				// deleteUrl += "?id=" + id;
-				// // Log.i("delete", deleteUrl);
-				// new LoadDataTask1().execute(1, deleteUrl, id,
-				// HttpClient.TYPE_DELETE);
-				//
-				// dlg.cancel();
-				// }
-				// });
-				// // 关闭alert对话框架
-				// Button cancel = (Button) window.findViewById(R.id.btnCancel);
-				// cancel.setOnClickListener(new View.OnClickListener() {
-				// public void onClick(View v) {
-				// dlg.cancel();// 对话框关闭。
-				// }
-				// });
 			} else if (event.getAction() == MotionEvent.ACTION_UP) {
 
 			} else if (event.getAction() == MotionEvent.ACTION_CANCEL) {

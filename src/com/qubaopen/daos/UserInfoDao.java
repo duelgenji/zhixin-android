@@ -27,8 +27,8 @@ public class UserInfoDao {
 		final FinalDb db = DbManager.getDatabase();
 		// 检查用户信息是否存在
 		if (db.tableExists(UserInfo.class)) {
-			user = db.findUniqueByWhere(UserInfo.class, "userId=" + userId
-					+ "");
+			user = db
+					.findUniqueByWhere(UserInfo.class, "userId=" + userId + "");
 		}
 		if (user == null) {
 			user = new UserInfo();
@@ -45,11 +45,18 @@ public class UserInfoDao {
 
 	}
 
-	public void saveUserInfo(JSONObject jbo, UserInfo user)
+	public void saveUserInfo(JSONObject jbo)
 			throws JSONException, ParseException {
-		if (user != null) {
+		long userId = CurrentUserHelper.getCurrentUserId();
 
-			user.setUserId(jbo.getLong("userId"));
+		UserInfo user = null;
+		final FinalDb db = DbManager.getDatabase();
+		// 检查用户信息是否存在
+		if (db.tableExists(UserInfo.class)) {
+			user = db
+					.findUniqueByWhere(UserInfo.class, "userId=" + userId + "");
+		}
+		if (user != null) {
 
 			if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
 				user.setPicUrl(jbo.getString("avatarPath"));
@@ -159,78 +166,88 @@ public class UserInfoDao {
 	private UserInfo saveUserForFirsttime_particial(JSONObject jbo,
 			UserInfo user) throws JSONException, ParseException {
 
-		if (StringUtils.isNotEmpty(jbo.getString("phone"))) {
+		if (jbo.has("phone") && StringUtils.isNotEmpty(jbo.getString("phone"))) {
 			user.setUsername(jbo.getString("phone"));
 		}
-		
-		if(StringUtils.isNotEmpty(jbo.getString("thirdToken"))){
+
+		if (jbo.has("thirdToken")
+				&& StringUtils.isNotEmpty(jbo.getString("thirdToken"))) {
 			user.setThirdToken(jbo.getString("thirdToken"));
 		}
-		
-		if(StringUtils.isNotEmpty(jbo.getString("thirdType"))){
+
+		if (jbo.has("thirdType")
+				&& StringUtils.isNotEmpty(jbo.getString("thirdType"))) {
 			user.setThirdType(jbo.getString("thirdType"));
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
+		if (jbo.has("avatarPath")
+				&& StringUtils.isNotEmpty(jbo.getString("avatarPath"))) {
 			user.setPicUrl(jbo.getString("avatarPath"));
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("name"))) {
+		if (jbo.has("name") && StringUtils.isNotEmpty(jbo.getString("name"))) {
 			user.setName(jbo.getString("name"));
 		} else {
 			user.setName("");
 		}
 		// sex 0 for male 1 for female
-		if (StringUtils.isNotEmpty(jbo.getString("sex"))) {
+		if (jbo.has("sex") && StringUtils.isNotEmpty(jbo.getString("sex"))) {
 			user.setSex(jbo.getInt("sex"));
 		} else {
 			user.setSex(2);
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("nickName"))) {
+		if (jbo.has("nickName")
+				&& StringUtils.isNotEmpty(jbo.getString("nickName"))) {
 			user.setNickName(jbo.getString("nickName"));
 		} else {
 			user.setNickName("");
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("signature"))) {
+		if (jbo.has("signature")
+				&& StringUtils.isNotEmpty(jbo.getString("signature"))) {
 			user.setSignature(jbo.getString("signature"));
 		} else {
 			user.setSignature("");
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("birthday"))) {
+		if (jbo.has("birthday")
+				&& StringUtils.isNotEmpty(jbo.getString("birthday"))) {
 			user.setBirthDay(jbo.getString("birthday"));
 		} else {
 			user.setBirthDay("");
 		}
 
 		// '0'=A型 '1'=B型 '2'=O型 '3'=AB型 '4'=其他
-		if (StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
+		if (jbo.has("bloodType")
+				&& StringUtils.isNotEmpty(jbo.getString("bloodType"))) {
 			user.setBloodType(jbo.getInt("bloodType"));
 		} else {
 			user.setBloodType(4);
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("district"))) {
+		if (jbo.has("district")
+				&& StringUtils.isNotEmpty(jbo.getString("district"))) {
 			user.setDistrict(jbo.getString("district"));
 		} else {
 			user.setDistrict("");
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("defaultAddress"))) {
+		if (jbo.has("defaultAddress")
+				&& StringUtils.isNotEmpty(jbo.getString("defaultAddress"))) {
 			user.setAddress(jbo.getString("defaultAddress"));
 		} else {
 			user.setAddress("");
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("email"))) {
+		if (jbo.has("email") && StringUtils.isNotEmpty(jbo.getString("email"))) {
 			user.setEmail(jbo.getString("email"));
 		} else {
 			user.setEmail("");
 		}
 
-		if (StringUtils.isNotEmpty(jbo.getString("idCard"))) {
+		if (jbo.has("idCard")
+				&& StringUtils.isNotEmpty(jbo.getString("idCard"))) {
 			user.setIdentityNumber(jbo.getString("idCard"));
 		} else {
 			user.setIdentityNumber("");

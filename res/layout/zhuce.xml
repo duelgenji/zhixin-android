@@ -129,7 +129,7 @@
                 <ToggleButton
                     android:id="@+id/btn_show_password"
                     android:layout_width="0dp"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="10"
                     android:background="@drawable/checkbox_eye"

@@ -111,6 +111,7 @@ public class UserInfoAddressActivity extends FragmentActivity implements
 		v.setEnabled(false);
 		switch (v.getId()) {
 		case R.id.backup_btn:
+			UserInfoActivity.userInfoActivity.reSetUserInfo();
 			finish();
 			v.setEnabled(true);
 			break;

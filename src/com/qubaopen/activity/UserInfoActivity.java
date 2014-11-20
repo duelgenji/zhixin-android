@@ -1,6 +1,7 @@
 package com.qubaopen.activity;
 
 import java.lang.reflect.Field;
+import java.text.ParseException;
 import java.util.Calendar;
 
 import org.json.JSONException;
@@ -89,6 +90,21 @@ public class UserInfoActivity extends FragmentActivity implements
 	// private UserInfo user;
 	private UserInfoDao userInfoDao;
 
+	public static UserInfoActivity userInfoActivity;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.my_information);
+
+		_this = this;
+		userInfoActivity = this;
+		initView();
+		userInfoDao = new UserInfoDao();
+		userId = CurrentUserHelper.getCurrentUserId();
+
+	}
+
 	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -166,18 +182,6 @@ public class UserInfoActivity extends FragmentActivity implements
 		};
 	};
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.my_information);
-
-		_this = this;
-		initView();
-		userInfoDao = new UserInfoDao();
-		userId = CurrentUserHelper.getCurrentUserId();
-
-	}
-
 	private void initView() {
 		txtPageTitle = (TextView) this.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText(this
@@ -227,7 +231,6 @@ public class UserInfoActivity extends FragmentActivity implements
 				.findViewById(R.id.layoutEmailPersonalProfile);
 		layoutEmailPersonalProfile.setOnClickListener(this);
 
-		// progressDialog = new QubaopenProgressDialog(this);
 		pickerExist = false;
 
 	}
@@ -241,6 +244,9 @@ public class UserInfoActivity extends FragmentActivity implements
 	@Override
 	protected void onResume() {
 		super.onResume();
+		String requestUrl = SettingValues.URL_PREFIX
+				+ getString(R.string.URL_USER_INFO_ADD);
+		new LoadDataTask().execute(3, requestUrl, null, HttpClient.TYPE_GET);
 		StatService.onResume(this);
 	}
 
@@ -280,10 +286,6 @@ public class UserInfoActivity extends FragmentActivity implements
 			break;
 		case R.id.layoutAddressPersonalProfile:
 			if (!pickerExist) {
-				// SharedPreferences sharedPref = this.getSharedPreferences(
-				// SettingValues.FILE_NAME_SETTINGS, Context.MODE_PRIVATE);
-				// Boolean isAddressSaved = sharedPref.getBoolean(
-				// SettingValues.KEY_CURRENT_ADDRESS_SAVED, false);
 				intent = new Intent(_this, UserInfoAddressActivity.class);
 				startActivity(intent);
 				v.setEnabled(false);
@@ -332,7 +334,6 @@ public class UserInfoActivity extends FragmentActivity implements
 				.findViewById(R.id.btnFemaleSexPicker);
 		Button btnCancel = (Button) dialog
 				.findViewById(R.id.btnCancelSexPicker);
-		// currentDialog = dialog;
 		btnCancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -404,9 +405,6 @@ public class UserInfoActivity extends FragmentActivity implements
 		mDay = c.get(Calendar.DAY_OF_MONTH);
 		final DatePicker datepicker = new DatePicker(_this);
 		String sBirth = "";
-		// Integer year = 1995;
-		// Integer month = 01;
-		// Integer day = 01;
 		if (txtBirthPersonalProfile.getText() != null) {
 			sBirth = txtBirthPersonalProfile.getText().toString().trim();
 			if (sBirth.length() >= 10) {
@@ -414,7 +412,6 @@ public class UserInfoActivity extends FragmentActivity implements
 				mMonth = Integer.parseInt(sBirth.substring(5, 7)) - 1;
 				mDay = Integer.parseInt(sBirth.substring(8, 10));
 			}
-			// datepicker.init(year, month, day, null);
 		}
 		OnDateChangedListener onDateChangedListener = new OnDateChangedListener() {
 
@@ -447,54 +444,54 @@ public class UserInfoActivity extends FragmentActivity implements
 			@Override
 			public void onClick(DialogInterface arg0, int arg1) {
 				datepicker.clearFocus();
-				
+
 				Log.i("yearCanPick", "......" + yearCanPick);
 				selectYear = datepicker.getYear();
 				Log.i("year", "年份" + selectYear);
-					if (yearCanPick) {
-						selectMonth = datepicker.getMonth() + 1;
-						selectDay = datepicker.getDayOfMonth();
-						StringBuilder stringBuilder = new StringBuilder();
-						stringBuilder.append(selectYear);
+				if (yearCanPick) {
+					selectMonth = datepicker.getMonth() + 1;
+					selectDay = datepicker.getDayOfMonth();
+					StringBuilder stringBuilder = new StringBuilder();
+					stringBuilder.append(selectYear);
 
-						if (selectMonth < 10) {
-							stringBuilder.append("-0").append(selectMonth);
-						} else {
-							stringBuilder.append("-").append(selectMonth);
-						}
-						if (selectDay < 10) {
-							stringBuilder.append("-0").append(selectDay);
-						} else {
-							stringBuilder.append("-").append(selectDay);
-						}
-						currentBirthDay = stringBuilder.toString();
-						Log.i("datepicker", "日期......" + currentBirthDay);
-						if (currentBirthDay != localBirthDay) {
-							JSONObject obj = new JSONObject();
-							try {
-								obj.put("birthday", currentBirthDay);
-								obj.put("id", userId);
-							} catch (JSONException e) {
-								e.printStackTrace();
-							}
-							String requestUrl = SettingValues.URL_PREFIX
-									+ getString(R.string.URL_USER_INFO_UPDATE);
-							new LoadDataTask().execute(1, requestUrl, obj,
-									HttpClient.TYPE_PUT_JSON);
-						}
+					if (selectMonth < 10) {
+						stringBuilder.append("-0").append(selectMonth);
 					} else {
-						showToast(getString(R.string.toast_birthday_year_unavilable));
+						stringBuilder.append("-").append(selectMonth);
+					}
+					if (selectDay < 10) {
+						stringBuilder.append("-0").append(selectDay);
+					} else {
+						stringBuilder.append("-").append(selectDay);
+					}
+					currentBirthDay = stringBuilder.toString();
+					Log.i("datepicker", "日期......" + currentBirthDay);
+					if (currentBirthDay != localBirthDay) {
+						JSONObject obj = new JSONObject();
 						try {
-							Field field = arg0.getClass().getSuperclass()
-									.getDeclaredField("mShowing");
-							field.setAccessible(true);
-							field.set(arg0, false); // false - 使之不能关闭(此为机关所在，其它语句相同)
-						} catch (Exception e) {
+							obj.put("birthday", currentBirthDay);
+							obj.put("id", userId);
+						} catch (JSONException e) {
 							e.printStackTrace();
 						}
-						return;
+						String requestUrl = SettingValues.URL_PREFIX
+								+ getString(R.string.URL_USER_INFO_UPDATE);
+						new LoadDataTask().execute(1, requestUrl, obj,
+								HttpClient.TYPE_PUT_JSON);
 					}
-				
+				} else {
+					showToast(getString(R.string.toast_birthday_year_unavilable));
+					try {
+						Field field = arg0.getClass().getSuperclass()
+								.getDeclaredField("mShowing");
+						field.setAccessible(true);
+						field.set(arg0, false); // false - 使之不能关闭(此为机关所在，其它语句相同)
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					return;
+				}
+
 				try {
 					Field field = arg0.getClass().getSuperclass()
 							.getDeclaredField("mShowing");
@@ -517,7 +514,8 @@ public class UserInfoActivity extends FragmentActivity implements
 							Field field = dialog.getClass().getSuperclass()
 									.getDeclaredField("mShowing");
 							field.setAccessible(true);
-							field.set(dialog, true); // true - 使之可以关闭(此为机关所在，其它语句相同)
+							field.set(dialog, true); // true -
+														// 使之可以关闭(此为机关所在，其它语句相同)
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -715,6 +713,11 @@ public class UserInfoActivity extends FragmentActivity implements
 							(JSONObject) params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
 					break;
+				case 3:
+					result = HttpClient.requestSync(params[1].toString(), null,
+							(Integer) params[3]);
+					result.put("syncType", syncType);
+					break;
 				default:
 					break;
 				}
@@ -770,6 +773,17 @@ public class UserInfoActivity extends FragmentActivity implements
 						showToast(getString(R.string.toast_modify_blood_success));
 					} else {
 						showToast(getString(R.string.toast_modify_blood_success));
+					}
+					break;
+				case 3:
+					if (result != null && result.getInt("success") == 1) {
+						try {
+							userInfoDao.saveUserInfo(result);
+							getSupportLoaderManager().restartLoader(0, null,
+									_this);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
 					}
 					break;
 				default:
@@ -869,6 +883,11 @@ public class UserInfoActivity extends FragmentActivity implements
 	@Override
 	public void onLoaderReset(Loader<Cursor> loader) {
 
+	}
+
+	public void reSetUserInfo() {
+
+		getSupportLoaderManager().restartLoader(0, null, _this);
 	}
 
 	private void showToast(String content) {

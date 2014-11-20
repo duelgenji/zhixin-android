@@ -5,6 +5,7 @@ import java.util.Date;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,6 +18,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -30,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.qubaopen.R;
+import com.qubaopen.activity.MainActivity.MyOnTouchListener;
 import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.datasynservice.MainMenuService;
 import com.qubaopen.datasynservice.UserService;
@@ -74,6 +77,7 @@ public class MainmenuFragment1 extends Fragment implements
 	private ImageView imgMoodPanel;
 	private ImageView imgMoodBackground;
 
+
 	private ImageView imgLastScoreBackground;
 	private ImageView imgLastScorePointer;
 	private TextView txtCurrentScore;
@@ -98,6 +102,23 @@ public class MainmenuFragment1 extends Fragment implements
 	private UserInfo userInfo;
 	private UserInfoDao userInfoDao;
 
+	private MyOnTouchListener myOnTouchListener = new MyOnTouchListener() {
+
+		@Override
+		public void onTouchEvent(MotionEvent event) {
+			switch (event.getAction()) {
+			case MotionEvent.ACTION_DOWN:
+				if (isMoodOpen) {
+					panelClose();
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -109,7 +130,12 @@ public class MainmenuFragment1 extends Fragment implements
 		return view;
 	}
 
+	
+	@SuppressLint("ClickableViewAccessibility")
 	private void initView(View view) {
+		((MainActivity) this.getActivity())
+				.registMyOnToucherListener(myOnTouchListener);
+		
 		userInfoDao = new UserInfoDao();
 		userInfo = userInfoDao.getCurrentUser();
 
@@ -148,6 +174,7 @@ public class MainmenuFragment1 extends Fragment implements
 		imgMoodBackground = (ImageView) view
 				.findViewById(R.id.img_mood_background);
 		imgMoodBackground.setOnClickListener(this);
+
 		imgMoodPanel = (ImageView) view
 				.findViewById(R.id.img_mood_switch_panel);
 		imgMoodPanel.setOnClickListener(this);
@@ -297,7 +324,6 @@ public class MainmenuFragment1 extends Fragment implements
 				AnimationUtils.performAnimateMarginBottom(layoutMoodSwitch, 0,
 						-h, 333);
 			}
-
 			if (!isMoodOpen) {
 				isMoodOpen = true;
 
@@ -308,9 +334,8 @@ public class MainmenuFragment1 extends Fragment implements
 						moveDistance, 500);
 				v.setEnabled(true);
 			} else {
+				isMoodOpen = false;
 				panelClose();
-				v.setEnabled(true);
-
 			}
 			break;
 		case R.id.img_mood_history:
@@ -328,7 +353,7 @@ public class MainmenuFragment1 extends Fragment implements
 			if (!setMoodDialog.isShowing()) {
 				setMoodDialog.show();
 			}
-			panelClose();
+			// panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_2:
@@ -337,7 +362,7 @@ public class MainmenuFragment1 extends Fragment implements
 			if (!setMoodDialog.isShowing()) {
 				setMoodDialog.show();
 			}
-			panelClose();
+			// panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_3:
@@ -346,7 +371,7 @@ public class MainmenuFragment1 extends Fragment implements
 			if (!setMoodDialog.isShowing()) {
 				setMoodDialog.show();
 			}
-			panelClose();
+			// panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_4:
@@ -355,7 +380,7 @@ public class MainmenuFragment1 extends Fragment implements
 			if (!setMoodDialog.isShowing()) {
 				setMoodDialog.show();
 			}
-			panelClose();
+			// panelClose();
 			v.setEnabled(true);
 			break;
 		case R.id.layout_mood_face_5:
@@ -363,7 +388,7 @@ public class MainmenuFragment1 extends Fragment implements
 			if (!setMoodDialog.isShowing()) {
 				setMoodDialog.show();
 			}
-			panelClose();
+			// panelClose();
 			// new LoadDataTask().execute(1, 5);
 			v.setEnabled(true);
 			break;
@@ -372,7 +397,7 @@ public class MainmenuFragment1 extends Fragment implements
 			if (!setMoodDialog.isShowing()) {
 				setMoodDialog.show();
 			}
-			panelClose();
+			// panelClose();
 			// new LoadDataTask().execute(1, 6);
 			v.setEnabled(true);
 			break;

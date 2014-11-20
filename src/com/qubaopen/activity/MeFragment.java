@@ -470,8 +470,7 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 				case 1:
 					if (result.getString("success").equals("1")) {
 						UserInfoDao userInfoDao = new UserInfoDao();
-						userInfoDao.saveUserInfo(result,
-								userInfoDao.getCurrentUser());
+						userInfoDao.saveUserInfo(result);
 						userInfo = userInfoDao.getCurrentUser();
 						if (result.getInt("isFirst") == 0) {
 							showToast(getString(R.string.toast_get_userinfo_success));

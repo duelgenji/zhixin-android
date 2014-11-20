@@ -1,5 +1,7 @@
 package com.qubaopen.activity;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -12,6 +14,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import cn.sharesdk.framework.ShareSDK;
@@ -33,7 +36,6 @@ public class MainActivity extends FragmentActivity {
 	private TabBarLayout messageTabBar;
 	private TabBarLayout meTabBar;
 
-
 	private MainMenuService service;
 
 	private UpdateManager updateManager;
@@ -42,10 +44,54 @@ public class MainActivity extends FragmentActivity {
 
 	private int currentCheckedBtnId;
 	private String currentFragmentName;
-//	private View currentBtn;
+	// private View currentBtn;
 
 	private MainActivity _this;
 	public static MainActivity mainActivity;
+
+	/**
+	 * onTouch回调接口
+	 * 
+	 * @author wzh
+	 * 
+	 */
+	public interface MyOnTouchListener {
+		public void onTouchEvent(MotionEvent event);
+	}
+
+	/*
+	 * 保存MyTouchListener接口的列表
+	 */
+	private ArrayList<MyOnTouchListener> myTouchListeners = new ArrayList<MyOnTouchListener>();
+
+	/**
+	 * 提供给fragment通过getActivity()注册自身触摸事件的方法
+	 * 
+	 * @param listener
+	 */
+	public void registMyOnToucherListener(MyOnTouchListener listener) {
+		myTouchListeners.add(listener);
+	}
+
+	/**
+	 * 提供给fragment通过getActivity()取消自身触摸事件的方法
+	 * 
+	 * @param listener
+	 */
+	public void unRegistMyOnToucherListener(MyOnTouchListener listener) {
+		myTouchListeners.remove(listener);
+	}
+
+	/**
+	 * 分发触摸事件给所有注册了MyOnTouchListener的接口
+	 */
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		for (MyOnTouchListener listener : myTouchListeners) {
+			listener.onTouchEvent(ev);
+		}
+		return super.dispatchTouchEvent(ev);
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,10 +111,9 @@ public class MainActivity extends FragmentActivity {
 		fm = this.getSupportFragmentManager();
 		fm.addOnBackStackChangedListener(initalFinishListener);
 
-
 		// MainmenuFragment newFragment = new MainmenuFragment();
 		MainmenuFragment1 newFragment = new MainmenuFragment1();
-		
+
 		FragmentTransaction transaction = fm.beginTransaction();
 		transaction.add(R.id.contentFragment, newFragment,
 				SettingValues.FRAGMENT_ROOT_FRAGMENT);
@@ -119,7 +164,7 @@ public class MainActivity extends FragmentActivity {
 				currentFragmentName = fm.getBackStackEntryAt(
 						fm.getBackStackEntryCount() - 1).getName();
 				currentCheckedBtnId = view.getId();
-//				currentBtn = view;
+				// currentBtn = view;
 				// Log.i("current fragment name", currentFragmentName);
 
 				Fragment rootFg = fm
