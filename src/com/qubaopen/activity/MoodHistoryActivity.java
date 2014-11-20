@@ -1,8 +1,10 @@
 package com.qubaopen.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -56,6 +58,7 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 
 	private UserMoodInfoDao userMoodInfoDao;
 	private UserMoodInfo userMoodInfo;
+	private List<UserMoodInfo> userMoodInfos;
 	private Calendar selectedDate;
 
 	private CalendarCardPager calendarCardPager;
@@ -86,6 +89,7 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 
 		userMoodInfoDao = new UserMoodInfoDao();
 		userMoodInfo = new UserMoodInfo();
+		userMoodInfos = new ArrayList<UserMoodInfo>();
 		requestUrl = SettingValues.URL_PREFIX
 				+ getString(R.string.URL_GET_MOOD_LIST);
 		Calendar calendar = Calendar.getInstance();
@@ -177,40 +181,42 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void onRender(CheckableLayout v, CardGridItem item) {
-				// String date = (new SimpleDateFormat("yyyy-MM-dd"))
-				// .format(item.getDate().getTime());
-				// userMoodInfo = userMoodInfoDao.getUserMoodInfo(date);
-				// String currentDate = (new SimpleDateFormat("yyyy-MM-dd"))
-				// .format(new Date());
-				// v.setBackgroundDrawable(null);
-				// if (date.equals(currentDate)) {
-				// Log.i("MoodHistoryActivity", "date......" + date
-				// + "currentDate......" + currentDate);
-				// v.setBackgroundResource(R.drawable.card_item_bg_currrent_date);
-				// } else {
-				// v.setBackgroundResource(R.drawable.card_item_bg);
-				// if (userMoodInfo != null) {
-				// if (userMoodInfo.getMoodId() == 1) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_1);
-				// } else if (userMoodInfo.getMoodId() == 2) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_2);
-				// } else if (userMoodInfo.getMoodId() == 3) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_3);
-				// } else if (userMoodInfo.getMoodId() == 4) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_4);
-				// } else if (userMoodInfo.getMoodId() == 5) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_5);
-				// } else if (userMoodInfo.getMoodId() == 6) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_6);
-				// } else if (userMoodInfo.getMoodId() == 7) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_7);
-				// } else if (userMoodInfo.getMoodId() == 8) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_8);
-				// }
-				// }
-				//
-				// }
-				//
+				String date = (new SimpleDateFormat("yyyy-MM-dd")).format(item
+						.getDate().getTime());
+				
+				
+				String currentDate = (new SimpleDateFormat("yyyy-MM-dd"))
+						.format(new Date());
+				v.setBackgroundDrawable(null);
+				if (date.equals(currentDate)) {
+					Log.i("MoodHistoryActivity", "date......" + date
+							+ "currentDate......" + currentDate);
+					v.setBackgroundResource(R.drawable.card_item_bg_currrent_date);
+				} else {
+					v.setBackgroundResource(R.drawable.card_item_bg);
+					userMoodInfo = getItemCellUserMoodInfo(date);
+					if (userMoodInfo != null) {
+						if (userMoodInfo.getMoodId() == 1) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_1);
+						} else if (userMoodInfo.getMoodId() == 2) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_2);
+						} else if (userMoodInfo.getMoodId() == 3) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_3);
+						} else if (userMoodInfo.getMoodId() == 4) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_4);
+						} else if (userMoodInfo.getMoodId() == 5) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_5);
+						} else if (userMoodInfo.getMoodId() == 6) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_6);
+						} else if (userMoodInfo.getMoodId() == 7) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_7);
+						} else if (userMoodInfo.getMoodId() == 8) {
+							v.setBackgroundResource(R.drawable.card_item_bg_mood_8);
+						}
+					}
+
+				}
+
 			}
 		});
 		calendarCardPager
@@ -222,11 +228,22 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 						year = calendar.get(Calendar.YEAR);
 						setTitleByMonth(month, year);
 						LoadDataByMonth(month);
-
+						
 					}
 				});
 	}
 
+	private UserMoodInfo getItemCellUserMoodInfo(String date){
+		
+		for (int i = 0; i < userMoodInfos.size(); i++) {
+			userMoodInfo = userMoodInfos.get(i);
+			
+			if (date.equals(userMoodInfo.getMoodDate())) {
+				return userMoodInfo;
+			}
+		}
+		return null;
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -291,8 +308,9 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 				case 1:
 					if (result.has("success")
 							&& result.getString("success").equals("1")) {
-
+						String date = result.getJSONArray("moodList").getJSONObject(0).getString("date");
 						userMoodInfoDao.saveUserMoodInfo(result);
+						userMoodInfos =  userMoodInfoDao.getUserMoodInfoList(date);
 						Message msg = Message.obtain();
 						msg.what = 0;
 						handler.sendMessage(msg);

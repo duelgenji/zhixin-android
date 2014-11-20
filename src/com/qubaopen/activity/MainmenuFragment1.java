@@ -93,6 +93,8 @@ public class MainmenuFragment1 extends Fragment implements
 	private SetMoodDialog setMoodDialog;
 	private boolean isMoodOpen = false;
 	private boolean isMoodFirst = true;
+	
+	private boolean onTouchClickable = true;
 
 	private UserService userService;
 	private boolean isDone = false;
@@ -133,8 +135,8 @@ public class MainmenuFragment1 extends Fragment implements
 	
 	@SuppressLint("ClickableViewAccessibility")
 	private void initView(View view) {
-		((MainActivity) this.getActivity())
-				.registMyOnToucherListener(myOnTouchListener);
+//		((MainActivity) this.getActivity())
+//				.registMyOnToucherListener(myOnTouchListener);
 		
 		userInfoDao = new UserInfoDao();
 		userInfo = userInfoDao.getCurrentUser();
