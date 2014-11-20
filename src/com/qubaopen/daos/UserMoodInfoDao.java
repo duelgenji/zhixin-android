@@ -2,6 +2,7 @@ package com.qubaopen.daos;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import net.tsz.afinal.FinalDb;
 
@@ -11,6 +12,7 @@ import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import com.qubaopen.database.DbManager;
+import com.qubaopen.domain.InterestList;
 import com.qubaopen.domain.UserMoodInfo;
 import com.qubaopen.settings.CurrentUserHelper;
 
@@ -27,36 +29,23 @@ public class UserMoodInfoDao {
 		JSONObject tempJson;
 
 		UserMoodInfo userMoodInfo = null;
+		deleteByUserId(userId);
 
 		for (int i = 0; i < data.length(); i++) {
 			tempJson = data.getJSONObject(i);
-			String moodDate = tempJson.getString("date");
 			if (db.tableExists(UserMoodInfo.class)) {
-				userMoodInfo = db.findUniqueByWhere(UserMoodInfo.class,
-						"userId='" + userId + "'" + "and moodDate='" + moodDate
-								+ "'");
-				if (userMoodInfo == null) {
-					userMoodInfo = new UserMoodInfo();
-					userMoodInfo.setUserId(userId);
-					userMoodInfo.setMoodDate(tempJson.getString("date"));
-					userMoodInfo.setMoodId(tempJson.getInt("mood"));
-					if (tempJson.has("message")
-							&& !tempJson.getString("message").equals("")) {
-						userMoodInfo.setMoodMessage(tempJson
-								.getString("message"));
-					}
 
-					DbManager.getDatabase().save(userMoodInfo);
-				} else {
-					userMoodInfo.setMoodDate(tempJson.getString("date"));
-					userMoodInfo.setMoodId(tempJson.getInt("mood"));
-					if (tempJson.has("message")
-							&& !tempJson.getString("message").equals("")) {
-						userMoodInfo.setMoodMessage(tempJson
-								.getString("message"));
-					}
-					DbManager.getDatabase().update(userMoodInfo);
+				userMoodInfo = new UserMoodInfo();
+				userMoodInfo.setUserId(userId);
+				userMoodInfo.setMoodDate(tempJson.getString("date"));
+				userMoodInfo.setMoodId(tempJson.getInt("mood"));
+				if (tempJson.has("message")
+						&& !tempJson.getString("message").equals("")) {
+					userMoodInfo.setMoodMessage(tempJson.getString("message"));
 				}
+
+				DbManager.getDatabase().save(userMoodInfo);
+
 			}
 
 		}
@@ -95,5 +84,23 @@ public class UserMoodInfoDao {
 		}
 		return userMoodInfo;
 
+	}
+	
+	public List<UserMoodInfo> getUserMoodInfoList(String date) {
+		date=date.substring(0,7);
+		List<UserMoodInfo> list = null;
+		if (db.tableExists(UserMoodInfo.class)) {
+			list = db.findAllByWhere(UserMoodInfo.class, "userId='"
+					+ userId + "'" + "and moodDate like '" + date + "%' ");
+		}
+		return list;
+
+	}
+
+	private void deleteByUserId(long userId) {
+		if (DbManager.getDatabase().tableExists(UserMoodInfo.class)) {
+			String sql = "delete from user_mood_info where userId=" + userId;
+			DbManager.getDatabase().exeCustomerSql(sql);
+		}
 	}
 }
