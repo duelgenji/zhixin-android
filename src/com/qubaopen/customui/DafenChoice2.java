@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 import com.qubaopen.R;
 import com.qubaopen.cache.PreviousUserQuestionCache;
 import com.qubaopen.dialog.DafenFenshuOverlayer2;
+import com.qubaopen.domain.Options;
 import com.qubaopen.domain.Question2;
 import com.qubaopen.domain.UserQuestionAnswer;
 import com.qubaopen.enums.QuestionTypeEnums;
@@ -20,7 +21,7 @@ public class DafenChoice2 extends RadioGroup {
 	private Context context;
 	private LayoutInflater inflater;
 
-	private List<? extends Question2> questionList;
+	private List<? extends Options> questionList;
 
 	private ArrayList<DafenItem2> dafenItemList;
 
@@ -28,7 +29,7 @@ public class DafenChoice2 extends RadioGroup {
 
 	private List<? extends UserQuestionAnswer> userQuestionAnswer;
 
-	public DafenChoice2(Context context, List<? extends Question2> questionList,
+	public DafenChoice2(Context context, List<? extends Options> questionList,
 			DafenFenshuOverlayer2 dafenFenshuOverlayer,
 			List<? extends UserQuestionAnswer> userQuestionAnswer) {
 		super(context);
@@ -45,7 +46,7 @@ public class DafenChoice2 extends RadioGroup {
 		inflater = LayoutInflater.from(context);
 		inflater.inflate(R.layout.customui_duoxuan, this);
 		dafenItemList = new ArrayList<DafenItem2>();
-		for (Question2 aChoice : questionList) {
+		for (Options aChoice : questionList) {
 			DafenItem2 choiceItem = new DafenItem2(context, aChoice,
 					dafenFenshuOverlayer);
 			choiceItem.setLayoutParams(new LinearLayout.LayoutParams(
@@ -73,9 +74,9 @@ public class DafenChoice2 extends RadioGroup {
 			for (DafenItem2 anItem : dafenItemList) {
 				anAns = new UserQuestionAnswer();
 				anAns.setQuestionType(QuestionTypeEnums.DAFEN.getTypeCode());
-				anAns.setQuestionId(anItem.getQuestion().getQuestionId());
+				anAns.setQuestionId(anItem.getQuChoice().getQuestionId());
 				anAns.setScore(anItem.getScore());
-				anAns.setMainNo(anItem.getQuestion().getMatrixNo());
+				anAns.setMainNo(anItem.getQuChoice().getOptionNum());
 				quDatiQuestionAnswer.add(anAns);
 			}
 		}

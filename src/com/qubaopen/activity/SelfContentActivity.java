@@ -483,7 +483,7 @@ public class SelfContentActivity extends Activity implements
 			}
 			dafenFenshuOverlayer.initScore(doDataObject.getScore());
 			dafenChoice = new DafenChoice2(this,
-					doDataObject.getDiaoyanQuestionMatrixList(),
+					doDataObject.getChoices(),
 					dafenFenshuOverlayer,
 					PreviousUserQuestionCache.getInstance());
 			dafenChoice.setLayoutParams(new LayoutParams(

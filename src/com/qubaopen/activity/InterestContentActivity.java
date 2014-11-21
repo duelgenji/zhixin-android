@@ -415,7 +415,7 @@ public class InterestContentActivity extends Activity implements
 			}
 			dafenFenshuOverlayer.initScore(quDatiDataObject.getScore());
 			dafenChoice = new DafenChoice2(this,
-					quDatiDataObject.getDiaoyanQuestionMatrixList(),
+					quDatiDataObject.getChoices(),
 					dafenFenshuOverlayer,
 					PreviousUserQuestionCache.getInstance());
 			dafenChoice.setLayoutParams(new LayoutParams(

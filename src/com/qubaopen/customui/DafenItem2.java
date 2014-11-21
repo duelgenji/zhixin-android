@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.qubaopen.R;
 import com.qubaopen.dialog.DafenFenshuOverlayer2;
 import com.qubaopen.domain.DiaoyanQuestion;
+import com.qubaopen.domain.Options;
 import com.qubaopen.domain.Question2;
 
 public class DafenItem2 extends LinearLayout implements View.OnClickListener {
@@ -25,24 +26,24 @@ public class DafenItem2 extends LinearLayout implements View.OnClickListener {
 
 	private View dafenCheckBox;
 
-	private Question2 question;
+	private Options quChoice;
 	
 	private int score;
 
 	private DafenFenshuOverlayer2 dafenFenshuOverlayer;
 
-	public DafenItem2(Context context, Question2 diaoyanQuestion,
+	public DafenItem2(Context context, Options quChoice,
 			DafenFenshuOverlayer2 dafenFenshuOverlayer) {
 		super(context);
 		this.context = context;
 		inflater = LayoutInflater.from(context);
-		question = diaoyanQuestion;
+		this.quChoice = quChoice;
 		this.dafenFenshuOverlayer = dafenFenshuOverlayer;
-		init(diaoyanQuestion);
+		init(quChoice);
 
 	}
 
-	private void init(Question2 diaoyanQuestion) {
+	private void init(Options aChoice) {
 
 		inflater.inflate(R.layout.customui_dafen_item, this);
 		dafenContentTextView = (TextView) this
@@ -50,8 +51,8 @@ public class DafenItem2 extends LinearLayout implements View.OnClickListener {
 		fenshuTextView = (TextView) this.findViewById(R.id.fenshuTextView);
 		dafenCheckBox = this.findViewById(R.id.dafenCheckBox);
 
-		dafenContentTextView.setText(diaoyanQuestion.getQuestionNum() + "."
-				+ diaoyanQuestion.getQuestionContent());
+		dafenContentTextView.setText(aChoice.getOptionNum() + "."
+				+ aChoice.getOptionContent());
 
 		this.setOnClickListener(this);
 	}
@@ -75,8 +76,8 @@ public class DafenItem2 extends LinearLayout implements View.OnClickListener {
 		return StringUtils.isBlank(fenshuTextView.getText());
 	}
 
-	public Question2 getQuestion() {
-		return question;
+	public Options getQuChoice() {
+		return quChoice;
 	}
 
 	public int getScore() {
