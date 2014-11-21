@@ -1,8 +1,10 @@
 package com.qubaopen.activity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
@@ -17,8 +19,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,7 +47,9 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 	private TextView mood;
 	private ImageView moodImg;
 	private TextView moodMessage;
-
+	private LinearLayout calendarParent;
+	private CalendarCardPager calendarCardPager;
+	
 	private MoodHistoryActivity _this;
 
 	/** loading */
@@ -53,12 +59,14 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 	private TextView titleYear;
 	private int month;
 	private int year;
+	private int count=0;
 
 	private UserMoodInfoDao userMoodInfoDao;
 	private UserMoodInfo userMoodInfo;
+	private List<UserMoodInfo> userMoodInfos;
 	private Calendar selectedDate;
 
-	private CalendarCardPager calendarCardPager;
+	
 	private String requestUrl;
 
 	@SuppressLint("HandlerLeak")
@@ -66,11 +74,137 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 0:
+				if(calendarCardPager==null){
+					calendarCardPager = new CalendarCardPager(_this);
+					LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT);
+					calendarCardPager.setLayoutParams(lp);
+					calendarCardPager.setVisibility(View.INVISIBLE);
+					calendarParent.addView(calendarCardPager);
+					calendarCardPager.setOnCellItemClick(new OnCellItemClick() {
 
+						@Override
+						public void onClickOutSide() {
+
+						}
+
+						@Override
+						public void onCellClick(View v, CardGridItem item) {
+							selectedDate = item.getDate();// 选中的日期
+							String date = (new SimpleDateFormat("yyyy-MM-dd"))
+									.format(selectedDate.getTime());
+
+							Log.i("MoodHistoryActivity", "selectedDate......" + date);
+							userMoodInfo = userMoodInfoDao.getUserMoodInfo(date + "");
+							Log.i("MoodHistoryActivity", "userMoodInfo......"
+									+ userMoodInfo);
+
+							if (userMoodInfo != null) {
+								moodImg.setVisibility(View.VISIBLE);
+								moodMessage.setVisibility(View.VISIBLE);
+								if (userMoodInfo.getMoodId() == 1) {
+									mood.setText("心情1");
+									moodImg.setImageResource(R.drawable.today_mood_face_1);
+								} else if (userMoodInfo.getMoodId() == 2) {
+									mood.setText("心情2");
+									moodImg.setImageResource(R.drawable.today_mood_face_2);
+								} else if (userMoodInfo.getMoodId() == 3) {
+									mood.setText("心情3");
+									moodImg.setImageResource(R.drawable.today_mood_face_3);
+								} else if (userMoodInfo.getMoodId() == 4) {
+									mood.setText("心情4");
+									moodImg.setImageResource(R.drawable.today_mood_face_4);
+								} else if (userMoodInfo.getMoodId() == 5) {
+									mood.setText("心情5");
+									moodImg.setImageResource(R.drawable.today_mood_face_5);
+								} else if (userMoodInfo.getMoodId() == 6) {
+									mood.setText("心情6");
+									moodImg.setImageResource(R.drawable.today_mood_face_6);
+								} else if (userMoodInfo.getMoodId() == 7) {
+									mood.setText("心情7");
+									// moodImg.setImageResource(resId);
+								} else if (userMoodInfo.getMoodId() == 8) {
+									mood.setText("心情8");
+									// moodImg.setImageResource(resId);
+								}
+								if (StringUtils.isNotEmpty(userMoodInfo.getMoodMessage())) {
+									moodMessage.setText(userMoodInfo.getMoodMessage());
+								}
+							} else {
+								mood.setText("无");
+								moodImg.setVisibility(View.GONE);
+								moodMessage.setVisibility(View.GONE);
+							}
+						}
+					});
+					calendarCardPager.setOnItemRender(new OnItemRender() {
+
+						@Override
+						public void onRender(CheckableLayout v, CardGridItem item) {
+							String date = (new SimpleDateFormat("yyyy-MM-dd")).format(item
+									.getDate().getTime());
+							
+							
+							String currentDate = (new SimpleDateFormat("yyyy-MM-dd"))
+									.format(new Date());
+							v.setBackgroundDrawable(null);
+							if (date.equals(currentDate)) {
+								Log.i("MoodHistoryActivity", "date......" + date
+										+ "currentDate......" + currentDate);
+								v.setBackgroundResource(R.drawable.card_item_bg_currrent_date);
+							} else {
+								v.setBackgroundResource(R.drawable.card_item_bg);
+								userMoodInfo = getItemCellUserMoodInfo(date);
+								if (userMoodInfo != null) {
+									if (userMoodInfo.getMoodId() == 1) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_1);
+									} else if (userMoodInfo.getMoodId() == 2) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_2);
+									} else if (userMoodInfo.getMoodId() == 3) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_3);
+									} else if (userMoodInfo.getMoodId() == 4) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_4);
+									} else if (userMoodInfo.getMoodId() == 5) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_5);
+									} else if (userMoodInfo.getMoodId() == 6) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_6);
+									} else if (userMoodInfo.getMoodId() == 7) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_7);
+									} else if (userMoodInfo.getMoodId() == 8) {
+										v.setBackgroundResource(R.drawable.card_item_bg_mood_8);
+									}
+								}
+
+							}
+
+						}
+					});
+					calendarCardPager
+							.setOnMonthChangedListener(new OnMonthChangedListener() {
+
+								@Override
+								public void monthChanged(Calendar calendar) {
+									month = calendar.get(Calendar.MONTH);// 当前界面的月份
+									year = calendar.get(Calendar.YEAR);
+									setTitleByMonth(month, year);
+									LoadDataByMonth(month);
+									
+								}
+							});
+					
+					
+				}
+
+				calendarCardPager.requestLayout();
 				calendarCardPager.notifyChanged();
+				if(count>0){
+					calendarCardPager.setVisibility(View.VISIBLE);
+				}
+
 				if (progressDialog.isShowing()) {
 					progressDialog.dismiss();
 				}
+
+				count++;
 				break;
 			default:
 				break;
@@ -86,6 +220,7 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 
 		userMoodInfoDao = new UserMoodInfoDao();
 		userMoodInfo = new UserMoodInfo();
+		userMoodInfos = new ArrayList<UserMoodInfo>();
 		requestUrl = SettingValues.URL_PREFIX
 				+ getString(R.string.URL_GET_MOOD_LIST);
 		Calendar calendar = Calendar.getInstance();
@@ -96,7 +231,7 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 			progressDialog.show();
 		}
 		initView();
-		calendarCardPager.requestLayout();
+//		calendarCardPager.requestLayout();
 		LoadDataByMonth(month);
 	}
 
@@ -116,117 +251,22 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 		mood = (TextView) findViewById(R.id.tv_mood_history_selected_day_mood);
 		moodImg = (ImageView) findViewById(R.id.img_mood_history_selected_day_mood);
 		moodMessage = (TextView) findViewById(R.id.mood_history_selected_message);
-		calendarCardPager = (CalendarCardPager) findViewById(R.id.calendar_view);
-		calendarCardPager.setOnCellItemClick(new OnCellItemClick() {
-
-			@Override
-			public void onClickOutSide() {
-
-			}
-
-			@Override
-			public void onCellClick(View v, CardGridItem item) {
-				selectedDate = item.getDate();// 选中的日期
-				String date = (new SimpleDateFormat("yyyy-MM-dd"))
-						.format(selectedDate.getTime());
-
-				Log.i("MoodHistoryActivity", "selectedDate......" + date);
-				userMoodInfo = userMoodInfoDao.getUserMoodInfo(date + "");
-				Log.i("MoodHistoryActivity", "userMoodInfo......"
-						+ userMoodInfo);
-
-				if (userMoodInfo != null) {
-					moodImg.setVisibility(View.VISIBLE);
-					moodMessage.setVisibility(View.VISIBLE);
-					if (userMoodInfo.getMoodId() == 1) {
-						mood.setText("心情1");
-						moodImg.setImageResource(R.drawable.today_mood_face_1);
-					} else if (userMoodInfo.getMoodId() == 2) {
-						mood.setText("心情2");
-						moodImg.setImageResource(R.drawable.today_mood_face_2);
-					} else if (userMoodInfo.getMoodId() == 3) {
-						mood.setText("心情3");
-						moodImg.setImageResource(R.drawable.today_mood_face_3);
-					} else if (userMoodInfo.getMoodId() == 4) {
-						mood.setText("心情4");
-						moodImg.setImageResource(R.drawable.today_mood_face_4);
-					} else if (userMoodInfo.getMoodId() == 5) {
-						mood.setText("心情5");
-						moodImg.setImageResource(R.drawable.today_mood_face_5);
-					} else if (userMoodInfo.getMoodId() == 6) {
-						mood.setText("心情6");
-						moodImg.setImageResource(R.drawable.today_mood_face_6);
-					} else if (userMoodInfo.getMoodId() == 7) {
-						mood.setText("心情7");
-						// moodImg.setImageResource(resId);
-					} else if (userMoodInfo.getMoodId() == 8) {
-						mood.setText("心情8");
-						// moodImg.setImageResource(resId);
-					}
-					if (StringUtils.isNotEmpty(userMoodInfo.getMoodMessage())) {
-						moodMessage.setText(userMoodInfo.getMoodMessage());
-					}
-				} else {
-					mood.setText("无");
-					moodImg.setVisibility(View.GONE);
-					moodMessage.setVisibility(View.GONE);
-				}
-			}
-		});
-		calendarCardPager.setOnItemRender(new OnItemRender() {
-
-			@Override
-			public void onRender(CheckableLayout v, CardGridItem item) {
-				// String date = (new SimpleDateFormat("yyyy-MM-dd"))
-				// .format(item.getDate().getTime());
-				// userMoodInfo = userMoodInfoDao.getUserMoodInfo(date);
-				// String currentDate = (new SimpleDateFormat("yyyy-MM-dd"))
-				// .format(new Date());
-				// v.setBackgroundDrawable(null);
-				// if (date.equals(currentDate)) {
-				// Log.i("MoodHistoryActivity", "date......" + date
-				// + "currentDate......" + currentDate);
-				// v.setBackgroundResource(R.drawable.card_item_bg_currrent_date);
-				// } else {
-				// v.setBackgroundResource(R.drawable.card_item_bg);
-				// if (userMoodInfo != null) {
-				// if (userMoodInfo.getMoodId() == 1) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_1);
-				// } else if (userMoodInfo.getMoodId() == 2) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_2);
-				// } else if (userMoodInfo.getMoodId() == 3) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_3);
-				// } else if (userMoodInfo.getMoodId() == 4) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_4);
-				// } else if (userMoodInfo.getMoodId() == 5) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_5);
-				// } else if (userMoodInfo.getMoodId() == 6) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_6);
-				// } else if (userMoodInfo.getMoodId() == 7) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_7);
-				// } else if (userMoodInfo.getMoodId() == 8) {
-				// v.setBackgroundResource(R.drawable.card_item_bg_mood_8);
-				// }
-				// }
-				//
-				// }
-				//
-			}
-		});
-		calendarCardPager
-				.setOnMonthChangedListener(new OnMonthChangedListener() {
-
-					@Override
-					public void monthChanged(Calendar calendar) {
-						month = calendar.get(Calendar.MONTH);// 当前界面的月份
-						year = calendar.get(Calendar.YEAR);
-						setTitleByMonth(month, year);
-						LoadDataByMonth(month);
-
-					}
-				});
+		calendarParent = (LinearLayout) findViewById(R.id.calendar_view_parent);
+		
+		
 	}
 
+	private UserMoodInfo getItemCellUserMoodInfo(String date){
+		
+		for (int i = 0; i < userMoodInfos.size(); i++) {
+			userMoodInfo = userMoodInfos.get(i);
+			
+			if (date.equals(userMoodInfo.getMoodDate())) {
+				return userMoodInfo;
+			}
+		}
+		return null;
+	}
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -272,6 +312,7 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 							params[2], (Integer) params[3]);
 					result.put("syncType", syncType);
 					Log.i("MoodHistoryActivity", "心情记录：......" + result);
+					
 					break;
 				default:
 					break;
@@ -291,8 +332,9 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 				case 1:
 					if (result.has("success")
 							&& result.getString("success").equals("1")) {
-
+						String date = result.getJSONArray("moodList").getJSONObject(0).getString("date");
 						userMoodInfoDao.saveUserMoodInfo(result);
+						userMoodInfos =  userMoodInfoDao.getUserMoodInfoList(date);
 						Message msg = Message.obtain();
 						msg.what = 0;
 						handler.sendMessage(msg);

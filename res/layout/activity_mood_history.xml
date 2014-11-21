@@ -138,12 +138,13 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <com.qubaopen.calendar.CalendarCardPager
-            android:id="@+id/calendar_view"
+        <LinearLayout
+            android:id="@+id/calendar_view_parent"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="64.1"
-            android:background="@color/general_activity_background" />
+            android:background="@color/general_activity_background"
+            android:orientation="vertical" />
 
         <LinearLayout
             android:id="@+id/layout_mood_history_content"

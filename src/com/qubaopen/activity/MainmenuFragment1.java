@@ -13,6 +13,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -101,13 +102,15 @@ public class MainmenuFragment1 extends Fragment implements
 
 	private UserInfo userInfo;
 	private UserInfoDao userInfoDao;
+	
+	private LinearLayout layouMainragment;
 
 	private MyOnTouchListener myOnTouchListener = new MyOnTouchListener() {
 
 		@Override
 		public void onTouchEvent(MotionEvent event) {
 			switch (event.getAction()) {
-			case MotionEvent.ACTION_DOWN:
+			case MotionEvent.ACTION_UP:
 				if (isMoodOpen) {
 					panelClose();
 				}
@@ -142,6 +145,9 @@ public class MainmenuFragment1 extends Fragment implements
 		txtPageTitle = (TextView) view.findViewById(R.id.title_of_the_page);
 		txtPageTitle.setText("知心");
 
+		layouMainragment= (LinearLayout)view.findViewById(R.id.layout_main_fragment);
+		//layouMainragment.setOnClickListener(this);
+		//layouMainragment.setEnabled(false);
 		characterPercentLayout = (LinearLayout) view
 				.findViewById(R.id.layout_character_analysis_num);
 		characterPercentLayout.setOnClickListener(this);
@@ -326,13 +332,14 @@ public class MainmenuFragment1 extends Fragment implements
 			}
 			if (!isMoodOpen) {
 				isMoodOpen = true;
+				setAllEnabled(false);
 
 				imgMoodArrow
 						.setBackgroundResource(R.drawable.today_mood_arrow_down);
 				AnimationUtils.startImgBackGround(imgMoodArrow);
 				AnimationUtils.performAnimateMarginTop(layoutPickMood, 1500,
 						moveDistance, 500);
-				v.setEnabled(true);
+				//v.setEnabled(true);
 			} else {
 				isMoodOpen = false;
 				panelClose();
@@ -341,8 +348,14 @@ public class MainmenuFragment1 extends Fragment implements
 		case R.id.img_mood_history:
 			// panelClose();
 			intent = new Intent(mainActivity, MoodHistoryActivity.class);
-			startActivity(intent);
-			v.setEnabled(true);
+			final Intent fi=intent;
+			final View fv=v;
+			new Handler().postDelayed(new Runnable(){    
+			    public void run() {  
+					startActivity(fi);
+					fv.setEnabled(true);
+			    }    
+			 }, 300);   
 			break;
 		case R.id.img_mood_background:
 			v.setEnabled(true);
@@ -401,10 +414,14 @@ public class MainmenuFragment1 extends Fragment implements
 			// new LoadDataTask().execute(1, 6);
 			v.setEnabled(true);
 			break;
+		case R.id.layout_main_fragment:
+			panelClose();
+			break;
 		default:
 			v.setEnabled(true);
 			break;
 		}
+		v.getParent().requestDisallowInterceptTouchEvent(true);
 	}
 
 	private void startMoodControlActivity() {
@@ -517,7 +534,12 @@ public class MainmenuFragment1 extends Fragment implements
 		// AnimationUtils.startImgBackGround(imgMoodArrow);
 		AnimationUtils.performAnimateMarginTop(layoutPickMood, moveDistance,
 				1500, 500);
-		imgMoodPanel.setEnabled(true);
+		
+		new Handler().postDelayed(new Runnable(){    
+		    public void run() {  
+				setAllEnabled(true);
+		    }    
+		 }, 300);   
 	}
 
 	// 圆盘开关 下移
@@ -619,5 +641,23 @@ public class MainmenuFragment1 extends Fragment implements
 
 	private void showToast(String content) {
 		Toast.makeText(mainActivity, content, Toast.LENGTH_SHORT).show();
+	}
+	
+	
+	private void setAllEnabled(boolean enabled){
+		characterPercentLayout.setEnabled(enabled);
+		moodControl.setEnabled(enabled);
+		character.setEnabled(enabled);
+		communication.setEnabled(enabled);
+		career.setEnabled(enabled);
+		health.setEnabled(enabled);
+		interest.setEnabled(enabled);
+		recycle.setEnabled(enabled);
+		imgMoodBackground.setEnabled(enabled);
+		imgLastScoreBackground.setEnabled(enabled);
+		imgMoodPanel.setEnabled(enabled);
+
+		
+
 	}
 }
