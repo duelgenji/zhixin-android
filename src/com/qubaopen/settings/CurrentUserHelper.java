@@ -1,21 +1,73 @@
 package com.qubaopen.settings;
 
-import com.qubaopen.database.DbManager;
-import com.qubaopen.domain.UserInfo;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.util.Log;
 import cn.jpush.android.api.JPushInterface;
+
+import com.qubaopen.database.DbManager;
 
 public class CurrentUserHelper {
 
 	private static String CURRENT_USER_PHONE;
-
 	private static Bitmap CURRENT_USER_BITMAP;
-
 	private static long CURRENT_USER_ID;
 	private static String CURRENT_NICKNAME;
+	private static JSONObject CURRENT_THIRD;
+
+	public static void saveCurrentThird(JSONObject params) {
+		SharedPreferences sharedPref = MyApplication.getAppContext()
+				.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
+						Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		try {
+			editor.putString(SettingValues.KEY_CURRENT_ACTIVE_THIRD_TOKEN,
+					params.getString("token"));
+			editor.putString(SettingValues.KEY_CURRENT_ACTIVE_USER_NICKNAME,
+					params.getString("nickName"));
+			editor.putString(SettingValues.KEY_CURRENT_ACTIVE_THIRD_ICON,
+					params.getString("icon"));
+			editor.putInt(SettingValues.KEY_CURRENT_ACTIVE_THIRD_TYPE,
+					params.getInt("type"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		editor.commit();
+		CURRENT_THIRD = params;
+
+		DbManager.initPrivateDatabase();
+	}
+
+	public static JSONObject getCurrentThird() {
+		if (CURRENT_THIRD == null) {
+			SharedPreferences sharedPref = MyApplication.getAppContext()
+					.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
+							Context.MODE_PRIVATE);
+			JSONObject params = new JSONObject();
+			try {
+				params.put("token", sharedPref.getString(
+						SettingValues.KEY_CURRENT_ACTIVE_THIRD_TOKEN, null));
+				params.put("nickName", sharedPref.getString(
+						SettingValues.KEY_CURRENT_ACTIVE_USER_NICKNAME, null));
+				params.put("icon", sharedPref.getString(
+						SettingValues.KEY_CURRENT_ACTIVE_THIRD_ICON, null));
+				params.put("type", sharedPref.getInt(
+						SettingValues.KEY_CURRENT_ACTIVE_THIRD_TYPE, 0));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			CURRENT_THIRD = params;
+			return CURRENT_THIRD;
+		} else {
+			return CURRENT_THIRD;
+		}
+	}
 
 	public static void saveCurrentUserId(Long userId) {
 		SharedPreferences sharedPref = MyApplication.getAppContext()
@@ -31,14 +83,6 @@ public class CurrentUserHelper {
 
 	public static long getCurrentUserId() {
 		if (CURRENT_USER_ID == 0) {
-			// String phone = getCurrentPhone();
-			// String sql = "select * from user_info where username = '" + phone
-			// + "'";
-			// UserInfo user = DbManager.getDatabase().findUniqueBySql(
-			// UserInfo.class, sql);
-			// if (user != null) {
-			// CURRENT_USER_ID = user.getUserId();
-			// }
 			SharedPreferences sharedPref = MyApplication.getAppContext()
 					.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 							Context.MODE_PRIVATE);
@@ -65,14 +109,6 @@ public class CurrentUserHelper {
 
 	public static String getCurrentNickName() {
 		if (CURRENT_NICKNAME == null) {
-			// String phone = getCurrentPhone();
-			// String sql = "select * from user_info where username = '" + phone
-			// + "'";
-			// UserInfo user = DbManager.getDatabase().findUniqueBySql(
-			// UserInfo.class, sql);
-			// if (user != null) {
-			// CURRENT_NICKNAME = user.getNickName();
-			// }
 			SharedPreferences sharedPref = MyApplication.getAppContext()
 					.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 							Context.MODE_PRIVATE);
@@ -115,34 +151,29 @@ public class CurrentUserHelper {
 		return CURRENT_USER_BITMAP;
 	}
 
-	// public static int getCurrentMemberId() {
-	// if (CURRENT_MEMBER_ID == 0) {
-	// String phone = getCurrentPhone();
-	// String sql = "select * from user_info where username = '" + phone
-	// + "'";
-	// UserInfo user = DbManager.getDatabase().findUniqueBySql(
-	// UserInfo.class, sql);
-	// if (user != null) {
-	// CURRENT_MEMBER_ID = user.getUserId();
-	// }
-	// return CURRENT_MEMBER_ID;
-	// } else {
-	// return CURRENT_MEMBER_ID;
-	// }
-	// }
-
 	public static void clearCurrentPhone() {
 		CURRENT_USER_PHONE = null;
 		CURRENT_USER_ID = 0;
 		CURRENT_USER_BITMAP = null;
-		// Program exploit when we change the user and database,some ongoing
-		// thread that use the previous user database will definitely have
-		// errors
 		SharedPreferences sharedPref = MyApplication.getAppContext()
 				.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
 						Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = sharedPref.edit();
 		editor.putString(SettingValues.KEY_CURRENT_ACTIVE_USER_PHONE, null);
+		editor.commit();
+		DbManager.releseDatabase();
+		JPushInterface.stopPush(MyApplication.getAppContext());
+	}
+	public static void clearCurrentUserId() {
+		CURRENT_USER_PHONE = null;
+		CURRENT_USER_ID = 0;
+		CURRENT_USER_BITMAP = null;
+		CURRENT_THIRD = null;
+		SharedPreferences sharedPref = MyApplication.getAppContext()
+				.getSharedPreferences(SettingValues.FILE_NAME_SETTINGS,
+						Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = sharedPref.edit();
+		editor.putLong(SettingValues.KEY_CURRENT_ACTIVE_USER_ID, 0);
 		editor.commit();
 		DbManager.releseDatabase();
 		JPushInterface.stopPush(MyApplication.getAppContext());

@@ -109,27 +109,21 @@ public class HttpClient {
 			if (result.has("success")
 					&& result.getString("success").equals("0")
 					&& result.getString("message").equals("err000")) {
-				try {
-					if (new RegistService(MyApplication.getAppContext())
-							.logOnAction()) {
-						resultObj = fh.postSync(requestUrl, params);
-					} else {
-						Handler handler = new Handler(Looper.getMainLooper());
-						handler.post(new Runnable() {
-							@Override
-							public void run() {
-								Intent intent = new Intent(MyApplication
-										.getAppContext(), MainLoginActivity.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-										| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+				if (new RegistService(MyApplication.getAppContext())
+						.logOnAction()) {
+					resultObj = fh.postSync(requestUrl, params);
+				} else {
+					Handler handler = new Handler(Looper.getMainLooper());
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Intent intent = new Intent(MyApplication
+									.getAppContext(), MainLoginActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+									| Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-//								MyApplication.getAppContext().startActivity(intent);
-
-							}
-						});
-					}
-				} catch (ParseException e) {
-					e.printStackTrace();
+						}
+					});
 				}
 
 				return new JSONObject(resultObj.toString());
@@ -195,24 +189,24 @@ public class HttpClient {
 	public final static int TYPE_POST_JSON = 2;
 	public final static int TYPE_PUT_JSON = 3;
 	public final static int TYPE_DELETE = 4;
-	public final static int TYPE_POST_NORMAL=5;
-	public final static int TYPE_PUT_NORMAL=6;
-	public final static int TYPE_POST_FORM=7;
-	public final static int TYPE_PUT_FORM=8;
+	public final static int TYPE_POST_NORMAL = 5;
+	public final static int TYPE_PUT_NORMAL = 6;
+	public final static int TYPE_POST_FORM = 7;
+	public final static int TYPE_PUT_FORM = 8;
 
 	// **根据类型来发送请求
-	public static JSONObject requestSync(String requestUrl,
-			Object params, int type) throws JSONException {
-		
-		JSONObject jsonParams=null;
-		AjaxParams ajaxParams=null;
-		
-		if(params instanceof JSONObject){
-			jsonParams=(JSONObject) params;
-		}else if(params instanceof AjaxParams){
-			ajaxParams= (AjaxParams)params;
+	public static JSONObject requestSync(String requestUrl, Object params,
+			int type) throws JSONException {
+
+		JSONObject jsonParams = null;
+		AjaxParams ajaxParams = null;
+
+		if (params instanceof JSONObject) {
+			jsonParams = (JSONObject) params;
+		} else if (params instanceof AjaxParams) {
+			ajaxParams = (AjaxParams) params;
 		}
-		
+
 		Object resultObj = null;
 		if (NetworkUtils.isNetworkAvailable(MyApplication.getAppContext())) {
 			int count = 0;
@@ -271,11 +265,14 @@ public class HttpClient {
 			if (result.has("success")
 					&& result.getString("success").equals("0")
 					&& result.getString("message").equals("err000")) {
-				//登陆接口 返回未登录的异常处理
-				if (requestUrl.equals(SettingValues.URL_PREFIX + MyApplication
-								.getAppContext().getString(
-										R.string.URL_USER_LOGON))) {
-					
+				// 登陆接口 返回未登录的异常处理
+				if (requestUrl.equals(SettingValues.URL_PREFIX
+						+ MyApplication.getAppContext().getString(
+								R.string.URL_USER_LOGON))
+						|| requestUrl.equals(SettingValues.URL_PREFIX
+								+ MyApplication.getAppContext().getString(
+										R.string.URL_USER_THIRD_LOGON))) {
+
 					Handler handler = new Handler(Looper.getMainLooper());
 					handler.post(new Runnable() {
 						@Override
@@ -286,48 +283,43 @@ public class HttpClient {
 					});
 					return null;
 				}
-				try {
-					if (new RegistService(MyApplication.getAppContext())
-							.logOnAction()) {
-						switch (type) {
-						case TYPE_GET:
-							resultObj = fh.getSync(requestUrl);
-							break;
-						case TYPE_POST_JSON:
-							resultObj = fh.postSyncJSON(requestUrl, jsonParams);
-							break;
-						case TYPE_PUT_JSON:
-							resultObj = fh.putSyncJSON(requestUrl, jsonParams);
-							break;
-						case TYPE_DELETE:
-							resultObj = fh.deleteSync(requestUrl);
-							break;
-						case TYPE_POST_NORMAL:
-							resultObj = fh.postSync(requestUrl, ajaxParams);
-							break;
-						case TYPE_PUT_NORMAL:
-							resultObj = fh.putSync(requestUrl, ajaxParams);
-						default:
-							break;
-						}
-					} else {
-						Handler handler = new Handler(Looper.getMainLooper());
-						handler.post(new Runnable() {
-							@Override
-							public void run() {
-								Intent intent = new Intent(MyApplication
-										.getAppContext(), MainLoginActivity.class);
-								intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-										| Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-								MyApplication.getAppContext().startActivity(
-										intent);
-
-							}
-						});
+				if (new RegistService(MyApplication.getAppContext())
+						.logOnAction()) {
+					switch (type) {
+					case TYPE_GET:
+						resultObj = fh.getSync(requestUrl);
+						break;
+					case TYPE_POST_JSON:
+						resultObj = fh.postSyncJSON(requestUrl, jsonParams);
+						break;
+					case TYPE_PUT_JSON:
+						resultObj = fh.putSyncJSON(requestUrl, jsonParams);
+						break;
+					case TYPE_DELETE:
+						resultObj = fh.deleteSync(requestUrl);
+						break;
+					case TYPE_POST_NORMAL:
+						resultObj = fh.postSync(requestUrl, ajaxParams);
+						break;
+					case TYPE_PUT_NORMAL:
+						resultObj = fh.putSync(requestUrl, ajaxParams);
+					default:
+						break;
 					}
-				} catch (ParseException e) {
-					e.printStackTrace();
+				} else {
+					Handler handler = new Handler(Looper.getMainLooper());
+					handler.post(new Runnable() {
+						@Override
+						public void run() {
+							Intent intent = new Intent(MyApplication
+									.getAppContext(), MainLoginActivity.class);
+							intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+									| Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+							MyApplication.getAppContext().startActivity(intent);
+
+						}
+					});
 				}
 
 				return new JSONObject(resultObj.toString());
@@ -389,8 +381,6 @@ public class HttpClient {
 
 	}
 
-	
-	
 	public static JSONObject requestSyncForUnchangedParams(String requestUrl,
 			AjaxParams params) throws JSONException {
 		Object resultObj = fh.postSync(requestUrl, params);
@@ -398,13 +388,8 @@ public class HttpClient {
 			JSONObject result = new JSONObject(resultObj.toString());
 			if (result.getString("success").equals("0")
 					&& result.getString("message").equals("err000")) {
-				try {
-					new RegistService(MyApplication.getAppContext())
-							.logOnAction();
-					resultObj = fh.postSync(requestUrl, params);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				new RegistService(MyApplication.getAppContext()).logOnAction();
+				resultObj = fh.postSync(requestUrl, params);
 
 				return new JSONObject(resultObj.toString());
 			} else {
@@ -424,12 +409,12 @@ public class HttpClient {
 		fh = new FinalHttp();
 		fh.configTimeout(SettingValues.MAX_TIME_OUT * 1000);
 	}
-	
-	public static void get(String url, AjaxCallBack<Object> callback){
 
-  	  FinalHttp fh=new FinalHttp();
-  	  fh.get(url,  callback);
-		
+	public static void get(String url, AjaxCallBack<Object> callback) {
+
+		FinalHttp fh = new FinalHttp();
+		fh.get(url, callback);
+
 	}
 
 }

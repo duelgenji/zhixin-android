@@ -61,9 +61,9 @@
     <string name="title_questionnaire_content">题目指导</string>
     <string name="title_questionnaire_answer">测试结果</string>
     <string name="self_list_title_1">性格自测</string>
-    <string name="self_list_title_2">交往自测</string>
+    <string name="self_list_title_2">健康自测</string>
     <string name="self_list_title_3">职导自测</string>
-    <string name="self_list_title_4">健康自测</string>
+    <string name="self_list_title_4">交往自测</string>
 
     <!-- save footer title here -->
     <string name="footer_zhiji">知己</string>

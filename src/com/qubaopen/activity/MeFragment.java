@@ -106,8 +106,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 		this.mainActivity = activity;
 		userInfo = new UserInfo();
 		userInfoDao = new UserInfoDao();
-		userInfo = userInfoDao.getUserByphone(CurrentUserHelper
-				.getCurrentPhone());
+		userInfo = userInfoDao.getUserById(CurrentUserHelper
+				.getCurrentUserId());
 	}
 
 	// 初始化
@@ -508,8 +508,8 @@ public class MeFragment extends Fragment implements View.OnClickListener {
 	}
 
 	public void updateUserInfo() {
-		userInfo = userInfoDao.getUserByphone(CurrentUserHelper
-				.getCurrentPhone());
+		userInfo = userInfoDao.getUserById(CurrentUserHelper
+				.getCurrentUserId());
 		if (userInfo != null) {
 			if (userInfo.getNickName() != null) {
 				localNickName = userInfo.getNickName();

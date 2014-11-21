@@ -185,6 +185,9 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 								public void monthChanged(Calendar calendar) {
 									month = calendar.get(Calendar.MONTH);// 当前界面的月份
 									year = calendar.get(Calendar.YEAR);
+									if (!progressDialog.isShowing()) {
+										progressDialog.show();
+									}
 									setTitleByMonth(month, year);
 									LoadDataByMonth(month);
 									
@@ -198,10 +201,9 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 				calendarCardPager.notifyChanged();
 				if(count>0){
 					calendarCardPager.setVisibility(View.VISIBLE);
-				}
-
-				if (progressDialog.isShowing()) {
-					progressDialog.dismiss();
+					if (progressDialog.isShowing()) {
+						progressDialog.dismiss();
+					}
 				}
 
 				count++;
@@ -335,14 +337,21 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 				case 1:
 					if (result.has("success")
 							&& result.getString("success").equals("1")) {
-						String date = result.getJSONArray("moodList").getJSONObject(0).getString("date");
-						userMoodInfoDao.saveUserMoodInfo(result);
-						userMoodInfos =  userMoodInfoDao.getUserMoodInfoList(date);
+						Log.i("MoodHistoryActivity", "" + result);
+						if (result.getJSONArray("moodList").length() > 0) {
+							String date = result.getJSONArray("moodList").getJSONObject(0).getString("date");
+							userMoodInfoDao.saveUserMoodInfo(result);
+							userMoodInfos =  userMoodInfoDao.getUserMoodInfoList(date);
+						}
+						
 						Message msg = Message.obtain();
 						msg.what = 0;
 						handler.sendMessage(msg);
 
 					} else {
+						if (progressDialog.isShowing()) {
+							progressDialog.dismiss();
+						}
 						showToast("获取心情记录失败！");
 					}
 					break;

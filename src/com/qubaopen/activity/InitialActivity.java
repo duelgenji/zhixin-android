@@ -80,7 +80,7 @@ public class InitialActivity extends InstrumentedActivity {
 				if (!params) {
 					Intent intent = new Intent(InitialActivity.this,
 							GetAddressIntentService.class);
-					InitialActivity.this.startService(intent);
+					//InitialActivity.this.startService(intent);
 				}
 
 				new AsyncTask<Void, Void, Void>() {

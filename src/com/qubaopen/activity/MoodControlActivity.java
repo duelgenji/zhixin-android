@@ -409,7 +409,7 @@ public class MoodControlActivity extends Activity implements OnClickListener {
 						retestList.setTitle(tempJson.getString("title"));
 						list.add(retestList);
 					}
-					RetestDialog dialog = new RetestDialog(_this, list, 2);
+					RetestDialog dialog = new RetestDialog(_this, list, 4);
 					if (!dialog.isShowing()) {
 						dialog.show();
 					}

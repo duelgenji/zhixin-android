@@ -53,17 +53,8 @@ public class UploadUserJpushAliasService extends IntentService {
 			}
 		}	
 		service = new RegistService(MyApplication.getAppContext());
-		if (CurrentUserHelper.getCurrentUserId() != 0
-				&& StringUtils.isNotBlank(CurrentUserHelper.getCurrentPhone())) {
-
-			try {
+		if (CurrentUserHelper.getCurrentUserId() != 0) {
 				service.logOnAction();
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
 		}
 
 	}

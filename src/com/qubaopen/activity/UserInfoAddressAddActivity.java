@@ -73,7 +73,13 @@ public class UserInfoAddressAddActivity extends FragmentActivity implements
 				.findViewById(R.id.txtAddressAddName);
 		txtAddressAddPhone = (EditText) this
 				.findViewById(R.id.txtAddressAddPhone);
-		txtAddressAddPhone.setText(CurrentUserHelper.getCurrentPhone());
+		String addressAddPhone =  CurrentUserHelper.getCurrentPhone();
+		if ( addressAddPhone != null) {
+			txtAddressAddPhone.setText(addressAddPhone);
+		}else {
+			txtAddressAddPhone.setText("");
+		}
+		
 		txtAddressAddArea = (TextView) this
 				.findViewById(R.id.txtAddressAddArea);
 		txtAddressAddCode = (EditText) this

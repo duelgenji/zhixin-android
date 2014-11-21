@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:paddingBottom="15dp"
-    android:background="@drawable/input_background_single_white_default"
+    android:background="@drawable/input_background_single_white_default_9"
     android:orientation="vertical" >
 
     <ListView

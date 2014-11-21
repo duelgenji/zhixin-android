@@ -18,29 +18,18 @@ public class loginAsyncTask extends AsyncTask<Object, Object, Boolean> {
 	
 	@Override
 	protected Boolean doInBackground(Object... params) {
-		// TODO Auto-generated method stub
-		try {
 			service=new RegistService(MyApplication.getAppContext());
 			service.logOnAction();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return false;
 	}
 
 	@Override
 	protected void onPostExecute(Boolean result) {
-		// TODO Auto-generated method stub
 		super.onPostExecute(result);
 	}
 
 	@Override
 	protected void onProgressUpdate(Object... values) {
-		// TODO Auto-generated method stub
 		super.onProgressUpdate(values);
 	}
 

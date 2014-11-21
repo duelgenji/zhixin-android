@@ -311,7 +311,7 @@ public class MoreSetting extends FragmentActivity implements
 	}
 
 	private void logOut() {
-		CurrentUserHelper.clearCurrentPhone();
+		CurrentUserHelper.clearCurrentUserId();
 		Intent intent = new Intent(MoreSetting.this, InitialActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 				| Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.qubaopen.R;
 import com.qubaopen.daos.UserInfoDao;
@@ -29,8 +30,41 @@ public class RegistService {
 				password);
 
 	}
+	public boolean logOnActionByThird() throws JSONException, ParseException {
+		String requestUrl = SettingValues.URL_PREFIX
+				+ context.getString(R.string.URL_USER_THIRD_LOGON);
+		Log.i("RegistService", "params" + CurrentUserHelper.getCurrentThird());
+		JSONObject result = HttpClient.requestSync(requestUrl, CurrentUserHelper.getCurrentThird(),
+				HttpClient.TYPE_POST_FORM);
 
-	public boolean logOnAction() throws JSONException, ParseException {
+		if (result != null && result.getInt("success") == 1) {
+			userInfoDao.saveUserForFirsttime(result, "");
+		
+		} else {
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean logOnAction(){
+		boolean result = false;
+		try {
+			if (CurrentUserHelper.getCurrentPhone() != null) {
+				result = logOnActionByPhone();
+				
+			}else {
+				result = logOnActionByThird();
+			}
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+	public boolean logOnActionByPhone() throws JSONException, ParseException {
 		String requestUrl = SettingValues.URL_PREFIX
 				+ context.getString(R.string.URL_USER_LOGON);
 		String phone = CurrentUserHelper.getCurrentPhone();

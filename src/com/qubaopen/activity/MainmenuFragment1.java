@@ -299,7 +299,7 @@ public class MainmenuFragment1 extends Fragment implements
 			v.setEnabled(true);
 			break;
 		case R.id.layout_communication:
-			startSelfListActivity(2);
+			startSelfListActivity(4);
 			v.setEnabled(true);
 			break;
 		case R.id.layout_career:
@@ -307,7 +307,7 @@ public class MainmenuFragment1 extends Fragment implements
 			v.setEnabled(true);
 			break;
 		case R.id.layout_health:
-			startSelfListActivity(4);
+			startSelfListActivity(2);
 			v.setEnabled(true);
 			break;
 		case R.id.layout_interest:

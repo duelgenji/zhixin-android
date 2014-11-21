@@ -27,12 +27,8 @@ import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
 import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.datasynservice.UserService;
-import com.qubaopen.logic.DoDataObject;
-import com.qubaopen.logic.DoLogicObject;
 import com.qubaopen.settings.CurrentUserHelper;
 import com.qubaopen.settings.MyApplication;
-import com.qubaopen.settings.SettingValues;
-import com.qubaopen.utils.HttpClient;
 
 public class MainLoginActivity extends Activity implements View.OnClickListener {
 	/** 电话账号 */
@@ -49,6 +45,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 
 	private UserService userService;
 	private UserInfoDao userInfoDao;
+	private JSONObject jsonObject;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +146,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 				String avatarUrl = platform.getDb().getUserIcon();
 
 				try {
-					JSONObject jsonObject = new JSONObject();
+					jsonObject = new JSONObject();
 
 					jsonObject.put("token", id);
 					jsonObject.put("nickName", nickName);
@@ -192,7 +189,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 				String avatarUrl = platform.getDb().getUserIcon();
 
 				try {
-					JSONObject jsonObject = new JSONObject();
+					jsonObject = new JSONObject();
 
 					jsonObject.put("token", id);
 					jsonObject.put("nickName", nickName);
@@ -234,7 +231,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 				String avatarUrl = platform.getDb().getUserIcon();
 				
 				try {
-					JSONObject jsonObject = new JSONObject();
+					jsonObject = new JSONObject();
 
 					jsonObject.put("token", id);
 					jsonObject.put("nickName", nickName);
@@ -272,6 +269,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 				if (result != null && result.getInt("success") == 1) {
 					Long userId = result.getLong("userId");
 					CurrentUserHelper.saveCurrentUserId(userId);
+					CurrentUserHelper.saveCurrentThird(jsonObject);
 					try {
 						userInfoDao.saveUserForFirsttime(result, "");
 					} catch (ParseException e) {

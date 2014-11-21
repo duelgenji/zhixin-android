@@ -26,6 +26,12 @@ public class SettingValues {
 	public static final String KEY_CURRENT_ACTIVE_USER_PHONE = "keyCurrentActiveUserPhone";
 
 	public static final String KEY_CURRENT_ACTIVE_USER_NICKNAME = "keyCurrentActiveUserNickname";
+	
+	public static final String KEY_CURRENT_ACTIVE_THIRD_TOKEN = "keyCurrentActiveThirdToken";
+	
+	public static final String KEY_CURRENT_ACTIVE_THIRD_ICON = "keyCurrentActiveThirdIcon";
+	
+	public static final String KEY_CURRENT_ACTIVE_THIRD_TYPE = "keyCurrentActiveThirdType";
 
 	public static final String KEY_PHONE_HEIGHT = "keyPhoneHeight";
 
