@@ -1,5 +1,6 @@
 package com.qubaopen.activity;
 
+import java.text.ParseException;
 import java.util.HashMap;
 
 import org.json.JSONException;
@@ -24,6 +25,7 @@ import cn.sharesdk.wechat.friends.Wechat;
 
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
+import com.qubaopen.daos.UserInfoDao;
 import com.qubaopen.datasynservice.UserService;
 import com.qubaopen.logic.DoDataObject;
 import com.qubaopen.logic.DoLogicObject;
@@ -46,6 +48,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 	private TextView register;
 
 	private UserService userService;
+	private UserInfoDao userInfoDao;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +57,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 		setContentView(R.layout.main_login);
 		_this = this;
 		userService = new UserService(this);
+		userInfoDao = new UserInfoDao();
 		initView();
 	}
 
@@ -155,7 +159,6 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 					new LoadDataTask().execute(jsonObject);
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -184,6 +187,23 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 			@Override
 			public void onComplete(Platform platform, int action,
 					HashMap<String, Object> res) {
+				String nickName = platform.getDb().getUserName(); // 等等来获取用户信息
+				String id = platform.getDb().getUserId();
+				String avatarUrl = platform.getDb().getUserIcon();
+
+				try {
+					JSONObject jsonObject = new JSONObject();
+
+					jsonObject.put("token", id);
+					jsonObject.put("nickName", nickName);
+					jsonObject.put("icon", avatarUrl);
+					jsonObject.put("type", 2);
+
+					new LoadDataTask().execute(jsonObject);
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 			}
 
 			@Override
@@ -209,11 +229,23 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 					HashMap<String, Object> res) {
 				// 通过platform.getDb().getUserId(
 				String nickName = platform.getDb().getUserName(); // 等等来获取用户信息
-				String token = platform.getDb().getToken();
+//				String token = platform.getDb().getToken();
 				String id = platform.getDb().getUserId();
 				String avatarUrl = platform.getDb().getUserIcon();
-				// Log.i("ssssss", nickName + "," + token + "," + id + ","
-				// + avatarUrl);
+				
+				try {
+					JSONObject jsonObject = new JSONObject();
+
+					jsonObject.put("token", id);
+					jsonObject.put("nickName", nickName);
+					jsonObject.put("icon", avatarUrl);
+					jsonObject.put("type", 1);
+
+					new LoadDataTask().execute(jsonObject);
+
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
 
 			}
 
@@ -225,7 +257,7 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 
 		wechat.authorize();
 	}
-
+	
 	private class LoadDataTask extends AsyncTask<JSONObject, Void, JSONObject> {
 
 		@Override
@@ -240,12 +272,16 @@ public class MainLoginActivity extends Activity implements View.OnClickListener 
 				if (result != null && result.getInt("success") == 1) {
 					Long userId = result.getLong("userId");
 					CurrentUserHelper.saveCurrentUserId(userId);
+					try {
+						userInfoDao.saveUserForFirsttime(result, "");
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
 					Intent intent = new Intent(_this, MainActivity.class);
 					startActivity(intent);
 					finish();
 				}
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

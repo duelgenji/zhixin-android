@@ -256,6 +256,7 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 		
 	}
 
+	
 	private UserMoodInfo getItemCellUserMoodInfo(String date){
 		
 		for (int i = 0; i < userMoodInfos.size(); i++) {
@@ -267,6 +268,8 @@ public class MoodHistoryActivity extends Activity implements OnClickListener {
 		}
 		return null;
 	}
+	
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
