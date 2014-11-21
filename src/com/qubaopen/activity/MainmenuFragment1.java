@@ -2,6 +2,7 @@ package com.qubaopen.activity;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -77,7 +78,6 @@ public class MainmenuFragment1 extends Fragment implements
 	private ImageView imgMoodPanel;
 	private ImageView imgMoodBackground;
 
-
 	private ImageView imgLastScoreBackground;
 	private ImageView imgLastScorePointer;
 	private TextView txtCurrentScore;
@@ -93,7 +93,7 @@ public class MainmenuFragment1 extends Fragment implements
 	private SetMoodDialog setMoodDialog;
 	private boolean isMoodOpen = false;
 	private boolean isMoodFirst = true;
-	
+
 	private boolean onTouchClickable = true;
 
 	private UserService userService;
@@ -132,12 +132,11 @@ public class MainmenuFragment1 extends Fragment implements
 		return view;
 	}
 
-	
 	@SuppressLint("ClickableViewAccessibility")
 	private void initView(View view) {
-//		((MainActivity) this.getActivity())
-//				.registMyOnToucherListener(myOnTouchListener);
-		
+		// ((MainActivity) this.getActivity())
+		// .registMyOnToucherListener(myOnTouchListener);
+
 		userInfoDao = new UserInfoDao();
 		userInfo = userInfoDao.getCurrentUser();
 
@@ -587,7 +586,8 @@ public class MainmenuFragment1 extends Fragment implements
 						characterPercent.setText(percent + "%");
 						dashBoardAnim();
 						String lastTime = result.getString("lastTime");
-						if (MatcherUtil.isToday(lastTime)) {
+						if (StringUtils.isNotEmpty(lastTime)
+								&& MatcherUtil.isToday(lastTime)) {
 							swtichPanelDown();
 						} else {
 							imgMoodArrow

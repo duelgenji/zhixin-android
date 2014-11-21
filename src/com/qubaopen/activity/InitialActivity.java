@@ -13,7 +13,6 @@ import cn.sharesdk.framework.ShareSDK;
 
 import com.baidu.mobstat.StatService;
 import com.qubaopen.R;
-import com.qubaopen.datasynservice.RegistService;
 import com.qubaopen.service.GetAddressIntentService;
 import com.qubaopen.settings.CurrentUserHelper;
 import com.qubaopen.settings.PhoneHelper;
@@ -29,7 +28,7 @@ public class InitialActivity extends InstrumentedActivity {
 
 //	private RegistService registService;
 
-	private String currentPhone;
+	private Long currentUserId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +94,7 @@ public class InitialActivity extends InstrumentedActivity {
 						isFirstIn = sharedPref.getBoolean(
 								SettingValues.APP_FIRSTTIME_IN, true);
 						// isFirstIn=true;
-						currentPhone = CurrentUserHelper.getCurrentPhone();
+						currentUserId = CurrentUserHelper.getCurrentUserId();
 					
 						return null;
 					}
@@ -150,7 +149,7 @@ public class InitialActivity extends InstrumentedActivity {
 			startActivity(intent);
 			return;
 		} else {
-			if (currentPhone != null) {
+			if (currentUserId != 0) {
 				Intent intent = new Intent(this, MainActivity.class);
 				startActivity(intent);
 			} else {
